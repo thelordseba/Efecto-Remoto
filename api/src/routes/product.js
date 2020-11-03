@@ -70,7 +70,7 @@ server.post('/', (req, res, next) => {
 // Task S26 : Crear ruta para Modificar Producto
 server.put('/:id', (req, res, next) => {
     Product.update(req.body, {
-        productId: req.params.id
+        where: {productId: req.params.id}
     })
     .then(prod => {
         if(prod) res.status(200).send(prod);
@@ -81,17 +81,14 @@ server.put('/:id', (req, res, next) => {
 
 // Task S27: Crear Ruta para eliminar Producto
 server.delete('/products/:id', (req, res, next) => {
-    Product.findOne({
+    Product.destroy({
         where: {
             productId: req.params.id 
         }
     })
     .then((prod) => {
         if(!prod) res.status(400).send({error: 'No se encontró ese ID de producto'})
-        if(prod) {
-            prod.destroy();
-            res.sendStatus(200)
-        }
+        if(prod) res.sendStatus(200)
     })
     .catch(next);
 });
