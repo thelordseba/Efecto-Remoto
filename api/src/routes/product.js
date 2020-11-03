@@ -80,7 +80,7 @@ server.put('/:id', (req, res, next) => {
 })
 
 // Task S27: Crear Ruta para eliminar Producto
-server.delete('/products/:id', (req, res, next) => {
+server.delete('/:id', (req, res, next) => {
     Product.destroy({
         where: {
             productId: req.params.id 
