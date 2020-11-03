@@ -5,7 +5,7 @@ const { Category } = require('../db.js');
 
 server.post('/products/:productId/category/:categoryId', (req, res, next) => {
     Product.findByPk(req.params.productId, {
-        include: {model: Category}         ///// Revisar con Fini.
+        include: {model: Category}         ///// Revisar con Fini. ¿Cómo modifico la tabla intermedia? catProd
     })
     .then(products => {res.status(200).send(products)})
     .catch(next);
@@ -29,12 +29,10 @@ server.post('/product/category', (req, res, next) => {
 
 // S19: Crear ruta para eliminar categoría
 
-server.delete('/products/category/:category', (req, res, next) => {
-	let category = req.params.category;
+server.delete('/products/category/:categoryId', (req, res, next) => {
+	let categoryId = req.params.categoryId;
 	Product.findOne({
-        where: {
-            name: category 
-        }
+        where: { categoryId: categoryId }
     })
     .then((category) => {
         if(!category) res.status(400).send({error: 'No se encontró ese ID de producto'})
@@ -47,8 +45,11 @@ server.delete('/products/category/:category', (req, res, next) => {
 
 // S20: Crear ruta para modificar categoría
 
-server.put('/product/category/:id', (req, res, next) => {
-    Category.findByPk(req.params.id) //
+server.put('/product/category/:categoryId', (req, res, next) => {
+    Category.update({
+        name: req.body.name,
+        description: req.body.description}, {
+            where: req.params.categoryId}) //
     .then(cat => {
         res.status(200).send(cat);
     })
