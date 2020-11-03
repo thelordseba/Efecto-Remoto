@@ -1,6 +1,10 @@
 const server = require('express').Router();
 const { Category } = require('../db.js');
 
+// S17: Crear ruta para agregar o sacar categorías de un producto
+
+
+// S18: Crear ruta para crear/agregar categoría
 
 server.post('/product/category', (req, res, next) => {
     Category.findOrCreate({
@@ -15,13 +19,7 @@ server.post('/product/category', (req, res, next) => {
     .catch(next);
 });
 
-server.put('/product/category/:id', (req, res, next) => {
-    Category.findByPk(req.params.id) //
-    .then(cat => {
-        res.status(200).send(cat);
-    })
-    .catch(next);
-});
+// S19: Crear ruta para eliminar categoría
 
 server.delete('/products/category/:category', (req, res, next) => {
 	let category = req.params.category;
@@ -37,4 +35,14 @@ server.delete('/products/category/:category', (req, res, next) => {
             res.sendStatus(200)
         }    /// ¿Qué mando?
     })
+});
+
+// S20: Crear ruta para modificar categoría
+
+server.put('/product/category/:id', (req, res, next) => {
+    Category.findByPk(req.params.id) //
+    .then(cat => {
+        res.status(200).send(cat);
+    })
+    .catch(next);
 });
