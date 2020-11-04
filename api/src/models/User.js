@@ -40,17 +40,18 @@ sequelize.define('user', {
         }
     }, //necesita validación?
 
-    // Telephone: {
-    //     type: DataTypes.STRING,
-    //     allowNull: false,
-    // },
+    Telephone: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
 
 
     password: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-
+//hay un código en sql documentación para que la pass no se guarde en la BD
+//no se si quieren que la agregue aca o es futura tarea
 
     gitHubId: {
         type: DataTypes.STRING,
