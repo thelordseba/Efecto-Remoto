@@ -1,0 +1,83 @@
+
+  .container {
+    margin-top: 36px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    border: 1px solid lightgrey; 
+    margin-left: 100px;
+    margin-right: 100px;
+  }
+
+  .photo{
+    height: 400px;
+    width: 400px;
+    
+  }
+
+  .title {
+    font-size: 28px;
+    color: gray;
+    margin-bottom: 12px;
+    margin-top: 16px;
+    text-align: center;
+  }
+
+  .description {
+      text-align: center;
+  }
+
+  .divider {
+    margin-top: 24px;
+    border-top: 1px solid gray;
+    margin-bottom: 24px;    
+    width: 100%  
+  }
+
+  .content{
+      display: block;
+      width: 40%;
+  }
+  .cantidad{
+     text-align: center;
+  }
+
+  .button{
+      padding: 8px;
+      border: solid 1px black;
+      cursor: pointer;
+      text-align: center;
+      margin-top: 24px;
+      width: 20%;
+      margin-bottom: 16px;
+      align-items: center;
+      background-color: gray;
+  }
+
+  .link {
+    text-align: center;
+    margin-top: 16px;
+  }
+.stock{
+  text-align: end;
+  font-size: x-small;
+}
+.review{
+  font-size: x-large;
+  font-family: ui-monospace;
+  margin-bottom: 16px;
+}
+
+  .stars {
+      
+    width: 15px;
+    height: 15px;
+    margin-right: 15px;
+    text-align: center;
+    
+  }
+  
+  .stars:last-child {
+    margin-right: 25px;
+  }
+  

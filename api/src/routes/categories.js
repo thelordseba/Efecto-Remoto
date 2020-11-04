@@ -4,7 +4,7 @@ const { Category } = require('../db.js');
 // GET todas las categorías
 
 server.get('/', (req, res, next) => {
-    Category.findAll()
+    Category.findAll
     .then(categories => res.send(categories))
     .catch(next);
 });
