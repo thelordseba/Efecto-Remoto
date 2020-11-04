@@ -14,8 +14,8 @@ server.get('/', (req, res, next) => {
 server.post('/', (req, res, next) => {
     let {name, description} = req.body
     Category.create({
-        name: name,
-        description: description
+        name,
+        description
     })                
     .then(cat => {
             res.status(201).json(cat);

@@ -4,49 +4,40 @@ const { Category } = require('../db.js');
 const { Sequelize } = require('sequelize');
 
 // Task S17: Crear ruta para agregar o sacar categorías de un producto
-server.post('/:productId/category/:categoryId', (req, res, next) => {
+server.post('/:productId/category/:categoryId', async (req, res, next) => {
     const {productId, categoryId} = req.params
-    ProdCat.create({productId, categoryId})
-    .then(products => {res.status(200).send(products)})
-    .catch(next);
+    try { const product = await Product.findByPk(productId)
+    const category = await Category.findByPk(categoryId)    
+    await product.addCategory(category)
+    res.sendStatus(201) }
+    catch(error) {next()};
 });
 
-server.delete('/:productId/category/:categoryId', (req, res, next) => {
-    let categoryId = req.params.categoryId;
-    let productId = req.params.productId;
-	Product.findOne({
-        where: { id: productId}
-    })
-    // .then((product) => {
-    //     if(!category) res.status(400).send({error: 'No se encontró ese ID de producto'})
-    //         category.destroy();
-    //         res.sendStatus(200)     /// ¿Qué mando?
-    // })
-    .catch(next);
+server.delete('/:productId/category/:categoryId', async (req, res, next) => {
+    const {productId, categoryId} = req.params
+    try { const product = await Product.findByPk(productId)
+    const category = await Category.findByPk(categoryId)    
+    await product.removeCategory(category)
+    res.sendStatus(200) }
+    catch(error) {next()};
 });
 
 // Task S21: Crear ruta que devuelva todos los productos
 server.get('/', (req, res, next) => {
     Product.findAll()
-		.then(products => {
-			res.send(products);
-		})
-		.catch(next);
+    .then(products => res.send(products))
+    .catch(next);
 });
 
 // Task S22: Crear ruta que devuelva los productos de X categoría
-server.get('/categories/:catName', (req, res, next) => {
-    const catName = req.params.catName;
-    Product.findAll({
-        where: { 
-            [Sequelize.Op.or]: [
-                { category: { [Sequelize.Op.substring]: catName} }
-            ]
+server.get('/categories/:categoryId', (req, res, next) => {
+    const categoryId = req.params.categoryId;
+    Category.findOne({
+        where: {
+            id: categoryId
         },
-    })
-    .then(products => {
-        res.send(products);
-    })
+        include: [Product]})    
+    .then(products => res.send(products))
     .catch(next);
 });
 
@@ -86,15 +77,15 @@ server.get('/:id', (req, res, next) => {
 // Task S25: Crear ruta para crear/agregar Producto
 // POST /products
 server.post('/', (req, res, next) => {
-    const { ngoId, name, description, price, category, image, stock } = req.body;
+    const { ngoId, name, description, price, categoryId, img, stock } = req.body;
     Product.create(
         {
         ngoId: ngoId,
         name: name,
         description: description, 
         price: price, 
-        category: category, 
-        img: image, 
+        categoryId: categoryId, 
+        img: img, 
         stock: stock,
         }
     )            
