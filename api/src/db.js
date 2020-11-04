@@ -39,6 +39,7 @@ const { Product, Category, User, Review } = sequelize.models;
 
 // RELACIONES
 
+
 //Relacion product 1-----* prodCat *-----1 category 
 Product.belongsToMany(Category, { through: 'prodCat' });
 Category.belongsToMany(Product, { through: 'prodCat' });
@@ -50,6 +51,7 @@ Review.belongsTo(User);
 //Relacion product 1-----* review
 Product.hasMany(Review);   
 Review.belongsTo(Product);
+
 
 
 module.exports = {
