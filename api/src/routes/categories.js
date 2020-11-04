@@ -1,17 +1,32 @@
 const server = require('express').Router();
 const { Category } = require('../db.js');
 
+// GET todas las categorías
+
+server.post('/products/:productId/category/:categoryId', (req, res, next) => {
+    Product.findByPk(req.params.productId, {
+        include: {model: Category}         ///// Revisar con Fini. ¿Cómo modifico la tabla intermedia? catProd
+    })
+    .then(products => {res.status(200).send(products)})
+    .catch(next);
+});
+
+server.get('/', (req, res, next) => {
+    Category.findAll()
+    .then(categories => res.send(categories))
+    .catch(next);
+});
+
 // S18: Crear ruta para crear/agregar categoría
 
 server.post('/', (req, res, next) => {
-    Category.findOrCreate({
-        where: {
-            name: req.body.name,
-            description: req.body.description
-        }
+    let {name, description} = req.body
+    Category.create({
+        name: name,
+        description: description
     })                
     .then(cat => {
-            res.status(201).send(cat);
+            res.status(201).json(cat);
         })
     .catch(next);
 });
@@ -20,28 +35,29 @@ server.post('/', (req, res, next) => {
 
 server.delete('/:categoryId', (req, res, next) => {
 	let categoryId = req.params.categoryId;
-	Product.findOne({
-        where: { categoryId: categoryId }
-    })
+	Category.findByPk(categoryId)
     .then((category) => {
         if(!category) res.status(400).send({error: 'No se encontró ese ID de categoría'})
-        category.destroy();
-        res.sendStatus(200)              /// ¿Qué mando?
+        if(category) {
+            category.destroy();
+            res.sendStatus(200)
+        }    /// ¿Qué mando?
     })
-    .catch(next);
 });
-
 
 // S20: Crear ruta para modificar categoría
 
 server.put('/:categoryId', (req, res, next) => {
-    Category.update({
-        name: req.body.name,
-        description: req.body.description}, {
-            where: req.params.categoryId}) //
-    .then(cat => res.status(200).send(cat))
+    let categoryId = req.params.categoryId;
+    Category.update(req.body, {
+        where: {
+            id: categoryId
+        }
+    })
+    .then(cat => {
+        res.status(200).send(cat);
+    })
     .catch(next);
 });
 
 module.exports = server;
-
