@@ -54,6 +54,20 @@
       background-color: gray;
   }
 
+  .link {
+    text-align: center;
+    margin-top: 16px;
+  }
+.stock{
+  text-align: end;
+  font-size: x-small;
+}
+.review{
+  font-size: x-large;
+  font-family: ui-monospace;
+  margin-bottom: 16px;
+}
+
   .stars {
       
     width: 15px;
