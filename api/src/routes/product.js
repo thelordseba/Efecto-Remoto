@@ -1,7 +1,33 @@
 const server = require('express').Router();
 const { Product } = require('../db.js');
 
-// S21: Crear ruta que devuelva todos los productos
+// Task S17: Crear ruta para agregar o sacar categorías de un producto
+
+server.post('/:productId/category/:categoryId', (req, res, next) => {
+    Product.findByPk(req.params.productId, {
+        where: {
+            productId: req.params.productId
+        }       // include: {model: Category}         ///// Revisar con Fini. ¿Cómo modifico la tabla intermedia? catProd
+    })
+    .then(products => {res.status(200).send(products)})
+    .catch(next);
+});
+
+server.delete('/:productId/category/:categoryId', (req, res, next) => {
+    let categoryId = req.params.categoryId;
+    let productId = req.params.productId;
+	Product.findOne({
+        where: { productId: productId}
+    })
+    // .then((product) => {
+    //     if(!category) res.status(400).send({error: 'No se encontró ese ID de producto'})
+    //         category.destroy();
+    //         res.sendStatus(200)     /// ¿Qué mando?
+    // })
+    .catch(next);
+});
+
+// Task S21: Crear ruta que devuelva todos los productos
 server.get('/', (req, res, next) => {
 	Product.findAll()
 		.then(products => {
@@ -11,8 +37,8 @@ server.get('/', (req, res, next) => {
 });
 
 // Task S22: Crear ruta que devuelva los productos de X categoría
-server.get('/categoria/:category', (req, res, next) => {
-    Category.findOne(req.params.category, {
+server.get('/category/:categoryId', (req, res, next) => {
+    Category.findOne(req.params.categoryId, {
         include: {model: Product}
     })
     .then(products => {res.status(200).send(products)})
@@ -29,6 +55,14 @@ server.get('/search', (req, res, next) => {
             }
         }
     })
+    .then(product => {
+        if(!product) { 
+            res.status(400).send({error: 'No se identificó ese producto'});
+        } else {
+            res.send(product)
+        }
+    })
+    .catch(next);
 })
 
 // Task S24: Crear ruta de producto individual, pasado un ID que retorne un producto con sus detalles
@@ -52,17 +86,18 @@ server.get('/:id', (req, res, next) => {
 // POST /products
 server.post('/', (req, res, next) => {
     const { ngoId, name, description, price, categoryId, image, stock } = req.body;
-    Product.create({
-        ngoId: ngoId,
-        name: name,
-        description: description, 
-        price: price, 
-        categoryId: categoryId, 
-        image: image, 
-        stock: stock,
-    })                
-    .then(cat => {
-        res.status(201).send(cat);
+    Product.create(req.body)
+        // {
+        // ngoId: ngoId,
+        // name: name,
+        // description: description, 
+        // price: price, 
+        // categoryId: categoryId, 
+        // image: image, 
+        // stock: stock,
+        // }            
+    .then(product => {
+        res.status(201).send(product);
     })
     .catch(next);
 })
