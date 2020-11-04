@@ -3,14 +3,6 @@ const { Category } = require('../db.js');
 
 // GET todas las categorías
 
-server.post('/products/:productId/category/:categoryId', (req, res, next) => {
-    Product.findByPk(req.params.productId, {
-        include: {model: Category}         ///// Revisar con Fini. ¿Cómo modifico la tabla intermedia? catProd
-    })
-    .then(products => {res.status(200).send(products)})
-    .catch(next);
-});
-
 server.get('/', (req, res, next) => {
     Category.findAll()
     .then(categories => res.send(categories))
