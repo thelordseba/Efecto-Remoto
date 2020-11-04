@@ -5,11 +5,8 @@ const { Sequelize } = require('sequelize');
 
 // Task S17: Crear ruta para agregar o sacar categorías de un producto
 server.post('/:productId/category/:categoryId', (req, res, next) => {
-    Product.findByPk(req.params.productId, {
-        where: {
-            id: req.params.productId
-        }       // include: {model: Category}         ///// Revisar con Fini. ¿Cómo modifico la tabla intermedia? catProd
-    })
+    const {productId, categoryId} = req.params
+    ProdCat.create({productId, categoryId})
     .then(products => {res.status(200).send(products)})
     .catch(next);
 });
