@@ -6,7 +6,7 @@ const { Product } = require('../db.js');
 server.post('/:productId/category/:categoryId', (req, res, next) => {
     Product.findByPk(req.params.productId, {
         where: {
-            productId: req.params.productId
+            id: req.params.productId
         }       // include: {model: Category}         ///// Revisar con Fini. ¿Cómo modifico la tabla intermedia? catProd
     })
     .then(products => {res.status(200).send(products)})
@@ -17,7 +17,7 @@ server.delete('/:productId/category/:categoryId', (req, res, next) => {
     let categoryId = req.params.categoryId;
     let productId = req.params.productId;
 	Product.findOne({
-        where: { productId: productId}
+        where: { id: productId}
     })
     // .then((product) => {
     //     if(!category) res.status(400).send({error: 'No se encontró ese ID de producto'})
@@ -29,11 +29,13 @@ server.delete('/:productId/category/:categoryId', (req, res, next) => {
 
 // Task S21: Crear ruta que devuelva todos los productos
 server.get('/', (req, res, next) => {
-	Product.findAll()
-		.then(products => {
-			res.send(products);
-		})
-		.catch(next);
+    console.log("Todos los productos")
+    res.sendStatus(200);
+    // Product.findAll()
+	// 	.then(products => {
+	// 		res.send(products);
+	// 	})
+	// 	.catch(next);
 });
 
 // Task S22: Crear ruta que devuelva los productos de X categoría
@@ -50,9 +52,10 @@ server.get('/category/:categoryId', (req, res, next) => {
 server.get('/search', (req, res, next) => {
     Product.findAll({
         where: {
-            name: {
-                [Sequelize.Op.iLike]: req.query.value,
-            }
+            name: req.query.name
+            // {
+            //     [Sequelize.Op.iLike]: req.query.name,
+            // }
         }
     })
     .then(product => {
@@ -69,11 +72,11 @@ server.get('/search', (req, res, next) => {
 server.get('/:id', (req, res, next) => {
     Product.findOne({
         where: {
-            productId: req.params.id
+            id: req.params.id
         }
     })
     .then(product => {
-        if(!product.productId) {
+        if(!product.id) {
             res.status(400).send({error: 'No se identificó ese producto'});
         } else {
             res.send(product)
@@ -105,7 +108,7 @@ server.post('/', (req, res, next) => {
 // Task S26 : Crear ruta para Modificar Producto
 server.put('/:id', (req, res, next) => {
     Product.update(req.body, {
-        where: {productId: req.params.id}
+        where: {id: req.params.id}
     })
     .then(prod => {
         if(prod) res.status(200).send(prod);
@@ -118,7 +121,7 @@ server.put('/:id', (req, res, next) => {
 server.delete('/:id', (req, res, next) => {
     Product.destroy({
         where: {
-            productId: req.params.id 
+            id: req.params.id 
         }
     })
     .then((prod) => {

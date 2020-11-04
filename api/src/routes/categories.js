@@ -43,3 +43,5 @@ server.put('/:categoryId', (req, res, next) => {
     .catch(next);
 });
 
+module.exports = server;
+
