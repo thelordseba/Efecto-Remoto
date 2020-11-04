@@ -1,8 +1,9 @@
 const server = require('express').Router();
 const { Product } = require('../db.js');
+const { Category } = require('../db.js')
+const { Sequelize } = require('sequelize');
 
 // Task S17: Crear ruta para agregar o sacar categorías de un producto
-
 server.post('/:productId/category/:categoryId', (req, res, next) => {
     Product.findByPk(req.params.productId, {
         where: {
@@ -29,18 +30,16 @@ server.delete('/:productId/category/:categoryId', (req, res, next) => {
 
 // Task S21: Crear ruta que devuelva todos los productos
 server.get('/', (req, res, next) => {
-    console.log("Todos los productos")
-    res.sendStatus(200);
-    // Product.findAll()
-	// 	.then(products => {
-	// 		res.send(products);
-	// 	})
-	// 	.catch(next);
+    Product.findAll()
+		.then(products => {
+			res.send(products);
+		})
+		.catch(next);
 });
 
 // Task S22: Crear ruta que devuelva los productos de X categoría
-server.get('/category/:categoryId', (req, res, next) => {
-    Category.findOne(req.params.categoryId, {
+server.get('/categories/:categoryId', (req, res, next) => {
+    Category.findAll(req.params.categoryId, {
         include: {model: Product}
     })
     .then(products => {res.status(200).send(products)})
@@ -52,10 +51,7 @@ server.get('/category/:categoryId', (req, res, next) => {
 server.get('/search', (req, res, next) => {
     Product.findAll({
         where: {
-            name: req.query.name
-            // {
-            //     [Sequelize.Op.iLike]: req.query.name,
-            // }
+            [Sequelize.Op.iLike]: req.query.name,
         }
     })
     .then(product => {
@@ -70,16 +66,12 @@ server.get('/search', (req, res, next) => {
 
 // Task S24: Crear ruta de producto individual, pasado un ID que retorne un producto con sus detalles
 server.get('/:id', (req, res, next) => {
-    Product.findOne({
-        where: {
-            id: req.params.id
-        }
-    })
+    Product.findByPk(req.params.id)
     .then(product => {
-        if(!product.id) {
-            res.status(400).send({error: 'No se identificó ese producto'});
-        } else {
+        if(product) {
             res.send(product)
+        } else {
+            res.status(400).send({error: 'No se identificó ese producto'});
         };
     })
     .catch(next);
@@ -89,21 +81,22 @@ server.get('/:id', (req, res, next) => {
 // POST /products
 server.post('/', (req, res, next) => {
     const { ngoId, name, description, price, categoryId, image, stock } = req.body;
-    Product.create(req.body)
-        // {
-        // ngoId: ngoId,
-        // name: name,
-        // description: description, 
-        // price: price, 
-        // categoryId: categoryId, 
-        // image: image, 
-        // stock: stock,
-        // }            
+    Product.create(
+        {
+        ngoId: ngoId,
+        name: name,
+        description: description, 
+        price: price, 
+        categoryId: categoryId, 
+        image: image, 
+        stock: stock,
+        }
+    )            
     .then(product => {
-        res.status(201).send(product);
+        res.status(201).json(product);
     })
     .catch(next);
-})
+});
 
 // Task S26 : Crear ruta para Modificar Producto
 server.put('/:id', (req, res, next) => {
