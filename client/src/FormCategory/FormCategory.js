@@ -14,7 +14,12 @@ export default function  Form() {
       [e.target.name]: e.target.value     //agarra el NAME de cada input y como VALOR agarra lo que esta escrito en input
     });
   }
-    
+
+  function handleOnChange (){
+    if(!input.newcategory || !input.description){
+      alert("Debes completar todos los cambios");
+    }
+  }
 
     return (
       <form>
@@ -27,7 +32,7 @@ export default function  Form() {
           <label>Descripción: </label>
           <input type="text" name="description" value={input.description} onChange={handleInputChange} />
         </div>
-        <input type="submit" value="Agregar categoría"/>
+        <input type="submit" value="Agregar categoría" onChange={handleOnChange}/>
       </form>
     )
   }
