@@ -24,17 +24,7 @@ module.exports = (sequelize) => {
 
     lastFourDigits:{
         type: DataTypes.STRING,
-        allowNull: false        
-    },
-
-    createAt:{
-        type: DataTypes.DATE,
-        allowNull: false        
-    },
-
-    updateAt:{
-        type: DataTypes.DATE,
-        allowNull: false        
+        allowNull: false 
     }
   });
 };
