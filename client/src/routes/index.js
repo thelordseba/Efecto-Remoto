@@ -3,13 +3,14 @@ import Product from "../components/Product";
 import Menu from "../components/SearchBar/Menu";
 import SearchBar from "../components/SearchBar/SearchBar";
 import Success from "../components/Success";
+import React from 'react';
 
 const routes = [
     {
-      path: "/product",
-      component: Product,
-      exact: true,
+      path: "/products/:id",
+      render:({match}) => <Product id={match.params.id} />
     },
+      
     {
       path: "/product/success",
       component: Success,
