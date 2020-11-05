@@ -2,9 +2,9 @@ const server = require('express').Router();
 const { Category } = require('../db.js');
 
 // GET todas las categorías
-
+// ECOM-80
 server.get('/', (req, res, next) => {
-    Category.findAll
+    Category.findAll()
     .then(categories => res.send(categories))
     .catch(next);
 });
