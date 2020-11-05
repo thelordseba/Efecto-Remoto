@@ -1,8 +1,8 @@
 import Product from "../components/Product";
 import Menu from "../components/SearchBar/Menu";
-import SearchBar from "../components/SearchBar/SearchBar";
 import Success from "../components/Success";
 import CreateUpdateProduct from "../pages/CreateUpdateProduct"
+import FormCategorias from "../FormCategory/FormCategory";
 
 const routes = [
     {
@@ -17,11 +17,18 @@ const routes = [
     },
     {
       path:"/",
-      component: Menu
+      component: Menu,
+      exact: true
     },
     {
       path: '/product/add',
-      component: CreateUpdateProduct
+      component: CreateUpdateProduct,
+      exact: true
+    },
+    {
+      path:"/formcategorias",
+      component: FormCategorias,
+      exact: true
     }
  
   ];
