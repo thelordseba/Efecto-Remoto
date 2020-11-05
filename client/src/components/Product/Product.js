@@ -6,6 +6,7 @@ function Product(props) {
   const history = useHistory();
 
   props = {
+    small: true,
     titulo: 'Zapatilla',
     descripcion: 'Esta compra será para ayudar a la ONG Fundación Potrero. El Potrero se funda a partir de la motivación de un grupo de amigos con el fin de fomentar la igualdad de oportunidades de niños y jóvenes alrededor del país.',
     precio: '$1.400',
@@ -21,20 +22,21 @@ function Product(props) {
   }
 
   return (
-    <div className="container">
-        <img className="photo"src={props.image}/>
+    <div className={props.small ? "product-container-small" : "product-container"}>
+        <img className={props.small ? "photo-small" : "photo"} src={props.image}/>
         <div className="content">
           <div className="title">{props.titulo}</div>
+          {props.small && <div className="stars-small"> <Stars disabledClick={true} stars={props.stars}/> </div>}
           <div className="title">{props.precio}</div>
-          <div className="divider"/>
+          {!props.small ? <><div className="divider"/>
           <div className="description">{props.descripcion}</div>
           <div className="link"> <span>Ver más en :</span> <a href ={props.link}>{props.link}</a> </div>
           <div className="divider"/>
           <div className="cantidad">{props.cantidad}</div>
           <div className="stock">{props.stock}</div>
-          <div className="review">Review</div>
-           <Stars disabledClick={true} stars={props.stars}/> 
-          <div className="button" onClick={handleOnClick}>Add to Cart</div>
+          <div className="review">Review</div></> : null}
+          {!props.small && <Stars disabledClick={true} stars={props.stars}/>}
+           {!props.small ? <div className="button" onClick={handleOnClick}>Add to Cart</div> : null} 
         </div>
       <div>
       </div>

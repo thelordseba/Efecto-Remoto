@@ -16,7 +16,8 @@ const routes = [
     },
     {
       path:"/",
-      component: Menu
+      component: Menu,
+      exact: true
     },
     {
       path:"/formcategorias",
