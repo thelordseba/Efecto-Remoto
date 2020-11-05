@@ -25,8 +25,6 @@ const routes = [
     {
       path:"/products",
       component: ProductCatalog,
-
-      component: Menu,
       exact: true
     },
     {
