@@ -1,0 +1,24 @@
+.actions{
+    width: 150px;
+}
+
+.actions ul, .actions ul li{
+    margin: 0;
+    list-style: none;
+}
+.actions ul li a{
+    display: inline;
+    padding: 10px;
+}
+.button{
+      padding: 10px;
+      border: solid 1px black;
+      cursor: pointer;
+      text-align: center;
+      margin-top: 5px;
+      width: 50%;
+      margin-bottom: 5px;
+      align-items: center;
+      background-color: gray;
+      margin-left:200px;
+}

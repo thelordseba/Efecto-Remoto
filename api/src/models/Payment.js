@@ -24,7 +24,7 @@ module.exports = (sequelize) => {
 
     lastFourDigits:{
         type: DataTypes.STRING,
-        allowNull: false        
+        allowNull: false 
     }
   });
 };
