@@ -40,9 +40,13 @@ function ProductCatalog (props){
     ]
       
 
+    const products = fetch(`http://localhost:3000/products`)
+      .then(r => r.json())
+      .then(products => products)
+
     return (
         <div>
-            {props.map((product) => 
+            {products.map((product) => 
             <Product 
             id = {product.id}
             small = {true}
