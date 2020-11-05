@@ -1,5 +1,6 @@
 import Product from "../components/Product";
 import Success from "../components/Success";
+import CreateUpdateProduct from "../pages/CreateUpdateProduct";
 
 const routes = [
     {
@@ -12,7 +13,11 @@ const routes = [
       component: Success,
       exact: true,
     },
- 
+    {
+      path: "/product/add",
+      component: CreateUpdateProduct,
+      exact: true,
+    }
   ];
   
   export default routes;

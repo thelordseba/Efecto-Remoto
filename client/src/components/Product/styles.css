@@ -57,6 +57,7 @@
   .link {
     text-align: center;
     margin-top: 16px;
+    text-decoration: none;
   }
 .stock{
   text-align: end;

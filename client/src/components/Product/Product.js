@@ -12,8 +12,8 @@ function Product(props) {
     cantidad: 'Cantidad: 1',
     stock: 'Hasta agotar stock de 100 pares de zapatillas.',
     stars: 3,
-    link: 'https://www.elpotrero.org/',
-    image: 'https://topperarg.vteximg.com.br/arquivos/ids/211016-1200-1200/025433.jpg?v=636979578311500000'
+    link: 'https://www.elpotrero.org',
+    imagen: 'https://topperarg.vteximg.com.br/arquivos/ids/211016-1200-1200/025433.jpg?v=636979578311500000'
   }
 
   function handleOnClick(){
@@ -22,13 +22,13 @@ function Product(props) {
 
   return (
     <div className="container">
-        <img className="photo"src={props.image}/>
+        <img className="photo"src={props.imagen}/>
         <div className="content">
           <div className="title">{props.titulo}</div>
           <div className="title">{props.precio}</div>
           <div className="divider"/>
           <div className="description">{props.descripcion}</div>
-          <div className="link"> <span>Ver más en :</span> <a href ={props.link}>{props.link}</a> </div>
+          <div className="link"> <span>Ver más en :</span> <a href ={props.link}  target={"_blank"}>{props.link}</a> </div>
           <div className="divider"/>
           <div className="cantidad">{props.cantidad}</div>
           <div className="stock">{props.stock}</div>
