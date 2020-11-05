@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
 sequelize.define('user', {
     //en name tengo que hacer una función por firstname y lastname= por 
     //
-    name: {
+    userName: {
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -23,13 +23,13 @@ sequelize.define('user', {
     lastName: {
         type: DataTypes.STRING,
         allowNull: false,
-    },
+    }, 
     
 
     isAdmin: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
-        allowNull: flase
+        allowNull: false
     },
 
     email: {

@@ -1,9 +1,10 @@
 import ProductCatalog from "../components/Catalogue/productCatalog";
 import Product from "../components/Product";
 import Menu from "../components/SearchBar/Menu";
-import SearchBar from "../components/SearchBar/SearchBar";
 import Success from "../components/Success";
 import React from 'react';
+import CreateUpdateProduct from "../pages/CreateUpdateProduct"
+import FormCategorias from "../FormCategory/FormCategory";
 
 const routes = [
     {
@@ -18,11 +19,24 @@ const routes = [
     },
     {
       path:"/",
+
       component: Menu
     },
     {
       path:"/products",
       component: ProductCatalog,
+
+      component: Menu,
+      exact: true
+    },
+    {
+      path: '/product/add',
+      component: CreateUpdateProduct,
+      exact: true
+    },
+    {
+      path:"/formcategorias",
+      component: FormCategorias,
       exact: true
     }
  
