@@ -1,35 +1,43 @@
 const server = require('express').Router();
 const { Category } = require('../db.js');
 
-// S17: Crear ruta para agregar o sacar categorías de un producto
+// GET todas las categorías
 
+server.post('/products/:productId/category/:categoryId', (req, res, next) => {
+    Product.findByPk(req.params.productId, {
+        include: {model: Category}         ///// Revisar con Fini. ¿Cómo modifico la tabla intermedia? catProd
+    })
+    .then(products => {res.status(200).send(products)})
+    .catch(next);
+});
+
+server.get('/', (req, res, next) => {
+    Category.findAll()
+    .then(categories => res.send(categories))
+    .catch(next);
+});
 
 // S18: Crear ruta para crear/agregar categoría
 
-server.post('/product/category', (req, res, next) => {
-    Category.findOrCreate({
-        where: {
-            name: req.body.name,
-            description: req.body.description
-        }
+server.post('/', (req, res, next) => {
+    let {name, description} = req.body
+    Category.create({
+        name: name,
+        description: description
     })                
     .then(cat => {
-            res.status(201).send(cat);
+            res.status(201).json(cat);
         })
     .catch(next);
 });
 
 // S19: Crear ruta para eliminar categoría
 
-server.delete('/products/category/:category', (req, res, next) => {
-	let category = req.params.category;
-	Product.findOne({
-        where: {
-            name: category 
-        }
-    })
+server.delete('/:categoryId', (req, res, next) => {
+	let categoryId = req.params.categoryId;
+	Category.findByPk(categoryId)
     .then((category) => {
-        if(!category) res.status(400).send({error: 'No se encontró ese ID de producto'})
+        if(!category) res.status(400).send({error: 'No se encontró ese ID de categoría'})
         if(category) {
             category.destroy();
             res.sendStatus(200)
@@ -39,10 +47,17 @@ server.delete('/products/category/:category', (req, res, next) => {
 
 // S20: Crear ruta para modificar categoría
 
-server.put('/product/category/:id', (req, res, next) => {
-    Category.findByPk(req.params.id) //
+server.put('/:categoryId', (req, res, next) => {
+    let categoryId = req.params.categoryId;
+    Category.update(req.body, {
+        where: {
+            id: categoryId
+        }
+    })
     .then(cat => {
         res.status(200).send(cat);
     })
     .catch(next);
 });
+
+module.exports = server;
