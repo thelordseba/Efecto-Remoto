@@ -2,6 +2,7 @@ import Product from "../components/Product";
 import Menu from "../components/SearchBar/Menu";
 import SearchBar from "../components/SearchBar/SearchBar";
 import Success from "../components/Success";
+import CreateUpdateProduct from "../pages/CreateUpdateProduct"
 
 const routes = [
     {
@@ -17,6 +18,10 @@ const routes = [
     {
       path:"/",
       component: Menu
+    },
+    {
+      path: '/product/add',
+      component: CreateUpdateProduct
     }
  
   ];
