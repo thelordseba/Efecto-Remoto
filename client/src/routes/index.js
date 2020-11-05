@@ -1,7 +1,7 @@
 import Product from "../components/Product";
 import Menu from "../components/SearchBar/Menu";
-import SearchBar from "../components/SearchBar/SearchBar";
 import Success from "../components/Success";
+import FormCategorias from "../FormCategory/FormCategory";
 
 const routes = [
     {
@@ -17,6 +17,11 @@ const routes = [
     {
       path:"/",
       component: Menu
+    },
+    {
+      path:"/formcategorias",
+      component: FormCategorias,
+      exact: true
     }
  
   ];
