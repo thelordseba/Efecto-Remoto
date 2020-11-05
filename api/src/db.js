@@ -64,8 +64,10 @@ Order.belongsTo(User);
 NGO.hasMany(Product)
 Product.belongsTo(NGO)
 
-//Relación NGO 1----*location
-//FALTA LA TABLA DE LOCATION TODAVÍA
+//Relación oreder 1-----* orderLine *-----1 product
+Order.belongsToMany(Product, { through: 'OrderLine' });
+Product.belongsToMany(Order, { through: 'OrderLine' });
+
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
