@@ -17,8 +17,16 @@ function Product(props) {
     image: 'https://topperarg.vteximg.com.br/arquivos/ids/211016-1200-1200/025433.jpg?v=636979578311500000'
   }
 
-  function handleOnClick(){
+  function handleOnClickAddProduct(){
     history.push(`/product/success`)
+  }
+
+  function handleOnClickEdit(){
+    history.push(`/product/add`)
+  }
+
+  function handleOnClickDelete() {
+
   }
 
   return (
@@ -36,7 +44,9 @@ function Product(props) {
           <div className="stock">{props.stock}</div>
           <div className="review">Review</div></> : null}
           {!props.small && <Stars disabledClick={true} stars={props.stars}/>}
-           {!props.small ? <div className="button" onClick={handleOnClick}>Add to Cart</div> : null} 
+          {props.small ? <div className="button" onClick={handleOnClickEdit}>Editar</div> : null} 
+          {props.small ? <div className="button" onClick={handleOnClickDelete}>Eliminar</div> : null} 
+           {!props.small ? <div className="button" onClick={handleOnClickAddProduct}>Agregar al carrito</div> : null} 
         </div>
       <div>
       </div>
