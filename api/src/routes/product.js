@@ -6,19 +6,39 @@ const { Sequelize } = require('sequelize');
 // Task S17: Crear ruta para agregar o sacar categorías de un producto
 server.post('/:productId/category/:categoryId', async (req, res, next) => {
     const {productId, categoryId} = req.params
-    try { const product = await Product.findByPk(productId)
-    const category = await Category.findByPk(categoryId)    
-    await product.addCategory(category)
-    res.sendStatus(201) }
+    try { 
+        const product = await Product.findByPk(productId)
+        if (product) {
+            const category = await Category.findByPk(categoryId)
+            if (category) {
+                await product.addCategory(category)
+                res.sendStatus(201) 
+            } else {
+                res.status(404).json({error: "No se identificó ese ID de categoría"})    
+            }
+        } else {
+            res.status(404).json({error: "No se identificó ese ID de producto"})
+        }
+    } 
     catch(error) {next()};
 });
 
 server.delete('/:productId/category/:categoryId', async (req, res, next) => {
     const {productId, categoryId} = req.params
-    try { const product = await Product.findByPk(productId)
-    const category = await Category.findByPk(categoryId)    
-    await product.removeCategory(category)
-    res.sendStatus(200) }
+    try { 
+        const product = await Product.findByPk(productId)
+        if (product) {
+            const category = await Category.findByPk(categoryId)    
+            if(category) {
+                await product.removeCategory(category)
+                res.sendStatus(200) 
+            } else {
+                res.status(404).json({error: "No se identificó ese ID de categoría"}) 
+            }
+        } else {
+            res.status(404).json({error: "No se identificó ese ID de producto"})
+        }
+    }
     catch(error) {next()};
 });
 
@@ -37,7 +57,13 @@ server.get('/categories/:categoryId', (req, res, next) => {
             id: categoryId
         },
         include: [Product]})    
-    .then(products => res.send(products))
+    .then(products => {
+        if(products) {
+            res.send(products)
+        } else {
+            res.status(404).json({error: "Esta categoría no tiene productos asociados"})
+        }
+    })
     .catch(next);
 });
 
@@ -56,7 +82,11 @@ server.get('/search', (req, res, next) => {
       },
     })
     .then((products) => {
-        res.send(products);
+        if(products.length > 0) {
+            res.send(products);
+        } else {
+            res.status(404).json({error: "No se encontraron resultados para esta búsqueda"})
+        }
     })
     .catch((err) => res.send(err));
 })
