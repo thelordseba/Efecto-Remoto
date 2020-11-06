@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './create.css'
 
 class CreateUpdateProduct extends Component {
     constructor(props) {
