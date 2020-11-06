@@ -5,6 +5,7 @@ import Success from "../components/Success";
 import React from 'react';
 import CreateUpdateProduct from "../components/Product_CRUD/CreateUpdateProduct"
 import FormCategorias from "../components/FormCategory/FormCategory";
+import Home from "../components/Home";
 
 const routes = [
     {
@@ -35,7 +36,13 @@ const routes = [
       path:"/formcategorias",
       component: FormCategorias,
       exact: true
+    },
+    {
+      path:"/home",
+      component:Home,
+      exact: true
     }
+   
  
   ];
   
