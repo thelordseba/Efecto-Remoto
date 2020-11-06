@@ -1,48 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Product from '../Product/Product.js';
+import mockProducts from './products'
 
-function ProductCatalog (props){
-    props = [
-        {
-            id:3,
-            titulo: 'Zapatilla',
-            descripcion: 'Esta compra será para ayudar a la ONG Fundación Potrero. El Potrero se funda a partir de la motivación de un grupo de amigos con el fin de fomentar la igualdad de oportunidades de niños y jóvenes alrededor del país.',
-            precio: '$1.400',
-            cantidad: 'Cantidad: 1',
-            stock: 'Hasta agotar stock de 100 pares de zapatillas.',
-            stars: 3,
-            link: 'https://www.elpotrero.org/',
-            image: 'https://topperarg.vteximg.com.br/arquivos/ids/211016-1200-1200/025433.jpg?v=636979578311500000'
-          },
-          {
-            id:2,
-            titulo: 'PELOTA',
-            descripcion: 'Esta compra será para ayudar a la ONG Fundación Potrero. El Potrero se funda a partir de la motivación de un grupo de amigos con el fin de fomentar la igualdad de oportunidades de niños y jóvenes alrededor del país.',
-            precio: '$1.400',
-            cantidad: 'Cantidad: 1',
-            stock: 'Hasta agotar stock de 100 pares de zapatillas.',
-            stars: 3,
-            link: 'https://www.elpotrero.org/',
-            image: 'https://topperarg.vteximg.com.br/arquivos/ids/211016-1200-1200/025433.jpg?v=636979578311500000'
-          },
-          {
-            id: 1,
-            titulo: 'AUTITO',
-            descripcion: 'Esta compra será para ayudar a la ONG Fundación Potrero. El Potrero se funda a partir de la motivación de un grupo de amigos con el fin de fomentar la igualdad de oportunidades de niños y jóvenes alrededor del país.',
-            precio: '$1.400',
-            cantidad: 'Cantidad: 1',
-            stock: 'Hasta agotar stock de 100 pares de zapatillas.',
-            stars: 3,
-            link: 'https://www.elpotrero.org/',
-            image: 'https://topperarg.vteximg.com.br/arquivos/ids/211016-1200-1200/025433.jpg?v=636979578311500000'
-          }
-
-    ]
-      
-
+//function ProductCatalog ({products}){    
+function ProductCatalog ({}){    
+  const [products, setProducts] = useState(mockProducts)
+    
+  function onDelete(id) {
+     let filterProducts = products.filter(product=> product.id !== id)
+      setProducts(filterProducts)
+  }
+  
     return (
         <div>
-            {props.map((product) => 
+            {products.map((product) => 
             <Product 
             id = {product.id}
             small = {true}
@@ -54,6 +25,7 @@ function ProductCatalog (props){
             stars = {product.stars}
             link = {product.link}
             image = {product.image}
+            delete={onDelete}
             />)}
         </div>
     )

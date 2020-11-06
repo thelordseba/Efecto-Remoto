@@ -19,14 +19,11 @@ const routes = [
     },
     {
       path:"/",
-
       component: Menu
     },
     {
       path:"/products",
       component: ProductCatalog,
-
-      component: Menu,
       exact: true
     },
     {
