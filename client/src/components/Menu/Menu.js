@@ -1,7 +1,6 @@
 import React from 'react';
-import SearchBar from './SearchBar';
+import SearchBar from '../SearchBar/SearchBar.js';
 import './Menu.css';
-
 
 function Menu (props){
     return(

@@ -1,15 +1,15 @@
 import ProductCatalog from "../components/Catalogue/productCatalog";
-import Product from "../components/Product";
-import Menu from "../components/SearchBar/Menu";
+import ProductDetail from "../components/ProductDetail/ProductDetail.js";
+import Menu from "../components/Menu/Menu.js";
 import Success from "../components/Success";
 import React from 'react';
-import CreateUpdateProduct from "../pages/CreateUpdateProduct"
-import FormCategorias from "../FormCategory/FormCategory";
+import CreateUpdateProduct from "../components/Product_CRUD/CreateUpdateProduct"
+import FormCategorias from "../components/FormCategory/FormCategory";
 
 const routes = [
     {
       path: "/products/:id",
-      render:({match}) => <Product id={match.params.id} />
+      render:({match}) => <ProductDetail id={match.params.id} />
     },
       
     {
