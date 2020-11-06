@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import './FormCategory.css';
 
 export default function  Form() {
 
@@ -33,17 +34,25 @@ export default function  Form() {
   };
 
   return (
-    <form onSubmit={() => handleOnChange()}>
+    <div className="formContainer">
+    <form  onSubmit={() => handleOnChange()}>
       <div>
         <h1 className="titulo">Crear categoría</h1>
-        <label>Nueva categoría:</label>
+        </div>
+        <span className= "cont-form">
+        <div className="label">Nueva categoría:</div>
         <input type="text" name="name" value={input.name} onChange={handleInputChange}/>
-      </div>
+        </span>
       <div>
-        <label>Descripción: </label>
+      <span className= "cont-form">
+        <div className="label">Descripción: </div>
         <input type="text" name="description" value={input.description} onChange={handleInputChange} />
+        </span>
+      </div >
+      <div className="cont-btn">
+      <input className="add-buttom" type="submit" value="Agregar categoría"/>
       </div>
-      <input type="submit" value="Agregar categoría"/>
     </form>
+    </div>
   )
 }

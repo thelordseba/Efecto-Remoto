@@ -1,5 +1,6 @@
 import React, { Component, useState, useEffect} from 'react';
 import axios from 'axios'
+import './create.css'
 
 function CreateUpdateProduct({id}){
     // si usamos un estado vacio, estamos simulando que es un create, si le ponemos valores inciales, es un update.
