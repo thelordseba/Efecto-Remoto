@@ -1,18 +1,37 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import Product from '../Product/Product.js';
 import mockProducts from './products'
+const categorias = ['','ropa','juguete', 'experiencia']
+
 //function ProductCatalog ({products}){    
 function ProductCatalog ({}){    
   const [products, setProducts] = useState(mockProducts)
-    
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState()
+
+  useMemo(()=> {
+    if (categoriaSeleccionada) {
+      let filterProducts = mockProducts.filter(product=> product.categoria === categoriaSeleccionada)
+      setProducts(filterProducts)
+    } else {
+      setProducts(mockProducts)
+    }
+  },[categoriaSeleccionada])
+
   function onDelete(id) {
      let filterProducts = products.filter(product=> product.id !== id)
       setProducts(filterProducts)
   }
+
+  function handleChange(event) {
+    setCategoriaSeleccionada(event.target.value)
+  }
   
     return (
         <div>
-            {products.map((product) => 
+          <select onChange={handleChange}>
+          {categorias.map(cat => <option value={cat}>{cat}</option>)}
+          </select> 
+           {products.map((product) => 
             <Product 
             id = {product.id}
             small = {true}
