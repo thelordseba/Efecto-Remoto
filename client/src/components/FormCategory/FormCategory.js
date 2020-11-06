@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
+import axios from 'axios';
 
 export default function  Form() {
 
-  const [input, setInput] = React.useState({
-    newcategory: '',
+  const [input, setInput] = useState({
+    name: '',
     description: '',
   });
 
@@ -15,24 +16,47 @@ export default function  Form() {
     });
   }
 
-  function handleOnChange (){
-    if(!input.newcategory || !input.description){
-      alert("Debes completar todos los cambios");
-    }
-  }
+  function handleOnChange (event){
+    event.preventDefault();
+    if(!input.name || !input.description) {
+      alert("Debes completar todos los campos");
+    } else {
+      console.log(input)
+      axios.post(`http://localhost:3001/categories/`, input)
+      .then((response) => {
+        console.log(response);
+        alert("Categoría agregada")
+      }, (error) => {
+        console.log(error);
+        alert("Hubo un error. Por favor, intentá de nuevo.")
+      });
+      // makePostRequest();
+    };
+  };
 
-    return (
-      <form>
-        <div>
-          <h1 className="titulo">Create category</h1>
-          <label>Nueva categoría: </label>
-          <input type="text" name="newcategory" value={input.newcategory} onChange={handleInputChange}/>
-        </div>
-        <div>
-          <label>Descripción: </label>
-          <input type="text" name="description" value={input.description} onChange={handleInputChange} />
-        </div>
-        <input type="submit" value="Agregar categoría" onChange={handleOnChange}/>
-      </form>
-    )
-  }
+  // async function makePostRequest() {
+  //   var params;
+  //   params = {
+  //       name: input.newcategory,
+  //       description: input.description,
+  //   }
+
+  //   let res = await axios.post('http://localhost:3001/categories/', params);
+  //   console.log(res.data);
+  // }
+
+  return (
+    <form onSubmit={() => handleOnChange()}>
+      <div>
+        <h1 className="titulo">Crear categoría</h1>
+        <label>Nueva categoría:</label>
+        <input type="text" name="name" value={input.name} onChange={handleInputChange}/>
+      </div>
+      <div>
+        <label>Descripción: </label>
+        <input type="text" name="description" value={input.description} onChange={handleInputChange} />
+      </div>
+      <input type="submit" value="Agregar categoría"/>
+    </form>
+  )
+}
