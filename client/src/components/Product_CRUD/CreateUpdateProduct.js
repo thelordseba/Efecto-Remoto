@@ -34,13 +34,13 @@ function CreateUpdateProduct({id}){
         }
     }
 
-        // if (!id) {
-        // }
-        useEffect( () => {(async () => {
-        product = await axios.get(`http://localhost:3001/products/${id}`)
-        setProduct(product.data)  
-        }
-    )()}, [])
+    useEffect( () => {
+        if (id) {
+            (async () => {
+            product = await axios.get(`http://localhost:3001/products/${id}`)
+            setProduct(product.data)  
+            }
+        )()}}, [id])
 
     return (
         <div>
