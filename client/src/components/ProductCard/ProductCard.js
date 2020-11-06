@@ -1,8 +1,7 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import Stars from "./Stars"
 import { useHistory } from "react-router-dom"
 import './styles.css'
-import axios from 'axios'
 
 function ProductCard({product, small=true, stars}) {
   const history = useHistory();

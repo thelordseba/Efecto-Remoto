@@ -1,4 +1,4 @@
-import ProductCatalog from "../components/Catalogue/productCatalog";
+import ProductCatalog from "../components/ProductCatalog/productCatalog";
 import ProductDetail from "../components/ProductDetail/ProductDetail.js";
 import Menu from "../components/Menu/Menu.js";
 import Success from "../components/Success";
