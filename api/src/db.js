@@ -71,8 +71,8 @@ User.hasOne(Location);
 Location.belongsTo(User);
 
 //Relación NGO 1-----* product
-NGO.hasMany(Product)
-Product.belongsTo(NGO)
+Ngo.hasMany(Product)
+Product.belongsTo(Ngo)
 
 //Relación order 1-----* orderLine *-----1 product
 Order.belongsToMany(Product, { through: 'OrderLine' });
