@@ -16,8 +16,7 @@ export default function  Form() {
     });
   }
 
-  function handleOnChange (event){
-    event.preventDefault();
+  function handleOnChange (){
     if(!input.name || !input.description) {
       alert("Debes completar todos los campos");
     } else {
@@ -25,25 +24,13 @@ export default function  Form() {
       axios.post(`http://localhost:3001/categories/`, input)
       .then((response) => {
         console.log(response);
-        alert("Categoría agregada")
+        alert("Categoría agregada") // No alerta la categoría
       }, (error) => {
         console.log(error);
         alert("Hubo un error. Por favor, intentá de nuevo.")
       });
-      // makePostRequest();
     };
   };
-
-  // async function makePostRequest() {
-  //   var params;
-  //   params = {
-  //       name: input.newcategory,
-  //       description: input.description,
-  //   }
-
-  //   let res = await axios.post('http://localhost:3001/categories/', params);
-  //   console.log(res.data);
-  // }
 
   return (
     <form onSubmit={() => handleOnChange()}>
