@@ -6,10 +6,6 @@ import './styles.css'
 function ProductCard({product, small=true, stars, admin}) {
   const history = useHistory();
 
-  function handleOnClickAddProduct(){
-    history.push(`/product/success`)
-  }
-
   function handleOnClickEdit(){
     history.push(`/product/add`)
   }
@@ -35,7 +31,8 @@ function ProductCard({product, small=true, stars, admin}) {
           {!small && <Stars disabledClick={true} stars={stars}/>}
           {small && admin ? <div className="button" onClick={handleOnClickEdit}>Editar</div> : null} 
           {small && admin? <div className="button" onClick={handleOnClickDelete}>Eliminar</div> : null} 
-           {!small ? <div className="button" onClick={handleOnClickAddProduct}>Agregar al carrito</div> : null} 
+          {admin ? <div className="button" onClick={handleOnClickAddProduct}>Agregar producto</div> : null} 
+          {!small ? <div className="button" onClick={handleOnClickAddProduct}>Agregar al carrito</div> : null} 
         </div>
       <div>
       </div>

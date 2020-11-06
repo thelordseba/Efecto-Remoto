@@ -1,69 +1,61 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect} from 'react';
+import axios from 'axios'
 
-class CreateUpdateProduct extends Component {
-    constructor(props) {
-        super(props);
-        // si usamos un estado vacio, estamos simulando que es un create, si le ponemos valores inciales, es un update.
-        this.state = {titulo: '', descripcion: '', stock: 0, imagen: '', precio: ''};
-        /* this.state= {
-            id: 'adasd',
-            titulo: 'Zapatilla',
-            descripcion: 'Esta compra será para ayudar a la ONG Fundación Potrero. El Potrero se funda a partir de la motivación de un grupo de amigos con el fin de fomentar la igualdad de oportunidades de niños y jóvenes alrededor del país.',
-            precio: '$1.400',
-            cantidad: 'Cantidad: 1',
-            stock: 'Hasta agotar stock de 100 pares de zapatillas.',
-            stars: 3,
-            link: 'https://www.elpotrero.org',
-            imagen: 'https://topperarg.vteximg.com.br/arquivos/ids/211016-1200-1200/025433.jpg?v=636979578311500000'
-          } */
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.onImageChange = this.onImageChange.bind(this)
-    }
+function CreateUpdateProduct({id}){
+    // si usamos un estado vacio, estamos simulando que es un create, si le ponemos valores inciales, es un update.
+    const [product, setProduct] = useState();
    
-    handleOnClick = () => {
-        const {titulo, descripcion, precio} = this.state
-        if(titulo && descripcion && precio){
-            alert(JSON.stringify(this.state))
+    const handleOnClick = () => {
+        const {ngoId, name, description ,price, categoryId, img, stock} = product;
+        if(ngoId && name && description && price && categoryId && img && stock){
             // ACA IRIA EL POST/PUT A LA API
         } else {
             alert('FALTAN CAMPOS POR COMPLETAR')
         }
     };
     
-    handleInputChange(event) {
+    const handleInputChange = (event) => {
         const value = event.target.value;
         const name = event.target.name;
     
-        this.setState({
+        setProduct({
           [name]: value
         });
     }
 
-    onImageChange(event) {
+    const onImageChange = (event) => {
         if (event.target.files && event.target.files[0]) {
             let img = event.target.files[0];
             img = URL.createObjectURL(img)
-            this.setState({
+            setProduct({
               imagen: img
             });
         }
     }
 
-    render() {
-        return (
-            <div>
-            <h1>{this.state.id ? 'Update' : 'Create'} Product</h1>
-            <form>
-            <input onChange={this.handleInputChange} value={this.state.titulo} name="titulo" required type="text" placeholder="Enter Product Title" /><br /><br />
-            <input onChange={this.handleInputChange} value={this.state.descripcion} name="descripcion" required type="text" placeholder="Enter Product Price" /><br /><br />
-            <input onChange={this.handleInputChange} value={this.state.precio} name="precio" required type="text" placeholder="Enter Product Description" /><br /><br />
-            <input onChange={this.handleInputChange} value={this.state.stock} name="stock" required type="text" placeholder="Enter Product Stock" /><br /><br />
-            <img src={this.state.imagen} />
-           {!this.state.imagen ?<div> <input onChange={this.onImageChange} value={this.state.image} name="imagen" required type="file" placeholder="Upload Product Image" /><br /><br /> </div>: null} 
-            <button onClick={this.handleOnClick}>{this.state.id ? 'UPDATE' : 'CREATE'}</button>
-            </form>
-            </div>
-        );
-    }
+        // if (!id) {
+        // }
+        useEffect( () => {(async () => {
+        product = await axios.get(`http://localhost:3001/products/${id}`)
+        setProduct(product.data)  
+        }
+    )()}, [])
+
+    return (
+        <div>
+        <h1>{id ? 'Update' : 'Create'} Product</h1>
+        <form>
+        <input onChange={handleInputChange} value={product.ngoId ? product.ngoId : "ONG"} name="ong" required type="text" placeholder="Enter Product Title" /><br /><br />
+        <input onChange={handleInputChange} value={product.titulo ? product.titulo : "Título"} name="name" required type="text" placeholder="Enter Product Title" /><br /><br />
+        <input onChange={handleInputChange} value={product.descripcion ? product.descripcion : "Descripción"} name="description" required type="text" placeholder="Enter Product Price" /><br /><br />
+        <input onChange={handleInputChange} value={product.precio ? product.precio : "Precio"} name="price" required type="text" placeholder="Enter Product Description" /><br /><br />
+        <input onChange={handleInputChange} value={product.stock ? product.stock : "Stock"} name="stock" required type="text" placeholder="Enter Product Stock" /><br /><br />
+        <img src={product.imagen} />
+        {!product.imagen ?<div> <input onChange={onImageChange} value={product.img} name="img" required type="file" placeholder="Upload Product Image" /><br /><br /> </div>: null} 
+        <button onClick={handleOnClick}>${id} ? 'UPDATE' : 'CREATE'</button>
+        </form>
+        </div>
+    );
 }
+
 export default CreateUpdateProduct;

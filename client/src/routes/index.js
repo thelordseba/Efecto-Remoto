@@ -37,6 +37,12 @@ const routes = [
       exact: true
     },
     {
+      path: "/products/edit/:id",
+      render:({match}) => <CreateUpdateProduct id={match.params.id} />,
+      exact: true
+    },
+
+    {
       path:"/formcategorias",
       component: FormCategorias,
       exact: true
