@@ -29,7 +29,7 @@ const routes = [
     },
         {
       path:"/admin",
-      component: ProductCatalog,
+      render:() => <ProductCatalog admin={true} />,
       exact: true
     },
     {
@@ -38,7 +38,7 @@ const routes = [
       exact: true
     },
     {
-      path: "/products/edit/:id",
+      path: "/product/edit/:id",
       render:({match}) => <CreateUpdateProduct id={match.params.id} />,
       exact: true
     },

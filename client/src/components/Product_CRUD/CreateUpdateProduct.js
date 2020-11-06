@@ -4,24 +4,45 @@ import './create.css'
 
 function CreateUpdateProduct({id}){
     // si usamos un estado vacio, estamos simulando que es un create, si le ponemos valores inciales, es un update.
-    const [product, setProduct] = useState();
+    let [product, setProduct] = useState();
    
-    const handleOnClick = () => {
-        const {ngoId, name, description ,price, categoryId, img, stock} = product;
-        if(ngoId && name && description && price && categoryId && img && stock){
-            // ACA IRIA EL POST/PUT A LA API
-        } else {
-            alert('FALTAN CAMPOS POR COMPLETAR')
+    const handleOnClick = (e) => {
+        e.preventDefault()
+        // const {ngoId, name, description, price, stock} = product;
+        // if (ngoId && name && description && price && stock){ 
+        if (!id) {
+            axios.post(`http://localhost:3001/products`, product)
+                .then((response) => {
+                    console.log(response);
+                    alert("Producto agregado")
+                }, (error) => {
+                    console.log(error);
+                    alert("Hubo un error. Por favor, intentá de nuevo.")
+                });    
+                // } else {
+                //     alert('FALTAN CAMPOS POR COMPLETAR')
+            }
+            else {
+                axios.put(`http://localhost:3001/products/${id}`, product)
+                .then((response) => {
+                    console.log(response);
+                    alert("Producto modificado")
+                }, (error) => {
+                    console.log(error);
+                    alert("Hubo un error. Por favor, intentá de nuevo.")
+                });    
+            }
         }
-    };
     
     const handleInputChange = (event) => {
         const value = event.target.value;
         const name = event.target.name;
     
         setProduct({
-          [name]: value
+            ...product,
+            [name]: value
         });
+        console.log(product)
     }
 
     const onImageChange = (event) => {
@@ -42,18 +63,25 @@ function CreateUpdateProduct({id}){
             }
         )()}}, [id])
 
+    let src = "";
+
+    if (product) src = product.img;
+
     return (
         <div>
         <h1>{id ? 'Update' : 'Create'} Product</h1>
         <form>
-        <input onChange={handleInputChange} value={product.ngoId ? product.ngoId : "ONG"} name="ong" required type="text" placeholder="Enter Product Title" /><br /><br />
-        <input onChange={handleInputChange} value={product.titulo ? product.titulo : "Título"} name="name" required type="text" placeholder="Enter Product Title" /><br /><br />
-        <input onChange={handleInputChange} value={product.descripcion ? product.descripcion : "Descripción"} name="description" required type="text" placeholder="Enter Product Price" /><br /><br />
-        <input onChange={handleInputChange} value={product.precio ? product.precio : "Precio"} name="price" required type="text" placeholder="Enter Product Description" /><br /><br />
-        <input onChange={handleInputChange} value={product.stock ? product.stock : "Stock"} name="stock" required type="text" placeholder="Enter Product Stock" /><br /><br />
-        <img src={product.imagen} />
-        {!product.imagen ?<div> <input onChange={onImageChange} value={product.img} name="img" required type="file" placeholder="Upload Product Image" /><br /><br /> </div>: null} 
-        <button onClick={handleOnClick}>${id} ? 'UPDATE' : 'CREATE'</button>
+        <input onChange={handleInputChange} value={product ? product.ngoId : ""} name="ngoId" required type="text" placeholder="Enter Product NGO" /><br /><br />
+        <input onChange={handleInputChange} value={product ? product.name : ""} name="name" required type="text" placeholder="Enter Product Title" /><br /><br />
+        <input onChange={handleInputChange} value={product ? product.description : ""} name="description" required type="text" placeholder="Enter Product Description" /><br /><br />
+        <input onChange={handleInputChange} value={product ? product.categoryId : ""} name="categoria" required type="text" placeholder="Enter Product Category" /><br /><br />
+        <input onChange={handleInputChange} value={product ? product.price : ""} name="price" required type="text" placeholder="Enter Product Price" /><br /><br />
+        <input onChange={handleInputChange} value={product ? product.stock : ""} name="stock" required type="text" placeholder="Enter Product Stock" /><br /><br />
+        <input onChange={handleInputChange} value={product ? product.img : ""} name="img" required type="text" placeholder="Enter Product Image" /><br /><br />
+        <img src={src}/>
+        {/* {src !== "" ? <div> <input onChange={onImageChange} name="img" required type="file" placeholder="Upload Product Image" /><br /><br /> </div>: null} */}
+        <button onClick={handleOnClick}>{id ? 'UPDATE' : 'CREATE'}</button>
+        {/* <button onClick={handleOnClick}>{id ? 'DELETE' : 'NODELETE'}</button> */}
         </form>
         </div>
     );
