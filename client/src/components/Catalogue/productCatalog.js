@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import Product from '../Product/Product.js';
 import mockProducts from './products'
-
 //function ProductCatalog ({products}){    
 function ProductCatalog ({}){    
   const [products, setProducts] = useState(mockProducts)
