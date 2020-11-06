@@ -17,6 +17,7 @@ function ProductCatalog (props){
       <div>
           {products.map((product) => 
           <ProductCard
+          admin={true}
             key={product.id}
             product={product}
           />)}

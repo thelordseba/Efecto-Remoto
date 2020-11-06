@@ -3,7 +3,7 @@ import Stars from "./Stars"
 import { useHistory } from "react-router-dom"
 import './styles.css'
 
-function ProductCard({product, small=true, stars}) {
+function ProductCard({product, small=true, stars, admin}) {
   const history = useHistory();
 
   function handleOnClickAddProduct(){
@@ -33,8 +33,8 @@ function ProductCard({product, small=true, stars}) {
           <div className="stock">{product.stock}</div>
           <div className="review">Review</div></> : null}
           {!small && <Stars disabledClick={true} stars={stars}/>}
-          {small ? <div className="button" onClick={handleOnClickEdit}>Editar</div> : null} 
-          {small ? <div className="button" onClick={handleOnClickDelete}>Eliminar</div> : null} 
+          {small && admin ? <div className="button" onClick={handleOnClickEdit}>Editar</div> : null} 
+          {small && admin? <div className="button" onClick={handleOnClickDelete}>Eliminar</div> : null} 
            {!small ? <div className="button" onClick={handleOnClickAddProduct}>Agregar al carrito</div> : null} 
         </div>
       <div>

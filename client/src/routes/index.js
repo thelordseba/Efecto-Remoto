@@ -26,6 +26,11 @@ const routes = [
       component: ProductCatalog,
       exact: true
     },
+        {
+      path:"/admin",
+      component: ProductCatalog,
+      exact: true
+    },
     {
       path: '/product/add',
       component: CreateUpdateProduct,
