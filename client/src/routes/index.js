@@ -2,7 +2,7 @@ import ProductCatalog from "../components/ProductCatalog/productCatalog";
 import ProductDetail from "../components/ProductDetail/ProductDetail.js";
 import Menu from "../components/Menu/Menu.js";
 import Success from "../components/Success";
-import React from 'react';
+import React,{Fragment} from 'react';
 import CreateUpdateProduct from "../components/Product_CRUD/CreateUpdateProduct"
 import FormCategorias from "../components/FormCategory/FormCategory";
 import Home from "../components/Home";
@@ -20,8 +20,9 @@ const routes = [
     },
     {
       path:"/",
-      component: Menu
-    },
+      render:() => <Fragment><Menu/><Home/></Fragment>
+    }, 
+    
     {
       path:"/products",
       component: ProductCatalog,
