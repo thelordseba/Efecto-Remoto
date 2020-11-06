@@ -1,5 +1,5 @@
 .container{
-    background-color: rgb(19, 42, 71);
+    background-color:#0d7377;
     color: white;
     border-bottom: solid 1px #ccc;
     padding: 10px;
@@ -10,8 +10,8 @@
     margin: 0 auto;
 }
 .container .subcontainer div{
-    display: inline-block;
-    vertical-align: middle;
+    display: flex;
+    align-items: center;
 }
 .logo{
     color: #fff;
