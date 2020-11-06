@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+const categorias = ['ropa','juguete', 'experiencia']
 class CreateUpdateProduct extends Component {
     constructor(props) {
         super(props);
@@ -19,7 +20,7 @@ class CreateUpdateProduct extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.onImageChange = this.onImageChange.bind(this)
     }
-   
+
     handleOnClick = () => {
         const {titulo, descripcion, precio} = this.state
         if(titulo && descripcion && precio){
@@ -31,12 +32,19 @@ class CreateUpdateProduct extends Component {
     };
     
     handleInputChange(event) {
-        const value = event.target.value;
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = event.target.name;
     
-        this.setState({
-          [name]: value
-        });
+        if (target.type === 'checkbox') {
+            this.setState({
+                categorias: {...this.state.categorias, [name]: value}
+              });
+        } else {
+            this.setState({
+                [name]: value
+              });
+        }
     }
 
     onImageChange(event) {
@@ -50,6 +58,7 @@ class CreateUpdateProduct extends Component {
     }
 
     render() {
+        console.log('state: ', this.state)
         return (
             <div>
             <h1>{this.state.id ? 'Update' : 'Create'} Product</h1>
@@ -58,6 +67,12 @@ class CreateUpdateProduct extends Component {
             <input onChange={this.handleInputChange} value={this.state.descripcion} name="descripcion" required type="text" placeholder="Enter Product Price" /><br /><br />
             <input onChange={this.handleInputChange} value={this.state.precio} name="precio" required type="text" placeholder="Enter Product Description" /><br /><br />
             <input onChange={this.handleInputChange} value={this.state.stock} name="stock" required type="text" placeholder="Enter Product Stock" /><br /><br />
+            {categorias.map(cat => 
+            <div>
+                <label for={cat}> {cat}</label>
+                <input onChange={this.handleInputChange}  type="checkbox" id={cat} name={cat} value={cat}/>
+            </div>
+            )}
             <img src={this.state.imagen} />
            {!this.state.imagen ?<div> <input onChange={this.onImageChange} value={this.state.image} name="imagen" required type="file" placeholder="Upload Product Image" /><br /><br /> </div>: null} 
             <button onClick={this.handleOnClick}>{this.state.id ? 'UPDATE' : 'CREATE'}</button>
