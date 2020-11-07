@@ -1,8 +1,11 @@
+import React,{Fragment} from 'react';
 import ProductCatalog from "../components/ProductCatalog/productCatalog";
 import ProductDetail from "../components/ProductDetail/ProductDetail.js";
 import Menu from "../components/Menu/Menu.js";
 import Success from "../components/Success";
-import React,{Fragment} from 'react';
+React,{Fragment} from 'react';
+//import Home from "../components/Home";
+
 import CreateUpdateProduct from "../components/Product_CRUD/CreateUpdateProduct"
 import FormCategorias from "../components/FormCategory/FormCategory";
 import Home from "../components/Home";
@@ -18,17 +21,22 @@ const routes = [
       component: Success,
       exact: true,
     },
+    // Cuando agreguemos el home, descomentar esta linea y borrar el de abajo que tiene el menu solo.
+   /*  {
+      path:"/",
+      render:() => <Fragment><Menu/><Home/></Fragment>
+    }, */
     {
       path:"/",
       render:() => <Fragment><Menu/><Home/></Fragment>
-    }, 
-    
+      component: Menu,
+    },
     {
       path:"/products",
       component: ProductCatalog,
       exact: true
     },
-        {
+    {
       path:"/admin",
       render:() => <ProductCatalog admin={true} />,
       exact: true
