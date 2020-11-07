@@ -22,15 +22,11 @@ const routes = [
       exact: true,
     },
     // Cuando agreguemos el home, descomentar esta linea y borrar el de abajo que tiene el menu solo.
-   /*  {
+   {
       path:"/",
       render:() => <Fragment><Menu/><Home/></Fragment>
-    }, */
-    {
-      path:"/",
-      render:() => <Fragment><Menu/><Home/></Fragment>,
-      component: Menu,
-    },
+    }, 
+    
     {
       path:"/products",
       component: ProductCatalog,
@@ -57,11 +53,11 @@ const routes = [
       component: FormCategorias,
       exact: true
     },
-    {
+  /*   {
       path:"/home",
       component:Home,
       exact: true
-    }
+    } */
    
  
   ];
