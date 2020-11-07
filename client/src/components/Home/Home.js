@@ -9,7 +9,7 @@ function Home(){
     const history = useHistory();
 
     const handleOnClickUser = () => { 
-        history.push(`/products/add`) //cambiar ruta
+        history.push(`/products`) //cambiar ruta
     }
 
     const handleOnClickAdmin = () => {
