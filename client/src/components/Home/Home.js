@@ -9,11 +9,11 @@ function Home(){
     const history = useHistory();
 
     const handleOnClickUser = () => { 
-        history.push(`/products`) //cambiar ruta
+        history.push(`/products`) 
     }
 
     const handleOnClickAdmin = () => {
-        history.push(`/product/edit/:id`) //cambiar ruta
+        history.push(`/admin`) //cambiar ruta
     }
 
     return (
