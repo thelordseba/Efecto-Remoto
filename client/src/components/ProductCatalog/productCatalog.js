@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import ProductCard from '../ProductCard/ProductCard.js';
+import FilterCategories from './filterCategories.js';
 import axios from 'axios'
 import { useHistory } from "react-router-dom"
 
@@ -20,6 +21,7 @@ function ProductCatalog ({admin}){
   
   return (
       <div>
+          <FilterCategories />
           {admin ? <div className="button" onClick={handleOnClickAddProduct}>Agregar producto</div> : null} 
           {products.map((product) => 
           <ProductCard
