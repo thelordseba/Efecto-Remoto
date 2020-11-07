@@ -1,17 +1,19 @@
 import React from 'react';
 import img from './Images/Logo.png';
 import './Home.css';
+import {useHistory} from 'react-router-dom';
+
 
 function Home(){
 
     const history = useHistory();
 
     const handleOnClickUser = () => { 
-        history.push(`/Product_CRUD/CreateUpdateProduct.js`) //cambiar ruta
+        history.push(`/products/add`) //cambiar ruta
     }
 
     const handleOnClickAdmin = () => {
-        history.push(`/product/add`) //cambiar ruta
+        history.push(`/product/edit/:id`) //cambiar ruta
     }
 
     return (

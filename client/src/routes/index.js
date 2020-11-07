@@ -53,6 +53,7 @@ const routes = [
       component: FormCategorias,
       exact: true
     },
+    
   /*   {
       path:"/home",
       component:Home,
