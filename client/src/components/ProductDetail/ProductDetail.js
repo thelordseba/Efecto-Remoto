@@ -12,8 +12,8 @@ function ProductDetail({small=false, stars, id}) {
     history.push(`/product/success`)
   }
 
-  function handleOnClickEdit(){
-    history.push(`/product/add`)
+  function handleOnClickEdit(id){
+    history.push(`/products/edit/${id}`)
   }
 
   function handleOnClickDelete() {
@@ -21,7 +21,7 @@ function ProductDetail({small=false, stars, id}) {
   }
 
   useEffect( () => {(async () => {
-      product = await axios.get(`http://localhost:3001/products/${id}`)
+    product = await axios.get(`http://localhost:3001/products/${id}`)
     setProduct(product.data)  
     }
   )()}, [])
@@ -41,7 +41,7 @@ function ProductDetail({small=false, stars, id}) {
           <div className="stock">{product.stock}</div>
           <div className="review">Review</div></> : null}
           {!small && <Stars disabledClick={true} stars={stars}/>}
-          {small ? <div className="button" onClick={handleOnClickEdit}>Editar</div> : null} 
+          {small ? <div className="button" onClick={handleOnClickEdit(id)}>Editar</div> : null} 
           {small ? <div className="button" onClick={handleOnClickDelete}>Eliminar</div> : null} 
            {!small ? <div className="button" onClick={handleOnClickAddProduct}>Agregar al carrito</div> : null} 
         </div>

@@ -3,7 +3,9 @@ import ProductCatalog from "../components/ProductCatalog/productCatalog";
 import ProductDetail from "../components/ProductDetail/ProductDetail.js";
 import Menu from "../components/Menu/Menu.js";
 import Success from "../components/Success";
+React,{Fragment} from 'react';
 //import Home from "../components/Home";
+
 import CreateUpdateProduct from "../components/Product_CRUD/CreateUpdateProduct"
 import FormCategorias from "../components/FormCategory/FormCategory";
 import Home from "../components/Home";
@@ -26,6 +28,7 @@ const routes = [
     }, */
     {
       path:"/",
+      render:() => <Fragment><Menu/><Home/></Fragment>
       component: Menu,
     },
     {
@@ -34,10 +37,21 @@ const routes = [
       exact: true
     },
     {
+      path:"/admin",
+      render:() => <ProductCatalog admin={true} />,
+      exact: true
+    },
+    {
       path: '/product/add',
       component: CreateUpdateProduct,
       exact: true
     },
+    {
+      path: "/product/edit/:id",
+      render:({match}) => <CreateUpdateProduct id={match.params.id} />,
+      exact: true
+    },
+
     {
       path:"/formcategorias",
       component: FormCategorias,
