@@ -69,18 +69,18 @@ function CreateUpdateProduct({id}){
 
     return (
         <div>
-        <h1>{id ? 'Update' : 'Create'} Product</h1>
+        <h1>{id ? 'Actualizar' : 'Crear'} Producto</h1>
         <form>
-        <input onChange={handleInputChange} value={product ? product.ngoId : ""} name="ngoId" required type="text" placeholder="Enter Product NGO" /><br /><br />
-        <input onChange={handleInputChange} value={product ? product.name : ""} name="name" required type="text" placeholder="Enter Product Title" /><br /><br />
-        <input onChange={handleInputChange} value={product ? product.description : ""} name="description" required type="text" placeholder="Enter Product Description" /><br /><br />
-        <input onChange={handleInputChange} value={product ? product.categoryId : ""} name="categoria" required type="text" placeholder="Enter Product Category" /><br /><br />
-        <input onChange={handleInputChange} value={product ? product.price : ""} name="price" required type="text" placeholder="Enter Product Price" /><br /><br />
-        <input onChange={handleInputChange} value={product ? product.stock : ""} name="stock" required type="text" placeholder="Enter Product Stock" /><br /><br />
-        <input onChange={handleInputChange} value={product ? product.img : ""} name="img" required type="text" placeholder="Enter Product Image" /><br /><br />
+        <input onChange={handleInputChange} value={product ? product.ngoId : ""} name="ngoId" required type="text" placeholder="Ingrese Producto ONG" /><br /><br />
+        <input onChange={handleInputChange} value={product ? product.name : ""} name="name" required type="text" placeholder="Ingrese el título del producto" /><br /><br />
+        <input onChange={handleInputChange} value={product ? product.description : ""} name="description" required type="text" placeholder="Ingrese la descripción del producto" /><br /><br />
+        <input onChange={handleInputChange} value={product ? product.categoryId : ""} name="categoria" required type="text" placeholder="Ingrese categoría del producto" /><br /><br />
+        <input onChange={handleInputChange} value={product ? product.price : ""} name="price" required type="text" placeholder="Ingrese el precio del producto" /><br /><br />
+        <input onChange={handleInputChange} value={product ? product.stock : ""} name="stock" required type="text" placeholder="Ingresar stock del producto" /><br /><br />
+        <input onChange={handleInputChange} value={product ? product.img : ""} name="img" required type="text" placeholder="Ingrese la imagen del producto" /><br /><br />
         <img src={src}/>
         {/* {src !== "" ? <div> <input onChange={onImageChange} name="img" required type="file" placeholder="Upload Product Image" /><br /><br /> </div>: null} */}
-        <button onClick={handleOnClick}>{id ? 'UPDATE' : 'CREATE'}</button>
+        <button onClick={handleOnClick}>{id ? 'ACTUALIZAR' : 'CREAR'}</button>
         {/* <button onClick={handleOnClick}>{id ? 'DELETE' : 'NODELETE'}</button> */}
         </form>
         </div>

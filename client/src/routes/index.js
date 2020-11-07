@@ -3,7 +3,7 @@ import ProductCatalog from "../components/ProductCatalog/productCatalog";
 import ProductDetail from "../components/ProductDetail/ProductDetail.js";
 import Menu from "../components/Menu/Menu.js";
 import Success from "../components/Success";
-React,{Fragment} from 'react';
+
 //import Home from "../components/Home";
 
 import CreateUpdateProduct from "../components/Product_CRUD/CreateUpdateProduct"
@@ -28,7 +28,7 @@ const routes = [
     }, */
     {
       path:"/",
-      render:() => <Fragment><Menu/><Home/></Fragment>
+      render:() => <Fragment><Menu/><Home/></Fragment>,
       component: Menu,
     },
     {
