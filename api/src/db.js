@@ -2,6 +2,7 @@ require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
+
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/development`, {
   logging: false, // set to console.log to see the raw SQL queries
@@ -35,7 +36,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Product, Category, User, Review, Order, Payment, Ngo } = sequelize.models;
+const { Product, Category, User, Review, Order, Payment, Ngo, OrderLine } = sequelize.models;
 
 // RELACIONES
 
@@ -60,12 +61,18 @@ Payment.belongsTo(Order);
 User.hasMany(Order);
 Order.belongsTo(User);
 
+//Relación order 1-----* orderLine *-----1 product
+Product.belongsToMany(Order, { through: OrderLine }); 
+Order.belongsToMany(Product, { through: OrderLine });
+
 //Relación NGO 1-----* product
 Ngo.hasMany(Product)
 Product.belongsTo(Ngo)
 
 //Relación NGO 1----*location
 //FALTA LA TABLA DE LOCATION TODAVÍA
+
+//FALTA RELACION CON TABLA PAYMENT Y POSIBLEMENTE LA CREACION DE TABLA PaymentType
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
