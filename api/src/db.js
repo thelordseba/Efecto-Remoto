@@ -60,9 +60,9 @@ Payment.belongsTo(Order);
 User.hasMany(Order);
 Order.belongsTo(User);
 
-//Relación NGO *-----1 product
-Product.hasMany(Ngo)
-Ngo.belongsTo(Product)
+//Relación NGO 1-----* product
+Ngo.hasMany(Product)
+Product.belongsTo(Ngo)
 
 //Relación NGO 1----*location
 //FALTA LA TABLA DE LOCATION TODAVÍA
