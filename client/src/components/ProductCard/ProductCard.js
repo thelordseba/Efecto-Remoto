@@ -32,8 +32,8 @@ function ProductCard({product, small=true, stars, admin, id}) {
           <a href={"/products/" + product.id}>
             <div className="title">{product.name}</div>
           </a>
-          {small && <div className="stars-small"> <Stars disabledClick={true} stars={stars}/> </div>}
-          <div className="price">{product.price}</div>
+          {/* {small && <div className="stars-small"> <Stars disabledClick={true} stars={stars}/> </div>} */}
+          <div className="price">${product.price}</div>
           {!small ? <><div className="divider"/>
             <div className="description">{product.description}</div>
             <div className="link"> <span>Ver más en :</span> <a href ={product.link}>{product.link}</a> </div>

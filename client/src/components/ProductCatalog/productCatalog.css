@@ -3,6 +3,6 @@
     border: 1px solid red; 
     flex-wrap:wrap;
     justify-content: stretch;
-    overflow-y: auto;
+    overflow-y: visible;
     width:100%
 }

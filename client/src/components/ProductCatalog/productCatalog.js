@@ -7,9 +7,9 @@ import { useHistory } from "react-router-dom"
 
 function ProductCatalog ({admin}){
   let [products, setProducts] = useState([])
-  let [category, setCategory] = useState([])
+  let [category, setCategory] = useState('allCategories')
   let [categories, setCategories] = useState([])
-  let [search, setSearch] = useState()
+  let [search, setSearch] = useState("")
   
   const history = useHistory();
 
@@ -18,6 +18,8 @@ function ProductCatalog ({admin}){
   }
 
   const handleOnChange = (e) => {
+    console.log("HOLA")
+    console.log(e.target.value)
     setCategory(e.target.value)
   }
   const handleOnClickFilterBySearch = (value) => {
@@ -29,9 +31,6 @@ function ProductCatalog ({admin}){
       setProducts(products.data)  
   })()}, [])
   
-  console.log(products)
-  console.log(categories)
-
   useEffect( () => {(async () => {
       categories = await axios.get(`http://localhost:3001/categories/`)
       setCategories(categories.data)
@@ -39,7 +38,7 @@ function ProductCatalog ({admin}){
 
   const filterProductsByCategory = (id) => {
     products = axios.get(`http://localhost:3001/products/categories/${id}`)
-    setProducts(products.data)  
+    .then(products => setProducts(products.data))  
   }
 
   const filterProductsBySearch = (search) => {
@@ -48,15 +47,30 @@ function ProductCatalog ({admin}){
   }
 
   const mapProducts = () => {
-    // if (category) {filterProductsByCategory(category)}
-    // if (search) {filterProductsBySearch(search)}
-    return products.map(product => 
+    products = products.map(product => 
       <ProductCard
       admin={admin}
       key={product.id}
       id={product.id}
-      product={product}
+      product={product} 
       />)
+    console.log(category)
+
+    if (category === 'allCategories') {
+      return products
+    } 
+    
+    else {filterProductsByCategory(category)}
+
+    // // if (search) {filterProductsBySearch(search)}
+    // if (category === 'allCategories') {
+    //   return products.map(product => 
+    //   <ProductCard
+    //   admin={admin}
+    //   key={product.id}
+    //   id={product.id}
+    //   product={product}
+    //   />)
   }
  
   return (
@@ -69,12 +83,12 @@ function ProductCatalog ({admin}){
             {/* <option value="" disabled selected>Categorías</option> */}
             <option value="allCategories">Todas las categorías</option>
             {categories.map((category) => 
-            <option value={category.categoryId}>{category.name}</option> 
+            <option value={category.id}>{category.name}</option> 
             )}
-          </select>
-          {admin ? <div className="button" onClick={handleOnClickAddProduct}>Agregar producto</div> : null} 
+          </select> 
         </div> 
       : null}
+      {admin ? <div className="button" onClick={handleOnClickAddProduct}>Agregar producto</div> : null}
     <div className="cards-container"> {mapProducts()} </div>
     </>
   )
