@@ -16,9 +16,9 @@ function ProductDetail({small=false, stars, id}) {
     history.push(`/products/edit/${id}`)
   }
 
-  function handleOnClickDelete() {
+  // function handleOnClickDelete() {
 
-  }
+  // }
 
   useEffect( () => {(async () => {
     product = await axios.get(`http://localhost:3001/products/${id}`)
@@ -28,7 +28,7 @@ function ProductDetail({small=false, stars, id}) {
 
   return (
     <div className={small ? "product-container-small" : "product-container"}>
-        <img className={small ? "photo-small" : "photo"} src={product.img}/>
+        <img className={small ? "photo-small" : "photo"} src={product.img} alt={"Imagen no encontrada"}/>
         <div className="content">
           <div className="title">{product.name}</div>
           {small && <div className="stars-small"> <Stars disabledClick={true} stars={stars}/> </div>}
@@ -42,7 +42,7 @@ function ProductDetail({small=false, stars, id}) {
           <div className="review">Review</div></> : null}
           {!small && <Stars disabledClick={true} stars={stars}/>}
           {small ? <div className="button" onClick={handleOnClickEdit(id)}>Editar</div> : null} 
-          {small ? <div className="button" onClick={handleOnClickDelete}>Eliminar</div> : null} 
+          {/* {small ? <div className="button" onClick={handleOnClickDelete}>Eliminar</div> : null}  */}
            {!small ? <div className="button" onClick={handleOnClickAddProduct}>Agregar al carrito</div> : null} 
         </div>
       <div>

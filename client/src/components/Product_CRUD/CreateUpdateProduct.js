@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect} from 'react';
+import React, { useState, useEffect} from 'react';
 import axios from 'axios'
 import './create.css'
 
@@ -45,15 +45,15 @@ function CreateUpdateProduct({id}){
         console.log(product)
     }
 
-    const onImageChange = (event) => {
-        if (event.target.files && event.target.files[0]) {
-            let img = event.target.files[0];
-            img = URL.createObjectURL(img)
-            setProduct({
-              imagen: img
-            });
-        }
-    }
+    // const onImageChange = (event) => {
+    //     if (event.target.files && event.target.files[0]) {
+    //         let img = event.target.files[0];
+    //         img = URL.createObjectURL(img)
+    //         setProduct({
+    //           imagen: img
+    //         });
+    //     }
+    // }
 
     useEffect( () => {
         if (id) {
@@ -78,7 +78,7 @@ function CreateUpdateProduct({id}){
         <input className="input5" onChange={handleInputChange} value={product ? product.price : ""} name="price" required type="text" placeholder="Ingrese el precio del producto" /><br /><br />
         <input className="input6" onChange={handleInputChange} value={product ? product.stock : ""} name="stock" required type="text" placeholder="Ingresar stock del producto" /><br /><br />
         <input className="input7" onChange={handleInputChange} value={product ? product.img : ""} name="img" required type="text" placeholder="Ingrese la imagen del producto" /><br /><br />
-        <img src={src}/>
+        <img src={src} alt={"Imagen no encontrada"}/>
         {/* {src !== "" ? <div> <input onChange={onImageChange} name="img" required type="file" placeholder="Upload Product Image" /><br /><br /> </div>: null} */}
         <button className="button" onClick={handleOnClick}>{id ? 'ACTUALIZAR' : 'CREAR'}</button>
         {/* <button onClick={handleOnClick}>{id ? 'DELETE' : 'NODELETE'}</button> */}

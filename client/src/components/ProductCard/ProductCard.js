@@ -27,7 +27,7 @@ function ProductCard({product, small=true, stars, admin, id}) {
   return (
   <div className="scroll">
     <div className={small ? "product-container-small" : "product-container"}>
-        <img className={small ? "photo-small" : "photo"} src={product.img}/>
+        <img className={small ? "photo-small" : "photo"} src={product.img} alt={"Imagen no encontrada"}/>
         <div className="content">
           <div className="title">{product.name}</div>
           {small && <div className="stars-small"> <Stars disabledClick={true} stars={stars}/> </div>}
