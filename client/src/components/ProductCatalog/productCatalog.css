@@ -1,8 +1,12 @@
+
 .cards-container {
-    display:flex;
     border: 1px solid red; 
-    flex-wrap:wrap;
-    justify-content: stretch;
-    overflow-y: visible;
-    width:100%
+    width:100%;
+    display: grid;
+    grid-template: repeat(4, 1fr) / repeat(3, 1fr);
+    column-gap: 10px;
+}
+
+.product {
+  
 }

@@ -26,9 +26,9 @@ function ProductCard({product, small=true, stars, admin, id, refresh}) {
 
   return (
   <>
-    <div className={small ? "product-container-small" : "product-container"}>
-        <img className={small ? "photo-small" : "photo"} src={product.img} alt={"Imagen no encontrada"}/>
-        <div className="content">
+    <div className={small ? "product-card-container-small" : "product-card-container"}>
+        <img className={small ? "product-card-photo-small" : "product-card-photo"} src={product.img} alt={"Imagen no encontrada"}/>
+        <div className="product-card-content">
           <a href={"/products/" + product.id}>
             <div className="title">{product.name}</div>
           </a>
@@ -42,11 +42,12 @@ function ProductCard({product, small=true, stars, admin, id, refresh}) {
             <div className="stock">{product.stock}</div>
             <div className="review">Review</div></> : null}
             {!small && <Stars disabledClick={true} stars={stars}/>}
+            {small && admin ? <div className="product-card-button" onClick={() => handleOnClickEdit(id)}>Editar</div> : null} 
+           {small && admin? <div className="product-card-button" onClick={() => handleOnClickDelete(id)}>Eliminar</div> : null} 
+           {!small ? <div className="product-card-button" onClick={handleOnClickAddProduct}>Agregar al carrito</div> : null} 
+
           </div>
-        {small && admin ? <div className="button" onClick={() => handleOnClickEdit(id)}>Editar</div> : null} 
-        {small && admin? <div className="button" onClick={() => handleOnClickDelete(id)}>Eliminar</div> : null} 
-        {!small ? <div className="button" onClick={handleOnClickAddProduct}>Agregar al carrito</div> : null} 
-      <div>
+          <div>
       </div>
     </div>
   </>
