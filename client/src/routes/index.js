@@ -21,11 +21,17 @@ const routes = [
       component: Success,
       exact: true,
     },
-    // Cuando agreguemos el home, descomentar esta linea y borrar el de abajo que tiene el menu solo.
-   {
+
+    {
       path:"/",
-      render:() => <Fragment><Menu/><Home/></Fragment>,
-      exact:true,
+      render:() => <Fragment><Menu/></Fragment>,
+      // exact:true,
+    }, 
+
+    {
+      path:"/",
+      component: Home,
+      exact: true,
     }, 
     
     {
@@ -54,15 +60,8 @@ const routes = [
       component: FormCategorias,
       exact: true
     },
-    
-  /*   {
-      path:"/home",
-      component:Home,
-      exact: true
-    } */
-   
  
-  ];
+];
   
   export default routes;
   
