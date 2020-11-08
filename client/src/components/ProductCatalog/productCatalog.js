@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import ProductCard from '../ProductCard/ProductCard.js';
 import Menu from '../Menu/Menu.js';
 import axios from 'axios'
@@ -18,63 +18,53 @@ function ProductCatalog ({admin}){
   }
 
   const handleOnChange = (e) => {
-    console.log("HOLA")
-    console.log(e.target.value)
     setCategory(e.target.value)
+    console.log(category)
   }
+
   const handleOnClickFilterBySearch = (value) => {
     setSearch(value)
   }
 
+  // const refresh = useCallback(async () => {
+  //   if(category !== 'allCategories') {
+  //     const {data} = await axios.get(`http://localhost:3001/products/categories/${category}`)
+  //     setProducts(data.products)
+  //   } else {
+  //     const {data} = await axios
+  //     .get(`http://localhost:3001/products/search?query=${search}`)
+  //     setProducts(data)
+  //   } 
+  // }, [search, category])
+
+  // useEffect( () => refresh(), [refresh])
+
   useEffect( () => {(async () => {
-      products = await axios.get(`http://localhost:3001/products`)
-      setProducts(products.data)  
-  })()}, [])
+    if(category !== 'allCategories') {
+      const {data} = await axios.get(`http://localhost:3001/products/categories/${category}`)
+      setProducts(data.products)
+    } else {
+      const {data} = await axios
+      .get(`http://localhost:3001/products/search?query=${search}`)
+      setProducts(data)
+    } 
+  })()}, [search, category])
   
   useEffect( () => {(async () => {
-      categories = await axios.get(`http://localhost:3001/categories/`)
-      setCategories(categories.data)
+    categories = await axios.get(`http://localhost:3001/categories/`)
+    setCategories(categories.data)
   })()}, [])
 
-  const filterProductsByCategory = (id) => {
-    products = axios.get(`http://localhost:3001/products/categories/${id}`)
-    .then(products => setProducts(products.data))  
-  }
-
-  const filterProductsBySearch = (search) => {
-    products = axios.get(`http://localhost:3001/products/search?query=${search}`)
-    setProducts(products.data)  
-  }
+  console.log(products)
 
   const mapProducts = () => {
-    console.log('products',products)
-    products = products && products.length && products.map(product => 
-      <div className="product">
+    return products.map(product => 
       <ProductCard
-        admin={admin}
-        key={product.id}
-        id={product.id}
-        product={product} 
-        />
-      </div>
-      )
-    console.log(category)
-
-    if (category === 'allCategories') {
-      return products
-    } 
-    
-    else {filterProductsByCategory(category)}
-
-    // // if (search) {filterProductsBySearch(search)}
-    // if (category === 'allCategories') {
-    //   return products.map(product => 
-    //   <ProductCard
-    //   admin={admin}
-    //   key={product.id}
-    //   id={product.id}
-    //   product={product}
-    //   />)
+      admin={admin}
+      key={product.id}
+      id={product.id}
+      product={product} 
+      />)
   }
  
   return (

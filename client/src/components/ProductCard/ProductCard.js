@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom"
 
 import axios from 'axios'
 
-function ProductCard({product, small=true, stars, admin, id}) {
+function ProductCard({product, small=true, stars, admin, id, refresh}) {
   const history = useHistory();
 
   function handleOnClickEdit(id){
@@ -14,7 +14,7 @@ function ProductCard({product, small=true, stars, admin, id}) {
   function handleOnClickDelete(id) {
     axios.delete(`http://localhost:3001/products/${id}`, product)
     .then((response) => {
-        console.log(response);
+        refresh && refresh()
         alert("Producto eliminado")
     }, (error) => {
         console.log(error);
