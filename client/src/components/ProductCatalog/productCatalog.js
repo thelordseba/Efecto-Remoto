@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import ProductCard from '../ProductCard/ProductCard.js';
+import Menu from '../Menu/Menu.js';
 import axios from 'axios'
 import './productCatalog.css' 
 import { useHistory } from "react-router-dom"
@@ -8,6 +9,7 @@ function ProductCatalog ({admin}){
   let [products, setProducts] = useState([])
   let [category, setCategory] = useState([])
   let [categories, setCategories] = useState([])
+  let [search, setSearch] = useState()
   
   const history = useHistory();
 
@@ -18,9 +20,9 @@ function ProductCatalog ({admin}){
   const handleOnChange = (e) => {
     setCategory(e.target.value)
   }
-  // const handleOnClickFilterByCategory = () => {
-
-  // }
+  const handleOnClickFilterBySearch = (value) => {
+    setSearch(value)
+  }
 
   useEffect( () => {(async () => {
       products = await axios.get(`http://localhost:3001/products`)
@@ -35,13 +37,31 @@ function ProductCatalog ({admin}){
       setCategories(categories.data)
   })()}, [])
 
-  // useEffect(() => {(async () => {
-  //     const prodByCat = await axios.get(`http://localhost:3001/products/categories/:categoryId`)
-  //     setProdByCat(prodByCat.data)
-  // })()}, [])
-  
+  const filterProductsByCategory = (id) => {
+    products = axios.get(`http://localhost:3001/products/categories/${id}`)
+    setProducts(products.data)  
+  }
+
+  const filterProductsBySearch = (search) => {
+    products = axios.get(`http://localhost:3001/products/search?query=${search}`)
+    setProducts(products.data)  
+  }
+
+  const mapProducts = () => {
+    // if (category) {filterProductsByCategory(category)}
+    // if (search) {filterProductsBySearch(search)}
+    return products.map(product => 
+      <ProductCard
+      admin={admin}
+      key={product.id}
+      id={product.id}
+      product={product}
+      />)
+  }
+ 
   return (
     <>
+    <Menu onChange={handleOnClickFilterBySearch}/>
     {!admin 
       ? <div>
           <label className="tituloForm">Seleccioná una categoría: </label>
@@ -55,13 +75,7 @@ function ProductCatalog ({admin}){
           {admin ? <div className="button" onClick={handleOnClickAddProduct}>Agregar producto</div> : null} 
         </div> 
       : null}
-    <div className="cards-container"> {products.map(product => 
-      <ProductCard
-      admin={admin}
-      key={product.id}
-      id={product.id}
-      product={product}
-      />)} </div>
+    <div className="cards-container"> {mapProducts()} </div>
     </>
   )
 }

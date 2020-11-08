@@ -22,7 +22,7 @@ function Menu (props){
                     </ul>
                 </div>    
                 <div className="grig grid3">
-                    <SearchBar />
+                    <SearchBar onChange={props.onChange}/>
                 </div>
             </div>    
         </>

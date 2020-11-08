@@ -7,7 +7,9 @@ function SearchBar (props){
   const [search, setSearch] = useState("");
 
   const handleOnClick = () => {
-    console.log(search)
+    props.onChange(search.value)
+
+
     if (!search.length) {
       axios.get(`http://localhost:3001/products/search?query=${search.value}`)
       .then(response => setSearch(response.data))
