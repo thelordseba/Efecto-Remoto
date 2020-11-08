@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import './FormCategory.css';
 
@@ -8,6 +8,7 @@ export default function  Form() {
     name: '',
     description: '',
   });
+  const [categories, setCategories] = useState([])
 
 
   const handleInputChange = function(e) {
@@ -16,6 +17,11 @@ export default function  Form() {
       [e.target.name]: e.target.value     //agarra el NAME de cada input y como VALOR agarra lo que esta escrito en input
     });
   }
+
+  useEffect( () => {(async () => {
+    const categories = await axios.get(`http://localhost:3001/categories/`)
+    setCategories(categories.data)
+  })()}, [])
 
   function handleOnChange (){
     if(!input.name || !input.description) {
@@ -53,6 +59,15 @@ export default function  Form() {
       <input className="add-buttom" type="submit" value="Agregar categoría"/>
       </div>
     </form>
+    <br></br>
+    <div className="formContainerList">
+        <label>Categorías ya creadas:</label>
+        <ul>
+          {categories.map((categories) => 
+          <li value={categories}>{categories.name}</li> 
+          )}
+        </ul>
+      </div>
     </div>
   )
 }

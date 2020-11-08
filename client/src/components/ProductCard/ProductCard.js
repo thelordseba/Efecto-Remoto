@@ -27,7 +27,7 @@ function ProductCard({product, small=true, stars, admin, id}) {
   return (
   <>
     <div className={small ? "product-container-small" : "product-container"}>
-        <img className={small ? "photo-small" : "photo"} src={product.img}/>
+        <img className={small ? "photo-small" : "photo"} src={product.img} alt={"Imagen no encontrada"}/>
         <div className="content">
           <a href={"/products/" + product.id}>
             <div className="title">{product.name}</div>
@@ -36,7 +36,7 @@ function ProductCard({product, small=true, stars, admin, id}) {
           <div className="price">{product.price}</div>
           {!small ? <><div className="divider"/>
             <div className="description">{product.description}</div>
-            <div className="link"> <span>Ver más en :</span> <a href ={product.link}>{product.link}</a> </div>
+             {/* <div className="link"> <span>Ver más en:</span> <a href ={product.link}>{product.link}</a> </div> */}
             <div className="divider"/>
             <div className="cantidad"></div>
             <div className="stock">{product.stock}</div>
