@@ -47,13 +47,17 @@ function ProductCatalog ({admin}){
   }
 
   const mapProducts = () => {
-    products = products.map(product => 
+    console.log('products',products)
+    products = products && products.length && products.map(product => 
+      <div className="product">
       <ProductCard
-      admin={admin}
-      key={product.id}
-      id={product.id}
-      product={product} 
-      />)
+        admin={admin}
+        key={product.id}
+        id={product.id}
+        product={product} 
+        />
+      </div>
+      )
     console.log(category)
 
     if (category === 'allCategories') {

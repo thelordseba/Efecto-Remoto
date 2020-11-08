@@ -1,28 +1,25 @@
 
-  .product-container {
+  .product-card-container {
     margin-top: 36px;
     display: flex;
     justify-content: center;
     margin-bottom: 30px;
-    border: 1px solid lightgrey; 
     margin-left: 100px;
     margin-right: 100px;
   }
 
-  .product-container-small {
-    display: flex;
+  .product-card-container-small {
+    display: grid;
     justify-content: center;
-    border: 1px solid lightgrey; 
-    width: 30%
   }
 
-  .photo{
+  .product-card-photo{
     height: 400px;
     width: 400px; 
   }
 
   
-  .photo-small{
+  .product-card-photo-small{
     height: 200px;
     width: 200px; 
   }
@@ -46,21 +43,19 @@
     width: 100%  
   }
 
-  .content{
+  .product-card-content{
       display: block;
-      width: 40%;
   }
   .cantidad{
      text-align: center;
   }
 
-  .button{
+  .product-card-button{
       padding: 8px;
       border: solid 1px black;
       cursor: pointer;
       text-align: center;
       margin-top: 24px;
-      width: 10%;
       margin-bottom: 16px;
       align-items: center;
       background-color: gray;
@@ -109,6 +104,10 @@
   opacity: 1;
   color: #ffffff;
   text-align: center;
+  margin:20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
   }
   .input1{

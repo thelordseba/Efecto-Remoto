@@ -26,7 +26,7 @@ function SearchBar (props){
   return(
       <div className="container">
         <input className="input" onChange={handleInputChange} type= "text" placeholder= "Buscar..."/>
-        <button className="button" onClick={handleOnClick}>Buscar</button>
+        <button className="searchbar-button" onClick={handleOnClick}>Buscar</button>
       </div> 
   );
 }

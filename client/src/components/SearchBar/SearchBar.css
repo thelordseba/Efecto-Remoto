@@ -5,7 +5,7 @@
     justify-content: space-evenly
 }
 
-.button{
+.searchbar-button{
     background: #FFFFFF 0% 0% no-repeat padding-box;
     border-radius: 5px;
     font: normal normal bold 16px/21px Segoe UI;
@@ -14,7 +14,7 @@
     opacity: 1;
 }
 
-.button:hover{
+.searchbar-button:hover{
     background: #0D7377 0% 0% no-repeat padding-box;
     font: normal normal bold 16px/21px Segoe UI;
     color: #FFFFFF;

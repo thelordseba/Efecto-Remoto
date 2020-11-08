@@ -46,7 +46,7 @@
     width: 100%  
   }
 
-  .content{
+  .product-detail-content{
       display: block;
       width: 40%;
   }
@@ -54,7 +54,7 @@
      text-align: center;
   }
 
-  .button{
+  .product-detail-button{
       padding: 8px;
       border: solid 1px black;
       cursor: pointer;
