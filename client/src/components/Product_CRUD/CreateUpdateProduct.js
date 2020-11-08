@@ -1,4 +1,5 @@
 import React, { useState, useEffect} from 'react';
+import { useHistory } from "react-router-dom"
 import axios from 'axios'
 import './create.css'
 
@@ -9,39 +10,26 @@ function CreateUpdateProduct({id}){
     const [categories, setCategories] = useState([])
    
     const handleOnClick = (e) => {
-        console.log(product)
         e.preventDefault()
-        // const {ngoId, name, description, price, stock} = product;
-        // if (ngoId && name && description && price && stock){ 
-        // if (!product) {
-            axios.post(`http://localhost:3001/products`, product)
-            .then((response) => {
-                console.log('rta: ',response);
+        axios.post(`http://localhost:3001/products`, product)
+        .then((response) => {
+            return axios.post(`http://localhost:3001/products/${response.data.id}/category/${product.categoryId}`)
+        }, (error) => {
+            console.log(error);
+            alert("Hubo un error. Por favor, intentá de nuevo.")
+        })
+        .then((response) => {
+            // console.log(response);
+            if(id) {
+                alert("Producto modificado")
+            } else {
                 alert("Producto agregado")
-                // console.log(categoryId)
-                return axios.post(`http://localhost:3001/products/${response.data.id}/categories/${product.categoryId}`)
-            }, (error) => {
-                console.log(error);
-                alert("Hubo un error. Por favor, intentá de nuevo.")
-            })
-            .then((response) => {
-                console.log(response);
-                alert("Producto agregado")
-            }, (error) => {
-                console.log(error);
-                alert("Hubo un error. Por favor, intentá de nuevo.")
-            })
-        // } else {
-        //     axios.put(`http://localhost:3001/products/${id}`, product)
-        //     .then((response) => {
-        //         console.log(response);
-        //         alert("Producto modificado")
-        //     }, (error) => {
-        //         console.log(error);
-        //         alert("Hubo un error. Por favor, intentá de nuevo.")
-        //     });    
-        // }
-    }
+            }
+        }, (error) => {
+            console.log(error);
+            alert("Hubo un error. Por favor, intentá de nuevo.")
+        })
+    };
     
     const handleInputChange = (event) => {
         const value = event.target.value;
@@ -59,7 +47,7 @@ function CreateUpdateProduct({id}){
             (async () => {
                 product = await axios.get(`http://localhost:3001/products/${id}`)
                 setProduct(product.data)  
-                }
+            }
             )()}}, [id])
 
     let src = "";
