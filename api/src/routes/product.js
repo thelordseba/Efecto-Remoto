@@ -71,7 +71,7 @@ server.get('/categories/:categoryId', (req, res, next) => {
 // GET /search?query={valor}
 server.get('/search', (req, res, next) => {
     const valor = req.query.query;
-
+    console.log(valor)
     Product.findAll({
       where: {
         [Sequelize.Op.or]: [
