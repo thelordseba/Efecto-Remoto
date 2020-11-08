@@ -1,0 +1,8 @@
+.cards-container {
+    display:flex;
+    border: 1px solid red; 
+    flex-wrap:wrap;
+    justify-content: stretch;
+    overflow-y: auto;
+    width:100%
+}

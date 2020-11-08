@@ -74,7 +74,7 @@ function CreateUpdateProduct({id}){
         <input className="input1" onChange={handleInputChange} value={product ? product.ngoId : ""} name="ngoId" required type="text" placeholder="Ingrese Producto ONG" /><br /><br />
         <input className="input2" onChange={handleInputChange} value={product ? product.name : ""} name="name" required type="text" placeholder="Ingrese el título del producto" /><br /><br />
         <input className="input3"onChange={handleInputChange} value={product ? product.description : ""} name="description" required type="text" placeholder="Ingrese la descripción del producto" /><br /><br />
-        <input className="input4" onChange={handleInputChange} value={product ? product.categoryId : ""} name="categoria" required type="text" placeholder="Ingrese categoría del producto" /><br /><br />
+        <input className="input4" onChange={handleInputChange} value={product ? product.categoryId : ""} name="category" required type="text" placeholder="Ingrese categoría del producto" /><br /><br />
         <input className="input5" onChange={handleInputChange} value={product ? product.price : ""} name="price" required type="text" placeholder="Ingrese el precio del producto" /><br /><br />
         <input className="input6" onChange={handleInputChange} value={product ? product.stock : ""} name="stock" required type="text" placeholder="Ingresar stock del producto" /><br /><br />
         <input className="input7" onChange={handleInputChange} value={product ? product.img : ""} name="img" required type="text" placeholder="Ingrese la imagen del producto" /><br /><br />

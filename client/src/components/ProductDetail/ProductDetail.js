@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import Stars from "./Stars"
 import { useHistory } from "react-router-dom"
-import './styles.css'
 import axios from 'axios'
 
 function ProductDetail({small=false, stars, id}) {
