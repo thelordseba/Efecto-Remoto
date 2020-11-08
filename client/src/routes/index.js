@@ -24,7 +24,8 @@ const routes = [
     // Cuando agreguemos el home, descomentar esta linea y borrar el de abajo que tiene el menu solo.
    {
       path:"/",
-      render:() => <Fragment><Menu/><Home/></Fragment>
+      render:() => <Fragment><Menu/><Home/></Fragment>,
+      exact:true,
     }, 
     
     {
