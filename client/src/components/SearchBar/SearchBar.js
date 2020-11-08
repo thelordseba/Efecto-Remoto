@@ -8,8 +8,8 @@ function SearchBar (props){
   }
     return(
         <div className="actions">
-        <input className="input" type= "text" placeholder= "Buscar..."/>
-        <button className="button" onClick={Buscando}>Buscar</button>
+          <input className="input" type= "text" placeholder= "Buscar..."/>
+          <button className="button" onClick={Buscando}>Buscar</button>
         </div> 
     );
 }

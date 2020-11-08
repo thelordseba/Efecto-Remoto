@@ -93,7 +93,7 @@ server.get('/search', (req, res, next) => {
 
 // Task S24: Crear ruta de producto individual, pasado un ID que retorne un producto con sus detalles
 server.get('/:id', (req, res, next) => {
-    Product.findByPk(req.params.id)
+    Product.findByPk(req.params.id, {include: {model: Category}})
     .then(product => {
         if(product) {
             res.send(product)
