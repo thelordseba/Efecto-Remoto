@@ -25,6 +25,7 @@ function ProductCard({product, small=true, stars, admin, id}) {
   function handleOnClickAddProduct() {}
 
   return (
+  <div className="scroll">
     <div className={small ? "product-container-small" : "product-container"}>
         <img className={small ? "photo-small" : "photo"} src={product.img}/>
         <div className="content">
@@ -46,6 +47,7 @@ function ProductCard({product, small=true, stars, admin, id}) {
       <div>
       </div>
     </div>
+  </div>
   )
 }
 
