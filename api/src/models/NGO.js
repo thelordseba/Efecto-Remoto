@@ -9,12 +9,12 @@ module.exports = (sequelize) => {
 
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
 
     url: {
       type: DataTypes.TEXT,
-      allowNull: false, 
+      allowNull: true, 
       validate: {
         isUrl: true,
       },
