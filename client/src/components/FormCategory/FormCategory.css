@@ -1,8 +1,12 @@
 .formContainer{
-display:flex;
-justify-content: center;
-margin-top: 26px
-    
+    display:flex;
+    justify-content: left;
+    margin-top: 26px  
+}
+.formContainerList{
+    display:flex;
+    justify-content: right;
+    margin-top: 26px; 
 }
 .titulo{
     display: flex;

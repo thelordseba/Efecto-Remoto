@@ -34,7 +34,7 @@ function ProductCard({product, small=true, stars, admin, id}) {
           <div className="title">{product.price}</div>
           {!small ? <><div className="divider"/>
           <div className="description">{product.description}</div>
-          <div className="link"> <span>Ver más en :</span> <a href ={product.link}>{product.link}</a> </div>
+          {/* <div className="link"> <span>Ver más en:</span> <a href ={product.link}>{product.link}</a> </div> */}
           <div className="divider"/>
           <div className="cantidad"></div>
           <div className="stock">{product.stock}</div>

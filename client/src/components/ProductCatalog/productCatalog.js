@@ -36,7 +36,7 @@ function ProductCatalog ({admin}){
   
   return (
       <div>
-          <label className="tituloForm">Seleccioná una categoría: </label>
+          <label>Seleccioná una categoría: </label>
           <select>
             {/* <option value="" disabled selected>Categorías</option> */}
             <option value="allCategories">Todas las categorías</option>
