@@ -7,7 +7,7 @@ function CreateUpdateProduct({id}){
     // si usamos un estado vacio, estamos simulando que es un create, si le ponemos valores inciales, es un update.
     let [product, setProduct] = useState();
     // let [category, setCategory] = useState();
-    const [categories, setCategories] = useState([])
+    let [categories, setCategories] = useState([])
     const history = useHistory();
 
     const handleOnClick = (e) => {
@@ -56,7 +56,7 @@ function CreateUpdateProduct({id}){
     if (product) src = product.img;
 
     useEffect( () => {(async () => {
-        const categories = await axios.get(`http://localhost:3001/categories/`)
+        categories = await axios.get(`http://localhost:3001/categories/`)
         setCategories(categories.data)
     })()}, [])
 
@@ -74,7 +74,7 @@ function CreateUpdateProduct({id}){
         <div className="crud-form">
             <br /><br />
             <form className="">
-                <input className="input1" onChange={handleInputChange} value={product ? product.ngoId : ""} name="ngoId" required type="text" placeholder="ONG" /><br /><br />
+                {/* <input className="input1" onChange={handleInputChange} value={product ? product.ngoId : ""} name="ngoId" required type="text" placeholder="ONG" /><br /><br /> */}
                 <input className="input2" onChange={handleInputChange} value={product ? product.name : ""} name="name" required type="text" placeholder="Título del producto" /><br /><br />
                 <input className="input3" onChange={handleInputChange} value={product ? product.description : ""} name="description" required type="text" placeholder="Descripción del producto" /><br /><br />
                 <input className="input4" onChange={handleInputChange} value={product ? product.categoryId : ""} name="categoryId" required type="text" placeholder="Categoría del producto" /><br /><br />

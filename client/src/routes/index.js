@@ -1,11 +1,11 @@
-import React,{Fragment} from 'react';
+import React from 'react';
 import ProductCatalog from "../components/ProductCatalog/productCatalog";
 import ProductDetail from "../components/ProductDetail/ProductDetail.js";
-import Menu from "../components/Menu/Menu.js";
-import Success from "../components/Success";
+// import Menu from "../components/Menu/Menu.js";
+// import Success from "../components/Success";
 import CreateUpdateProduct from "../components/Product_CRUD/CreateUpdateProduct"
 import FormCategorias from "../components/FormCategory/FormCategory";
-import Home from "../components/Home";
+// import Home from "../components/Home";
 
 const routes = [
   // {

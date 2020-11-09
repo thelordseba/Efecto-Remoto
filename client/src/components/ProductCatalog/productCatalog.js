@@ -1,4 +1,5 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
+// import {useCallback} from 'react';
 import ProductCard from '../ProductCard/ProductCard.js';
 import Menu from '../Menu/Menu.js';
 import axios from 'axios'
@@ -19,7 +20,7 @@ function ProductCatalog ({admin}){
 
   const handleOnChange = (e) => {
     setCategory(e.target.value)
-    console.log(category)
+    // console.log(category)
   }
 
   const handleOnClickFilterBySearch = (value) => {
@@ -55,7 +56,7 @@ function ProductCatalog ({admin}){
     setCategories(categories.data)
   })()}, [])
 
-  console.log(products)
+  // console.log(products)
 
   const mapProducts = () => {
     return products.map(product => 
@@ -77,7 +78,7 @@ function ProductCatalog ({admin}){
             {/* <option value="" disabled selected>Categorías</option> */}
             <option value="allCategories">Todas las categorías</option>
             {categories.map((category) => 
-            <option value={category.id}>{category.name}</option> 
+            <option value={category.id} key={category.id}>{category.name}</option> 
             )}
           </select> 
         </div> 
