@@ -31,7 +31,7 @@ function ProductDetail({small=false, stars, id}) {
         <div className="product-detail-content">
           <div className="title">{product.name}</div>
           {small && <div className="stars-small"> <Stars disabledClick={true} stars={stars}/> </div>}
-          <div className="title">{product.price}</div>
+          <div className="title">${product.price}</div>
           {!small ? <><div className="divider"/>
           <div className="description">{product.description}</div>
           {/* <div className="link"> <span>Ver más en:</span> <a href ={product.link}>{product.link}</a> </div> */}
