@@ -8,7 +8,8 @@ function CreateUpdateProduct({id}){
     let [product, setProduct] = useState();
     // let [category, setCategory] = useState();
     const [categories, setCategories] = useState([])
-   
+    const history = useHistory();
+
     const handleOnClick = (e) => {
         e.preventDefault()
         axios.post(`http://localhost:3001/products`, product)
@@ -60,10 +61,17 @@ function CreateUpdateProduct({id}){
     })()}, [])
 
     // console.log(categories)
+    const handleGoBack = () => {
+        history.push(`/products`)
+      }
 
     return (
-        <div>
-            <h1 className="tituloForm">{id ? 'Actualizar' : 'Crear'} Producto</h1>
+        <>
+        <div className="volver" onClick={handleGoBack}>
+            Volver
+        </div>
+        <h1 className="tituloForm">{id ? 'Actualizar' : 'Crear'} Producto</h1>
+        <div className="crud-form">
             <br /><br />
             <form className="">
                 <input className="input1" onChange={handleInputChange} value={product ? product.ngoId : ""} name="ngoId" required type="text" placeholder="ONG" /><br /><br />
@@ -87,6 +95,7 @@ function CreateUpdateProduct({id}){
                 {/* <button onClick={handleOnClick}>{id ? 'DELETE' : 'NODELETE'}</button> */}
             </form>
         </div>
+        </>
     );
 }
 

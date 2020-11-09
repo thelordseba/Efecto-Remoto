@@ -42,8 +42,10 @@ function ProductCard({product, small=true, stars, admin, id, refresh}) {
             <div className="stock">{product.stock}</div>
             <div className="review">Review</div></> : null}
             {!small && <Stars disabledClick={true} stars={stars}/>}
-            {small && admin ? <div className="product-card-button" onClick={() => handleOnClickEdit(id)}>Editar</div> : null} 
-           {small && admin? <div className="product-card-button" onClick={() => handleOnClickDelete(id)}>Eliminar</div> : null} 
+            {small && admin ? <div className="buttons-container">
+                <div className="product-card-button" onClick={() => handleOnClickEdit(id)}>Editar</div>
+                <div className="product-card-button" onClick={() => handleOnClickDelete(id)}>Eliminar</div>
+            </div> : null}
            {!small ? <div className="product-card-button" onClick={handleOnClickAddProduct}>Agregar al carrito</div> : null} 
 
           </div>

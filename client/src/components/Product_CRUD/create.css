@@ -7,3 +7,14 @@
     justify-content: center;
 
 }
+
+.volver{
+    cursor: pointer;
+    margin: 8px;
+    border-radius: 8px;
+    border: solid 1px;
+    padding: 4px;
+    width: 47px;
+    background-color: teal;
+    color: white;
+}
