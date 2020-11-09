@@ -9,6 +9,8 @@
 .grid1 {
     grid-column: 1;
     width: 75%;
+    margin-top: 16px;
+    margin-left: 4px;
 }
 
 .grid2 {
@@ -19,7 +21,8 @@
 }
 
 .grid3 {
-    grid-column: 3
+    grid-column: 3;
+    margin-top: 34px;
 }
 
 .list {

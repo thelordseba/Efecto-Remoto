@@ -81,9 +81,9 @@ function ProductCatalog ({admin}){
     <>
     <Menu onChange={handleOnClickFilterBySearch}/>
     {!admin 
-      ? <div>
+      ? <div className="product-catalog-container">
           <label className="tituloForm">Seleccioná una categoría: </label>
-          <select onChange={handleOnChange}>
+          <select className="select"onChange={handleOnChange}>
             {/* <option value="" disabled selected>Categorías</option> */}
             <option value="allCategories">Todas las categorías</option>
             {categories.map((category) => 
@@ -92,7 +92,7 @@ function ProductCatalog ({admin}){
           </select> 
         </div> 
       : null}
-      {admin ? <div className="button" onClick={handleOnClickAddProduct}>Agregar producto</div> : null}
+      {admin ? <div className="product-catalog-button" onClick={handleOnClickAddProduct}>Agregar producto</div> : null}
     <div className="cards-container"> {mapProducts()} </div>
     </>
   )

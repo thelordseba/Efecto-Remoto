@@ -11,7 +11,10 @@
   .product-card-container-small {
     display: grid;
     justify-content: center;
-  }
+    border: solid 4px teal;
+    margin-bottom: 8px;
+    padding: 8px;
+}
 
   .product-card-photo{
     height: 400px;
@@ -25,11 +28,14 @@
   }
 
   .title {
-    font-size: 28px;
+    font-size: 25px;
     color: gray;
     margin-bottom: 12px;
     margin-top: 16px;
     text-align: center;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   .description {
@@ -59,8 +65,13 @@
       margin-bottom: 16px;
       align-items: center;
       background-color: gray;
+      width: 60px;
+      margin-left: 8px;
   }
   
+  .buttons-container {
+    display: flex;
+  }
   
 
   .stars-small{
@@ -94,15 +105,9 @@
     margin-right: 25px;
   }
   .tituloForm{
-  top: 239px;
-  left: 36px;
-  width: 200px;
-  height: 100px;
-  background: #0D7377 0% 0% no-repeat padding-box;
-  border: 1px solid #707070;
   border-radius: 24px;
   opacity: 1;
-  color: #ffffff;
+  color:black;
   text-align: center;
   margin:20px;
   display: flex;

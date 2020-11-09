@@ -62,8 +62,9 @@ function CreateUpdateProduct({id}){
     // console.log(categories)
 
     return (
-        <div>
-            <h1 className="tituloForm">{id ? 'Actualizar' : 'Crear'} Producto</h1>
+        <>
+        <h1 className="tituloForm">{id ? 'Actualizar' : 'Crear'} Producto</h1>
+        <div className="crud-form">
             <br /><br />
             <form className="">
                 <input className="input1" onChange={handleInputChange} value={product ? product.ngoId : ""} name="ngoId" required type="text" placeholder="ONG" /><br /><br />
@@ -87,6 +88,7 @@ function CreateUpdateProduct({id}){
                 {/* <button onClick={handleOnClick}>{id ? 'DELETE' : 'NODELETE'}</button> */}
             </form>
         </div>
+        </>
     );
 }
 

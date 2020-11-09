@@ -61,15 +61,13 @@ body {
 }
 
   .footer {
-    position: absolute;
-    width: 100%;
-    height: 28px;
-    background-color: rgba(0,0,0,0.8);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    padding-left: 16px;
-    justify-content: center;
-    flex-shrink: 0;
+    position: fixed;
+    background-color: teal;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin-bottom: 0px;
+    color: white;
+    text-align: center;
   }
   
