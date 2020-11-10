@@ -7,6 +7,7 @@ import HomeAdmin from "../containers/HomeAdmin/HomeAdmin.js"
 import Home from "../containers/Home/Home.js";
 // import Success from "../components/Success";
 import CreateUpdateProduct from "../components/Product_CRUD/CreateUpdateProduct"
+import NGOs from "../components/NGOs/NGOs.js"
 import FormCategorias from "../components/FormCategory/FormCategory";
 
 const routes = [
@@ -35,11 +36,26 @@ const routes = [
   {
     path:"/admin",
     component: HomeAdmin,
-    exact: true
   },
   {
-    path: '/product/add',
-    component: CreateUpdateProduct,
+    path:"/admin/products",
+    render: () => <ProductCatalog admin={true}/>,
+  },
+  {
+    path:"/admin/ngos",
+    render: () => <NGOs />,
+  },
+  // {
+  //   path:"/admin/orders",
+  //   render: ()=> <Orders />,
+  // },
+  // {
+  //   path:"/admin/users",
+  //   render: () => <Users />,
+  // },
+  {
+    path: '/admin/addproduct',
+    render: () => <CreateUpdateProduct />,
     exact: true
   },
   {
@@ -49,7 +65,7 @@ const routes = [
   },
 
   {
-    path:"/categories/add",
+    path:"/admin/categories",
     component: FormCategorias,
     exact: true
   },

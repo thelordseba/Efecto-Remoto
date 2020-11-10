@@ -61,7 +61,7 @@ function CreateUpdateProduct({id}){
 
     // console.log(categories)
     const handleGoBack = () => {
-        history.push(`/products`)
+        history.push(`/admin/products`)
       }
 
     return (
