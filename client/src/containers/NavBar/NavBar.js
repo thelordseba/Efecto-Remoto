@@ -31,7 +31,7 @@ function NavBar (){
                 <div className="grid grid4">
                     <ul className="grid list">
                         <li className="listee">
-                            <a href="/admin">Admin</a>
+                            <a href="/admin/products">Admin</a>
                         </li>
                     </ul>
                 </div>
