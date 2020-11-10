@@ -28,7 +28,7 @@
 .grid4 {
     grid-column: 4;
     font-size: 1.8em;
-    margin-right: 20px;
+    margin:auto
 }
 
 .list {
