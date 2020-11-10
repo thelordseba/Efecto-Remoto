@@ -1,14 +1,12 @@
 import React from 'react';
-import ProductCatalog from "../components/ProductCatalog/productCatalog";
+import ProductCatalog from "../containers/ProductCatalog/productCatalog";
 import ProductDetail from "../components/ProductDetail/ProductDetail.js";
-// import Menu from "../components/Menu/Menu.js";
 import Nosotros from "../components/Nosotros/Nosotros.js";
 import HomeAdmin from "../containers/HomeAdmin/HomeAdmin.js"
 import Home from "../containers/Home/Home.js";
 // import Success from "../components/Success";
 import CreateUpdateProduct from "../components/Product_CRUD/CreateUpdateProduct"
 import FormCategorias from "../components/FormCategory/FormCategory";
-// import Home from "../components/Home";
 
 const routes = [
   {
@@ -24,7 +22,6 @@ const routes = [
     path: "/products/:id",
     render:({match}) => <ProductDetail id={match.params.id} />
   },
-    
   {
     path:"/products",
     component: ProductCatalog,

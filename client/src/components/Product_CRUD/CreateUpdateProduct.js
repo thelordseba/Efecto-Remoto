@@ -12,24 +12,23 @@ function CreateUpdateProduct({id}){
 
     const handleOnClick = (e) => {
         e.preventDefault()
-        axios.post(`http://localhost:3001/products`, product)
-        .then((response) => {
-            return axios.post(`http://localhost:3001/products/${response.data.id}/category/${product.categoryId}`)
-        }, (error) => {
-            console.log(error);
-            alert("Hubo un error. Por favor, intentá de nuevo.")
-        })
-        .then((response) => {
-            // console.log(response);
-            if(id) {
-                alert("Producto modificado")
-            } else {
-                alert("Producto agregado")
-            }
-        }, (error) => {
-            console.log(error);
-            alert("Hubo un error. Por favor, intentá de nuevo.")
-        })
+        if(id) {
+            axios.put(`http://localhost:3001/products/${id}`, product)
+            .then((response) => {return axios.post(`http://localhost:3001/products/${id}/category/${product.categoryId}`)})
+            .then(response => alert("Producto modificado"))
+            .catch(error => {
+                console.log(error)
+                alert("Hubo un error. Por favor, intentá de nuevo.")}
+            )
+        } else {
+            axios.post(`http://localhost:3001/products`, product)
+            .then((response) => {return axios.post(`http://localhost:3001/products/${response.data.id}/category/${product.categoryId}`)})
+            .then(response => alert("Producto agregado"))
+            .catch(error => {
+                console.log(error)
+                alert("Hubo un error. Por favor, intentá de nuevo.")}
+            )
+        }
     };
     
     const handleInputChange = (event) => {
