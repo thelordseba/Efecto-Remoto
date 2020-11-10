@@ -7,9 +7,11 @@ function NavBar (){
     return(
         <>
             <div className="grid grid-container">
-                <a href="/">
-                    <img className="grid grid1" src={manitos} alt= "Imagen no encontrada" />
-                </a>                 
+                <div className="grid grid1">
+                    <a href="/">
+                        <img src={manitos} alt= "Imagen no encontrada" />
+                    </a> 
+                </div>                
                 <div className="grid grid2">
                     <ul className="grid list">
                         <li className="listee">
