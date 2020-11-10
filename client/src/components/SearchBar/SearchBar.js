@@ -1,32 +1,25 @@
-import React, { useState} from 'react';
-// import {useEffect} from 'react';
+import React, { useState } from 'react';
 import './SearchBar.css';
-import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { getProductsByQuery } from "../../redux/actions/actions.js"
 
-function SearchBar (props){
+function SearchBar (){
 
-  const [search, setSearch] = useState("");
+  let [search, setSearch] = useState("")
 
-  const handleOnClick = () => {
-    props.onChange(search.value)
+  const dispatch = useDispatch()
 
-
-    if (!search.length) {
-      axios.get(`http://localhost:3001/products/search?query=${search.value}`)
-      .then(response => setSearch(response.data))
-      .catch(error => alert("Hubo un error. Por favor, intentá de nuevo."))
-    }
+  const handleOnChange = (event) => {
+    setSearch(event.target.value)
   }
-
-  const handleInputChange = (event) => {
-    setSearch({ 
-      value: event.target.value
-    });    
+  
+  const handleOnClick = () => {
+    dispatch(getProductsByQuery(search)) 
   }
 
   return(
       <div className="container">
-        <input className="input" onChange={handleInputChange} type= "text" placeholder= "Buscar..."/>
+        <input className="input" type= "text" onChange={handleOnChange} placeholder= "Buscar..."/>
         <button className="searchbar-button" onClick={handleOnClick}>Buscar</button>
       </div> 
   );
