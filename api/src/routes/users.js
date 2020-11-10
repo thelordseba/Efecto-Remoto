@@ -23,6 +23,15 @@ server.post('/', (req, res, next) => {
     .catch(next);
 });
 
+//S36 Crear ruta que retorne todos los usuarios
+server.get('/', (req, res, next)=>{
+    User.findAll()
+    .then((user)=>{
+        res.status(201).json(user);
+    })
+    .catch(next);
+});
+
 //S35 Crear Ruta para modificar usuario
 server.put('/:userId', (req, res, next) => {
     let userId = req.params.userId;
