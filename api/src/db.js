@@ -2,8 +2,9 @@ require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/development`, {
+
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
+const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`, {
   logging: false, // set to console.log to see the raw SQL queries
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
 });
@@ -35,14 +36,43 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Product, Category } = sequelize.models;
+const { Product, Category, User, Review, Order, Payment, Ngo, OrderLine } = sequelize.models;
 
-// Aca vendrian las relaciones
-// Product.hasMany(Reviews);
+// RELACIONES
 
 
+//Relacion product 1-----* prodCat *-----1 category 
 Product.belongsToMany(Category, { through: 'prodCat' });
 Category.belongsToMany(Product, { through: 'prodCat' });
+
+//Relacion user 1-----* review
+User.hasMany(Review);   
+Review.belongsTo(User);
+
+//Relacion product 1-----* review
+Product.hasMany(Review);   
+Review.belongsTo(Product);
+
+//Relación order 1-----* payment  //¿Una orden puede tener varios metodos de pago?
+Order.hasMany(Payment);           //REVISAR ESTA RELACIÓN
+Payment.belongsTo(Order);  
+
+//Relación user 1-----* order  
+User.hasMany(Order);
+Order.belongsTo(User);
+
+//Relación order 1-----* orderLine *-----1 product
+Product.belongsToMany(Order, { through: OrderLine }); 
+Order.belongsToMany(Product, { through: OrderLine });
+
+//Relación NGO 1-----* product
+Ngo.hasMany(Product)
+Product.belongsTo(Ngo)
+
+//Relación NGO 1----*location
+//FALTA LA TABLA DE LOCATION TODAVÍA
+
+//FALTA RELACION CON TABLA PAYMENT Y POSIBLEMENTE LA CREACION DE TABLA PaymentType
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

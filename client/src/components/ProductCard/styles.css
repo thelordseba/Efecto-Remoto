@@ -1,0 +1,200 @@
+
+  .product-card-container {
+    margin-top: 36px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    margin-left: 100px;
+    margin-right: 100px;
+  }
+
+  .product-card-container-small {
+    display: grid;
+    justify-content: center;
+    border: solid 4px teal;
+    margin-bottom: 8px;
+    padding: 8px;
+}
+
+  .product-card-photo{
+    height: 400px;
+    width: 400px; 
+  }
+
+  
+  .product-card-photo-small{
+    height: 200px;
+    width: 200px; 
+  }
+
+  .title {
+    font-size: 25px;
+    color: gray;
+    margin-bottom: 12px;
+    margin-top: 16px;
+    text-align: center;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .description {
+      text-align: center;
+  }
+
+  .divider {
+    margin-top: 24px;
+    border-top: 1px solid gray;
+    margin-bottom: 24px;    
+    width: 100%  
+  }
+
+  .product-card-content{
+      display: block;
+  }
+  .cantidad{
+     text-align: center;
+  }
+
+  .product-card-button{
+      padding: 8px;
+      border: solid 1px black;
+      cursor: pointer;
+      text-align: center;
+      margin-top: 24px;
+      margin-bottom: 16px;
+      align-items: center;
+      background-color: gray;
+      width: 60px;
+      margin-left: 8px;
+  }
+  
+  .buttons-container {
+    display: flex;
+  }
+  
+
+  .stars-small{
+    text-align: center;
+  }
+
+  .link {
+    text-align: center;
+    margin-top: 16px;
+  }
+.stock{
+  text-align: end;
+  font-size: x-small;
+}
+.review{
+  font-size: x-large;
+  font-family: ui-monospace;
+  margin-bottom: 16px;
+}
+
+  .stars {
+      
+    width: 15px;
+    height: 15px;
+    margin-right: 15px;
+    text-align: center;
+    
+  }
+  
+  .stars:last-child {
+    margin-right: 25px;
+  }
+  .tituloForm{
+  border-radius: 24px;
+  opacity: 1;
+  color:black;
+  text-align: center;
+  margin:20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  }
+  .input1{
+  top: 400px;
+  left: 50px;
+  width: 250px;
+  height: 19px;
+  text-align: left;
+  font: normal normal 600 14px/19px Segoe UI;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+  }
+.input2{
+  top: 400px;
+  left: 50px;
+  width: 250px;
+  height: 19px;
+  text-align: left;
+  font: normal normal 600 14px/19px Segoe UI;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+  }
+.input3{
+  top: 400px;
+  left: 50px;
+  width: 250px;
+  height: 19px;
+  text-align: left;
+  font: normal normal 600 14px/19px Segoe UI;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+  }
+.input4{
+  top: 400px;
+  left: 50px;
+  width: 250px;
+  height: 19px;
+  text-align: left;
+  font: normal normal 600 14px/19px Segoe UI;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+  }
+.input5{
+  top: 400px;
+  left: 50px;
+  width: 250px;
+  height: 19px;
+  text-align: left;
+  font: normal normal 600 14px/19px Segoe UI;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+  }
+.input6{
+  top: 400px;
+  left: 50px;
+  width: 250px;
+  height: 19px;
+  text-align: left;
+  font: normal normal 600 14px/19px Segoe UI;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+    }
+.input7{
+  top: 400px;
+  left: 50px;
+  width: 250px;
+  height: 19px;
+  text-align: left;
+  font: normal normal 600 14px/19px Segoe UI;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+  }
+  
+  .scroll::-webkit-scrollbar{
+    width: 7px;
+    background: black;
+
+  }

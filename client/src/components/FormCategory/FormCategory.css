@@ -1,0 +1,31 @@
+.formContainer{
+    display:flex;
+    justify-content: left;
+    margin-top: 26px  
+}
+.formContainerList{
+    display:flex;
+    justify-content: right;
+    margin-top: 26px; 
+}
+.titulo{
+    display: flex;
+    justify-content: center;
+}
+.cont-form{
+    display:flex;
+    text-align: left;
+    margin-top: 16px;
+}
+.add-buttom{
+    background-color: #0d7377;
+    cursor:pointer;
+}
+.label {
+    width: 130px;
+}
+.cont-btn{
+    display:flex;
+    justify-content: center;
+    margin-top: 18px;
+}
