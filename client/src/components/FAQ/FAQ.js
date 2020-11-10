@@ -1,12 +1,12 @@
 import React from 'react';
 
-function Nosotros(){
+function FAQ(){
 
     return (
     <div>
-    ESTO ES NOSOTROS
+    ESTO ES FAQ
     </div>  
     
     )
 }
-export default Nosotros;
+export default FAQ;

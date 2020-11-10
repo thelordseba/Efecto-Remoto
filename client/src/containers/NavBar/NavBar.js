@@ -19,7 +19,7 @@ function NavBar (){
                             <a href="/products">Productos</a>
                         </li>
                         <li className="listee">
-                            <a href="/">FAQ</a>
+                            <a href="/faq">FAQ</a>
                         </li>
                     </ul>
                 </div>    

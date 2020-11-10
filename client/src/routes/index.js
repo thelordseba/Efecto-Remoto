@@ -2,6 +2,7 @@ import React from 'react';
 import ProductCatalog from "../containers/ProductCatalog/productCatalog";
 import ProductDetail from "../components/ProductDetail/ProductDetail.js";
 import Nosotros from "../components/Nosotros/Nosotros.js";
+import FAQ from "../components/FAQ/FAQ.js";
 import HomeAdmin from "../containers/HomeAdmin/HomeAdmin.js"
 import Home from "../containers/Home/Home.js";
 // import Success from "../components/Success";
@@ -17,6 +18,10 @@ const routes = [
   {
     path:"/nosotros",
     component: Nosotros,
+  },
+  {
+    path:"/faq",
+    component: FAQ,
   },
   {
     path: "/products/:id",
