@@ -10,9 +10,9 @@ export function getProducts() {
                 payload: response.data
             });
           })
-        // .catch((error)=> {
-        //       alert("Hubo un error. Por favor, intentá de nuevo.")
-        // }
+        .catch(() => {
+              alert("Hubo un error. Por favor, intentá de nuevo.")
+        })
     }
 }
 
@@ -25,7 +25,7 @@ export function getProductsByQuery(search) {
                 type: actions.SEARCHBYQUERY,
                 payload: response.data });
           })
-          .catch((error)=> {
+          .catch(()=> {
               alert("Hubo un error. Por favor, intentá de nuevo.")
           })
     }
@@ -35,7 +35,6 @@ export function getProductsByCategory(category) {
     return function(dispatch) {
         return axios.get(`http://localhost:3001/products/categories/${category}`)
         .then(response => {
-            console.log(response)
             dispatch({ 
                 type: actions.SEARCHBYCATEGORY,
                 payload: response.data.products });
@@ -44,6 +43,23 @@ export function getProductsByCategory(category) {
               console.log(error);
               alert("Hubo un error. Por favor, intentá de nuevo.")
           })
+    }
+}
+
+export function deleteProduct(id) {
+    return function(dispatch) {
+        return axios.delete(`http://localhost:3001/products/${id}`)
+        .then((response) => {
+            dispatch({ 
+                type: actions.DELETEPRODUCT,
+                payload: response.data
+            });
+            dispatch(getProducts());
+            alert("Producto eliminado")
+        })
+        .catch(() => {
+            alert("Hubo un error. Por favor, intentá de nuevo.")
+        });
     }
 }
 

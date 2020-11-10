@@ -1,29 +1,22 @@
 import React from 'react'
 import Stars from "./Stars"
-import { useHistory } from "react-router-dom"
-import {useDispatch} from 'react-redux'
-import {getProducts} from 'redux/actions/actions'
-import axios from 'axios'
+import {useHistory } from "react-router-dom"
+import {useDispatch, useSelector} from 'react-redux'
+import {getProducts, deleteProduct} from 'redux/actions/actions'
 
 function ProductCard({product, small=true, stars, admin, id, refresh}) {
   const history = useHistory();
 
   const dispatch = useDispatch()
+  const deleted = useSelector(state => state.deleted)
 
   function handleOnClickEdit(id){
     history.push(`/product/edit/${id}`)
   }
 
   function handleOnClickDelete(id) {
-    axios.delete(`http://localhost:3001/products/${id}`, product)
-    .then((response) => {
-        refresh && refresh()
-        alert("Producto eliminado")
-        dispatch(getProducts())
-    }, (error) => {
-        alert("Hubo un error. Por favor, intentá de nuevo.")
-    });
-  }
+      dispatch(deleteProduct(id));
+    }
 
   function handleOnClickAddProduct() {}
 
