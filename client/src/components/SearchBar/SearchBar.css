@@ -1,18 +1,17 @@
 .container {
-    display:flex;
-    flex-direction: row;
-    align-items:center;
-    margin-right: 36px;
+    display: flex;
+    align-items: center;
 }
 
 .searchbar-button{
     background: #FFFFFF 0% 0% no-repeat padding-box;
     border-radius: 5px;
-    font: normal normal bold 16px/21px Segoe UI;
+    font: normal normal 500 16px/21px Segoe UI;
     letter-spacing: 0px;
     color: teal;
     opacity: 1;
-    margin-left: 16px;
+    height: 25px;
+    font-size: 0.8em;
 }
 
 .searchbar-button:hover{
@@ -22,10 +21,10 @@
     }
 
 .input{
-    height: 35px;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     border: 1px solid #707070;
     opacity: 1;
     border-radius: 5px;
-    margin-left: auto;
+    margin-right:10px;
+    font-size: 0.9em;
 }
