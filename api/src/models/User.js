@@ -40,7 +40,7 @@ sequelize.define('user', {
         }
     }, //necesita validación?
 
-    Telephone: {
+    telephone: {
         type: DataTypes.STRING,
         allowNull: false,
     },
