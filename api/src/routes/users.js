@@ -26,7 +26,7 @@ server.post('/', (req, res, next) => {
 //S35 Crear Ruta para modificar usuario
 server.put('/:userId', (req, res, next) => {
     let userId = req.params.userId;
-    Category.update(req.body, {
+    User.update(req.body, {
         where: {
             id: userId
         }
