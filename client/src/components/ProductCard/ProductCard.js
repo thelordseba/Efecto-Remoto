@@ -1,11 +1,14 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Stars from "./Stars"
 import {useHistory } from "react-router-dom"
 import {useDispatch, useSelector} from 'react-redux'
 import {getProducts, deleteProduct} from 'redux/actions/actions'
+import cartIcon from './cart.svg'
+import { ReactComponent as CartIcon } from './cart.svg';
 
 function ProductCard({product, small=true, stars, admin, id, refresh}) {
   const history = useHistory();
+  const [showSnackbar, setShowSnackbar] = useState(false)
 
   const dispatch = useDispatch()
   const deleted = useSelector(state => state.deleted)
@@ -19,6 +22,11 @@ function ProductCard({product, small=true, stars, admin, id, refresh}) {
     }
 
   function handleOnClickAddProduct() {}
+
+  function handleAddToCart() {
+    setShowSnackbar(true)
+    setTimeout(function(){ setShowSnackbar(false) }, 2000);
+  }
 
   return (
   <>
@@ -43,7 +51,10 @@ function ProductCard({product, small=true, stars, admin, id, refresh}) {
                 <div className="product-card-button" onClick={() => handleOnClickDelete(id)}>Eliminar</div>
             </div> : null}
            {!small ? <div className="product-card-button" onClick={handleOnClickAddProduct}>Agregar al carrito</div> : null} 
-
+           {!showSnackbar && <CartIcon className={"cart-icon"} onClick={handleAddToCart}/>}
+           {showSnackbar && <div className="snackbar-success">
+              El producto se agregó correctamente a tu carrito!
+           </div>}
           </div>
           <div>
       </div>
