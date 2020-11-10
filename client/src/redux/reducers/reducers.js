@@ -3,7 +3,8 @@ import * as constants from './constants.js'
 const initialState = {
     search: "",
     products: [],
-    categories: []
+    categories: [],
+    deleted: []
   };
 
   export default (state = initialState, action) => {
@@ -28,6 +29,11 @@ const initialState = {
         return {
           ...state,
           products: action.payload
+        }
+      case constants.DELETEPRODUCT:
+        return {
+          ...state,
+          deleted: action.payload
         }
   
       default:

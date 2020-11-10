@@ -4,9 +4,7 @@ import axios from 'axios'
 import './create.css'
 
 function CreateUpdateProduct({id}){
-    // si usamos un estado vacio, estamos simulando que es un create, si le ponemos valores inciales, es un update.
     let [product, setProduct] = useState();
-    // let [category, setCategory] = useState();
     let [categories, setCategories] = useState([])
     const history = useHistory();
 
@@ -14,20 +12,18 @@ function CreateUpdateProduct({id}){
         e.preventDefault()
         if(id) {
             axios.put(`http://localhost:3001/products/${id}`, product)
-            .then((response) => {return axios.post(`http://localhost:3001/products/${id}/category/${product.categoryId}`)})
+            .then(response => {return axios.post(`http://localhost:3001/products/${id}/category/${product.categoryId}`)})
             .then(response => alert("Producto modificado"))
-            .catch(error => {
-                console.log(error)
+            .catch(() => {
                 alert("Hubo un error. Por favor, intentá de nuevo.")}
             )
         } else {
             axios.post(`http://localhost:3001/products`, product)
-            .then((response) => {return axios.post(`http://localhost:3001/products/${response.data.id}/category/${product.categoryId}`)})
-            .then(response => alert("Producto agregado"))
-            .catch(error => {
-                console.log(error)
-                alert("Hubo un error. Por favor, intentá de nuevo.")}
-            )
+            .then(response => {return axios.post(`http://localhost:3001/products/${response.data.id}/category/${product.categoryId}`)})
+            .then(() => alert("Producto agregado"))
+            .catch(() => {
+                alert("Hubo un error. Por favor, intentá de nuevo.")})
+            .then(() => history.push('/admin'))
         }
     };
     
@@ -61,7 +57,7 @@ function CreateUpdateProduct({id}){
 
     // console.log(categories)
     const handleGoBack = () => {
-        history.push(`/products`)
+        history.push(`/admin/products`)
       }
 
     return (

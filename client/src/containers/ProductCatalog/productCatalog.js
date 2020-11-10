@@ -15,7 +15,7 @@ function ProductCatalog ({admin}){
   const history = useHistory();
 
   const handleOnClickAddProduct = () => {
-    history.push(`/product/add`)
+    history.push(`/admin/addproduct`)
   }
 
   const handleOnChange = (e) => {

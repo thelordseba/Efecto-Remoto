@@ -15,10 +15,6 @@ function ProductDetail({small=false, stars, id}) {
     history.push(`/products/edit/${id}`)
   }
 
-  // function handleOnClickDelete() {
-
-  // }
-
   useEffect( () => {(async () => {
     product = await axios.get(`http://localhost:3001/products/${id}`)
     setProduct(product.data)  
