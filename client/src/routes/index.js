@@ -76,7 +76,7 @@ const routes = [
     exact: true
   },
   {
-    path:"/ordertable",
+    path:"/admin/orders",
     component: OrderTable,
     exact:true
   }
