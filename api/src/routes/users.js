@@ -1,6 +1,5 @@
 const server = require('express').Router();
 const { User } = require('../db.js');
-const { Sequelize } = require('sequelize');
 
 //S34 Crear Ruta para agregar usuario
 server.post('/', (req, res, next) => {
