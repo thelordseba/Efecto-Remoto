@@ -7,7 +7,6 @@ const { Product, User, Order, OrderLine} = require('../db.js')
 //y el monto en el cuerpo de la solicitud)
 
 //POST /users/:idUser/cart
-
 server.post('/cart', isAuthenticated, async (req, res) => {
     try {
       const order = await Order.findOrCreate({
@@ -83,13 +82,11 @@ server.get('users/:userId/cart', (req, res) => {
 })
 
 
-
 //S40 : Crear Ruta para vaciar el carrito
 // Descripción
 // Crear Ruta para vaciar el carrito
 
 // DELETE /users/:idUser/cart/
-
 
 
 //S41 : Crear Ruta para editar las cantidades del carrito
