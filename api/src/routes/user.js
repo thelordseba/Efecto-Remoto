@@ -8,8 +8,6 @@ const { Product, User, Order, OrderLine} = require('../db.js')
 
 //POST /users/:idUser/cart
 
-//podria ser tambien (falta probar en postman)
-
 server.post('/cart', isAuthenticated, async (req, res) => {
     try {
       const order = await Order.findOrCreate({
@@ -46,7 +44,8 @@ server.post('/cart', isAuthenticated, async (req, res) => {
       )
   
       const products = await Order.findOne({
-        where: { userId: req.user.id, state: 'create' },
+        where: { userId: req.user.id, 
+                 state: 'create' },
         include: [Product],
       })
   
@@ -56,7 +55,6 @@ server.post('/cart', isAuthenticated, async (req, res) => {
     }
   })
   
-
 //tratando de entender documentacion
 
 
@@ -69,14 +67,20 @@ server.post('/cart', isAuthenticated, async (req, res) => {
 
 //GET /users/:idUser/cart   GET /shopping-cart: Obtenga el carrito de compras.
 
-server.get('/cart', isAuthenticated, (req, res) => {
-    Order.findAll({
-      where: { userId: req.user.id, state: 'create' },
-      include: { model: Product },
+server.get('users/:userId/cart', (req, res) => {
+    Order.findOrCreate({
+        where: { userId: req.params.userId, 
+                 status: "open" },
+        defaults: { userId: req.params.userId, 
+                    status: "open", TotalPrice: 0 }
+    }).then(order => {
+        OrderLine.findAll({
+            where: { orderId: order[0].id },
+            include: [{ model: Product }, 
+                      { model: Order }]
+        }).then(orderLine => { res.json(orderLine); }).catch(error => { res.status(400).json({ error }) })
     })
-      .then((order) => res.send(order))
-      .catch((err) => res.status(500).send(err))
-  })
+})
 
 
 
@@ -85,6 +89,7 @@ server.get('/cart', isAuthenticated, (req, res) => {
 // Crear Ruta para vaciar el carrito
 
 // DELETE /users/:idUser/cart/
+
 
 
 //S41 : Crear Ruta para editar las cantidades del carrito
