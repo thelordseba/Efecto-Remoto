@@ -15,10 +15,10 @@ export default function OrderDetails(props) {
       <h1>Aca renderizo OrderLine</h1>
       {props.orders && props.orders.map(order => (
       <OrderLine
-        orderLineId={props.orderLineId}
-        productId={props.productId}
-        priceA={props.price}
-        quantity={props.quantity}
+        orderLineId={order.orderLineId}
+        productId={order.productId}
+        price={order.price}
+        quantity={order.quantity}
       />
       ))
       }
