@@ -5,7 +5,6 @@
 .title-crud{
     display:flex;
     justify-content: center;
-
 }
 
 .volver{
@@ -17,4 +16,8 @@
     width: 47px;
     background-color: teal;
     color: white;
+}
+
+p.thick {
+    font-weight: bold;
 }

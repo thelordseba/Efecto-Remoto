@@ -71,7 +71,7 @@ server.get('/categories/:categoryId', (req, res, next) => {
 // GET /search?query={valor}
 server.get('/search', (req, res, next) => {
     const valor = req.query.query;
-
+    console.log(valor)
     Product.findAll({
       where: {
         [Sequelize.Op.or]: [
@@ -93,7 +93,7 @@ server.get('/search', (req, res, next) => {
 
 // Task S24: Crear ruta de producto individual, pasado un ID que retorne un producto con sus detalles
 server.get('/:id', (req, res, next) => {
-    Product.findByPk(req.params.id)
+    Product.findByPk(req.params.id, {include: {model: Category}})
     .then(product => {
         if(product) {
             res.send(product)
@@ -139,14 +139,17 @@ server.put('/:id', (req, res, next) => {
 
 // Task S27: Crear Ruta para eliminar Producto
 server.delete('/:id', (req, res, next) => {
-    Product.destroy({
+    Product.findByPk({
         where: {
             id: req.params.id 
         }
     })
     .then((prod) => {
         if(!prod) res.status(400).send({error: 'No se encontró ese ID de producto'})
-        if(prod) res.sendStatus(200)
+        if(prod) res.send(prod)
+    })
+    .then((prod) => {
+        prod.destroy()
     })
     .catch(next);
 });

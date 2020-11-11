@@ -1,17 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './SearchBar.css';
+import { useDispatch } from 'react-redux'
+import { getProductsByQuery } from "../../redux/actions/actions.js"
 
-function SearchBar (props){
+function SearchBar (){
 
-  function Buscando(){
-    alert("Buscando...");
+  let [search, setSearch] = useState("")
+
+  const dispatch = useDispatch()
+
+  const handleOnChange = (event) => {
+    setSearch(event.target.value)
   }
-    return(
-        <div className="actions">
-        <input type= "text" placeholder= "Buscar..."/>
-        <button className="button" onClick={Buscando}>Buscar</button>
-        </div> 
-    );
+  
+  const handleOnClick = () => {
+    dispatch(getProductsByQuery(search)) 
+  }
+
+  return(
+      <div className="container">
+        <input className="input" type= "text" onChange={handleOnChange} placeholder= "Buscar..."/>
+        <button className="searchbar-button" onClick={handleOnClick}>Buscar</button>
+      </div> 
+  );
 }
 
 export default SearchBar;
