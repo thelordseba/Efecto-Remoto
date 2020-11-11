@@ -1,5 +1,5 @@
 import React from 'react';
-import OrderCard from './OrderCard/OrderCard.js'
+import OrderCard from '../../components/OrderCard/OrderCard.js'
 
 export default function OrderTable(props) {
 
