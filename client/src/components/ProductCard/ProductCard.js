@@ -3,8 +3,7 @@ import Stars from "./Stars"
 import {useHistory } from "react-router-dom"
 import {useDispatch, useSelector} from 'react-redux'
 import {getProducts, deleteProduct} from 'redux/actions/actions'
-import cartIcon from './cart.svg'
-import { ReactComponent as CartIcon } from './cart.svg';
+import { ReactComponent as CartIcon } from '../common/cart.svg'
 
 function ProductCard({product, small=true, stars, admin, id, refresh}) {
   const history = useHistory();
@@ -50,7 +49,6 @@ function ProductCard({product, small=true, stars, admin, id, refresh}) {
                 <div className="product-card-button" onClick={() => handleOnClickEdit(id)}>Editar</div>
                 <div className="product-card-button" onClick={() => handleOnClickDelete(id)}>Eliminar</div>
             </div> : null}
-           {!small ? <div className="product-card-button" onClick={handleOnClickAddProduct}>Agregar al carrito</div> : null} 
            {!showSnackbar && <CartIcon className={"cart-icon"} onClick={handleAddToCart}/>}
            {showSnackbar && <div className="snackbar-success">
               El producto se agregó correctamente a tu carrito!
