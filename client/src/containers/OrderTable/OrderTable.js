@@ -1,14 +1,19 @@
 import React from 'react';
-//aca importo OrderDetails cuando este okey
+import OrderDetails from '../OrderDetails/orderDetails.js'
 
 export default function OrderTable(props) {
 
-  return( 
-      <h1>OrderTable</h1>
-    // <div>
-    //   {props.orders && props.orders.map(order => 
-    //       <OrderDetails />
-    //   )}
-    // </div>
+  return( //además deberia mostrar el nombre del producto,precio e imagen
+    <div>
+      <label>Detalles de orden</label>
+      <h3>OrderTable: acá renderizo OrderDetails</h3>
+      {props.orders && props.orders.map(order => 
+          <OrderDetails 
+          orderId={props.orderId}
+          userId={props.userId}
+          status={props.status}
+          />
+      )}
+    </div>
  )
 };
