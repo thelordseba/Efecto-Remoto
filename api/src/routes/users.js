@@ -4,7 +4,7 @@ const { Sequelize } = require('sequelize');
 
 //S34 Crear Ruta para agregar usuario
 server.post('/', (req, res, next) => {
-    let {userName, firstName, lastName, isAdmin, email, Telephone, password, gitHubId, gmailId, facebookId} = req.body
+    let {userName, firstName, lastName, isAdmin, email, telephone, password, gitHubId, gmailId, facebookId} = req.body
     User.create({
         userName,
         firstName,
@@ -54,8 +54,12 @@ server.delete('/:userId', (req, res, next)=>{
         }
     })
     .then(user=>{
-        user.destroy();
-        res.sendStatus(200);
+        if(!user){
+            res.status(400).send("ERROR: El usuario que intenta eliminar no existe.");
+        }else{     
+            user.destroy();
+            res.sendStatus(200);       
+        }
     })
     .catch(next);       
 });
