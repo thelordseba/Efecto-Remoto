@@ -20,12 +20,12 @@ export default function OrderDetails({id}) {
       <label>Estado de la orden: {order.status}</label>
 
       <h1>Aca renderizo OrderLine</h1>
-      {order && order.map(order => (
+      {order.orderlines && order.orderlines.map(orderline => (
       <OrderLine        //// VAMOS A TENER QUE LLAMAR A LA API PARA PEDIR ORDERLINES DEL ORDERID
-        orderLineId={order.orderLineId}
-        productId={order.productId}
-        price={order.price}
-        quantity={order.quantity}
+        orderLineId={orderline.orderLineId}
+        productId={orderline.productId}
+        price={orderline.price}
+        quantity={orderline.quantity}
       />
       ))
       }

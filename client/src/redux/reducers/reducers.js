@@ -41,12 +41,11 @@ const initialState = {
           ...state,
           orders: action.payload
         }
-        case constants.GETORDERBYID:
-          return {
-            ...state,
-            order: action.payload
-          }
-        
+      case constants.GETORDERBYID:
+        return {
+          ...state,
+          order: action.payload
+        }      
   
       default:
          return state;
