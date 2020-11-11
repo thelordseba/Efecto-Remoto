@@ -1,20 +1,27 @@
 import OrderLine from 'components/OrderLine/OrderLine';
-import React from 'react';
+import React, {useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import {getOrderById} from '../../redux/actions/actions'
+export default function OrderDetails({id}) {
 
+  const order = useSelector(state => state.order)
+  const dispatch = useDispatch()
 
-export default function OrderDetails(props) {
+  useEffect( () => {(async () => {
+    dispatch(getOrderById(id))
+  })()}, [dispatch, id])
 
   return ( //recibe info de redux   //cambiar html si es necesario para css
     <div>
-      <label>Numero de orden: {props.orderId}</label>
-      <label>Numero de usuario: {props.userId}</label>
-      <label>Compra iniciada: {props.startDate}</label>
-      <label>Compra confirmada: {props.completionDate}</label>
-      <label>Estado de la orden: {props.status}</label>
+      <label>Numero de orden: {order.orderId}</label>
+      <label>Numero de usuario: {order.userId}</label>
+      <label>Compra iniciada: {order.startDate}</label>
+      <label>Compra confirmada: {order.completionDate}</label>
+      <label>Estado de la orden: {order.status}</label>
 
       <h1>Aca renderizo OrderLine</h1>
-      {props.orders && props.orders.map(order => (
-      <OrderLine
+      {order && order.map(order => (
+      <OrderLine        //// VAMOS A TENER QUE LLAMAR A LA API PARA PEDIR ORDERLINES DEL ORDERID
         orderLineId={order.orderLineId}
         productId={order.productId}
         price={order.price}

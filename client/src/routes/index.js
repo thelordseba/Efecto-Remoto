@@ -47,10 +47,6 @@ const routes = [
     render: () => <NGOs />,
   },
   // {
-  //   path:"/admin/orders",
-  //   render: ()=> <Orders />,
-  // },
-  // {
   //   path:"/admin/users",
   //   render: () => <Users />,
   // },
@@ -71,8 +67,8 @@ const routes = [
     exact: true
   },
   {
-    path: "/orderdetails",
-    component: OrderDetails,
+    path: "/admin/orders/:orderId",
+    render:({match}) => <OrderDetails id={match.params.orderId} />,
     exact: true
   },
   {

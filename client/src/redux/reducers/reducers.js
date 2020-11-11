@@ -4,7 +4,8 @@ const initialState = {
     search: "",
     products: [],
     categories: [],
-    deleted: []
+    deleted: [],
+    order:[]
   };
 
   export default (state = initialState, action) => {
@@ -35,6 +36,17 @@ const initialState = {
           ...state,
           deleted: action.payload
         }
+      case constants.GETORDERS:
+        return {
+          ...state,
+          orders: action.payload
+        }
+        case constants.GETORDERBYID:
+          return {
+            ...state,
+            order: action.payload
+          }
+        
   
       default:
          return state;

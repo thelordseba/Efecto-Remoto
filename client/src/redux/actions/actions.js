@@ -70,6 +70,35 @@ export function setSearch(payload){
       };
   }
 
+export function getOrders() {
+    return function(dispatch) {
+        return axios.get(`http://localhost:3001/orders`)
+        .then(response => {
+            dispatch({ 
+                type: actions.GETORDERS, 
+                payload: response.data
+            });
+          })
+        .catch(() => {
+              alert("Hubo un error. Por favor, intentá de nuevo.")
+        })
+    }
+}
+
+export function getOrderById(id) {
+    return function(dispatch) {
+        return axios.get(`http://localhost:3001/orders/${id}`)
+        .then(response => {
+            dispatch({ 
+                type: actions.GETORDERBYID, 
+                payload: response.data
+            });
+          })
+        .catch(() => {
+              alert("Hubo un error. Por favor, intentá de nuevo.")
+        })
+    }
+}
 
       
   
