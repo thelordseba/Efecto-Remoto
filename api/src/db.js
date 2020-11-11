@@ -36,7 +36,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Product, Category, User, Review, Order, Payment, Ngo, OrderLine } = sequelize.models;
+const { Product, Category, User, Review, Order, Payment, Ngo, OrderLine, Image } = sequelize.models;
 
 // RELACIONES
 
@@ -68,6 +68,14 @@ Order.belongsToMany(Product, { through: OrderLine });
 //Relación NGO 1-----* product
 Ngo.hasMany(Product)
 Product.belongsTo(Ngo)
+
+// // Relación NGO 1-----* images
+// Ngo.hasMany(Image)
+// Image.belongsTo(Ngo)
+
+// Relación Product 1-----* images
+Product.hasMany(Image);
+Image.belongsTo(Product);
 
 //Relación NGO 1----*location
 //FALTA LA TABLA DE LOCATION TODAVÍA
