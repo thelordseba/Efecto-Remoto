@@ -1,6 +1,5 @@
 const server = require('express').Router();
-const { Product } = require('../db.js');
-const { Category } = require('../db.js');
+const { Product, Category } = require('../db.js');
 const { Sequelize } = require('sequelize');
 
 // Task S17: Crear ruta para agregar o sacar categorías de un producto
@@ -139,14 +138,17 @@ server.put('/:id', (req, res, next) => {
 
 // Task S27: Crear Ruta para eliminar Producto
 server.delete('/:id', (req, res, next) => {
-    Product.destroy({
+    Product.findByPk({
         where: {
             id: req.params.id 
         }
     })
     .then((prod) => {
         if(!prod) res.status(400).send({error: 'No se encontró ese ID de producto'})
-        if(prod) res.sendStatus(200)
+        if(prod) res.send(prod)
+    })
+    .then((prod) => {
+        prod.destroy()
     })
     .catch(next);
 });

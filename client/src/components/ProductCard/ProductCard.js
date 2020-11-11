@@ -1,28 +1,29 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Stars from "./Stars"
-import { useHistory } from "react-router-dom"
+import {useHistory } from "react-router-dom"
+import {useDispatch, useSelector} from 'react-redux'
+import {getProducts, deleteProduct} from 'redux/actions/actions'
+import { ReactComponent as CartIcon } from '../common/cart.svg'
 
-import axios from 'axios'
-
-function ProductCard({product, small=true, stars, admin, id, refresh}) {
+function ProductCard({product, small=true, stars, admin, id}) {
   const history = useHistory();
+  const [showSnackbar, setShowSnackbar] = useState(false)
+
+  const dispatch = useDispatch()
+  const deleted = useSelector(state => state.deleted)
 
   function handleOnClickEdit(id){
     history.push(`/product/edit/${id}`)
   }
 
   function handleOnClickDelete(id) {
-    axios.delete(`http://localhost:3001/products/${id}`, product)
-    .then((response) => {
-        refresh && refresh()
-        alert("Producto eliminado")
-    }, (error) => {
-        console.log(error);
-        alert("Hubo un error. Por favor, intentá de nuevo.")
-    });
-  }
+      dispatch(deleteProduct(id));
+    }
 
-  function handleOnClickAddProduct() {}
+  function handleAddToCart() {
+    setShowSnackbar(true)
+    setTimeout(function(){ setShowSnackbar(false) }, 2000);
+  }
 
   return (
   <>
@@ -46,8 +47,10 @@ function ProductCard({product, small=true, stars, admin, id, refresh}) {
                 <div className="product-card-button" onClick={() => handleOnClickEdit(id)}>Editar</div>
                 <div className="product-card-button" onClick={() => handleOnClickDelete(id)}>Eliminar</div>
             </div> : null}
-           {!small ? <div className="product-card-button" onClick={handleOnClickAddProduct}>Agregar al carrito</div> : null} 
-
+           {!showSnackbar && <CartIcon className={"cart-icon"} onClick={handleAddToCart}/>}
+           {showSnackbar && <div className="snackbar-success">
+              El producto se agregó correctamente a tu carrito!
+           </div>}
           </div>
           <div>
       </div>
