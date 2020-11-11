@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const { Order, Product } = require('../db.js');
+const { Order, User, Product, OrderLine } = require('../db.js');
 
 //S44 Crear Ruta que retorne todas las ordenes (retorna las ordenes de un determinado status)
 server.get('/', (req, res, next)=>{
@@ -7,7 +7,20 @@ server.get('/', (req, res, next)=>{
     Order.findAll({
         where:{
             status : status        //Status posibles => ['cart', 'created', 'processing', 'cancelled', 'completed']
-        }
+        },
+        include: [
+            {
+                model: User
+            },
+            {
+                model: OrderLine,
+                include: [
+                    {
+                        model:Product
+                    }
+                ]
+            }
+        ]
     })
     .then(order=>{
         res.status(200).json(order);
@@ -23,7 +36,15 @@ server.get('/:id', (req, res, next)=>{
         }, 
         include: [
             {
-                model: Product
+                model: User
+            },
+            {
+                model: OrderLine,
+                include: [
+                    {
+                        model:Product
+                    }
+                ]
             }
         ]
     })
