@@ -4,7 +4,7 @@ const { Sequelize } = require('sequelize');
 
 //S34 Crear Ruta para agregar usuario
 server.post('/', (req, res, next) => {
-    let {userName, firstName, lastName, isAdmin, email, Telephone, password, gitHubId, gmailId, facebookId} = req.body
+    let {userName, firstName, lastName, isAdmin, email, telephone, password, gitHubId, gmailId, facebookId} = req.body
     User.create({
         userName,
         firstName,
