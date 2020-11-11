@@ -2,18 +2,25 @@ import React, {useState, useEffect} from 'react'
 import Stars from "./Stars"
 import { useHistory } from "react-router-dom"
 import axios from 'axios'
+import { ReactComponent as CartIcon } from '../common/cart.svg'
 
 function ProductDetail({small=false, stars, id}) {
+  const [showSnackbar, setShowSnackbar] = useState(false)
   const history = useHistory();
   let [product, setProduct] = useState([])
-
-  function handleOnClickAddProduct(){
-    history.push(`/product/success`)
-  }
 
   function handleOnClickEdit(id){
     history.push(`/products/edit/${id}`)
   }
+
+  function handleAddToCart() {
+    setShowSnackbar(true)
+    setTimeout(function(){ 
+      setShowSnackbar(false) 
+      history.push(`/products`)
+    }, 2000);
+  }
+
 
   useEffect( () => {(async () => {
     product = await axios.get(`http://localhost:3001/products/${id}`)
@@ -38,8 +45,11 @@ function ProductDetail({small=false, stars, id}) {
           {!small && <Stars disabledClick={true} stars={stars}/>}
           {small ? <div className="product-detail-button" onClick={handleOnClickEdit(id)}>Editar</div> : null} 
           {/* {small ? <div className="product-detail-button" onClick={handleOnClickDelete}>Eliminar</div> : null}  */}
-           {!small ? <div className="product-detail-button" onClick={handleOnClickAddProduct}>Agregar al carrito</div> : null} 
-        </div>
+          {!small && !showSnackbar && <CartIcon className={"cart-icon-large"} onClick={handleAddToCart}/>}
+          {!small && showSnackbar && <div className="snackbar-success-large">
+              El producto se agregó correctamente a tu carrito!
+           </div>}       
+            </div>
       <div>
       </div>
     </div>

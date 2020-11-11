@@ -5,7 +5,6 @@ import Nosotros from "../components/Nosotros/Nosotros.js";
 import FAQ from "../components/FAQ/FAQ.js";
 import HomeAdmin from "../containers/HomeAdmin/HomeAdmin.js"
 import Home from "../containers/Home/Home.js";
-// import Success from "../components/Success";
 import CreateUpdateProduct from "../components/Product_CRUD/CreateUpdateProduct"
 import NGOs from "../components/NGOs/NGOs.js"
 import FormCategorias from "../components/FormCategory/FormCategory";

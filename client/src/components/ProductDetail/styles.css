@@ -17,6 +17,27 @@
     width: 30%
   }
 
+  
+  .cart-icon-large {
+    margin-top: 24px;
+    height: 28px;
+    width: 28px;
+    color: gray;
+    cursor: pointer;
+    display: flex;
+    margin-left: auto;
+    height: 29px;
+  }
+
+  .snackbar-success-large{
+    margin-top: 24px;
+    background-color: teal;
+    color: white;
+    border-radius: 8px;
+    text-align: center;
+    padding: 4px;
+  }
+
   .photo{
     height: 400px;
     width: 400px; 
