@@ -8,6 +8,7 @@ import Home from "../containers/Home/Home.js";
 // import Success from "../components/Success";
 import CreateUpdateProduct from "../components/Product_CRUD/CreateUpdateProduct"
 import FormCategorias from "../components/FormCategory/FormCategory";
+import OrderDetails from 'containers/OrderDetails/orderDetails';
 
 const routes = [
   {
@@ -53,6 +54,11 @@ const routes = [
     component: FormCategorias,
     exact: true
   },
+  {
+    path: "/orderdetails",
+    component: OrderDetails,
+    exact: true
+  }
  
 ];
   
