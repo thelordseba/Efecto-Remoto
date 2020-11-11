@@ -141,9 +141,9 @@ server.get('/:userId/cart', (req, res) => {
 // Crear Ruta para vaciar el carrito
 // DELETE /users/:idUser/cart/
 
-server.delete('/:idUser/cart', (req, res) => {
+server.delete('/:userId/cart', (req, res) => {
     Order.findOne({
-        where: { userId: req.params.idUser, status: "open" }
+        where: { userId: req.params.userId, status: "open" }
     }).then(order => {
         OrderLine.destroy({
             where: { orderId: order.id }
