@@ -6,23 +6,36 @@ import Select from 'react-select'
 
 function CreateUpdateProduct({id}){
     let [product, setProduct] = useState();
-    let [categories, setCategories] = useState([])
+    let [categories, setCategories] = useState([]);
+    let [images, setImages] = useState({image: []});
     const history = useHistory();
 
     const handleOnClick = (e) => {
         e.preventDefault()
         if(id) {
             axios.put(`http://localhost:3001/products/${id}`, product)
-            .then(response => {return axios.post(`http://localhost:3001/products/${id}/category/${product.categoryId}`)})
+            .then(response => {
+                var cat = product.categories.map(e => e.id)
+                return cat.map(e => axios.post(`http://localhost:3001/products/${id}/category/${e}`))
+            })
             .then(response => alert("Producto modificado"))
             .catch(() => {
                 alert("Hubo un error. Por favor, intentá de nuevo.")}
             )
         } else {
+            // console.log(product)
             axios.post(`http://localhost:3001/products`, product)
-            .then(response => {return axios.post(`http://localhost:3001/products/${response.data.id}/category/${product.categoryId}`)})
+            .then(response => {
+                var cat = product.categories.map(e => e.id)
+                return cat.map(e => axios.post(`http://localhost:3001/products/${response.data.id}/image/${e}`))
+            })
+            .then(response => {
+                var img = product.img.map(e => e.id)
+                return img.map(e => axios.post(`http://localhost:3001/products/${response.data.id}/image/${e}`))
+            })
             .then(() => alert("Producto agregado"))
-            .catch(() => {
+            .catch((error) => {
+                console.log(error)
                 alert("Hubo un error. Por favor, intentá de nuevo.")})
             .then(() => history.push('/admin'))
         }
@@ -38,17 +51,15 @@ function CreateUpdateProduct({id}){
         });
         // console.log(product)
     }
-    console.log('product', product)
     useEffect( () => {
         if (id) {
             (async () => {
                 product = await axios.get(`http://localhost:3001/products/${id}`)
-                setProduct(product.data)  
+                setProduct(product.data)
             }
             )()}}, [id])
 
     let src = "";
-
     if (product) src = product.img;
 
     useEffect( () => {(async () => {
@@ -61,14 +72,14 @@ function CreateUpdateProduct({id}){
 
     const handleGoBack = () => {
         history.push(`/admin/products`)
-      }
+    }
     
-      const handleOnChangeCategory = (data) => {
+    const handleOnChangeCategory = (data) => {
         setProduct({
             ...product,
             categories: data
         });
-      }
+    }
 
     return (
         <>
@@ -79,18 +90,25 @@ function CreateUpdateProduct({id}){
         <div className="crud-form">
             <br /><br />
             <form >
-                {/* <input className="input1" onChange={handleInputChange} value={product ? product.ngoId : ""} name="ngoId" required type="text" placeholder="ONG" /><br /><br /> */}
-                <input className="input2" onChange={handleInputChange} value={product ? product.name : ""} name="name" required type="text" placeholder="Título del producto" /><br /><br />
-                <input className="input3" onChange={handleInputChange} value={product ? product.description : ""} name="description" required type="text" placeholder="Descripción del producto" /><br /><br />
-                <Select options={categories} placeholder={"Categorias"} isMulti={true} onChange={handleOnChangeCategory}/>
+                {/* <input onChange={handleInputChange} value={product ? product.ngoId : ""} name="ngoId" required type="text" placeholder="ONG" /><br /><br /> */}
+                <input onChange={handleInputChange} value={product ? product.name : ""} name="name" required type="text" placeholder="Título del producto" /><br /><br />
+                <input onChange={handleInputChange} value={product ? product.description : ""} name="description" required type="text" placeholder="Descripción del producto" /><br /><br />
+                <Select 
+                    options={categories} 
+                    placeholder={"Categorías"} 
+                    isMulti={true} 
+                    onChange={handleOnChangeCategory} 
+                    name="categories"
+                    key={product ? product.categories : ""}
+                    value={product ? product.categories : ""}
+                />
                 <br /><br />
-                <input className="input5" onChange={handleInputChange} value={product ? product.price : ""} name="price" required type="number" placeholder="Precio del producto ($)" /><br /><br />
-                <input className="input6" onChange={handleInputChange} value={product ? product.stock : ""} name="stock" required type="number" placeholder="Stock del producto" /><br /><br />
-                <input className="input7" onChange={handleInputChange} value={product ? product.img : ""} name="img" required type="text" placeholder="URL de la imagen del producto" /><br /><br />
+                <input onChange={handleInputChange} value={product ? product.price : ""} name="price" required type="number" placeholder="Precio del producto ($)" /><br /><br />
+                <input onChange={handleInputChange} value={product ? product.stock : ""} name="stock" required type="number" placeholder="Stock del producto" /><br /><br />
+                {/* <input onChange={handleInputChange} value={product ? product.img : ""} name="img" required type="text" placeholder="URL de la imagen del producto" /><br /><br /> */}
                 <img src={src} alt={"Imagen no encontrada"}/>
-                {/* {src !== "" ? <div> <input onChange={onImageChange} name="img" required type="file" placeholder="Upload Product Image" /><br /><br /> </div>: null} */}
-                <button className="button" onClick={handleOnClick}>{id ? 'ACTUALIZAR' : 'CREAR'}</button>
-                {/* <button onClick={handleOnClick}>{id ? 'DELETE' : 'NODELETE'}</button> */}
+                <br></br>
+                <button className="button-crud" onClick={handleOnClick}>{id ? 'ACTUALIZAR' : 'CREAR'}</button>
             </form>
         </div>
         </>
