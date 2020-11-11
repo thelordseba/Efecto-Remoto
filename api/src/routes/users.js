@@ -153,7 +153,7 @@ server.delete('/:userId/cart', (req, res) => {
             else { res.status(404).json({ message: "Cart not found" }) }
         }).catch(error => { res.status(400).json({ error }) })
     }).catch(error => { res.status(400).json({ error }) })
-})
+}) 
 
 
 //S41 : Crear Ruta para editar las cantidades del carrito
