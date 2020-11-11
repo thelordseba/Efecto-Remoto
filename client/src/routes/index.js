@@ -8,7 +8,8 @@ import Home from "../containers/Home/Home.js";
 import CreateUpdateProduct from "../components/Product_CRUD/CreateUpdateProduct"
 import NGOs from "../components/NGOs/NGOs.js"
 import FormCategorias from "../components/FormCategory/FormCategory";
-import OrderTable from "../containers/OrderTable/OrderTable.js"
+import OrderDetails from 'containers/OrderDetails/orderDetails';
+import OrderTable from "../containers/OrderTable/OrderTable.js";
 
 const routes = [
   {
@@ -67,6 +68,11 @@ const routes = [
   {
     path:"/admin/categories",
     component: FormCategorias,
+    exact: true
+  },
+  {
+    path: "/orderdetails",
+    component: OrderDetails,
     exact: true
   },
   {
