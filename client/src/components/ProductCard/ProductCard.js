@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {getProducts, deleteProduct} from 'redux/actions/actions'
 import { ReactComponent as CartIcon } from '../common/cart.svg'
 
-function ProductCard({product, small=true, stars, admin, id, refresh}) {
+function ProductCard({product, small=true, stars, admin, id}) {
   const history = useHistory();
   const [showSnackbar, setShowSnackbar] = useState(false)
 
@@ -19,8 +19,6 @@ function ProductCard({product, small=true, stars, admin, id, refresh}) {
   function handleOnClickDelete(id) {
       dispatch(deleteProduct(id));
     }
-
-  function handleOnClickAddProduct() {}
 
   function handleAddToCart() {
     setShowSnackbar(true)

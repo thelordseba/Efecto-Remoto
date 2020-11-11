@@ -56,12 +56,14 @@ function ProductCatalog ({admin}){
   // console.log(products)
 
   const mapProducts = () => {
-    return products.map(product => 
+    return products
+      .filter(product => product.stock > 0)
+      .map(product => 
       <ProductCard
       admin={admin}
       key={product.id}
       id={product.id}
-      product={product} 
+      product={product}
       />)
   }
  

@@ -1,6 +1,5 @@
 const server = require('express').Router();
-const { Product } = require('../db.js');
-const { Category } = require('../db.js');
+const { Product, Category } = require('../db.js');
 const { Sequelize } = require('sequelize');
 
 // Task S17: Crear ruta para agregar o sacar categorías de un producto

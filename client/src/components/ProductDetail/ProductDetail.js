@@ -9,6 +9,10 @@ function ProductDetail({small=false, stars, id}) {
   const history = useHistory();
   let [product, setProduct] = useState([])
 
+  const handleGoBack = () => {
+    history.push(`/admin/products`)
+  }
+
   function handleOnClickEdit(id){
     history.push(`/products/edit/${id}`)
   }
@@ -29,30 +33,33 @@ function ProductDetail({small=false, stars, id}) {
   )()}, [])
 
   return (
-    <div className={small ? "product-container-small" : "product-container"}>
-        <img className={small ? "photo-small" : "photo"} src={product.img} alt={"Imagen no encontrada"}/>
-        <div className="product-detail-content">
-          <div className="title">{product.name}</div>
-          {small && <div className="stars-small"> <Stars disabledClick={true} stars={stars}/> </div>}
-          <div className="title">${product.price}</div>
-          {!small ? <><div className="divider"/>
-          <div className="description">{product.description}</div>
-          {/* <div className="link"> <span>Ver más en:</span> <a href ={product.link}>{product.link}</a> </div> */}
-          <div className="divider"/>
-          <div className="cantidad"></div>
-          <div className="stock">{product.stock}</div>
-          <div className="review">Review</div></> : null}
-          {!small && <Stars disabledClick={true} stars={stars}/>}
-          {small ? <div className="product-detail-button" onClick={handleOnClickEdit(id)}>Editar</div> : null} 
-          {/* {small ? <div className="product-detail-button" onClick={handleOnClickDelete}>Eliminar</div> : null}  */}
-          {!small && !showSnackbar && <CartIcon className={"cart-icon-large"} onClick={handleAddToCart}/>}
-          {!small && showSnackbar && <div className="snackbar-success-large">
-              El producto se agregó correctamente a tu carrito!
-           </div>}       
-            </div>
-      <div>
+    <>
+      <div className="volver" onClick={handleGoBack}> Volver </div>
+      <div className={small ? "product-container-small" : "product-container"}>
+          <img className={small ? "photo-small" : "photo"} src={product.img} alt={"Imagen no encontrada"}/>
+          <div className="product-detail-content">
+            <div className="title">{product.name}</div>
+            {small && <div className="stars-small"> <Stars disabledClick={true} stars={stars}/> </div>}
+            <div className="title">${product.price}</div>
+            {!small ? <><div className="divider"/>
+            <div className="description">{product.description}</div>
+            {/* <div className="link"> <span>Ver más en:</span> <a href ={product.link}>{product.link}</a> </div> */}
+            <div className="divider"/>
+            <div className="cantidad"></div>
+            <div className="stock">{product.stock}</div>
+            <div className="review">Review</div></> : null}
+            {!small && <Stars disabledClick={true} stars={stars}/>}
+            {small ? <div className="product-detail-button" onClick={handleOnClickEdit(id)}>Editar</div> : null} 
+            {/* {small ? <div className="product-detail-button" onClick={handleOnClickDelete}>Eliminar</div> : null}  */}
+            {!small && !showSnackbar && <CartIcon className={"cart-icon-large"} onClick={handleAddToCart}/>}
+            {!small && showSnackbar && <div className="snackbar-success-large">
+                El producto se agregó correctamente a tu carrito!
+            </div>}       
+              </div>
+        <div>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
