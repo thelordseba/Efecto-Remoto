@@ -4,13 +4,18 @@ import React from 'react';
 
 export default function OrderDetails(props) {
 
-  return (
+  return ( //recibe info de redux   //cambiar html si es necesario para css
     <div>
-      <h1>Esto es OrderDetail donde renderizo OrderLine</h1>
+      <label>Numero de orden: {props.orderId}</label>
+      <label>Numero de usuario: {props.userId}</label>
+      <label>Compra iniciada: {props.startDate}</label>
+      <label>Compra confirmada: {props.completionDate}</label>
+      <label>Estado de la orden: {props.status}</label>
+
+      <h1>Aca renderizo OrderLine</h1>
       {props.orders && props.orders.map(order => (
       <OrderLine
         orderLineId={props.orderLineId}
-        orderId={props.orderId}
         productId={props.productId}
         priceA={props.price}
         quantity={props.quantity}
