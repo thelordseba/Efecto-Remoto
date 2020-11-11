@@ -72,7 +72,7 @@ server.get('users/:userId/cart', (req, res) => {
         where: { userId: req.params.userId, 
                  status: "open" },
         defaults: { userId: req.params.userId, 
-                    status: "open", TotalPrice: 0 }
+                    status: "open", totalPrice: 0 }
     }).then(order => {
         OrderLine.findAll({
             where: { orderId: order[0].id },
