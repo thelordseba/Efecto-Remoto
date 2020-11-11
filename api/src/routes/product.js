@@ -1,7 +1,9 @@
 const server = require('express').Router();
 const { Product } = require('../db.js');
 const { Category } = require('../db.js');
+const { Image } = require('../db.js');
 const { Sequelize } = require('sequelize');
+const { response } = require('express');
 
 // Task S17: Crear ruta para agregar o sacar categorías de un producto
 server.post('/:productId/category/:categoryId', async (req, res, next) => {
@@ -44,7 +46,7 @@ server.delete('/:productId/category/:categoryId', async (req, res, next) => {
 
 // Task S21: Crear ruta que devuelva todos los productos
 server.get('/', (req, res, next) => {
-    Product.findAll()
+    Product.findAll({include: {model: Image}})
     .then(products => res.send(products))
     .catch(next);
 });
@@ -56,7 +58,7 @@ server.get('/categories/:categoryId', (req, res, next) => {
         where: {
             id: categoryId
         },
-        include: [Product]})    
+        include: [Product, Image]})    
     .then(products => {
         if(products) {
             res.send(products)
@@ -77,7 +79,6 @@ server.get('/search', (req, res, next) => {
         [Sequelize.Op.or]: [
           { name: { [Sequelize.Op.substring]: valor } },
           { description: { [Sequelize.Op.substring]: valor } },
-        //   { category: { [Sequelize.Op.substring]: valor} },
         ],
       },
     })
@@ -93,7 +94,7 @@ server.get('/search', (req, res, next) => {
 
 // Task S24: Crear ruta de producto individual, pasado un ID que retorne un producto con sus detalles
 server.get('/:id', (req, res, next) => {
-    Product.findByPk(req.params.id, {include: {model: Category}})
+    Product.findByPk(req.params.id, {include: [{model: Category}, {model: Image}]})
     .then(product => {
         if(product) {
             res.send(product)
@@ -106,23 +107,25 @@ server.get('/:id', (req, res, next) => {
 
 // Task S25: Crear ruta para crear/agregar Producto
 // POST /products
-server.post('/', (req, res, next) => {
-    const { ngoId, name, description, price, categoryId, img, stock } = req.body;
-    Product.create(
-        {
-        ngoId: ngoId,
-        name: name,
-        description: description, 
-        price: price, 
-        categoryId: categoryId, 
-        img: img, 
-        stock: stock,
-        }
-    )            
-    .then(product => {
-        res.status(201).json(product);
-    })
-    .catch(next);
+server.post('/', async (req, res, next) => {
+    try {
+        const product = await Product.create({
+            ngoId: req.body.ngoId,
+            name: req.body.name,
+            description: req.body.description, 
+            price: req.body.price, 
+            stock: req.body.stock,
+        })
+        console.log(product)
+        // const image = await Image.create({
+        //     img: req.body.img, 
+        // })
+        // console.log(img)
+        await product.setImage(image)
+        res.status(201).json(product)
+    } catch (error) {
+        console.log('hola fini y tomi capos')
+    }
 });
 
 // Task S26 : Crear ruta para Modificar Producto
