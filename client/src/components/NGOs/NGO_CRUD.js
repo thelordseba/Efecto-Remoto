@@ -50,7 +50,7 @@ function CreateUpdateNGO({id}){
             <h1 className="tituloForm">{id ? 'Actualizar' : 'Crear'} ONG</h1>
             <div className="crud-form">
                 <br /><br />
-                <form className="">
+                <form className="" onSubmmit={handleOnSubmit}>
                     <p class="thick">Datos básicos</p>
                     <label>Nombre de la ONG</label>
                         <input onChange={handleInputChange} value={ngo ? ngo.id : ""} name="ngoId" required type="text" placeholder="ONG" /><br /><br />
@@ -69,7 +69,7 @@ function CreateUpdateNGO({id}){
                         <input onChange={handleInputChange} value={ngo ? ngo.location : ""} name="location" required type="text" placeholder="Localidad" /><br /><br />
                     <label>Provincia</label>
                         <input onChange={handleInputChange} value={ngo ? ngo.province : ""} name="province" required type="text" placeholder="Provincia" /><br /><br />
-                    <button className="button" onClick={handleOnSubmit} >{id ? 'ACTUALIZAR' : 'CREAR'}</button>
+                    <button className="button">{id ? 'ACTUALIZAR' : 'CREAR'}</button>
                 </form>
             </div>
         </>

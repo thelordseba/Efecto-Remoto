@@ -1,10 +1,10 @@
 const { Router } = require('express');
 // import all routers;
-const productRouter = require('./product.js');
-const categoryRouter = require('./categories.js');
-const userRouter = require('./users.js');
-const orderRouter = require('./orders.js');
-const ngoOrder = require('./ngos.js');
+const productRouter = require('./product');
+const categoryRouter = require('./categories');
+const userRouter = require('./users');
+const orderRouter = require('./orders');
+const ngoRouter = require('./ngos');
 const router = Router();
 
 // load each router on a route
@@ -14,6 +14,6 @@ router.use('/products', productRouter);
 router.use('/categories', categoryRouter);
 router.use('/users', userRouter)
 router.use('/orders', orderRouter)
-router.use('/ngos', ngoOrder)
+router.use('/ngos', ngoRouter)
 
 module.exports = router;
