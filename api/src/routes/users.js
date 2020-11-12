@@ -1,5 +1,4 @@
 const server = require('express').Router();
-const { User } = require('../db.js');
 const { Product, User, Order, OrderLine} = require('../db.js');
 
 //S34 Crear Ruta para agregar usuario
@@ -66,12 +65,13 @@ server.delete('/:userId', (req, res, next)=>{
 
 
 //S38 : Crear Ruta para agregar Item al Carrito
+
 //POST /shopping-cart: Agrega un artículo al carrito de compras 
 //(enviando algunos datos con el artículo que estás agregando 
 //y el monto en el cuerpo de la solicitud)
 
 //POST /users/:idUser/cart
-server.post('/cart', isAuthenticated, async (req, res) => {
+server.post('/cart', async (req, res) => {   /// se borró isAuthenticated
     try {
       const order = await Order.findOrCreate({
         where: {

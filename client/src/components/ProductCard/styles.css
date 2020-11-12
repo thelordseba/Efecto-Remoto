@@ -37,7 +37,6 @@
     cursor: pointer;
     display: flex;
     margin-left: auto;
-    height: 29px;
   }
   
   .product-card-photo-small{
@@ -50,8 +49,6 @@
   .title {
     font-size: 25px;
     color: gray;
-    margin-bottom: 12px;
-    margin-top: 16px;
     text-align: center;
     white-space:nowrap;
     text-overflow: ellipsis;
@@ -78,7 +75,7 @@
 
   .price {
     text-align: center;
-    margin-bottom: 12px;
+    margin-bottom: 5px;
   }
 
   .product-card-button{
@@ -86,8 +83,6 @@
       border: solid 1px black;
       cursor: pointer;
       text-align: center;
-      margin-top: 24px;
-      margin-bottom: 16px;
       align-items: center;
       background-color: gray;
       width: 60px;

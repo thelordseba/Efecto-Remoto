@@ -1,8 +1,8 @@
 //modelo de orden de línea
 //sacado de los otros modelos
 
-import { DataTypes } from 'sequelize';
-export default (sequelize) => {
+const { DataTypes } = require('sequelize');
+module.exports = (sequelize) => {
 	sequelize.define('orderLine', {
 
 

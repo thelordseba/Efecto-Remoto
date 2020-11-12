@@ -60,9 +60,6 @@ function CreateUpdateProduct({id}){
             }
             )()}}, [id])
 
-    let src = "";
-    if (product) src = product.img;
-
     useEffect( () => {(async () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
         categories = await axios.get(`http://localhost:3001/categories/`)
@@ -107,8 +104,7 @@ function CreateUpdateProduct({id}){
                 <br /><br />
                 <input onChange={handleInputChange} value={product ? product.price : ""} name="price" required type="number" placeholder="Precio del producto ($)" /><br /><br />
                 <input onChange={handleInputChange} value={product ? product.stock : ""} name="stock" required type="number" placeholder="Stock del producto" /><br /><br />
-                {/* <input onChange={handleInputChange} value={product ? product.img : ""} name="img" required type="text" placeholder="URL de la imagen del producto" /><br /><br /> */}
-                <img src={src} alt={"Imagen no encontrada"}/>
+                <input onChange={handleInputChange} value={product ? product.img : ""} name="img" required type="text" placeholder="URL de la imagen del producto" /><br /><br />
                 <br></br>
                 <button className="button-crud" onClick={handleOnClick}>{id ? 'ACTUALIZAR' : 'CREAR'}</button>
             </form>
