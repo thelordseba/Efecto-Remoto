@@ -1,9 +1,9 @@
 const server = require('express').Router();
 const { User, Ngo, Location } = require('../db.js');
 
-server.get('/', (res, next)=>{
+server.get('/', (req, res, next)=>{
     Location.findAll()
-   .then(ngos=> res.status(200).json(ngos))
+   .then(location=> res.status(200).json(location))
     .catch(next);
 });
 

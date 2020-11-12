@@ -1,6 +1,6 @@
-import { DataTypes } from 'sequelize';
+const { DataTypes } = require('sequelize');
 
-export default (sequelize) => {
+module.exports = (sequelize) => {
 
 sequelize.define('location', {
     //en name tengo que hacer una función por firstname y lastname= por 

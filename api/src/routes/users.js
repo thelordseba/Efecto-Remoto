@@ -1,20 +1,31 @@
 const server = require('express').Router();
-const { Product, User, Order, OrderLine} = require('../db.js');
+const { Product, User, Order, OrderLine, Location} = require('../db.js');
 
 //S34 Crear Ruta para agregar usuario
 server.post('/', async (req, res, next) => {    
-    try{        
-        const user = await User.create(req.body); //{userName, firstName, lastName, isAdmin, email, telephone, password, gitHubId, gmailId, facebookId} = req.body       
+    try{     
+        const user = await User.create({   
+            userName: req.body.userName,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            isAdmin: req.body.isAdmin,
+            email: req.body.email,
+            telephone: req.body.telephone,
+            password: req.body.password,
+            gitHubId: req.body.gitHubId,
+            gmailId: req.body.gmailId,
+            facebookId: req.body.facebookId
+        });
 
         const location = await Location.create({
             address: req.body.address,
             number: req.body.number,
-            postalCode: req.body.url,
+            postalCode: req.body.postalCode,
             city: req.body.city,
             province: req.body.province
         });
 
-        await user.setLocation(location);
+         await user.setLocation(location);
         res.status(200).json(user);
     } catch(error){       
         next(error);
@@ -23,19 +34,61 @@ server.post('/', async (req, res, next) => {
 
 //S35 Crear Ruta para modificar usuario
 server.put('/:userId', (req, res, next) => {
-    let userId = req.params.userId;
-    User.update(req.body, {
-        where: {
-            id: userId
+    const {userName, firstName, lastName, isAdmin, 
+           email, telephone, password, gitHubId, 
+           gmailId, facebookId, address, number, 
+           postalCode, city, province} = req.body;
+
+    User.findOne({
+        where:{
+            id: req.params.userId
         }
     })
-    .then(cat => {
-        res.status(200).send(cat);
+    .then(user=>{
+        if(!user){
+            res.status(400).send("ERROR: El usuario que intenta modificar no existe.")
+        }else {
+            Location.findOne({
+                where: {
+                    id: user.locationId
+                }
+            })     
+            .then(location => {
+                location.update({
+                    address, number, postalCode, 
+                    city, province                     
+                })
+            });
+            user.update({
+                userName, firstName, lastName,
+                isAdmin, email, telephone,
+                password, gitHubId, gmailId,
+                facebookId
+            });
+            res.status(200).json(user);       
+        }
     })
     .catch(next);
 });
 
-//S36 Crear ruta que retorne todos los usuarios
+
+// server.get('/', (req, res, next)=>{
+//     User.findAll(
+//         {
+//             id, userName, firstName, lastName,
+//             isAdmin, email, telephone,
+//             password, gitHubId, gmailId,
+//             facebookId
+//         }
+//     )
+//     .then((user)=>{
+//         res.status(201).json(user);
+//     })
+//     .catch(next);
+// });
+
+
+
 server.get('/', (req, res, next)=>{
     User.findAll()
     .then((user)=>{
@@ -54,7 +107,15 @@ server.delete('/:userId', (req, res, next)=>{
     .then(user=>{
         if(!user){
             res.status(400).send("ERROR: El usuario que intenta eliminar no existe.");
-        }else{     
+        }else{ 
+            Location.findOne({
+                where: {
+                    id: user.locationId
+                }
+            })   
+            .then(location=>{
+                location.destroy();
+            }) 
             user.destroy();
             res.sendStatus(200);       
         }
