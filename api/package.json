@@ -25,6 +25,7 @@
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "pg": "^8.3.0",
+    "react-images-upload": "^1.2.8",
     "sequelize": "^6.3.4"
   },
   "devDependencies": {

@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const { Ngo } = require('../db.js');
+const { Ngo, Location } = require('../db.js');
 
 server.get('/', (req, res, next)=>{
     Ngo.findAll()
@@ -7,12 +7,22 @@ server.get('/', (req, res, next)=>{
     .catch(next);
 });
 
-server.post('/', (req, res, next) => {
-    Product.create(req.body)            
-    .then(ngo => {
-        res.status(201).json(ngo);
+server.post('/', async (req, res, next) => {
+    try {const ngo = await Ngo.create({
+        name: req.body.name,
+        description: req.body.description,
+        url: req.body.url
     })
-    .catch(next);
+    const location = await Location.create({
+        address: req.body.address,
+        number: req.body.number,
+        postalCode: req.body.url,
+        city: req.body.city,
+        province: req.body.province
+    })
+    await ngo.setLocation(location)
+    res.json(ngo);
+    } catch(error) {next(error)}
 });
 
 server.delete('/:id', (req, res, next) => {
@@ -41,3 +51,5 @@ server.put('/:id', (req, res, next) => {
     })
     .catch(next);
 })
+
+module.exports = server;
