@@ -34,10 +34,6 @@ function CreateUpdateNGO({id}){
             .then(() => history.push('/admin'))
         }
     };
-    
-
-    let src = "";
-    if (ngo) src = ngo.img;
 
     // const handleGoBack = () => {
     //     history.push(`/admin/products`)
@@ -55,9 +51,9 @@ function CreateUpdateNGO({id}){
                     <label>Nombre de la ONG</label>
                         <input onChange={handleOnChange} value={ngo ? ngo.id : ""} name="ngoId" required type="text" placeholder="ONG" /><br /><br />
                     <label>Descripción de la ONG</label>
-                        <input onChange={handleOnChange} value={ngo ? ngo.description : ""} name="description" required type="text" placeholder="Descripción de la ONG" /><br /><br />
-                    <label>Página Web</label>                        
-                    <input onChange={handleInputChange} value={ngo ? ngo.photo : ""} name="url" required type="text" placeholder="Página Web" ></input><br></br>                    <br></br>
+                        <input onChange={handleInputChange} value={ngo ? ngo.description : ""} name="description" required type="text" placeholder="Descripción de la ONG" /><br /><br />
+                    <label>Página Web</label>
+                        <input onChange={handleInputChange} value={ngo ? ngo.photo : ""} name="url" required type="text" placeholder="Página Web" ></input><br></br>                    <br></br>
                     <p class="thick">Ubicación</p>
                     <label>Dirección</label>
                         <input onChange={handleOnChange} value={ngo ? ngo.address : ""} name="address" required type="text" placeholder="Dirección" /><br /><br />
