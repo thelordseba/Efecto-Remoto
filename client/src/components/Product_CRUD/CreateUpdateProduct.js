@@ -3,17 +3,16 @@ import { useHistory } from "react-router-dom"
 import axios from 'axios'
 import './create.css'
 import Select from 'react-select'
-import {storage} from "firebase"
+import UploadImage from '../UploadImage/UploadImage'
 
 function CreateUpdateProduct({id}){
     let [product, setProduct] = useState();
     let [categories, setCategories] = useState([]);
-    let [image, setImage] = useState()
 
     // let [images, setImages] = useState({image: []});
     const history = useHistory();
 
-    const handleOnSubmit = (e) => {
+    const handleOnClick = (e) => {
         e.preventDefault()
         if(id) {
             axios.put(`http://localhost:3001/products/${id}`, product)
@@ -26,15 +25,14 @@ function CreateUpdateProduct({id}){
                 alert("Hubo un error. Por favor, intentá de nuevo.")}
             )
         } else {
-            // console.log(product)
             axios.post(`http://localhost:3001/products`, product)
             .then(response => {
                 var cat = product.categories.map(e => e.id)
                 return cat.map(e => axios.post(`http://localhost:3001/products/${response.data.id}/image/${e}`))
             })
             .then(response => {
-                var img = product.img.map(e => e.id)
-                return img.map(e => axios.post(`http://localhost:3001/products/${response.data.id}/image/${e}`))
+                var url = product.url.map(e => e.id)
+                return url.map(e => axios.post(`http://localhost:3001/products/${response.data.id}/image/${e}`))
             })
             .then(() => alert("Producto agregado"))
             .catch((error) => {
@@ -51,6 +49,14 @@ function CreateUpdateProduct({id}){
         });
 
     }
+
+    const handleURL = (url) => {
+        setProduct({
+            ...product,
+            "url": url
+        })
+    }
+
     useEffect( () => {
         if (id) {
             (async () => {
@@ -80,12 +86,6 @@ function CreateUpdateProduct({id}){
         });
     }
 
-    const handleUpload = (e) => {
-        if (e.target.files[0]) {
-            setImage(e.target.files[0])
-        }
-    }
-
     return (
         <>
         <div className="volver" onClick={handleGoBack}>
@@ -94,7 +94,7 @@ function CreateUpdateProduct({id}){
         <h1 className="tituloForm">{id ? 'Actualizar' : 'Crear'} Producto</h1>
         <div className="crud-form">
             <br /><br />
-            <form onSubmit={handleOnSubmit}>
+            <form>
                 {/* <input onChange={handleOnSubmit} value={product ? product.ngoId : ""} name="ngoId" required type="text" placeholder="ONG" /><br /><br /> */}
                 <input onChange={handleOnChange} 
                     value={product ? product.name : ""} 
@@ -125,18 +125,9 @@ function CreateUpdateProduct({id}){
                     name="stock" 
                     required type="number" 
                     placeholder="Stock del producto" /><br /><br />
-                <input onChange={handleUpload} 
-                    value={product ? product.img : ""} 
-                    name="img" 
-                    type="file" 
-                    placeholder="Imagen del producto" /><br /><br /> 
-                {/* <input onChange={handleOnSubmit} 
-                    value={product ? product.img : ""} 
-                    name="img" 
-                    required type="text" 
-                    placeholder="URL de la imagen del producto" /><br /><br /> */}
+               <UploadImage handleURL={handleURL}/>
                 <br></br>
-                <button className="button-crud" name="submit">{id ? 'ACTUALIZAR' : 'CREAR'}</button>
+                <button className="button-crud" onClick={handleOnClick}>{id ? 'ACTUALIZAR' : 'CREAR'}</button>
             </form>
         </div>
         </>

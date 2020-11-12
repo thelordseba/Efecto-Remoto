@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
 
   sequelize.define('image', {
 
-    img: {
+    url: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
