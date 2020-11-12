@@ -99,7 +99,8 @@ server.post('/cart', isAuthenticated, async (req, res) => {
             })
           }
         })
-      ) const products = await Order.findOne({
+      ) 
+        const products = await Order.findOne({
         where: { userId: req.user.id, state: 'create' },
         include: [Product],
       })
