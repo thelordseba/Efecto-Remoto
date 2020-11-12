@@ -28,6 +28,16 @@ server.get('/', (req, res, next)=>{
     .catch(next);
 });
 
+//S45 : Crear Ruta que retorne todas las Ordenes de los usuarios
+//GET /users/:id/orders
+
+server.get('/:userId/orders', (req, res) => { //es necesario usar el next?
+    Order.findOrCreate({
+        where: { userId: req.params.idUser, status: "closed" }
+    }).then(orders => { res.json(orders); }).catch(error => { res.status(400).json({ error }) })
+})
+
+
 //S46 Crear una ruta que retorne una orden en particular
 server.get('/:id', (req, res, next)=>{
     Order.findOne({
@@ -53,6 +63,20 @@ server.get('/:id', (req, res, next)=>{
     })
     .catch(next)
 });
+
+//S47 : Crear Ruta para modificar una Orden
+//PUT /orders/:id
+
+server.put('/:id', (req, res) => {
+    OrderLine.findOne({
+        where: { id: req.params.id }
+    }).then(orderLine => {
+        orderLine.update({
+            productId: req.body.productId,
+            quantity: req.body.quantity
+        }).then(orderLine => { res.status(200).json({ orderLine }); }).catch(error => { res.status(400).json({ error }) })
+    }).catch(error => { res.status(400).json({ error }) })
+})
 
 
 module.exports = server;
