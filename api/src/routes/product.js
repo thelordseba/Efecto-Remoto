@@ -1,8 +1,11 @@
 const server = require('express').Router();
 const { Product, Category, Image } = require('../db.js');
+const paginate = require('express-paginate');
 
 const { Sequelize } = require('sequelize');
-const { response } = require('express');
+// const { response } = require('express');
+
+server.use(paginate.middleware(10, 50));
 
 // Task S17: Crear ruta para agregar o sacar categorías de un producto
 server.post('/:productId/category/:categoryId', async (req, res, next) => {
@@ -43,12 +46,7 @@ server.delete('/:productId/category/:categoryId', async (req, res, next) => {
     catch(error) {next()};
 });
 
-// Task S21: Crear ruta que devuelva todos los productos
-server.get('/', (req, res, next) => {
-    Product.findAll({include: {model: Image}})
-    .then(products => res.send(products))
-    .catch(next);
-});
+
 
 // Task S22: Crear ruta que devuelva los productos de X categoría
 server.get('/categories/:categoryId', (req, res, next) => {
@@ -68,21 +66,44 @@ server.get('/categories/:categoryId', (req, res, next) => {
     .catch(next);
 });
 
+// Task S21: Crear ruta que devuelva todos los productos
+server.get('/', (req, res, next) => {
+    const offset = req.query.offset;
+    const limit = req.query.limit;
+    Product.findAndCountAll({
+        offset,
+        limit,
+        // include: {model: Image}
+    })
+    .then(({count, rows: products}) => {   
+        if(products.length > 0) {
+            res.setHeader('count', count);
+            res.send(products);
+        }
+    })
+    .catch(next);
+});
+
 // Task S23: Crear ruta que retorne productos según el keyword de búsqueda
 // GET /search?query={valor}
 server.get('/search', (req, res, next) => {
     const valor = req.query.query;
+    const offset = req.query.offset;
+    const limit = req.query.limit;
     console.log(valor)
-    Product.findAll({
-      where: {
-        [Sequelize.Op.or]: [
-          { name: { [Sequelize.Op.substring]: valor } },
-          { description: { [Sequelize.Op.substring]: valor } },
-        ],
-      },
+    Product.findAndCountAll({
+        limit,
+        offset,
+        where: {
+            [Sequelize.Op.or]: [
+                { name: { [Sequelize.Op.substring]: valor } },
+                { description: { [Sequelize.Op.substring]: valor } },
+            ],
+        },
     })
-    .then((products) => {
+    .then(({count, rows: products}) => {
         if(products.length > 0) {
+            res.setHeader('count', count);
             res.send(products);
         } else {
             res.status(404).json({error: "No se encontraron resultados para esta búsqueda"})
@@ -114,14 +135,16 @@ server.post('/', async (req, res) => {
             price: req.body.price, 
             stock: req.body.stock,
         })
+        console.log(product)
         const image = await Image.create({
-            url: req.body.url, 
+            img: req.body.img, 
         })
-        await product.addImage(image)
+        await product.setImage(image)
         res.status(201).json(product)
+    } catch (error) {
+        console.log('hola fini y tomi capos')
     }
-    catch(error) {console.log(error)};
-    });
+});
 
 // Task S26 : Crear ruta para Modificar Producto
 server.put('/:id', (req, res, next) => {
@@ -153,3 +176,4 @@ server.delete('/:id', (req, res, next) => {
 });
 
 module.exports = server;
+
