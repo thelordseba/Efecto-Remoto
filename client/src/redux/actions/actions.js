@@ -2,64 +2,62 @@ import * as actions from '../reducers/constants.js'
 import axios from 'axios'
 
 export function getProducts() {
-    return function(dispatch) {
-        return axios.get(`http://localhost:3001/products`)
-        .then(response => {
-            dispatch({ 
-                type: actions.GETPRODUCTS, 
+    return async function(dispatch) {
+        try {
+            const response = await axios.get(`http://localhost:3001/products`);
+            dispatch({
+                type: actions.GETPRODUCTS,
                 payload: response.data
             });
-          })
-        .catch(() => {
-              alert("Hubo un error. Por favor, intentá de nuevo.")
-        })
+        } catch (e) {
+            alert("Hubo un error. Por favor, intentá de nuevo.");
+        }
     }
 }
 
 export function getProductsByQuery(search) {
-    return function(dispatch) {
-        return axios.get(`http://localhost:3001/products/search?query=${search}`)
-        // .then(response => response.json())
-        .then(response => {
-            dispatch({ 
+    return async function(dispatch) {
+        try {
+            const response = await axios.get(`http://localhost:3001/products/search?query=${search}`);
+            dispatch({
                 type: actions.SEARCHBYQUERY,
-                payload: response.data });
-          })
-          .catch(()=> {
-              alert("Hubo un error. Por favor, intentá de nuevo.")
-          })
+                payload: response.data
+            });
+        } catch (e) {
+            alert("Hubo un error. Por favor, intentá de nuevo.");
+        }
     }
 }
 
 export function getProductsByCategory(category) {
-    return function(dispatch) {
-        return axios.get(`http://localhost:3001/products/categories/${category}`)
-        .then(response => {
-            dispatch({ 
+    return async function(dispatch) {
+        try {
+            const response = await axios.get(`http://localhost:3001/products/categories/${category}`);
+            dispatch({
                 type: actions.SEARCHBYCATEGORY,
-                payload: response.data.products });
-          })
-          .catch((error)=> {
-              console.log(error);
-              alert("Hubo un error. Por favor, intentá de nuevo.")
-          })
+                payload: response.data.products
+            });
+        } catch (error) {
+            console.log(error);
+            alert("Hubo un error. Por favor, intentá de nuevo.");
+        }
     }
 }
 
 export function deleteProduct(id) {
-    return function(dispatch) {
-        return axios.delete(`http://localhost:3001/products/${id}`)
-        .then((response) => {
-            dispatch({ 
+    return async function(dispatch) {
+        console.log(id)
+        try {
+            const response = await axios.delete(`http://localhost:3001/products/${id}`);
+            dispatch({
                 type: actions.DELETEPRODUCT,
                 payload: response.data
             });
             dispatch(getProducts());
-            alert("Producto eliminado")
-        })
-        .catch(() => {
-            alert("Hubo un error. Por favor, intentá de nuevo.")
-        });
+            alert("Producto eliminado");
+        } catch (e) {
+            alert("Hubo un error. Por favor, intentá de nuevo.");
+        }
     }
 }
 
