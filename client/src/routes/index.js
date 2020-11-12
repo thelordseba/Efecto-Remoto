@@ -10,6 +10,7 @@ import NgosCrud from "../components/NgosCrud/NgosCrud.js"
 import FormCategorias from "../components/FormCategory/FormCategory";
 import OrderDetails from 'containers/OrderDetails/orderDetails';
 import OrderTable from "../containers/OrderTable/OrderTable.js";
+import FormUser from 'components/FormUser/FormUser';
 
 const routes = [
   {
@@ -79,6 +80,11 @@ const routes = [
     path:"/admin/orders",
     component: OrderTable,
     exact:true
+  },
+  {
+    path:"/formuser",
+    component: FormUser,
+    exact: true
   }
  
 ];
