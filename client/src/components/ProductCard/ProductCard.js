@@ -26,14 +26,16 @@ function ProductCard({product, small=true, stars, admin, id}) {
     setTimeout(function(){ setShowSnackbar(false) }, 2000);
   }
 
+  console.log(product)
+  
   return (
   <>
     <div className={small ? "product-card-container-small" : "product-card-container"}>
-        <img className={small ? "product-card-photo-small" : "product-card-photo"}
+        {/* <img className={small ? "product-card-photo-small" : "product-card-photo"}
           src={product.images[0].url} 
-          alt={"Imagen no encontrada"}/>
+          alt={"Imagen no encontrada"}/> */}
         <div className="product-card-content">
-          <a href={"/products/" + product.id}>
+          <a href={`/products/${product.id}`}>
             <div className="title">{product.name}</div>
           </a>
           {/* {small && <div className="stars-small"> <Stars disabledClick={true} stars={stars}/> </div>} */}
