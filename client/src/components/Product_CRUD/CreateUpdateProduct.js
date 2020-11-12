@@ -60,9 +60,6 @@ function CreateUpdateProduct({id}){
             }
             )()}}, [id])
 
-    let src = "";
-    if (product) src = product.img;
-
     useEffect( () => {(async () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
         categories = await axios.get(`http://localhost:3001/categories/`)
