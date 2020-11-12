@@ -3,14 +3,17 @@ import { useHistory } from "react-router-dom"
 import axios from 'axios'
 import './create.css'
 import Select from 'react-select'
+import {storage} from "firebase"
 
 function CreateUpdateProduct({id}){
     let [product, setProduct] = useState();
     let [categories, setCategories] = useState([]);
+    let [image, setImage] = useState()
+
     // let [images, setImages] = useState({image: []});
     const history = useHistory();
 
-    const handleOnClick = (e) => {
+    const handleOnSubmit = (e) => {
         e.preventDefault()
         if(id) {
             axios.put(`http://localhost:3001/products/${id}`, product)
@@ -41,15 +44,12 @@ function CreateUpdateProduct({id}){
         }
     };
     
-    const handleInputChange = (event) => {
-        const value = event.target.value;
-        const name = event.target.name;
-    
+    const handleOnChange = (event) => {
         setProduct({
             ...product,
-            [name]: value
+            [event.target.name]: event.target.value
         });
-        // console.log(product)
+
     }
     useEffect( () => {
         if (id) {
@@ -80,6 +80,12 @@ function CreateUpdateProduct({id}){
         });
     }
 
+    const handleUpload = (e) => {
+        if (e.target.files[0]) {
+            setImage(e.target.files[0])
+        }
+    }
+
     return (
         <>
         <div className="volver" onClick={handleGoBack}>
@@ -88,10 +94,17 @@ function CreateUpdateProduct({id}){
         <h1 className="tituloForm">{id ? 'Actualizar' : 'Crear'} Producto</h1>
         <div className="crud-form">
             <br /><br />
-            <form >
-                {/* <input onChange={handleInputChange} value={product ? product.ngoId : ""} name="ngoId" required type="text" placeholder="ONG" /><br /><br /> */}
-                <input onChange={handleInputChange} value={product ? product.name : ""} name="name" required type="text" placeholder="Título del producto" /><br /><br />
-                <input onChange={handleInputChange} value={product ? product.description : ""} name="description" required type="text" placeholder="Descripción del producto" /><br /><br />
+            <form onSubmit={handleOnSubmit}>
+                {/* <input onChange={handleOnSubmit} value={product ? product.ngoId : ""} name="ngoId" required type="text" placeholder="ONG" /><br /><br /> */}
+                <input onChange={handleOnChange} 
+                    value={product ? product.name : ""} 
+                    name="name" required type="text" 
+                    placeholder="Título del producto" /><br /><br />
+                <input onChange={handleOnChange} 
+                    value={product ? product.description : ""} 
+                    name="description" 
+                    required type="text"
+                    placeholder="Descripción del producto" /><br /><br />
                 <Select 
                     options={categories} 
                     placeholder={"Categorías"} 
@@ -102,11 +115,28 @@ function CreateUpdateProduct({id}){
                     value={product ? product.categories : ""}
                 />
                 <br /><br />
-                <input onChange={handleInputChange} value={product ? product.price : ""} name="price" required type="number" placeholder="Precio del producto ($)" /><br /><br />
-                <input onChange={handleInputChange} value={product ? product.stock : ""} name="stock" required type="number" placeholder="Stock del producto" /><br /><br />
-                <input onChange={handleInputChange} value={product ? product.img : ""} name="img" required type="text" placeholder="URL de la imagen del producto" /><br /><br />
+                <input onChange={handleOnChange}
+                    value={product ? product.price : ""} 
+                    name="price" 
+                    required type="number" 
+                    placeholder="Precio del producto ($)" /><br /><br />
+                <input onChange={handleOnChange} 
+                    value={product ? product.stock : ""} 
+                    name="stock" 
+                    required type="number" 
+                    placeholder="Stock del producto" /><br /><br />
+                <input onChange={handleUpload} 
+                    value={product ? product.img : ""} 
+                    name="img" 
+                    type="file" 
+                    placeholder="Imagen del producto" /><br /><br /> 
+                {/* <input onChange={handleOnSubmit} 
+                    value={product ? product.img : ""} 
+                    name="img" 
+                    required type="text" 
+                    placeholder="URL de la imagen del producto" /><br /><br /> */}
                 <br></br>
-                <button className="button-crud" onClick={handleOnClick}>{id ? 'ACTUALIZAR' : 'CREAR'}</button>
+                <button className="button-crud" name="submit">{id ? 'ACTUALIZAR' : 'CREAR'}</button>
             </form>
         </div>
         </>
