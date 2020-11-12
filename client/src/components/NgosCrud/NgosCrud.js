@@ -1,7 +1,7 @@
-import React, { useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { useHistory } from "react-router-dom"
 // import axios from 'axios'
-import './NGO_CRUD.css'
+import './NgosCrud.css'
 import axios from 'axios'
 
 function CreateUpdateNGO({id}){
@@ -9,7 +9,7 @@ function CreateUpdateNGO({id}){
 
     const history = useHistory();
 
-    const handleInputChange = (event) => {
+    const handleOnChange = (event) => {
         const value = event.target.value;
         const name = event.target.name;
         setNGO({
@@ -49,22 +49,22 @@ function CreateUpdateNGO({id}){
                 <form className="" onSubmit={handleOnSubmit}>
                     <p className="thick">Datos básicos</p>
                     <label>Nombre de la ONG</label>
-                        <input onChange={handleInputChange} value={ngo ? ngo.id : ""} name="ngoId" required type="text" placeholder="ONG" /><br /><br />
+                        <input onChange={handleOnChange} value={ngo ? ngo.id : ""} name="ngoId" required type="text" placeholder="ONG" /><br /><br />
                     <label>Descripción de la ONG</label>
-                        <input onChange={handleInputChange} value={ngo ? ngo.description : ""} name="description" required type="text" placeholder="Descripción de la ONG" /><br /><br />
+                        <input onChange={handleOnChange} value={ngo ? ngo.description : ""} name="description" required type="text" placeholder="Descripción de la ONG" /><br /><br />
                     <label>Página Web</label>
-                        <input onChange={handleInputChange} value={ngo ? ngo.photo : ""} name="url" required type="text" placeholder="Página Web" ></input><br></br>                    <br></br>
+                        <input onChange={handleOnChange} value={ngo ? ngo.photo : ""} name="url" required type="text" placeholder="Página Web" ></input><br></br>                    <br></br>
                     <p className="thick">Ubicación</p>
                     <label>Dirección</label>
-                        <input onChange={handleInputChange} value={ngo ? ngo.address : ""} name="address" required type="text" placeholder="Dirección" /><br /><br />
+                        <input onChange={handleOnChange} value={ngo ? ngo.address : ""} name="address" required type="text" placeholder="Dirección" /><br /><br />
                     <label>Número</label>
-                        <input onChange={handleInputChange} value={ngo ? ngo.number : ""} name="number" required type="number" placeholder="Número" /><br /><br />
+                        <input onChange={handleOnChange} value={ngo ? ngo.number : ""} name="number" required type="number" placeholder="Número" /><br /><br />
                     <label>Código postal</label>
-                        <input onChange={handleInputChange} value={ngo ? ngo.zipcode : ""} name="zipcode" required type="number" placeholder="Código postal" /><br /><br />
+                        <input onChange={handleOnChange} value={ngo ? ngo.zipcode : ""} name="zipcode" required type="number" placeholder="Código postal" /><br /><br />
                     <label>Localidad</label>
-                        <input onChange={handleInputChange} value={ngo ? ngo.location : ""} name="location" required type="text" placeholder="Localidad" /><br /><br />
+                        <input onChange={handleOnChange} value={ngo ? ngo.location : ""} name="location" required type="text" placeholder="Localidad" /><br /><br />
                     <label>Provincia</label>
-                        <input onChange={handleInputChange} value={ngo ? ngo.province : ""} name="province" required type="text" placeholder="Provincia" /><br /><br />
+                        <input onChange={handleOnChange} value={ngo ? ngo.province : ""} name="province" required type="text" placeholder="Provincia" /><br /><br />
                     <button className="button">{id ? 'ACTUALIZAR' : 'CREAR'}</button>
                 </form>
             </div>

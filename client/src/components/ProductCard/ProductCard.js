@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
 import Stars from "./Stars"
 import {useHistory } from "react-router-dom"
-import {useDispatch, useSelector} from 'react-redux'
-import {getProducts, deleteProduct} from 'redux/actions/actions'
+import {useDispatch} from 'react-redux'
+// import {useSelector} from 'react-redux'
+import {deleteProduct} from 'redux/actions/actions'
 import { ReactComponent as CartIcon } from '../common/cart.svg'
 
 function ProductCard({product, small=true, stars, admin, id}) {
@@ -10,7 +11,7 @@ function ProductCard({product, small=true, stars, admin, id}) {
   const [showSnackbar, setShowSnackbar] = useState(false)
 
   const dispatch = useDispatch()
-  const deleted = useSelector(state => state.deleted)
+  // const deleted = useSelector(state => state.deleted)
 
   function handleOnClickEdit(id){
     history.push(`/product/edit/${id}`)

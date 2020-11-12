@@ -6,7 +6,7 @@ import FAQ from "../components/FAQ/FAQ.js";
 import HomeAdmin from "../containers/HomeAdmin/HomeAdmin.js"
 import Home from "../containers/Home/Home.js";
 import CreateUpdateProduct from "../components/Product_CRUD/CreateUpdateProduct"
-import NGOs_CRUD from "../components/NGOs/NGO_CRUD.js"
+import NgosCrud from "../components/NgosCrud/NgosCrud.js"
 import FormCategorias from "../components/FormCategory/FormCategory";
 import OrderDetails from 'containers/OrderDetails/orderDetails';
 import OrderTable from "../containers/OrderTable/OrderTable.js";
@@ -44,7 +44,7 @@ const routes = [
   },
   {
     path:"/admin/ngos",
-    render: () => <NGOs_CRUD />,
+    render: () => <NgosCrud/>,
   },
   // {
   //   path:"/admin/orders",

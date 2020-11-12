@@ -27,6 +27,7 @@ function ProductDetail({small=false, stars, id}) {
 
 
   useEffect( () => {(async () => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     product = await axios.get(`http://localhost:3001/products/${id}`)
     setProduct(product.data)  
     }

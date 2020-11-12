@@ -1,5 +1,4 @@
 import React from 'react';
-import ProductCatalog from '../ProductCatalog/productCatalog.js';
 import './HomeAdmin.css';
 
 function HomeAdmin(){

@@ -7,18 +7,18 @@ import Select from 'react-select'
 function CreateUpdateProduct({id}){
     let [product, setProduct] = useState();
     let [categories, setCategories] = useState([]);
-    let [images, setImages] = useState({image: []});
+    // let [images, setImages] = useState({image: []});
     const history = useHistory();
 
     const handleOnClick = (e) => {
         e.preventDefault()
         if(id) {
             axios.put(`http://localhost:3001/products/${id}`, product)
-            .then(response => {
+            .then(() => {
                 var cat = product.categories.map(e => e.id)
                 return cat.map(e => axios.post(`http://localhost:3001/products/${id}/category/${e}`))
             })
-            .then(response => alert("Producto modificado"))
+            .then(() => alert("Producto modificado"))
             .catch(() => {
                 alert("Hubo un error. Por favor, intentá de nuevo.")}
             )
@@ -54,6 +54,7 @@ function CreateUpdateProduct({id}){
     useEffect( () => {
         if (id) {
             (async () => {
+                // eslint-disable-next-line react-hooks/exhaustive-deps
                 product = await axios.get(`http://localhost:3001/products/${id}`)
                 setProduct(product.data)
             }
@@ -63,6 +64,7 @@ function CreateUpdateProduct({id}){
     if (product) src = product.img;
 
     useEffect( () => {(async () => {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         categories = await axios.get(`http://localhost:3001/categories/`)
         categories = categories.data.map(cat => {
             return {...cat, label: cat.name, value: cat.id}
