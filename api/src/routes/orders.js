@@ -54,5 +54,19 @@ server.get('/:id', (req, res, next)=>{
     .catch(next)
 });
 
+//S47 : Crear Ruta para modificar una Orden
+//PUT /orders/:id
+
+server.put('/:id', (req, res) => {
+    OrderLine.findOne({
+        where: { id: req.params.id }
+    }).then(orderLine => {
+        orderLine.update({
+            productId: req.body.productId,
+            quantity: req.body.quantity
+        }).then(orderLine => { res.status(200).json({ orderLine }); }).catch(error => { res.status(400).json({ error }) })
+    }).catch(error => { res.status(400).json({ error }) })
+})
+
 
 module.exports = server;
