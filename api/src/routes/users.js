@@ -63,4 +63,35 @@ server.delete('/:userId', (req, res, next)=>{
     .catch(next);       
 });
 
+//S41 : Crear Ruta para editar las cantidades del carrito
+//Descripción
+// Crear Ruta para editar las cantidades del carrito
+
+// PUT /users/:idUser/cart
+
+server.put('/:idUser/cart', (req, res) => {
+    Order.findOne({
+        where: { userId: req.params.userId,
+                 status: "open" }
+    }).then(order => {
+        OrderLine.findOne({
+            where: { orderId: order.id, productId: req.body.productId }
+        }).then(orderLine => {
+            if(req.body.quantity === 'add') {
+               orderLine.update({
+                    quantity: orderLine.quantity + 1
+                })
+                res.status(200).json({ orderLine });
+            }
+            if(req.body.quantity === 'subtract') {
+                orderLine.update({
+                    quantity: orderLine.quantity - 1
+                })
+                res.status(200).json({ orderLine });
+            }
+        })
+    }).catch(error => { res.status(400).json({ error })
+  })
+})
+
 module.exports = server;
