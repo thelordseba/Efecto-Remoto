@@ -1,10 +1,10 @@
 import * as actions from '../reducers/constants.js'
 import axios from 'axios'
 
-export function getProducts() {
+export function getProducts(page = 1, limit = 6) {
     return async function(dispatch) {
         try {
-            const response = await axios.get(`http://localhost:3001/products`);
+            const response = await axios.get(`http://localhost:3001/products?offset=${(page)*limit}&limit=${limit}`);
             dispatch({
                 type: actions.GETPRODUCTS,
                 payload: response.data
@@ -15,10 +15,10 @@ export function getProducts() {
     }
 }
 
-export function getProductsByQuery(search) {
+export function getProductsByQuery(search, page = 1, limit = 6) {
     return async function(dispatch) {
         try {
-            const response = await axios.get(`http://localhost:3001/products/search?query=${search}`);
+            const response = await axios.get(`http://localhost:3001/products/search?query=${search}&offset=${(page)*limit}&limit=${limit}`);
             dispatch({
                 type: actions.SEARCHBYQUERY,
                 payload: response.data
@@ -66,27 +66,4 @@ export function setSearch(payload){
           type: actions.SETSEARCH,
           payload
       };
-  }
-
-
-      
-  
-
-
-
-  
-//   export function getMovies(titulo) {
-//     return function(dispatch) {
-//       return fetch("http://www.omdbapi.com/?apikey=20dac387&s=" + titulo)
-//         .then(response => response.json())
-//         .then(json => {
-//           dispatch({ type: "GET_MOVIES", payload: json });
-//         });
-//     };
-//   }
-//   export function getMovieDetail(id){
-//       return function(dispatch) {
-//           fetch("http://www.omdbapi.com/?apikey=20dac387&s=" + id)
-//       }
-
-//   }
+}
