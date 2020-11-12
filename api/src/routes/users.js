@@ -2,24 +2,23 @@ const server = require('express').Router();
 const { Product, User, Order, OrderLine} = require('../db.js');
 
 //S34 Crear Ruta para agregar usuario
-server.post('/', (req, res, next) => {
-    let {userName, firstName, lastName, isAdmin, email, telephone, password, gitHubId, gmailId, facebookId} = req.body
-    User.create({
-        userName,
-        firstName,
-        lastName,
-        isAdmin,
-        email,
-        telephone,
-        password,
-        gitHubId,
-        gmailId,
-        facebookId                
-    })                
-    .then(cat => {
-            res.status(201).json(cat);
-        })
-    .catch(next);
+server.post('/', async (req, res, next) => {    
+    try{        
+        const user = await User.create(req.body); //{userName, firstName, lastName, isAdmin, email, telephone, password, gitHubId, gmailId, facebookId} = req.body       
+
+        const location = await Location.create({
+            address: req.body.address,
+            number: req.body.number,
+            postalCode: req.body.url,
+            city: req.body.city,
+            province: req.body.province
+        });
+
+        await user.setLocation(location);
+        res.status(200).json(user);
+    } catch(error){       
+        next(error);
+    }
 });
 
 //S35 Crear Ruta para modificar usuario
