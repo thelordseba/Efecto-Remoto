@@ -114,16 +114,14 @@ server.post('/', async (req, res) => {
             price: req.body.price, 
             stock: req.body.stock,
         })
-        console.log(product)
         const image = await Image.create({
-            img: req.body.img, 
+            url: req.body.url, 
         })
-        await product.setImage(image)
+        await product.addImage(image)
         res.status(201).json(product)
-    } catch (error) {
-        console.log('hola fini y tomi capos')
     }
-});
+    catch(error) {console.log(error)};
+    });
 
 // Task S26 : Crear ruta para Modificar Producto
 server.put('/:id', (req, res, next) => {
