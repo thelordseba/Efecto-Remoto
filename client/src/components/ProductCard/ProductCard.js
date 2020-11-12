@@ -29,7 +29,9 @@ function ProductCard({product, small=true, stars, admin, id}) {
   return (
   <>
     <div className={small ? "product-card-container-small" : "product-card-container"}>
-        <img className={small ? "product-card-photo-small" : "product-card-photo"} src={product.img} alt={"Imagen no encontrada"}/>
+        <img className={small ? "product-card-photo-small" : "product-card-photo"}
+          src={product.images[0].url} 
+          alt={"Imagen no encontrada"}/>
         <div className="product-card-content">
           <a href={"/products/" + product.id}>
             <div className="title">{product.name}</div>
