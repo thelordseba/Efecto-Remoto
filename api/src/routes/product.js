@@ -105,8 +105,7 @@ server.get('/:id', (req, res, next) => {
 });
 
 // Task S25: Crear ruta para crear/agregar Producto
-// POST /products
-server.post('/', async (req, res, next) => {
+server.post('/', async (req, res) => {
     try {
         const product = await Product.create({
             ngoId: req.body.ngoId,
@@ -116,10 +115,9 @@ server.post('/', async (req, res, next) => {
             stock: req.body.stock,
         })
         console.log(product)
-        // const image = await Image.create({
-        //     img: req.body.img, 
-        // })
-        // console.log(img)
+        const image = await Image.create({
+            img: req.body.img, 
+        })
         await product.setImage(image)
         res.status(201).json(product)
     } catch (error) {
