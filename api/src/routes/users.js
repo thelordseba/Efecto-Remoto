@@ -64,6 +64,7 @@ server.delete('/:userId', (req, res, next)=>{
     .catch(next);       
 });
 
+
 //S38 : Crear Ruta para agregar Item al Carrito
 //POST /shopping-cart: Agrega un artículo al carrito de compras 
 //(enviando algunos datos con el artículo que estás agregando 
@@ -162,5 +163,29 @@ server.delete('/:userId/cart', (req, res) => {
 // Crear Ruta para editar las cantidades del carrito
 
 // PUT /users/:idUser/cart
+
+server.put('/:userId/cart', (req, res) => {
+    Order.findOne({
+        where: { userId: req.params.userId, status: "open" }
+    }).then(order => {
+        OrderLine.findOne({
+            where: { orderId: order.id, productId: req.body.productId }
+        }).then(orderLine => {
+            if(req.body.quantity === 'add') {
+               orderLine.update({
+                    quantity: orderLine.quantity + 1
+                })
+                res.status(200).json({ orderLine });
+            }
+            if(req.body.quantity === 'subtract') {
+                orderLine.update({
+                    quantity: orderLine.quantity - 1
+                })
+                res.status(200).json({ orderLine });
+            }
+        })
+    }).catch(error => { res.status(400).json({ error })
+  })
+})
 
 module.exports = server;
