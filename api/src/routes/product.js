@@ -1,11 +1,11 @@
 const server = require('express').Router();
 const { Product, Category, Image } = require('../db.js');
-const paginate = require('express-paginate');
+//const paginate = require('express-paginate');
 
 const { Sequelize } = require('sequelize');
 // const { response } = require('express');
 
-server.use(paginate.middleware(10, 50));
+//server.use(paginate.middleware(10, 50));
 
 // Task S17: Crear ruta para agregar o sacar categorías de un producto
 server.post('/:productId/category/:categoryId', async (req, res, next) => {
