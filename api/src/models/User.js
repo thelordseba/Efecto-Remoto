@@ -2,9 +2,9 @@
 //definir el modelo de Usuario
 
 //copio y pego lo de product.js de prueba
-import { DataTypes } from 'sequelize';
+const { DataTypes } = require('sequelize');
 
-export default (sequelize) => {
+module.exports = (sequelize) => {
 //defino el modelo como en product
 
 sequelize.define('user', {
