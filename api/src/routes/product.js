@@ -139,7 +139,7 @@ server.put('/:id', (req, res, next) => {
 server.delete('/:id', (req, res, next) => {
     Product.findByPk({
         where: {
-            id: req.params.id 
+            id: req.params.id
         }
     })
     .then((prod) => {

@@ -18,7 +18,7 @@ function UploadImage({handleURL}){
             "state_changed",
             snapshot => {},
             error => { 
-                console.log(error);
+                alert(error);
             },
         () => {
             storage
@@ -26,7 +26,6 @@ function UploadImage({handleURL}){
                 .child(image.name)
                 .getDownloadURL()
                 .then(url => {
-                    console.log(url);
                     handleURL(url)
                 });
             }
