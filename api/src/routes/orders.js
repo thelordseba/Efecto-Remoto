@@ -28,6 +28,16 @@ server.get('/', (req, res, next)=>{
     .catch(next);
 });
 
+//S45 : Crear Ruta que retorne todas las Ordenes de los usuarios
+//GET /users/:id/orders
+
+server.get('/:userId/orders', (req, res) => { //es necesario usar el next?
+    Order.findOrCreate({
+        where: { userId: req.params.idUser, status: "closed" }
+    }).then(orders => { res.json(orders); }).catch(error => { res.status(400).json({ error }) })
+})
+
+
 //S46 Crear una ruta que retorne una orden en particular
 server.get('/:id', (req, res, next)=>{
     Order.findOne({
