@@ -5,7 +5,8 @@ import Nosotros from "../components/Nosotros/Nosotros.js";
 import FAQ from "../components/FAQ/FAQ.js";
 import HomeAdmin from "../containers/HomeAdmin/HomeAdmin.js"
 import Home from "../containers/Home/Home.js";
-import CreateUpdateProduct from "../components/Product_CRUD/CreateUpdateProduct"
+import CreateUpdateProduct from "../components/Product_CRUD/CreateUpdateProduct";
+import ShoppingCart from "../components/ShoppingCart/ShoppingCart";
 import NGOs from "../components/NGOs/NGOs.js"
 import FormCategorias from "../components/FormCategory/FormCategory";
 import OrderDetails from 'containers/OrderDetails/orderDetails';
@@ -17,6 +18,7 @@ const routes = [
     component: Home,
     exact:true
   },    
+  
   {
     path:"/nosotros",
     component: Nosotros,
@@ -45,6 +47,11 @@ const routes = [
   {
     path:"/admin/ngos",
     render: () => <NGOs />,
+  },
+  {
+    path: "/carrito",
+    component: ShoppingCart,
+    exact: true,
   },
   // {
   //   path:"/admin/orders",
