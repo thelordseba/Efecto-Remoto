@@ -27,13 +27,10 @@ export default function  Form() {
     if(!input.name || !input.description) {
       alert("Debes completar todos los campos");
     } else {
-      console.log(input)
       axios.post(`http://localhost:3001/categories/`, input)
       .then((response) => {
-        console.log(response);
         alert("Categoría agregada") // No alerta la categoría
       }, (error) => {
-        console.log(error);
         alert("Hubo un error. Por favor, intentá de nuevo.")
       });
     };

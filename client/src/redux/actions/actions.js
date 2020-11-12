@@ -1,10 +1,10 @@
 import * as actions from '../reducers/constants.js'
 import axios from 'axios'
 
-export function getProducts(page = 1, limit = 6) {
+export function getProducts() {
     return async function(dispatch) {
         try {
-            const response = await axios.get(`http://localhost:3001/products?offset=${(page)*limit}&limit=${limit}`);
+            const response = await axios.get(`http://localhost:3001/products`);
             dispatch({
                 type: actions.GETPRODUCTS,
                 payload: response.data
@@ -15,10 +15,10 @@ export function getProducts(page = 1, limit = 6) {
     }
 }
 
-export function getProductsByQuery(search, page = 1, limit = 6) {
+export function getProductsByQuery(search) {
     return async function(dispatch) {
         try {
-            const response = await axios.get(`http://localhost:3001/products/search?query=${search}&offset=${(page)*limit}&limit=${limit}`);
+            const response = await axios.get(`http://localhost:3001/products/search?query=${search}`);
             dispatch({
                 type: actions.SEARCHBYQUERY,
                 payload: response.data
@@ -38,7 +38,6 @@ export function getProductsByCategory(category) {
                 payload: response.data.products
             });
         } catch (error) {
-            console.log(error);
             alert("Hubo un error. Por favor, intentá de nuevo.");
         }
     }
@@ -46,7 +45,6 @@ export function getProductsByCategory(category) {
 
 export function deleteProduct(id) {
     return async function(dispatch) {
-        console.log(id)
         try {
             const response = await axios.delete(`http://localhost:3001/products/${id}`);
             dispatch({
@@ -66,4 +64,27 @@ export function setSearch(payload){
           type: actions.SETSEARCH,
           payload
       };
-}
+  }
+
+
+      
+  
+
+
+
+  
+//   export function getMovies(titulo) {
+//     return function(dispatch) {
+//       return fetch("http://www.omdbapi.com/?apikey=20dac387&s=" + titulo)
+//         .then(response => response.json())
+//         .then(json => {
+//           dispatch({ type: "GET_MOVIES", payload: json });
+//         });
+//     };
+//   }
+//   export function getMovieDetail(id){
+//       return function(dispatch) {
+//           fetch("http://www.omdbapi.com/?apikey=20dac387&s=" + id)
+//       }
+
+//   }

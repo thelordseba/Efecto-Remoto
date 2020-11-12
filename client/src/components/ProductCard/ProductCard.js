@@ -25,8 +25,6 @@ function ProductCard({product, small=true, stars, admin, id}) {
     setShowSnackbar(true)
     setTimeout(function(){ setShowSnackbar(false) }, 2000);
   }
-
-  console.log(product)
   
   return (
   <>

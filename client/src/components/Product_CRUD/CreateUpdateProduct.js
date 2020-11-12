@@ -36,7 +36,6 @@ function CreateUpdateProduct({id}){
             })
             .then(() => alert("Producto agregado"))
             .catch((error) => {
-                console.log(error)
                 alert("Hubo un error. Por favor, intentá de nuevo.")})
             .then(() => history.push('/admin'))
         }
