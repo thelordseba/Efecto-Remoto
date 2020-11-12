@@ -69,10 +69,9 @@ server.delete('/:userId', (req, res, next)=>{
 
 // PUT /users/:idUser/cart
 
-server.put('/:idUser/cart', (req, res) => {
+server.put('/:userId/cart', (req, res) => {
     Order.findOne({
-        where: { userId: req.params.userId,
-                 status: "open" }
+        where: { userId: req.params.userId, status: "open" }
     }).then(order => {
         OrderLine.findOne({
             where: { orderId: order.id, productId: req.body.productId }
