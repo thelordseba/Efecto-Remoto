@@ -1,15 +1,15 @@
 import React from 'react';
-import ProductCatalog from "../containers/ProductCatalog/productCatalog";
-import ProductDetail from "../components/ProductDetail/ProductDetail.js";
-import Nosotros from "../components/Nosotros/Nosotros.js";
-import FAQ from "../components/FAQ/FAQ.js";
-import HomeAdmin from "../containers/HomeAdmin/HomeAdmin.js"
-import Home from "../containers/Home/Home.js";
-import CreateUpdateProduct from "../components/Product_CRUD/CreateUpdateProduct"
-import NgosCrud from "../components/NgosCrud/NgosCrud.js"
-import FormCategorias from "../components/FormCategory/FormCategory";
+import ProductCatalog from "containers/ProductCatalog/productCatalog";
+import ProductDetail from "components/ProductDetail/ProductDetail.js";
+import Nosotros from "components/Nosotros/Nosotros.js";
+import FAQ from "components/FAQ/FAQ.js";
+import HomeAdmin from "containers/HomeAdmin/HomeAdmin.js"
+import Home from "containers/Home/Home.js";
+import CreateUpdateProduct from "components/Product_CRUD/CreateUpdateProduct"
+import NgosCrud from "components/NgosCrud/NgosCrud.js"
+import FormCategorias from "components/FormCategory/FormCategory";
 import OrderDetails from 'containers/OrderDetails/orderDetails';
-import OrderTable from "../containers/OrderTable/OrderTable.js";
+import OrderTable from "containers/OrderTable/OrderTable.js";
 
 const routes = [
   {
@@ -46,10 +46,6 @@ const routes = [
     path:"/admin/ngos",
     render: () => <NgosCrud/>,
   },
-  // {
-  //   path:"/admin/orders",
-  //   render: ()=> <Orders />,
-  // },
   // {
   //   path:"/admin/users",
   //   render: () => <Users />,
