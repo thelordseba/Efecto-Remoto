@@ -30,7 +30,7 @@ export function getProductsByQuery(search, page = 1, limit = 10) {
 }
 
 
-export function getProductsByCategory(category, page = 1, limit = 10) {
+export function getProductsByCategory(category, page = 1, limit = 2) {
     return async function(dispatch) {
         try {
             const response = await axios.get(`http://localhost:3001/products/categories/${category}?offset=${(page-1)*limit}&limit=${limit}`);

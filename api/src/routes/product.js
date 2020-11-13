@@ -47,20 +47,19 @@ server.delete('/:productId/category/:categoryId', async (req, res, next) => {
 // Task S22: Crear ruta que devuelva los productos de X categoría
 server.get('/categories/:categoryId', (req, res, next) => {
     const categoryId = req.params.categoryId;
-    Category.findOne({
-        where: {
-            id: categoryId
-        },
-        include:{
-            model: Product,
-            include: {
-                model: Image
-            }}})   
-    .then(products => {
-        if(products) {
-            res.send(products)
+    const offset = req.query.offset;
+    const limit = req.query.limit;
+    Product.findAndCountAll({limit, offset, 
+        include: [{
+            model: Category,
+            where: {id: categoryId}
+        }, Image]
+    })
+    .then(({count, rows: products}) => {
+        if(products.length > 0) {
+            res.send({products, count});
         } else {
-            res.status(404).json({error: "Esta categoría no tiene productos asociados"})
+            res.status(404).json({error: "Esta categoría no tiene productos asociados."})
         }
     })
     .catch(next);
@@ -93,7 +92,7 @@ server.get('/search', (req, res, next) => {
                 { name: { [Sequelize.Op.substring]: valor } },
                 { description: { [Sequelize.Op.substring]: valor } },
             ],
-        },
+        }, include: [Image]
     })
     .then(({count, rows: products}) => {
         if(products.length > 0) {

@@ -4,7 +4,7 @@ import axios from 'axios'
 import './productCatalog.css' 
 import { useHistory } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
-import { getProducts, getProductsByCategory, getProductsByQuery } from "../../redux/actions/actions.js"
+import { getProducts, getProductsByCategory, getProductsByQuery, setSearch } from "../../redux/actions/actions.js"
 
 function ProductCatalog ({admin}){
 
@@ -13,29 +13,21 @@ function ProductCatalog ({admin}){
   let [category, setCategory] = useState('allCategories')
   let [categories, setCategories] = useState([])
   let [page, setPage] = useState(1);
+
   const history = useHistory();
   const handleOnClickAddProduct = () => history.push(`/admin/addproduct`)
-  const handleOnChange = e => setCategory(e.target.value)
+  const handleOnChange = e => {setCategory(e.target.value); setSearch("")}
+
   const dispatch = useDispatch()
   const { products, countProducts } = useSelector(state => state)
   const maxPages = useMemo(() => Math.ceil(countProducts/limit), [countProducts])
   const search = useSelector(state => state.search)
 
-  useEffect( () => {(async () => {
-    if(category !== 'allCategories') dispatch(getProductsByCategory(category))
-    else if (search.length > 0) dispatch(getProductsByQuery(search))
-    else dispatch(getProducts()) 
-  })()}, [dispatch, category, search])
-
-  
-    // useEffect( () => {(async () => {
-    // if(category !== 'allCategories') {
-      // dispatch(getProductsByCategory(category, page, limit))
-    // } 
-    // else {
-      // dispatch(getProducts(page, limit))
-    // } 
-//  })()}, [dispatch, category, page, limit])
+  useEffect( () => {
+    if(category !== 'allCategories') dispatch(getProductsByCategory(category, page, limit))
+    else if (search.length > 0) dispatch(getProductsByQuery(search, page, limit))
+    else dispatch(getProducts(page, limit))
+  }, [dispatch, category, page, limit, search])
   
   useEffect( () => {(async () => {
     const categories = await axios.get(`http://localhost:3001/categories/`)
@@ -44,7 +36,7 @@ function ProductCatalog ({admin}){
 
 
   const mapProducts = () => {
-    return products
+    return products ? Array.isArray(products) ? products
       .filter(product => product.stock > 0)
       .map(product => 
       <ProductCard
@@ -52,7 +44,7 @@ function ProductCatalog ({admin}){
         key={product.id}
         id={product.id}
         product={product}
-      />)
+      />) : null : null 
   }
 
   return (

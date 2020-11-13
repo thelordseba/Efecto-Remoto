@@ -10,11 +10,11 @@ const initialState = {
 
   export default (state = initialState, action) => {
     switch(action.type) {
-      
       case constants.SEARCHBYQUERY:
         return {
           ...state,
-          products: action.payload
+          products: action.payload.products,
+          countProducts: action.payload.count
         }
       case constants.GETPRODUCTS:
         return {
@@ -25,8 +25,7 @@ const initialState = {
       case constants.SETSEARCH:
         return {
           ...state,
-          search: action.payload.products,
-          countProducts: action.payload.count
+          search: action.payload,
         }
       case constants.SEARCHBYCATEGORY:
         return {
