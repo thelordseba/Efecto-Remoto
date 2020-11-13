@@ -1,10 +1,10 @@
 import * as actions from '../reducers/constants.js'
 import axios from 'axios'
 
-export function getProducts() {
+export function getProducts(page = 1, limit = 10) {
     return async function(dispatch) {
         try {
-            const response = await axios.get(`http://localhost:3001/products`);
+            const response = await axios.get(`http://localhost:3001/products?offset=${(page-1)*limit}&limit=${limit}`);
             dispatch({
                 type: actions.GETPRODUCTS,
                 payload: response.data
@@ -15,10 +15,10 @@ export function getProducts() {
     }
 }
 
-export function getProductsByQuery(search) {
+export function getProductsByQuery(search, page = 1, limit = 10) {
     return async function(dispatch) {
         try {
-            const response = await axios.get(`http://localhost:3001/products/search?query=${search}`);
+            const response = await axios.get(`http://localhost:3001/products/search?query=${search}&offset=${(page-1)*limit}&limit=${limit}`);
             dispatch({
                 type: actions.SEARCHBYQUERY,
                 payload: response.data
@@ -29,13 +29,14 @@ export function getProductsByQuery(search) {
     }
 }
 
-export function getProductsByCategory(category) {
+
+export function getProductsByCategory(category, page = 1, limit = 10) {
     return async function(dispatch) {
         try {
-            const response = await axios.get(`http://localhost:3001/products/categories/${category}`);
+            const response = await axios.get(`http://localhost:3001/products/categories/${category}?offset=${(page-1)*limit}&limit=${limit}`);
             dispatch({
                 type: actions.SEARCHBYCATEGORY,
-                payload: response.data.products
+                payload: response.data
             });
         } catch (error) {
             alert("Hubo un error. Por favor, intentá de nuevo.");
