@@ -11,6 +11,7 @@ import FormCategorias from "../components/FormCategory/FormCategory";
 import OrderDetails from '../containers/OrderDetails/orderDetails';
 import OrderTable from "../containers/OrderTable/OrderTable.js";
 import FormUser from 'components/FormUser/FormUser';
+import ShoppingCart from "../components/ShoppingCart/ShoppingCart";
 
 const routes = [
   {
@@ -18,6 +19,7 @@ const routes = [
     component: Home,
     exact:true
   },    
+  
   {
     path:"/nosotros",
     component: Nosotros,
@@ -46,6 +48,11 @@ const routes = [
   {
     path:"/admin/ngos",
     render: () => <NgosCrud/>,
+  },
+  {
+    path: "/carrito",
+    component: ShoppingCart,
+    exact: true,
   },
   // {
   //   path:"/admin/users",
