@@ -14,35 +14,9 @@ function FormUser(props) {
     return(
         <Form>
             <div className="row">
-                Nombre:
-                 <Field name="userName" type="text" />
-                 <ErrorMessage name="userName">
-                {message => <div className="error">{message}</div>}
-                </ErrorMessage>
-            </div>
-
-            <div className="row">
-                Apellido:
-                 <Field name="lastName" type="text" />
-                 <ErrorMessage name="lastName">
-                {message => <div className="error">{message}</div>}
-                </ErrorMessage>
-            </div>
-
-            <div className="row">
-                Teléfono:
-                 <Field name="phone" type="text" />
-                 <ErrorMessage name="phone">
-                {message => <div className="error">{message}</div>}
-                </ErrorMessage>
-            </div>
-
-            <div className="row">
-                Ubicación:
-                 <Field name="userName" type="selector" />
-                 <ErrorMessage name="userName">
-                {message => <div className="error">{message}</div>}
-                </ErrorMessage>
+                Administrador:
+                 <Field name="isAdmin" type="checkbox" />
+                 
             </div>
 
 
@@ -62,6 +36,71 @@ function FormUser(props) {
                 </ErrorMessage>
             </div>
 
+            <div className="row">
+                Nombre:
+                 <Field name="userName" type="text" />
+                 <ErrorMessage name="userName">
+                {message => <div className="error">{message}</div>}
+                </ErrorMessage>
+            </div>
+
+            <div className="row">
+                Apellido:
+                 <Field name="lastName" type="text" />
+                 <ErrorMessage name="lastName">
+                {message => <div className="error">{message}</div>}
+                </ErrorMessage>
+            </div>
+
+            <div className="row">
+                Teléfono:
+                 <Field name="phone" type="tel" />
+                 <ErrorMessage name="phone">
+                {message => <div className="error">{message}</div>}
+                </ErrorMessage>
+            </div>
+
+            <div className="row">
+                Ubicación:
+                 <Field name="ubicacion" type="selector" />
+                 <ErrorMessage name="ubicacion">
+                {message => <div className="error">{message}</div>}
+                </ErrorMessage>
+            </div>
+
+            <div className="row">
+                Ciudad:
+                 <Field name="ciudad" type="selector" />
+                 <ErrorMessage name="ciudad">
+                {message => <div className="error">{message}</div>}
+                </ErrorMessage>
+            </div>
+
+            <div className="row">
+                Dirección:
+                 <Field name="direccion" type="selector" />
+                 <ErrorMessage name="direccion">
+                {message => <div className="error">{message}</div>}
+                </ErrorMessage>
+            </div>
+
+            <div className="row">
+                Codigo Postal:
+                 <Field name="codigoPostal" type="selector" />
+                 <ErrorMessage name="codigoPostal">
+                {message => <div className="error">{message}</div>}
+                </ErrorMessage>
+            </div>
+
+            <div className="row">
+                Pais/State:
+                 <Field name="pais" type="selector" />
+                 <ErrorMessage name="pais">
+                {message => <div className="error">{message}</div>}
+                </ErrorMessage>
+            </div>
+        
+
             
             <div className="">
             <button type="submit"
@@ -78,6 +117,14 @@ export default withFormik({
         return{
             email: '',         //inicializo el estado (puede traer valor por default recibido desde props)
             password: '',
+            userName: '',
+            lastName: '',
+            phone: '',
+            ubicacion: '',
+            ciudad: '',
+            direccion: '',
+            codigoPostal:'',
+
         };
     },
 
@@ -86,7 +133,7 @@ export default withFormik({
         const errors = {};
         if(!values.userName){
             errors.userName = "Ingresar nombre";
-        }else if(typeof userName !== 'string'){
+        }else if(/[^A-Za-z0-9+]/.test(values.userName)){
             errors.userName = "Carácteres inválidos";
         }
         if( isNaN(values.phone) ) {
@@ -105,8 +152,7 @@ export default withFormik({
             errors.password = "Tu contraseña debe contener más de 9 caracteres"
         }
 
-        
-
+    
         return errors;
     },
 
@@ -121,3 +167,9 @@ export default withFormik({
 }) (FormUser);
 //manda un objeto de configuracion y al resultado le mandamos a llamar el componente que queremos que configure, le pasamos varias opciones de configuracion
 //withformik metodo para saber y procesar cuando la forma se submiteo
+
+
+
+
+
+
