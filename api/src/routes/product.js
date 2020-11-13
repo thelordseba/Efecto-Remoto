@@ -64,9 +64,17 @@ server.get('/categories/:categoryId', (req, res, next) => {
 
 // Task S21: Crear ruta que devuelva todos los productos
 server.get('/', (req, res, next) => {
-    Product.findAll({include: {model: Image}})
-    .then(products => res.send(products))
-    .catch(next);
+    const offset = req.query.offset;
+    const limit = req.query.limit;
+    Product.findAndCountAll({limit, offset, include: {model: Image}})
+    .then(({count, rows: products}) => {
+        if(products.length > 0) {
+            res.send({products, count});
+        } else {
+            res.status(404).json({error: "No hay productos para seleccionar en este momento."})
+        }
+    })
+    .catch((err) => res.send(err));
 });
 
 // Task S23: Crear ruta que retorne productos según el keyword de búsqueda
@@ -75,10 +83,7 @@ server.get('/search', (req, res, next) => {
     const valor = req.query.query;
     const offset = req.query.offset;
     const limit = req.query.limit;
-    console.log(valor)
-    Product.findAndCountAll({
-        limit,
-        offset,
+    Product.findAndCountAll({limit, offset,
         where: {
             [Sequelize.Op.or]: [
                 { name: { [Sequelize.Op.substring]: valor } },
@@ -88,8 +93,7 @@ server.get('/search', (req, res, next) => {
     })
     .then(({count, rows: products}) => {
         if(products.length > 0) {
-            res.setHeader('count', count);
-            res.send(products);
+            res.send({products,count});
         } else {
             res.status(404).json({error: "No se encontraron resultados para esta búsqueda"})
         }
