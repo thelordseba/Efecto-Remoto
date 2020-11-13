@@ -24,6 +24,18 @@ function ProductCatalog ({admin}){
     setCategory(e.target.value)
   }
 
+  // const refresh = useCallback(async () => {
+  //   if(category !== 'allCategories') {
+  //     const {data} = await axios.get(`http://localhost:3001/products/categories/${category}`)
+  //     setProducts(data.products)
+  //   } else {
+  //     const {data} = await axios
+  //     .get(`http://localhost:3001/products/search?query=${search}`)
+  //     setProducts(data)
+  //   } 
+  // }, [search, category])
+
+  // useEffect( () => refresh(), [refresh])
   const dispatch = useDispatch()
   const { products, countProducts } = useSelector(state => state)
   const maxPages = useMemo(() => Math.ceil(countProducts/limit), [countProducts])
