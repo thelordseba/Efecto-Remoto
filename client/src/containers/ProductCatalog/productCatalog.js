@@ -7,13 +7,10 @@ import { useHistory } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
 import { getProducts, getProductsByCategory } from "../../redux/actions/actions.js"
 
-// aprender a usar los headers
-
 function ProductCatalog ({admin}){
 
-  let [category, setCategory] = useState('allCategories');
-  let [categories, setCategories] = useState([]);
-  let [page, setPage] = useState(0);
+  let [category, setCategory] = useState('allCategories')
+  let [categories, setCategories] = useState([])
 
   const history = useHistory();
 
@@ -23,7 +20,6 @@ function ProductCatalog ({admin}){
 
   const handleOnChange = (e) => {
     setCategory(e.target.value)
-    // console.log(category)
   }
 
   // const refresh = useCallback(async () => {
@@ -56,25 +52,27 @@ function ProductCatalog ({admin}){
     setCategories(categories.data)
   })()}, [])
 
-  // console.log(products)
 
   const mapProducts = () => {
     return products
       .filter(product => product.stock > 0)
       .map(product => 
       <ProductCard
-        admin={admin}
-        key={product.id}
-        id={product.id}
-        product={product}
+      admin={admin}
+      key={product.id}
+      id={product.id}
+      product={product}
       />)
   }
  
+  console.log(products)
+  
   return (
     <>
       <div className="product-catalog-container">
         <label className="tituloForm">Seleccioná una categoría: </label>
         <select className="select"onChange={handleOnChange}>
+          {/* <option value="" disabled selected>Categorías</option> */}
           <option value="allCategories">Todas las categorías</option>
           {categories.map((category) => 
           <option value={category.id} key={category.id}>{category.name}</option> 
@@ -82,10 +80,6 @@ function ProductCatalog ({admin}){
         </select> 
       </div> 
       {admin ? <div className="product-catalog-button" onClick={handleOnClickAddProduct}>Agregar producto</div> : null}
-    <div>
-      <button disabled={page===1} onClick={() => setPage(page+1)}>Anterior</button>
-      <button onClick={() => setPage(page-1)}>Siguiente</button>
-    </div>
     <div className="cards-container"> {mapProducts()} </div>
     </>
   )

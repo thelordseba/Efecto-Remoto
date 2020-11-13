@@ -1,11 +1,8 @@
 const server = require('express').Router();
 const { Product, Category, Image } = require('../db.js');
-//const paginate = require('express-paginate');
 
 const { Sequelize } = require('sequelize');
 // const { response } = require('express');
-
-//server.use(paginate.middleware(10, 50));
 
 // Task S17: Crear ruta para agregar o sacar categorías de un producto
 server.post('/:productId/category/:categoryId', async (req, res, next) => {
@@ -47,7 +44,6 @@ server.delete('/:productId/category/:categoryId', async (req, res, next) => {
 });
 
 
-
 // Task S22: Crear ruta que devuelva los productos de X categoría
 server.get('/categories/:categoryId', (req, res, next) => {
     const categoryId = req.params.categoryId;
@@ -68,19 +64,8 @@ server.get('/categories/:categoryId', (req, res, next) => {
 
 // Task S21: Crear ruta que devuelva todos los productos
 server.get('/', (req, res, next) => {
-    const offset = req.query.offset;
-    const limit = req.query.limit;
-    Product.findAndCountAll({
-        offset,
-        limit,
-        // include: {model: Image}
-    })
-    .then(({count, rows: products}) => {   
-        if(products.length > 0) {
-            res.setHeader('count', count);
-            res.send(products);
-        }
-    })
+    Product.findAll({include: {model: Image}})
+    .then(products => res.send(products))
     .catch(next);
 });
 
@@ -135,16 +120,14 @@ server.post('/', async (req, res) => {
             price: req.body.price, 
             stock: req.body.stock,
         })
-        console.log(product)
         const image = await Image.create({
-            img: req.body.img, 
+            url: req.body.url, 
         })
-        await product.setImage(image)
+        await product.addImage(image)
         res.status(201).json(product)
-    } catch (error) {
-        console.log('hola fini y tomi capos')
     }
-});
+    catch(error) {console.log(error)};
+    });
 
 // Task S26 : Crear ruta para Modificar Producto
 server.put('/:id', (req, res, next) => {
@@ -159,20 +142,29 @@ server.put('/:id', (req, res, next) => {
 })
 
 // Task S27: Crear Ruta para eliminar Producto
-server.delete('/:id', (req, res, next) => {
-    Product.findByPk({
-        where: {
-            id: req.params.id
+server.delete('/:userId', (req, res, next)=>{
+    Product.findOne({
+        where:{
+            id: req.params.userId
         }
     })
-    .then((prod) => {
-        if(!prod) res.status(400).send({error: 'No se encontró ese ID de producto'})
-        if(prod) res.send(prod)
+    .then(product => {
+        if(!product){
+            res.status(400).send("ERROR: El usuario que intenta eliminar no existe.");
+        }else{ 
+            Image.findOne({
+                where: {
+                    id: product.imageId
+                }
+            })   
+            .then(image=>{
+                image.destroy();
+            }) 
+            product.destroy();
+            res.sendStatus(200);       
+        }
     })
-    .then((prod) => {
-        prod.destroy()
-    })
-    .catch(next);
+    .catch(next);       
 });
 
 module.exports = server;

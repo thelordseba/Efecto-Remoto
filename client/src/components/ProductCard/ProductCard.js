@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import Stars from "./Stars"
 import {useHistory } from "react-router-dom"
 import {useDispatch} from 'react-redux'
-// import {useSelector} from 'react-redux'
 import {deleteProduct} from 'redux/actions/actions'
 import { ReactComponent as CartIcon } from '../common/cart.svg'
 
@@ -25,9 +24,9 @@ function ProductCard({product, small=true, stars, admin, id}) {
     setShowSnackbar(true)
     setTimeout(function(){ setShowSnackbar(false) }, 2000);
   }
-
-  console.log(product)
   
+  console.log("PRODUCTO", product)
+
   return (
   <>
     <div className={small ? "product-card-container-small" : "product-card-container"}>
