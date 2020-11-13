@@ -1,0 +1,30 @@
+.row {
+    width: 300px;
+    padding: 0.5rem 0;
+}
+.error {
+    padding: 0.5rem;
+    background-color: rgba(255, 0, 0, 0.5);
+    border: 1px solid red;
+    border-radius: 6px;
+    margin: 0.5rem 0 0 0;
+}
+.submit {
+    padding: 0.5rem 0;
+    background-color: #0d7377;
+    color: white;
+    /* cursor:pointer; */
+    font-weight: bold;
+    width: 5%;
+
+}
+
+    .disabled {
+        background-color: #e6e6e6;
+        color: #292929;
+        box-shadow: inherit;
+    }
+    
+    
+
+

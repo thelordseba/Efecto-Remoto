@@ -25,8 +25,6 @@ function ProductCard({product, small=true, stars, admin, id}) {
     setTimeout(function(){ setShowSnackbar(false) }, 2000);
   }
   
-  console.log("PRODUCTO", product)
-
   return (
   <>
     <div className={small ? "product-card-container-small" : "product-card-container"}>
