@@ -51,7 +51,11 @@ server.get('/categories/:categoryId', (req, res, next) => {
         where: {
             id: categoryId
         },
-        include: [Product, Image]})    
+        include:{
+            model: Product,
+            include: {
+                model: Image
+            }}})   
     .then(products => {
         if(products) {
             res.send(products)

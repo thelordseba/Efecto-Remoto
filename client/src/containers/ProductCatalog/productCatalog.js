@@ -5,47 +5,24 @@ import axios from 'axios'
 import './productCatalog.css' 
 import { useHistory } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
-import { getProducts, getProductsByCategory } from "../../redux/actions/actions.js"
+import { getProducts, getProductsByCategory, getProductsByQuery } from "../../redux/actions/actions.js"
 
 function ProductCatalog ({admin}){
 
   let [category, setCategory] = useState('allCategories')
   let [categories, setCategories] = useState([])
-
   const history = useHistory();
-
-  const handleOnClickAddProduct = () => {
-    history.push(`/admin/addproduct`)
-  }
-
-  const handleOnChange = (e) => {
-    setCategory(e.target.value)
-  }
-
-  // const refresh = useCallback(async () => {
-  //   if(category !== 'allCategories') {
-  //     const {data} = await axios.get(`http://localhost:3001/products/categories/${category}`)
-  //     setProducts(data.products)
-  //   } else {
-  //     const {data} = await axios
-  //     .get(`http://localhost:3001/products/search?query=${search}`)
-  //     setProducts(data)
-  //   } 
-  // }, [search, category])
-
-  // useEffect( () => refresh(), [refresh])
-
+  const handleOnClickAddProduct = () => history.push(`/admin/addproduct`)
+  const handleOnChange = e => setCategory(e.target.value)
   const dispatch = useDispatch()
   const products = useSelector(state => state.products)
+  const search = useSelector(state => state.search)
 
   useEffect( () => {(async () => {
-    if(category !== 'allCategories') {
-      dispatch(getProductsByCategory(category))
-    } 
-    else {
-      dispatch(getProducts())
-    } 
-  })()}, [dispatch, category])
+    if(category !== 'allCategories') dispatch(getProductsByCategory(category))
+    else if (search.length > 0) dispatch(getProductsByQuery(search))
+    else dispatch(getProducts()) 
+  })()}, [dispatch, category, search])
   
   useEffect( () => {(async () => {
     const categories = await axios.get(`http://localhost:3001/categories/`)
@@ -64,9 +41,7 @@ function ProductCatalog ({admin}){
       product={product}
       />)
   }
- 
-  console.log(products)
-  
+   
   return (
     <>
       <div className="product-catalog-container">
