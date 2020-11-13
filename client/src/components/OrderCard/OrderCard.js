@@ -5,7 +5,7 @@ export default function OrderCard(props) {
 
   return ( //recibe info de redux   //cambiar html si es necesario para css
     <div>
-        <a src="/orders/${props.orderId}">  
+        <a href={"/orders/" + props.orderId}>  
             <label>Numero de orden: {props.orderId}</label>
         </a>
       <label>Nombre de usuario: {}</label>

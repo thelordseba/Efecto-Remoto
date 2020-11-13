@@ -20,7 +20,6 @@ function ProductCatalog ({admin}){
 
   const handleOnChange = (e) => {
     setCategory(e.target.value)
-    // console.log(category)
   }
 
   // const refresh = useCallback(async () => {
@@ -53,7 +52,6 @@ function ProductCatalog ({admin}){
     setCategories(categories.data)
   })()}, [])
 
-  // console.log(products)
 
   const mapProducts = () => {
     return products
@@ -67,6 +65,8 @@ function ProductCatalog ({admin}){
       />)
   }
  
+  console.log(products)
+  
   return (
     <>
       <div className="product-catalog-container">
