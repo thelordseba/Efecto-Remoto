@@ -71,31 +71,23 @@ server.put('/:userId', (req, res, next) => {
     .catch(next);
 });
 
-
-// server.get('/', (req, res, next)=>{
-//     User.findAll(
-//         {
-//             id, userName, firstName, lastName,
-//             isAdmin, email, telephone,
-//             password, gitHubId, gmailId,
-//             facebookId
-//         }
-//     )
-//     .then((user)=>{
-//         res.status(201).json(user);
-//     })
-//     .catch(next);
-// });
-
-
-
+//S37 Crear ruta que retorne todos los usuarios
 server.get('/', (req, res, next)=>{
-    User.findAll()
+    User.findAll(
+        {
+            include: {
+                model: Location
+            }
+        }
+    )
     .then((user)=>{
         res.status(201).json(user);
     })
     .catch(next);
 });
+
+
+
 
 //S37 Crear ruta para eliminar un usuario
 server.delete('/:userId', (req, res, next)=>{

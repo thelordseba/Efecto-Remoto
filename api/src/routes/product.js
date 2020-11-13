@@ -4,7 +4,6 @@ const { Product, Category, Image } = require('../db.js');
 const { Sequelize } = require('sequelize');
 // const { response } = require('express');
 
-
 // Task S17: Crear ruta para agregar o sacar categorías de un producto
 server.post('/:productId/category/:categoryId', async (req, res, next) => {
     const {productId, categoryId} = req.params
