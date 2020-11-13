@@ -27,25 +27,64 @@ const productsMock =[
 ]
 function ShoppingCart (props){
     const history = useHistory();
-    const [products,setProducts]= useState(productsMock)
+    const [prodQty, setProdQty] = useState()
+  
+    useEffect(()=> {
+      // component did mount --> se ejecuta solo cuando se monta el componente
+      if (!products) {
+        localStorage.setItem('products', JSON.stringify(productsMock))
+      }
+    },[])
+
+    const products = useMemo(() => {
+      return JSON.parse(localStorage.getItem('products'))
+    },[localStorage])
 
     const handleBack = () => {
         history.push(`/admin/products`)
-      }
+    }
 
       const total = useMemo(() => {
-        let acumulador= 0;
-        products.forEach(producto => {
-            acumulador = acumulador + (producto.price * producto.cantidad)
-        });
-        return acumulador;
-      },[products])
-    
+        if (products) {
+          let acumulador= 0;
+          products.forEach(producto => {
+              acumulador = acumulador + (producto.price * producto.cantidad)
+          });
+          return acumulador;
+        }
+      },[products, prodQty])
+
+          
       const handleOnChangeCantidad = (event) => {
         const productId = event.target.name
         const value = event.target.value
-        // llamar a la action de redux que maneja el carrito
+        const updateQty = {}
+        products.map((product) => {
+          if (product.id == productId){
+             product.cantidad = value
+             updateQty[productId] = product.cantidad
+          }
+          return product
+        })
+        setProdQty({...prodQty, updateQty})
       }
+
+      const mappedProducts = useMemo(() => {
+        if (products) {
+          return products.map((product) =>
+            <div key={product.id} className="product-container-shopping-cart">
+              <img  className="photo-cart" src={product.img} alt={"Imagen no encontrada"}/> 
+                <div className="product-content-shopping-cart">
+              <div  className="title-cart">{product.name}</div>
+            <div className= "description-cat">{product.description}</div>
+            <div>${product.price}</div>
+            </div>
+            <form className="input-cart-container"><input className="input-cart" onChange={handleOnChangeCantidad} name={product.id} value={product.cantidad} type="number" min="0" max="100"/></form>
+              </div>
+            )
+        }
+      },[products, prodQty])
+
     return(
         <>
         <div className="back" onClick={handleBack}> Volver </div>
@@ -53,17 +92,7 @@ function ShoppingCart (props){
           <div className="container-cart">
           <div className="title-container-cart">Carrito de Compras</div>
           <div className="divider-cart"/>
-          {products.map((product) =>
-          <div key={product.id} className="product-container-shopping-cart">
-            <img  className="photo-cart" src={product.img} alt={"Imagen no encontrada"}/> 
-              <div className="product-content-shopping-cart">
-            <div  className="title-cart">{product.name}</div>
-          <div  className= "description-cat">{product.description}</div>
-          <div  >${product.price}</div>
-          </div>
-          <form className="input-cart-container"><input className="input-cart" onChange={handleOnChangeCantidad} name={product.id} value={product.cantidad} type="number" min="0" max="100"/></form>
-            </div>
-          )}
+          {mappedProducts}
         </div>
         <div className= "summary">
           <div className ="summary-title"> Resumen</div>
@@ -72,9 +101,7 @@ function ShoppingCart (props){
           <div className ="summary-cart">Envio <div className="summary-totals">GRATIS</div></div>
           <div className="divider-summary"/>
           <div className = "summary-cart">Total <div className="summary-totals">${total}</div></div>
-
         </div>
-    
         </div>
         <div className="bottom-cart"> 
         <div className= "cart-back">Anterior</div>
