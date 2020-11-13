@@ -69,7 +69,7 @@ const routes = [
   },
   {
     path: "/orderdetails",
-    component: OrderDetails,
+    render:({match}) => <OrderDetails id={match.params.id} />,
     exact: true
   },
   {
