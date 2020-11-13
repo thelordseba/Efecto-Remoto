@@ -1,4 +1,4 @@
-import OrderLine from 'components/OrderLine/OrderLine';
+import OrderLine from '../../components/OrderLine/OrderLine';
 import React from 'react';
 
 

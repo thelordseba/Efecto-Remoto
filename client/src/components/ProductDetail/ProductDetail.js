@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Stars from "./Stars"
 import { useHistory } from "react-router-dom"
 import axios from 'axios'
-import { ReactComponent as CartIcon } from '../common/cart.svg'
+import { ReactComponent as CartIcon } from '../common/cart.svg' 
 
 function ProductDetail({small=false, stars, id}) {
   const [showSnackbar, setShowSnackbar] = useState(false)

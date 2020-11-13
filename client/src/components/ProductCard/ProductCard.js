@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import Stars from "./Stars"
 import {useHistory } from "react-router-dom"
 import {useDispatch} from 'react-redux'
-import {deleteProduct} from 'redux/actions/actions'
+import {deleteProduct} from '../../redux/actions/actions'
 import { ReactComponent as CartIcon } from '../common/cart.svg'
 
 function ProductCard({product, small=true, stars, admin, id}) {
