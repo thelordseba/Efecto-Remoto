@@ -52,6 +52,7 @@ function ProductCatalog ({admin}){
     setCategories(categories.data)
   })()}, [])
 
+
   const mapProducts = () => {
     return products
       .filter(product => product.stock > 0)
@@ -64,6 +65,8 @@ function ProductCatalog ({admin}){
       />)
   }
  
+  console.log(products)
+  
   return (
     <>
       <div className="product-catalog-container">

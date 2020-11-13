@@ -28,14 +28,10 @@ function CreateUpdateProduct({id}){
             axios.post(`http://localhost:3001/products`, product)
             .then(response => {
                 var cat = product.categories.map(e => e.id)
-                return cat.map(e => axios.post(`http://localhost:3001/products/${response.data.id}/image/${e}`))
-            })
-            .then(response => {
-                var url = product.url.map(e => e.id)
-                return url.map(e => axios.post(`http://localhost:3001/products/${response.data.id}/image/${e}`))
+                return cat.map(e => axios.post(`http://localhost:3001/products/${response.data.id}/category/${e}`))
             })
             .then(() => alert("Producto agregado"))
-            .catch((error) => {
+            .catch(() => {
                 alert("Hubo un error. Por favor, intentá de nuevo.")})
             .then(() => history.push('/admin'))
         }
