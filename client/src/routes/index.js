@@ -47,10 +47,6 @@ const routes = [
     render: () => <NgosCrud/>,
   },
   // {
-  //   path:"/admin/orders",
-  //   render: ()=> <Orders />,
-  // },
-  // {
   //   path:"/admin/users",
   //   render: () => <Users />,
   // },
