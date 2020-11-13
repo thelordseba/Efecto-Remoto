@@ -2,6 +2,7 @@
 import React,{useEffect, useMemo, useState} from 'react';
 import { useHistory } from "react-router-dom";
 import './cart.css';
+
 const productsMock =[
     {
         id: 1,
@@ -60,7 +61,7 @@ function ShoppingCart (props){
         const value = event.target.value
         const updateQty = {}
         products.map((product) => {
-          if (product.id == productId){
+          if (product.id === productId){
              product.cantidad = value
              updateQty[productId] = product.cantidad
           }

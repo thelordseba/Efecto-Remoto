@@ -41,7 +41,8 @@
   .photo{
     height: 400px;
     width: 400px; 
-    margin: 100px;
+    margin: 50px;
+    object-fit: cover;
   }
 
   

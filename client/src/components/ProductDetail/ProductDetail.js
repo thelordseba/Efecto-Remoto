@@ -8,6 +8,7 @@ function ProductDetail({small=false, stars, id}) {
   const [showSnackbar, setShowSnackbar] = useState(false)
   const history = useHistory();
   let [product, setProduct] = useState([])
+  let [image, setImage] = useState("")
 
   const handleGoBack = () => {
     history.push(`/admin/products`)
@@ -29,7 +30,8 @@ function ProductDetail({small=false, stars, id}) {
   useEffect( () => {(async () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     product = await axios.get(`http://localhost:3001/products/${id}`)
-    setProduct(product.data)  
+    setProduct(product.data)
+    setImage(product.data.images[0].url)
     }
   )()}, [])
 
@@ -37,7 +39,7 @@ function ProductDetail({small=false, stars, id}) {
     <>
       <div className="volver" onClick={handleGoBack}> Volver </div>
       <div className={small ? "product-container-small" : "product-container"}>
-          <img className={small ? "photo-small" : "photo"} src={product.img} alt={"Imagen no encontrada"}/>
+          <img className={small ? "photo-small" : "photo"} src={image} alt={"Imagen no encontrada"}/>
           <div className="product-detail-content">
             <div className="title">{product.name}</div>
             {small && <div className="stars-small"> <Stars disabledClick={true} stars={stars}/> </div>}
