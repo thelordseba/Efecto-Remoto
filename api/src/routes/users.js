@@ -87,10 +87,10 @@ server.get('/', (req, res, next)=>{
 });
 
 //Get user by Id
-server.get('/:Userid', (req, res, next)=>{
+server.get('/:userId', (req, res, next)=>{
     User.findByPk( {
         where: {
-            id: req.params.Userid        
+            id: req.params.userId        
         }, include: {
             model: Location
         }
