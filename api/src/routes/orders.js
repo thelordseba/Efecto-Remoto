@@ -151,8 +151,11 @@ server.put('/:userId/cart', async (req, res, next) => {
 //S44: Ruta que retorne todas las ordenes de un determinado status.             
 //Recibe status por query string
 server.get('/', async (req, res, next)=> {
-    try{    
-        const order = await Order.findAll({
+    const status = req.query.status
+    try{
+        let order; 
+        if (status) {
+            order = await Order.findAll({
                where:{
                    status : req.query.status        //Status => ['cart', 'created', 'processing', 'cancelled', 'completed']
                },
@@ -161,7 +164,17 @@ server.get('/', async (req, res, next)=> {
                    { model: Product }           
                ]
            });
-        res.status(200).json(order);            
+        }
+        else {
+            order = await Order.findAll({
+    
+                include: [
+                    { model: User },
+                    { model: Product }           
+                ]
+            });
+         }
+         res.status(200).json(order);       
     } catch(error){        
         next(error);
     }    
