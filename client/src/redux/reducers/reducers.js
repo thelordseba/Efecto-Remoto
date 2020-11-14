@@ -38,6 +38,11 @@ const initialState = {
           ...state,
           deleted: action.payload
         }
+      case constants.GETCATEGORIES:
+        return {
+          ...state,
+          categories: action.payload
+        }
   
       default:
          return state;
