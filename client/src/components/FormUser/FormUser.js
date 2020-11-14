@@ -19,6 +19,14 @@ function FormUser(props) {
                  
             </div>
 
+            <div className="row">
+                Nombre de usuario:
+                 <Field name="userName" type="email" />
+                 <ErrorMessage name="userName">
+                {message => <div className="error">{message}</div>}
+                </ErrorMessage>
+            </div>
+
 
             <div className="row">
                 Email:
@@ -38,8 +46,8 @@ function FormUser(props) {
 
             <div className="row">
                 Nombre:
-                 <Field name="userName" type="text" />
-                 <ErrorMessage name="userName">
+                 <Field name="name" type="text" />
+                 <ErrorMessage name="name">
                 {message => <div className="error">{message}</div>}
                 </ErrorMessage>
             </div>
@@ -61,41 +69,49 @@ function FormUser(props) {
             </div>
 
             <div className="row">
-                Ubicación:
-                 <Field name="ubicacion" type="selector" />
-                 <ErrorMessage name="ubicacion">
-                {message => <div className="error">{message}</div>}
-                </ErrorMessage>
-            </div>
-
-            <div className="row">
-                Ciudad:
-                 <Field name="ciudad" type="selector" />
-                 <ErrorMessage name="ciudad">
-                {message => <div className="error">{message}</div>}
-                </ErrorMessage>
-            </div>
-
-            <div className="row">
                 Dirección:
-                 <Field name="direccion" type="selector" />
-                 <ErrorMessage name="direccion">
+                 <Field name="address" type="selector" />
+                 <ErrorMessage name="address">
                 {message => <div className="error">{message}</div>}
                 </ErrorMessage>
             </div>
 
             <div className="row">
-                Codigo Postal:
-                 <Field name="codigoPostal" type="selector" />
-                 <ErrorMessage name="codigoPostal">
+                Número:
+                 <Field name="number" type="selector" />
+                 <ErrorMessage name="number">
                 {message => <div className="error">{message}</div>}
                 </ErrorMessage>
             </div>
 
             <div className="row">
-                Pais/State:
-                 <Field name="pais" type="selector" />
-                 <ErrorMessage name="pais">
+                Código Postal:
+                 <Field name="postalCode" type="selector" />
+                 <ErrorMessage name="postalCode">
+                {message => <div className="error">{message}</div>}
+                </ErrorMessage>
+            </div>
+
+            <div className="row">
+                Localidad:
+                 <Field name="location" type="selector" />
+                 <ErrorMessage name="location">
+                {message => <div className="error">{message}</div>}
+                </ErrorMessage>
+            </div>
+
+            <div className="row">
+                Provincia:
+                 <Field name="city" type="selector" />
+                 <ErrorMessage name="city">
+                {message => <div className="error">{message}</div>}
+                </ErrorMessage>
+            </div>
+
+            <div className="row">
+                Pais:
+                 <Field name="country" type="selector" />
+                 <ErrorMessage name="country">
                 {message => <div className="error">{message}</div>}
                 </ErrorMessage>
             </div>
@@ -115,16 +131,18 @@ function FormUser(props) {
 export default withFormik({
     mapPropsToValues(props){
         return{
+            userName: '',
             email: '',         //inicializo el estado (puede traer valor por default recibido desde props)
             password: '',
-            userName: '',
+            name: '',
             lastName: '',
             phone: '',
-            ubicacion: '',
-            ciudad: '',
-            direccion: '',
-            codigoPostal:'',
-
+            address: '',
+            number: '',
+            postalCode: '',
+            location: '',
+            city: '',
+            country: '',
         };
     },
 
