@@ -1,14 +1,11 @@
 
 .cards-container {
     width:100%;
-    display: grid;
+    display: flex;
     grid-template: repeat(4, 1fr) / repeat(3, 1fr);
     column-gap: 10px;
 }
 
-.product {
-  
-}
 .product-catalog-container {
     display: flex;
     align-items: baseline;
