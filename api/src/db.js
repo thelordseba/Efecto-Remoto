@@ -36,7 +36,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Product, Category, User, Review, Order, Payment, Ngo, OrderLine } = sequelize.models;
+const { Product, Category, User, Review, Order, Payment, Ngo, OrderLine, Image, Location } = sequelize.models;
 
 // RELACIONES
 
@@ -61,6 +61,10 @@ Payment.belongsTo(Order);
 User.hasMany(Order);
 Order.belongsTo(User);
 
+//Relación user 1----1 location
+Location.hasOne(User);
+User.belongsTo(Location);
+
 //Relación order 1-----* orderLine *-----1 product
 Product.belongsToMany(Order, { through: OrderLine }); 
 Order.belongsToMany(Product, { through: OrderLine });
@@ -69,8 +73,18 @@ Order.belongsToMany(Product, { through: OrderLine });
 Ngo.hasMany(Product)
 Product.belongsTo(Ngo)
 
-//Relación NGO 1----*location
-//FALTA LA TABLA DE LOCATION TODAVÍA
+// // Relación NGO 1-----* images
+// Ngo.hasMany(Image)
+// Image.belongsTo(Ngo)
+
+// Relación Product 1-----* images
+Product.hasMany(Image);
+Image.belongsTo(Product);
+
+//Relación NGO 1----1 location
+Location.hasOne(Ngo);
+Ngo.belongsTo(Location);
+
 
 //FALTA RELACION CON TABLA PAYMENT Y POSIBLEMENTE LA CREACION DE TABLA PaymentType
 

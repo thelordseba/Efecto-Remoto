@@ -5,31 +5,34 @@ const initialState = {
     products: [],
     categories: [],
     deleted: [],
-    order:[]
+    order:[],
+    countProducts: 0
   };
 
   export default (state = initialState, action) => {
     switch(action.type) {
-      
       case constants.SEARCHBYQUERY:
         return {
           ...state,
-          products: action.payload
+          products: action.payload.products,
+          countProducts: action.payload.count
         }
       case constants.GETPRODUCTS:
         return {
           ...state,
-          products: action.payload
+          products: action.payload.products,
+          countProducts: action.payload.count
         }
       case constants.SETSEARCH:
         return {
           ...state,
-          search: action.payload
+          search: action.payload,
         }
       case constants.SEARCHBYCATEGORY:
         return {
           ...state,
-          products: action.payload
+          products: action.payload.products,
+          countProducts: action.payload.count
         }
       case constants.DELETEPRODUCT:
         return {

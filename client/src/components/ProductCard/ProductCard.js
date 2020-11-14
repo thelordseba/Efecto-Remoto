@@ -1,16 +1,16 @@
 import React, {useState} from 'react'
 import Stars from "./Stars"
 import {useHistory } from "react-router-dom"
-import {useDispatch, useSelector} from 'react-redux'
-import {getProducts, deleteProduct} from 'redux/actions/actions'
+import {useDispatch} from 'react-redux'
+import {deleteProduct} from '../../redux/actions/actions'
 import { ReactComponent as CartIcon } from '../common/cart.svg'
 
-function ProductCard({product, small=true, stars, admin, id, refresh}) {
+function ProductCard({product, small=true, stars, admin, id}) {
   const history = useHistory();
   const [showSnackbar, setShowSnackbar] = useState(false)
 
   const dispatch = useDispatch()
-  const deleted = useSelector(state => state.deleted)
+  // const deleted = useSelector(state => state.deleted)
 
   function handleOnClickEdit(id){
     history.push(`/product/edit/${id}`)
@@ -20,19 +20,19 @@ function ProductCard({product, small=true, stars, admin, id, refresh}) {
       dispatch(deleteProduct(id));
     }
 
-  function handleOnClickAddProduct() {}
-
   function handleAddToCart() {
     setShowSnackbar(true)
     setTimeout(function(){ setShowSnackbar(false) }, 2000);
   }
-
+  
   return (
   <>
     <div className={small ? "product-card-container-small" : "product-card-container"}>
-        <img className={small ? "product-card-photo-small" : "product-card-photo"} src={product.img} alt={"Imagen no encontrada"}/>
+        <img className={small ? "product-card-photo-small" : "product-card-photo"}
+          src={product.images[0].url} 
+          alt={"Imagen no encontrada"}/>
         <div className="product-card-content">
-          <a href={"/products/" + product.id}>
+          <a href={`/products/${product.id}`}>
             <div className="title">{product.name}</div>
           </a>
           {/* {small && <div className="stars-small"> <Stars disabledClick={true} stars={stars}/> </div>} */}

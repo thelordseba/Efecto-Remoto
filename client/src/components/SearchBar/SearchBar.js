@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import './SearchBar.css';
 import { useDispatch } from 'react-redux'
-import { getProductsByQuery } from "../../redux/actions/actions.js"
+import { setSearch } from "../../redux/actions/actions.js"
 
 function SearchBar (){
 
-  let [search, setSearch] = useState("")
+  let [content, setContent] = useState("")
 
   const dispatch = useDispatch()
 
   const handleOnChange = (event) => {
-    setSearch(event.target.value)
+    setContent(event.target.value)
   }
   
   const handleOnClick = () => {
-    dispatch(getProductsByQuery(search)) 
+    dispatch(setSearch(content)) 
   }
 
   return(
