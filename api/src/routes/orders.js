@@ -87,7 +87,7 @@ server.get('/:userId/cart', async (req, res, next) => {
     }  
 });
  
-//S40: Ruta para vaciar el carrito                  //NO FUNCIONA
+//S40: Ruta para vaciar el carrito                 
 server.delete('/:userId/cart', async (req, res, next) => {
     try{
         const order = await Order.findOne({
@@ -96,8 +96,12 @@ server.delete('/:userId/cart', async (req, res, next) => {
                 status: 'cart'
             }
         });  
-        await order.removeProducts();  //Investigar Como funcionan estos metodos de sequelize  //order.removeProdact(product)
-        res.send("Carrito vacio.")
+        await OrderLine.destroy({
+            where:{
+                orderId: order.id
+            }
+        });       
+        res.json(order).send("Carrito vacio.")
     } catch(error){  
         next(error)      
     }
@@ -179,7 +183,6 @@ server.get('/:userId/orders', async (req, res, next)=> {
         next(error);
     }    
 })
-
 
 //S46 Crear una ruta que retorne una orden en particular    
 server.get('/:orderId', async (req, res, next)=>{
