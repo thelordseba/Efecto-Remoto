@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from "react-router-dom"
 import axios from 'axios'
 import './create.css'
 import UploadImage from '../UploadImage/UploadImage'
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from "../../redux/actions/actions.js"
-
+import { useHistory } from "react-router-dom"
 
 function CreateUpdateProduct({id}){
     let [product, setProduct] = useState();

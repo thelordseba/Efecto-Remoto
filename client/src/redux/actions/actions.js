@@ -125,8 +125,35 @@ export function getNgos() {
     }
 }
 
+export function getUsers() {
+    return function(dispatch) {
+        return axios.get(`http://localhost:3001/users`)
+        .then(response => {
+            dispatch({ 
+                type: actions.GETUSERS, 
+                payload: response.data
+            });
+          })
+        .catch(() => {
+              alert("Hubo un error. Por favor, intentá de nuevo.")
+        })
+    }
+}
       
-  
+export function getUserById(id) {
+    return function(dispatch) {
+        return axios.get(`http://localhost:3001/users/${id}`)
+        .then(response => {
+            dispatch({ 
+                type: actions.GETUSERBYID, 
+                payload: response.data
+            });
+          })
+        .catch(() => {
+              alert("Hubo un error. Por favor, intentá de nuevo.")
+        })
+    }
+}
 
 
 

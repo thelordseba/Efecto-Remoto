@@ -2,6 +2,7 @@ import OrderLine from 'components/OrderLine/OrderLine';
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import {getOrderById} from '../../redux/actions/actions'
+
 export default function OrderDetails({id}) {
 
   const order = useSelector(state => state.order)

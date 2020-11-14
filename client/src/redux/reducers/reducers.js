@@ -7,7 +7,9 @@ const initialState = {
     deleted: [],
     order:[],
     countProducts: 0,
-    ngos:[]
+    ngos:[],
+    users:[],
+    currentUser:[]
   };
 
   export default (state = initialState, action) => {
@@ -60,7 +62,16 @@ const initialState = {
           ...state,
           ngos: action.payload
         } 
-
+      case constants.GETUSERS:
+        return {
+          ...state,
+          users: action.payload
+        } 
+      case constants.GETUSERBYID:
+        return {
+          ...state,
+          currentUser: action.payload
+        } 
       default:
          return state;
     }
