@@ -75,6 +75,11 @@ const routes = [
     exact: true
   },
   {
+    path: "/admin/orders/:orderId",
+    render:({match}) => <OrderDetails id={match.params.orderId} />,
+    exact: true
+  }, 
+  {
     path: "/orderdetails",
     render:({match}) => <OrderDetails id={match.params.id} />,
     exact: true
