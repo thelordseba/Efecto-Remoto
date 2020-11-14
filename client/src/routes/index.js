@@ -90,7 +90,7 @@ const routes = [
     exact:true
   },
   {
-    path:"/formuser",
+    path:"/admin/users",
     component: FormUser,
     exact: true
   }

@@ -21,7 +21,7 @@ function FormUser(props) {
 
             <div className="row">
                 Nombre de usuario:
-                 <Field name="userName" type="email" />
+                 <Field name="userName" type="text" />
                  <ErrorMessage name="userName">
                 {message => <div className="error">{message}</div>}
                 </ErrorMessage>
@@ -37,7 +37,7 @@ function FormUser(props) {
             </div>
 
             <div className="row">
-                Password:
+                Contraseña:
                 <Field name="password" type="password" />
                 <ErrorMessage name="password">
                 {message => <div className="error">{message}</div>}
@@ -131,15 +131,15 @@ function FormUser(props) {
 export default withFormik({
     mapPropsToValues(props){
         return{
-            userName: '',
-            email: '',         //inicializo el estado (puede traer valor por default recibido desde props)
-            password: '',
-            name: '',
-            lastName: '',
-            phone: '',
-            address: '',
-            number: '',
-            postalCode: '',
+            userName: '', //si
+            email: '',    //si     //inicializo el estado (puede traer valor por default recibido desde props)
+            password: '',  //si
+            name: '',   //si
+            lastName: '',  //si
+            phone: '',     //si
+            address: '', //si
+            number: '',   //si
+            postalCode: '',//si
             location: '',
             city: '',
             country: '',
@@ -147,39 +147,97 @@ export default withFormik({
     },
 
     validate(values) {
-
+        
         const errors = {};
-        if(!values.userName){
-            errors.userName = "Ingresar nombre";
+        if(!values.userName){                            //Espacios no
+            errors.userName = "Completar campo";
         }else if(/[^A-Za-z0-9+]/.test(values.userName)){
             errors.userName = "Carácteres inválidos";
         }
-        if( isNaN(values.phone) ) {
-            errors.phone = "Ingresar número";
-          }
 
+        //validación email y contraseña
         if (!values.email) {
             errors.email = 'Ingresar email';
           } else if (!/\S+@\S+\.\S+/.test(values.email)) {
             errors.email = 'Email incorrecto';
           }
-
         if(!values.password){
-            errors.password = "Ingresar contraseña";
+            errors.password = "Completar campo";
         } else if (values.password.length < 9) {
             errors.password = "Tu contraseña debe contener más de 9 caracteres"
+        } else if(values.password.includes(' ')){
+            errors.password = "No debe contener espacios"
         }
 
-    
+        //validacion de números
+
+        if(!values.phone){
+            errors.phone = "Completar campo"
+        }else if( isNaN(values.phone) ) {
+            errors.phone = "Ingresar solo números";
+        }
+        // }else if(/^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/.test(values.phone)) {
+        //     errors.phone = "Completar numero"
+        // }
+        
+
+        if(!values.number){
+            errors.number = "Completar campo"
+        }
+        if( isNaN(values.number) ) {
+            errors.number = "Ingresar números";
+        }
+
+        if(!values.postalCode){
+            errors.postalCode = "Completar campo"
+        }
+        if( isNaN(values.postalCode) ) {
+            errors.postalCode = "Ingresar números";
+        }
+        
+        //validación string
+        if(!values.name){                            
+            errors.name = "Completar campo";
+        }else if(/[^A-Za-z-' ']/.test(values.name)){
+            errors.name = "Carácteres inválidos";
+        }
+
+        if(!values.lastName){                            
+            errors.lastName = "Completar campo";
+        }else if(/[^A-Za-z-' ']/.test(values.lastName)){
+            errors.lastName = "Carácteres inválidos";
+        }
+
+        if(!values.address){                            
+            errors.address = "Completar campo";
+        }else if(/[^A-Za-z-' ']/.test(values.address)){
+            errors.address = "Carácteres inválidos";
+        }
+
+        if(!values.location){                            
+            errors.location = "Completar campo";
+        }else if(/[^A-Za-z-' ']/.test(values.location)){
+            errors.location = "Carácteres inválidos";
+        }
+
+        if(!values.city){                            
+            errors.city = "Completar campo";
+        }else if(/[^A-Za-z-' ']/.test(values.city)){
+            errors.city = "Carácteres inválidos";
+        }
+
+        if(!values.country){                            
+            errors.country = "Completar campo";
+        }else if(/[^A-Za-z-' ']/.test(values.country)){
+            errors.country = "Carácteres inválidos";
+        }
         return errors;
     },
 
 
     handleSubmit(values,formikBag){ //funcion recibe el nombre de los valores del input.FormikBag da acceso a props de la forma
         console.log(values);
-
         formikBag.setSubmitting(false);//debo deshabilitar isSubmitting una vez que pasa la info
-
     },
 
 }) (FormUser);
