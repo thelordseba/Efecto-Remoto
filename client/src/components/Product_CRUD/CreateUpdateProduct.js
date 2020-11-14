@@ -2,15 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom"
 import axios from 'axios'
 import './create.css'
-import {useSelector} from 'react-redux'
 import UploadImage from '../UploadImage/UploadImage'
+import { useDispatch, useSelector } from 'react-redux'
+import * as actions from "../../redux/actions/actions.js"
+
 
 function CreateUpdateProduct({id}){
     let [product, setProduct] = useState();
     let [selectedCategories, setSelectedCategories] = useState([])
     let [image, setImage] = useState("")
 
+    const dispatch = useDispatch()
+
     const categories = useSelector(state => state.categories)
+    const ngos = useSelector(state => state.ngos)
     // let [images, setImages] = useState({image: []});
     const history = useHistory();
 
@@ -76,6 +81,10 @@ function CreateUpdateProduct({id}){
         });
     }
     
+    useEffect( () => {(async () => {
+        dispatch(actions.getNgos())
+      })()}, [dispatch])
+
     return (
         <>
         <div className="volver" onClick={handleGoBack}>
@@ -85,7 +94,19 @@ function CreateUpdateProduct({id}){
         <div className="crud-form">
             <br /><br />
             <form>
-                {/* <input onChange={handleOnSubmit} value={product ? product.ngoId : ""} name="ngoId" required type="text" placeholder="ONG" /><br /><br /> */}
+                <select onChange={handleOnChange} 
+                    name="ngoId" required 
+                    type="dropdown" >
+                {ngos.map( ngo => {    
+                    return ( 
+                        <option 
+                            key={ngo.id}
+                            value={ngo.id}
+                        >{ngo.name}</option> 
+                    )
+                })}
+                </select>
+                <br /><br />
                 <input onChange={handleOnChange} 
                     value={product ? product.name : ""} 
                     name="name" required type="text" 
@@ -96,8 +117,7 @@ function CreateUpdateProduct({id}){
                     required type="text"
                     placeholder="Descripción del producto" />
                 <br/>
-                {
-                categories.map(cat => {
+                {categories.map(cat => {
                     return (
                         <>
                         <input 
@@ -133,7 +153,7 @@ function CreateUpdateProduct({id}){
                     name="stock" 
                     required type="number" 
                     placeholder="Stock del producto" /><br /><br />
-                <img className="photo-small" src={image} alt={"Imagen no encontrada"}/>
+                {image ? <img className="photo-small" src={image} alt={"Imagen no encontrada"}/> : null}
                 <br></br>
                 <UploadImage handleURL={handleURL}/>
                 <br></br>

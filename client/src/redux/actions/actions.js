@@ -110,6 +110,21 @@ export function getOrderById(id) {
     }
 }
 
+export function getNgos() {
+    return function(dispatch) {
+        return axios.get(`http://localhost:3001/ngos`)
+        .then(response => {
+            dispatch({ 
+                type: actions.GETNGOS, 
+                payload: response.data
+            });
+          })
+        .catch(() => {
+              alert("Hubo un error. Por favor, intentá de nuevo.")
+        })
+    }
+}
+
       
   
 

@@ -7,6 +7,7 @@ import HomeAdmin from "../containers/HomeAdmin/HomeAdmin.js"
 import Home from "../containers/Home/Home.js";
 import CreateUpdateProduct from "../components/Product_CRUD/CreateUpdateProduct"
 import NgosCrud from "../components/NgosCrud/NgosCrud.js"
+import NgoTable from "../containers/NgoTable/NgoTable.js"
 import FormCategorias from "../components/FormCategory/FormCategory";
 import OrderDetails from '../containers/OrderDetails/orderDetails';
 import OrderTable from "../containers/OrderTable/OrderTable.js";
@@ -47,7 +48,12 @@ const routes = [
   },
   {
     path:"/admin/ngos",
-    render: () => <NgosCrud/>,
+    component: NgoTable,
+    exact: true
+  },
+  {
+    path:"/admin/ngos/add",
+    component: NgosCrud,
   },
   {
     path: "/carrito",
