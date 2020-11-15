@@ -1,0 +1,138 @@
+.shoppingCart-container{
+    border: 3px solid teal;
+    margin: 36px;
+    display:flex;
+    padding: 24px;
+}
+
+.back{
+    cursor: pointer;
+    margin: 8px;
+    border-radius: 8px;
+    border: solid 1px;
+    padding: 4px;
+    width: 47px;
+    background-color: teal;
+    color: white;
+    margin-left: 36px;
+}
+.back:hover{ 
+    cursor: pointer;
+    margin: 8px;
+    border-radius: 8px;
+    border: solid 1px;
+    padding: 4px;
+    width: 47px;
+    background-color:white;
+    color: teal;
+    margin-left: 36px;
+}
+.bottom-cart{
+    display: flex;
+    margin-left: 24px;
+}
+.cart-next{
+    cursor: pointer;
+    margin: 12px;
+    border-radius: 8px;
+    border: solid 1px;
+    padding: 4px;
+    width: 80px;
+    background-color: teal;
+    color: white;
+    text-align: center;
+
+}
+.cart-back{
+    cursor: pointer;
+    margin: 12px;
+    border-radius: 8px;
+    border: solid 1px;
+    padding: 4px;
+    width: 80px;
+    background-color:white;
+    color: teal;
+    text-align: center;
+
+}
+.container-cart{
+    width: 75%;
+    
+}
+
+.input-cart{
+    height: 36px;
+    text-align: center;
+}
+
+.summary-cart {
+    /* text-transform: uppercase; */
+    margin-bottom: 12px;
+    font-size: 25px;
+    display: flex;
+}
+
+.summary{
+    width: 292px;
+}
+
+.bottons-container-cart{
+    display: block;
+}
+
+.input-cart-container {
+    width: 80px;
+    margin-left: auto;
+    margin-top: 39px;
+}
+
+.divider-cart{
+    margin-bottom: 16px;
+    border-top: solid 1px;
+    width: 86%;
+    margin-top: 16px;
+}
+
+.title-cart{
+    /* text-transform: uppercase; */
+    font-size: 25px;
+    margin-bottom: 8px;
+}
+
+.description-cat{
+    margin-bottom: 8px;
+}
+
+.photo-cart{
+    height: 75px;
+    width: 50%;
+    object-fit: contain;
+}
+
+.product-container-shopping-cart {
+    display: flex;
+    width: 86%;
+}
+
+.product-content-shopping-cart{
+    display: block;
+    margin-top: 12px;
+}
+
+.divider-summary{
+    margin-bottom: 16px;
+    border-top: solid 1px;
+    width: 100%;
+    margin-top: 16px;
+}
+
+.summary-totals {
+    margin-left: auto;
+}
+
+.summary-title{
+    font-size: 32px;
+}
+.title-container-cart{
+    font-size: 32px;
+}

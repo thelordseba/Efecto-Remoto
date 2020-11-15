@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React,{ useEffect, useMemo, useState } from 'react';
+import ShoppingItem from '../ShoppingItem/ShoppingItem'
 import { useHistory } from "react-router-dom";
 import './cart.css';
 
@@ -49,24 +50,6 @@ function ShoppingCart (props){
     window.location.reload(); // para que se actualice el Local Storage
   }
 
-  const mappedProducts = useMemo(() => {
-    if (products) {
-      return products.map((product) =>
-        <div key={product.id} className="product-container-shopping-cart">
-          <img  className="photo-cart" src={product.img} alt={"Imagen no encontrada"}/> 
-          <div className="product-content-shopping-cart">
-            <div  className="title-cart">{product.name}</div>
-            <div className= "description-cat">{product.description}</div>
-            <div>${product.price}</div>
-          </div>
-          <form className="input-cart-container"><input className="input-cart" onChange={handleOnChangeQuantity} name={product.id} value={product.quantity} type="number" min="0" max="100"/></form>
-        </div>
-        )
-    } else {
-      return <label>No se han agregado productos al carrito.</label>
-    }
-  }, [products, quantity])
-
   const handleCreateOrder = () => {
     axios.post(`http://localhost:3001/orders/7`) // por ahora está para el usuario 1
     .then((response) => {
@@ -91,7 +74,10 @@ function ShoppingCart (props){
         <div className="container-cart">
         <div className="title-container-cart">Carrito de Compras</div>
         <div className="divider-cart"/>
-        {mappedProducts}
+        {products.map(prod => <ShoppingItem 
+          product={prod}
+          handleOnChangeQuantity={handleOnChangeQuantity} 
+        />)}
       </div>
       <div className= "summary">
         <div className ="summary-title">Resumen</div>

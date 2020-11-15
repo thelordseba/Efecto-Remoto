@@ -19,29 +19,29 @@ function ProductCard({product, small=true, stars, admin, id}) {
 
   function handleOnClickDelete(id) { dispatch(deleteProduct(id)) }
 
-  let quantity = 0;
+  let quantity;
 
   const addItem = (product, quantity) => {
     let cartCopy = [...cart];
     let { id } = product;
-    let existingItem = cartCopy.find(cartItem => cartItem.id === id);
-    if (existingItem) { product.quantity += quantity }
+    // console.log(product)
+    // console.log(product.quantity)
+    // console.log(cartCopy)
+    let existingItem = cartCopy.find(cartItem => cartItem.id == id);
+    if (existingItem) { existingItem.quantity += quantity }
     else { 
       cartCopy.push(product);
       product.quantity = parseInt(quantity);
     }
-    console.log(product)
-    console.log(product.quantity)
-    console.log(cartCopy)
     setCart(cartCopy);
     let stringCart = JSON.stringify(cartCopy);
     localStorage.setItem("cart", stringCart);
   }
   
   const handleAddToCart = (product, quantity = 1) => {
-    addItem(product, quantity = 1)
+    addItem(product, quantity)
     setShowSnackbar(true)
-    setTimeout(function(){ setShowSnackbar(false) }, 2000);
+    setTimeout(function() { setShowSnackbar(false) }, 2000);
     window.location.reload();
   }
   
@@ -69,7 +69,7 @@ function ProductCard({product, small=true, stars, admin, id}) {
                 <div className="product-card-button" onClick={() => handleOnClickEdit(id)}>Editar</div>
                 <div className="product-card-button" onClick={() => handleOnClickDelete(id)}>Eliminar</div>
             </div> : null}
-           {!showSnackbar && <CartIcon className={"cart-icon"} onClick={() => handleAddToCart(product, quantity = 1)}/>}
+           {!showSnackbar && <CartIcon className={"cart-icon"} onClick={() => handleAddToCart(product)}/>}
            {showSnackbar && <div className="snackbar-success">
               ¡El producto se agregó correctamente a tu carrito!
            </div>}
