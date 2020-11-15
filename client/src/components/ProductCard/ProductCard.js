@@ -23,8 +23,11 @@ function ProductCard({product, small=true, stars, admin, id}) {
     let cartCopy = [...cart];
     let {id} = product;
     let existingItem = cartCopy.find(cartItem => cartItem.id === id);
-    if (existingItem) { product.quantity = quantity } 
-    else { cartCopy.push(product) }
+    if (existingItem) { product.quantity += quantity }
+    else { 
+      product.quantity = parseInt(quantity);
+      cartCopy.push(product);
+    }
     setCart(cartCopy)
     let stringCart = JSON.stringify(cartCopy);
     localStorage.setItem("cart", stringCart)
