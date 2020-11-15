@@ -9,7 +9,9 @@ function ProductDetail({small=false, stars, id}) {
   const history = useHistory();
   let [product, setProduct] = useState([])
   let [image, setImage] = useState("")
-  const [cart, setCart] = useState([]);
+  // const [cart, setCart] = useState([]);
+  let localCart = localStorage.getItem("cart");
+  const [cart, setCart] = useState(localCart ? JSON.parse(localCart) : []);
 
   const handleGoBack = () => { history.push(`/admin/products`) }
 

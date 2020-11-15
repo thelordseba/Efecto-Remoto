@@ -28,11 +28,11 @@ function ProductCard({product, small=true, stars, admin, id}) {
     if (existingItem) { product.quantity += quantity }
     else { 
       cartCopy.push(product);
-      console.log(product)
       product.quantity = parseInt(quantity);
     }
-    // console.log(product.quantity)
-    // console.log(cartCopy)
+    console.log(product)
+    console.log(product.quantity)
+    console.log(cartCopy)
     setCart(cartCopy);
     let stringCart = JSON.stringify(cartCopy);
     localStorage.setItem("cart", stringCart);

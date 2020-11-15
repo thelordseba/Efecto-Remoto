@@ -29,14 +29,12 @@ function ShoppingCart (props){
           
   const editItem = (itemID, value) => {
     let cartCopy = [...cart]
-    console.log(cartCopy)
     let existentItem = cartCopy.find(item => item.id = itemID);
-    if (!existentItem) { console.log("no se pudo") }
+    if (!existentItem) { console.log("Hubo un error.") }
 
     else {
       existentItem.quantity = parseInt(value);
     }
-    // console.log(existentItem)
     if (existentItem.quantity <= 0) { cartCopy = cartCopy.filter(item => item.id != itemID) }
     
     setCart(cartCopy);
@@ -48,7 +46,7 @@ function ShoppingCart (props){
     const value = event.target.value
     const id = event.target.name
     editItem(id, value);
-    window.location.reload();
+    window.location.reload(); // para que se actualice el Local Storage
   }
 
   const mappedProducts = useMemo(() => {
