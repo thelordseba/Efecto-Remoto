@@ -9,21 +9,29 @@ function ProductDetail({small=false, stars, id}) {
   const history = useHistory();
   let [product, setProduct] = useState([])
   let [image, setImage] = useState("")
+  const [cart, setCart] = useState([]);
 
-  const handleGoBack = () => {
-    history.push(`/admin/products`)
+  const handleGoBack = () => { history.push(`/admin/products`) }
+
+  function handleOnClickEdit(id) { history.push(`/products/edit/${id}`) }
+
+  let quantity;
+
+  const addItem = (product, quantity) => {
+    let cartCopy = [...cart];
+    let {id} = product;
+    let existingItem = cartCopy.find(cartItem => cartItem.id === id);
+    if (existingItem) { product.quantity = quantity } 
+    else { cartCopy.push(product) }
+    setCart(cartCopy)
+    let stringCart = JSON.stringify(cartCopy);
+    localStorage.setItem("cart", stringCart)
   }
-
-  function handleOnClickEdit(id){
-    history.push(`/products/edit/${id}`)
-  }
-
-  function handleAddToCart() {
+  
+  const handleAddToCart = (product, quantity = 1) => {
+    addItem(product, quantity = 1)
     setShowSnackbar(true)
-    setTimeout(function(){ 
-      setShowSnackbar(false) 
-      history.push(`/products`)
-    }, 2000);
+    setTimeout(function(){ setShowSnackbar(false) }, 2000);
   }
 
 
@@ -54,9 +62,9 @@ function ProductDetail({small=false, stars, id}) {
             {!small && <Stars disabledClick={true} stars={stars}/>}
             {small ? <div className="product-detail-button" onClick={handleOnClickEdit(id)}>Editar</div> : null} 
             {/* {small ? <div className="product-detail-button" onClick={handleOnClickDelete}>Eliminar</div> : null}  */}
-            {!small && !showSnackbar && <CartIcon className={"cart-icon-large"} onClick={handleAddToCart}/>}
+            {!small && !showSnackbar && <CartIcon className={"cart-icon-large"} onClick={() => handleAddToCart(product, quantity = 1)}/>}
             {!small && showSnackbar && <div className="snackbar-success-large">
-                El producto se agregó correctamente a tu carrito!
+                ¡El producto se agregó correctamente a tu carrito!
             </div>}       
               </div>
         <div>
