@@ -8,7 +8,9 @@ import { ReactComponent as CartIcon } from '../common/cart.svg'
 function ProductCard({product, small=true, stars, admin, id}) {
   const history = useHistory();
   const [showSnackbar, setShowSnackbar] = useState(false);
-  const [cart, setCart] = useState([]);
+  // const [cart, setCart] = useState([]);
+  let localCart = localStorage.getItem("cart");
+  const [cart, setCart] = useState(localCart ? JSON.parse(localCart) : []);
 
   const dispatch = useDispatch()
   // const deleted = useSelector(state => state.deleted)
@@ -17,26 +19,30 @@ function ProductCard({product, small=true, stars, admin, id}) {
 
   function handleOnClickDelete(id) { dispatch(deleteProduct(id)) }
 
-  let quantity;
+  let quantity = 0;
 
   const addItem = (product, quantity) => {
     let cartCopy = [...cart];
-    let {id} = product;
+    let { id } = product;
     let existingItem = cartCopy.find(cartItem => cartItem.id === id);
     if (existingItem) { product.quantity += quantity }
     else { 
-      product.quantity = parseInt(quantity);
       cartCopy.push(product);
+      console.log(product)
+      product.quantity = parseInt(quantity);
     }
-    setCart(cartCopy)
+    // console.log(product.quantity)
+    // console.log(cartCopy)
+    setCart(cartCopy);
     let stringCart = JSON.stringify(cartCopy);
-    localStorage.setItem("cart", stringCart)
+    localStorage.setItem("cart", stringCart);
   }
   
   const handleAddToCart = (product, quantity = 1) => {
     addItem(product, quantity = 1)
     setShowSnackbar(true)
     setTimeout(function(){ setShowSnackbar(false) }, 2000);
+    window.location.reload();
   }
   
   return (

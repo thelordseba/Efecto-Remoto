@@ -8,9 +8,7 @@ function ShoppingCart (props){
   const [quantity, setQuantity] = useState();
   // let localCart = JSON.parse(localStorage.getItem("cart"));
   let localCart = localStorage.getItem("cart");
-  const [cart, setCart] = useState(JSON.parse(localCart));
-
-  // console.log(cart)
+  const [cart, setCart] = useState(localCart ? JSON.parse(localCart) : []);
 
   const products = useMemo(() => {
     return JSON.parse(localStorage.getItem('cart'))
@@ -32,10 +30,12 @@ function ShoppingCart (props){
   const editItem = (itemID, value) => {
     let cartCopy = [...cart]
     console.log(cartCopy)
-    let existentItem = cartCopy.reduce(item => item.id === itemID);
-    console.log(existentItem)
-    // if (!existentItem) console.log("no se pudo")
-    existentItem.quantity = parseInt(value);
+    let existentItem = cartCopy.find(item => item.id = itemID);
+    if (!existentItem) { console.log("no se pudo") }
+
+    else {
+      existentItem.quantity = parseInt(value);
+    }
     // console.log(existentItem)
     if (existentItem.quantity <= 0) { cartCopy = cartCopy.filter(item => item.id != itemID) }
     
