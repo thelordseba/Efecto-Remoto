@@ -16,7 +16,6 @@ server.post('/', async (req, res, next) => {
             gmailId: req.body.gmailId,
             facebookId: req.body.facebookId
         });
-
         const location = await Location.create({
             address: req.body.address,
             number: req.body.number,
@@ -24,7 +23,6 @@ server.post('/', async (req, res, next) => {
             city: req.body.city,
             province: req.body.province
         });
-
          await user.setLocation(location);
         res.status(200).json(user);
     } catch(error){       
@@ -33,101 +31,83 @@ server.post('/', async (req, res, next) => {
 });
 
 //S35 Crear Ruta para modificar usuario
-server.put('/:userId', (req, res, next) => {
+server.put('/:userId', async (req, res, next) => {
     const {userName, firstName, lastName, isAdmin, 
-           email, telephone, password, gitHubId, 
-           gmailId, facebookId, address, number, 
-           postalCode, city, province} = req.body;
+        email, telephone, password, gitHubId, 
+        gmailId, facebookId, address, number, 
+        postalCode, city, province} = req.body;
 
-    User.findOne({
-        where:{
-            id: req.params.userId
-        }
-    })
-    .then(user=>{
-        if(!user){
-            res.status(400).send("ERROR: El usuario que intenta modificar no existe.")
-        }else {
-            Location.findOne({
-                where: {
-                    id: user.locationId
-                }
-            })     
-            .then(location => {
-                location.update({
-                    address, number, postalCode, 
-                    city, province                     
-                })
-            });
-            user.update({
-                userName, firstName, lastName,
-                isAdmin, email, telephone,
-                password, gitHubId, gmailId,
-                facebookId
-            });
-            res.status(200).json(user);       
-        }
-    })
-    .catch(next);
+    try{
+        const user = await User.findOne({
+            where: { id: req.params.userId }
+        });
+        const location = await Location.findOne({
+            where: { id: user.locationId }
+        });
+        await location.update({
+            address, number, postalCode, 
+            city, province                     
+        });
+        await user.update({
+            userName, firstName, lastName,
+            isAdmin, email, telephone,
+            password, gitHubId, gmailId,
+            facebookId
+        });
+        res.json(user);
+    }catch(error){
+        next(error);
+    }    
 });
 
 //S36 Crear ruta que retorne todos los usuarios
-server.get('/', (req, res, next)=>{
-    User.findAll(
-        {
-            include: {
-                model: Location
-            }
-        }
-    )
-    .then((user)=>{
-        res.status(201).json(user);
-    })
-    .catch(next);
+server.get('/', async(req, res, next)=>{
+    try{
+        const user = await User.findAll({
+            include: [{ model: Location }]
+        });
+        res.json(user);
+    }catch(error){
+        next(error);
+    }
 });
 
 //Get user by Id
-server.get('/:userId', (req, res, next)=>{
-    User.findOne( {
-        where: {
-            id: req.params.userId        
-        }, 
-        include:[{model: Location}]         
-    })
-    .then(user => {
-        if(user) {
-            res.send(user)
-        } else {
-            res.status(400).send({error: 'No se identificó ese Usuario'});
-        };
-    }) 
-    .catch(next);
+server.get('/:userId', async (req, res, next)=>{
+    try{
+        const user = await User.findOne({
+            where: {
+                id: req.params.userId
+            },
+            include: [{ model: Location }]
+        });
+        res.json(user);        
+    }catch(error){
+        next(error);
+    }
 });
 
 //S37 Crear ruta para eliminar un usuario
-server.delete('/:userId', (req, res, next)=>{
-    User.findOne({
-        where:{
-            id: req.params.userId
-        }
-    })
-    .then(user=>{
-        if(!user){
-            res.status(400).send("ERROR: El usuario que intenta eliminar no existe.");
-        }else{ 
-            Location.findOne({
-                where: {
-                    id: user.locationId
-                }
-            })   
-            .then(location=>{
-                location.destroy();
-            }) 
-            user.destroy();
-            res.sendStatus(200);       
-        }
-    })
-    .catch(next);       
+server.delete('/:userId', async (req, res, next)=>{
+    try{
+        const user = await User.findOne({
+            where: {
+                id: req.params.userId
+            }
+        });
+        const location = await Location.findOne({
+            where: {
+                id: user.locationId
+            }
+        });
+        await location.destroy();        
+        await user.destroy();
+        res.sendStatus(200);
+    }
+    catch(error)
+    {
+        next(error);
+    }
 });
 
 module.exports = server;
