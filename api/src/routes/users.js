@@ -88,14 +88,12 @@ server.get('/', (req, res, next)=>{
 
 //Get user by Id
 server.get('/:userId', (req, res, next)=>{
-    User.findByPk( {
+    User.findOne( {
         where: {
             id: req.params.userId        
-        }, include: {
-            model: Location
-        }
-    }
-    )
+        }, 
+        include:[{model: Location}]         
+    })
     .then(user => {
         if(user) {
             res.send(user)
@@ -105,10 +103,6 @@ server.get('/:userId', (req, res, next)=>{
     }) 
     .catch(next);
 });
-
-
-
-
 
 //S37 Crear ruta para eliminar un usuario
 server.delete('/:userId', (req, res, next)=>{
