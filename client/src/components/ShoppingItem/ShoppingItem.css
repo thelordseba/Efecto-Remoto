@@ -104,9 +104,9 @@
 }
 
 .photo-cart{
-    height: 160px;
-    margin-right: 28px;
-
+    height: 75px;
+    width: 50%;
+    object-fit: contain;
 }
 
 .product-container-shopping-cart {

@@ -1,115 +1,98 @@
-
-import React,{useEffect, useMemo, useState} from 'react';
+import axios from 'axios';
+import React,{ useEffect, useMemo, useState } from 'react';
+import ShoppingItem from '../ShoppingItem/ShoppingItem'
 import { useHistory } from "react-router-dom";
 import './cart.css';
 
-const productsMock =[
-    {
-        id: 1,
-        name: "nombre",
-        description: "description del producto con id 1", 
-        price: 10,
-        categoryId: "categoryId", 
-        img: "https://http2.mlstatic.com/D_NQ_NP_2X_763349-MLA43444521901_092020-F.webp", 
-        stock: "stock",
-        cantidad: 1
-        },
-        {
-          id: 2,
-          name: "nombre",
-          description: "description del producto con id 2", 
-          price:100,
-          categoryId: "categoryId", 
-          img: "https://http2.mlstatic.com/D_NQ_NP_2X_763349-MLA43444521901_092020-F.webp", 
-          stock: "stock",
-          cantidad: 1
-          }
-      
-]
 function ShoppingCart (props){
-    const history = useHistory();
-    const [prodQty, setProdQty] = useState()
-  
-    useEffect(()=> {
-      // component did mount --> se ejecuta solo cuando se monta el componente
-      if (!products) {
-        localStorage.setItem('products', JSON.stringify(productsMock))
-      }
-    },[])
+  const history = useHistory();
+  const [quantity, setQuantity] = useState();
+  // let localCart = JSON.parse(localStorage.getItem("cart"));
+  let localCart = localStorage.getItem("cart");
+  const [cart, setCart] = useState(localCart ? JSON.parse(localCart) : []);
 
-    const products = useMemo(() => {
-      return JSON.parse(localStorage.getItem('products'))
-    },[localStorage])
+  const products = useMemo(() => {
+    return JSON.parse(localStorage.getItem('cart'))
+  }, [localStorage])
 
-    const handleBack = () => {
-        history.push(`/admin/products`)
+  const handleBack = () => { history.push(`/products`) }
+
+  const total = useMemo(() => {
+    if (products) {
+      let acumulador= 0;
+      products.forEach(prod => {
+          acumulador += (prod.price * prod.quantity)
+      });
+      return acumulador;
     }
-
-      const total = useMemo(() => {
-        if (products) {
-          let acumulador= 0;
-          products.forEach(producto => {
-              acumulador = acumulador + (producto.price * producto.cantidad)
-          });
-          return acumulador;
-        }
-      },[products, prodQty])
+  }, [products, quantity])
 
           
-      const handleOnChangeCantidad = (event) => {
-        const productId = event.target.name
-        const value = event.target.value
-        const updateQty = {}
-        products.map((product) => {
-          if (product.id === productId){
-             product.cantidad = value
-             updateQty[productId] = product.cantidad
-          }
-          return product
-        })
-        setProdQty({...prodQty, updateQty})
-      }
+  const editItem = (itemID, value) => {
+    let cartCopy = [...cart]
+    let existentItem = cartCopy.find(item => item.id = itemID);
+    if (!existentItem) { console.log("Hubo un error.") }
 
-      const mappedProducts = useMemo(() => {
-        if (products) {
-          return products.map((product) =>
-            <div key={product.id} className="product-container-shopping-cart">
-              <img  className="photo-cart" src={product.img} alt={"Imagen no encontrada"}/> 
-                <div className="product-content-shopping-cart">
-              <div  className="title-cart">{product.name}</div>
-            <div className= "description-cat">{product.description}</div>
-            <div>${product.price}</div>
-            </div>
-            <form className="input-cart-container"><input className="input-cart" onChange={handleOnChangeCantidad} name={product.id} value={product.cantidad} type="number" min="0" max="100"/></form>
-              </div>
-            )
-        }
-      },[products, prodQty])
+    else {
+      existentItem.quantity = parseInt(value);
+    }
+    if (existentItem.quantity <= 0) { cartCopy = cartCopy.filter(item => item.id != itemID) }
+    
+    setCart(cartCopy);
+    let cartString = JSON.stringify(cartCopy);
+    localStorage.setItem("cart", cartString);
+  }
 
-    return(
-        <>
-        <div className="back" onClick={handleBack}> Volver </div>
-        <div className= "shoppingCart-container">
-          <div className="container-cart">
-          <div className="title-container-cart">Carrito de Compras</div>
-          <div className="divider-cart"/>
-          {mappedProducts}
-        </div>
-        <div className= "summary">
-          <div className ="summary-title"> Resumen</div>
-          <div className="divider-summary"/>
-          <div className ="summary-cart">Subtotal <div className="summary-totals">${total}</div></div>
-          <div className ="summary-cart">Envio <div className="summary-totals">GRATIS</div></div>
-          <div className="divider-summary"/>
-          <div className = "summary-cart">Total <div className="summary-totals">${total}</div></div>
-        </div>
-        </div>
-        <div className="bottom-cart"> 
-        <div className= "cart-back">Anterior</div>
-        <div className="cart-next"> Siguiente</div>
-        </div>
-      </>
-    );
+  const handleOnChangeQuantity = (event) => {
+    const value = event.target.value
+    const id = event.target.name
+    editItem(id, value);
+    window.location.reload(); // para que se actualice el Local Storage
+  }
+
+  const handleCreateOrder = () => {
+    axios.post(`http://localhost:3001/orders/7`) // por ahora está para el usuario 1
+    .then((response) => {
+      alert("Orden creada")
+      console.log(products)
+      console.log(cart)
+      return axios.post(`http://localhost:3001/orders/1/cart`, cart)
+    }, (error) => {
+      alert("Hubo un error. Por favor, intentá de nuevo.")
+    });
+  }
+
+  useEffect(() => {
+    localCart = JSON.parse(localCart);
+    if (localCart) setCart(localCart);
+  }, [])
+
+  return(
+      <>
+      <div className="back" onClick={handleBack}>Volver</div>
+      <div className= "shoppingCart-container">
+        <div className="container-cart">
+        <div className="title-container-cart">Carrito de Compras</div>
+        <div className="divider-cart"/>
+        {products.map(prod => <ShoppingItem 
+          product={prod}
+          handleOnChangeQuantity={handleOnChangeQuantity} 
+        />)}
+      </div>
+      <div className= "summary">
+        <div className ="summary-title">Resumen</div>
+        <div className="divider-summary"/>
+        <div className ="summary-cart">Subtotal<div className="summary-totals">${total ? total : 0}</div></div>
+        <div className ="summary-cart">Envío<div className="summary-totals">¡Gratis!</div></div>
+        <div className="divider-summary"/>
+        <div className = "summary-cart">Total<div className="summary-totals">${total ? total : 0}</div></div>
+      </div>
+      </div>
+      <div className="bottom-cart"> 
+      <div className="cart-next" onClick={handleCreateOrder}>Siguiente</div>
+      </div>
+    </>
+  );
     
 }
 export default ShoppingCart;

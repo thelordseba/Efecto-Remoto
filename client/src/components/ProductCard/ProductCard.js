@@ -7,22 +7,42 @@ import { ReactComponent as CartIcon } from '../common/cart.svg'
 
 function ProductCard({product, small=true, stars, admin, id}) {
   const history = useHistory();
-  const [showSnackbar, setShowSnackbar] = useState(false)
+  const [showSnackbar, setShowSnackbar] = useState(false);
+  // const [cart, setCart] = useState([]);
+  let localCart = localStorage.getItem("cart");
+  const [cart, setCart] = useState(localCart ? JSON.parse(localCart) : []);
 
   const dispatch = useDispatch()
   // const deleted = useSelector(state => state.deleted)
 
-  function handleOnClickEdit(id){
-    history.push(`/product/edit/${id}`)
-  }
+  function handleOnClickEdit(id) { history.push(`/product/edit/${id}`) }
 
-  function handleOnClickDelete(id) {
-      dispatch(deleteProduct(id));
+  function handleOnClickDelete(id) { dispatch(deleteProduct(id)) }
+
+  let quantity;
+
+  const addItem = (product, quantity) => {
+    let cartCopy = [...cart];
+    let { id } = product;
+    // console.log(product)
+    // console.log(product.quantity)
+    // console.log(cartCopy)
+    let existingItem = cartCopy.find(cartItem => cartItem.id == id);
+    if (existingItem) { existingItem.quantity += quantity }
+    else { 
+      cartCopy.push(product);
+      product.quantity = parseInt(quantity);
     }
-
-  function handleAddToCart() {
+    setCart(cartCopy);
+    let stringCart = JSON.stringify(cartCopy);
+    localStorage.setItem("cart", stringCart);
+  }
+  
+  const handleAddToCart = (product, quantity = 1) => {
+    addItem(product, quantity)
     setShowSnackbar(true)
-    setTimeout(function(){ setShowSnackbar(false) }, 2000);
+    setTimeout(function() { setShowSnackbar(false) }, 2000);
+    window.location.reload();
   }
   
   return (
@@ -49,9 +69,9 @@ function ProductCard({product, small=true, stars, admin, id}) {
                 <div className="product-card-button" onClick={() => handleOnClickEdit(id)}>Editar</div>
                 <div className="product-card-button" onClick={() => handleOnClickDelete(id)}>Eliminar</div>
             </div> : null}
-           {!showSnackbar && <CartIcon className={"cart-icon"} onClick={handleAddToCart}/>}
+           {!showSnackbar && <CartIcon className={"cart-icon"} onClick={() => handleAddToCart(product)}/>}
            {showSnackbar && <div className="snackbar-success">
-              El producto se agregó correctamente a tu carrito!
+              ¡El producto se agregó correctamente a tu carrito!
            </div>}
           </div>
           <div>
