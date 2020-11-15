@@ -1,38 +1,37 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import ProductCard from '../../components/ProductCard/ProductCard.js';
-import axios from 'axios'
 import './productCatalog.css' 
 import { useHistory } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
-import { getProducts, getProductsByCategory, getProductsByQuery, setSearch } from "../../redux/actions/actions.js"
+import * as actions from "../../redux/actions/actions.js"
 
 function ProductCatalog ({admin}){
 
   const limit = 6
 
   let [category, setCategory] = useState('allCategories')
-  let [categories, setCategories] = useState([])
   let [page, setPage] = useState(1);
 
   const history = useHistory();
   const handleOnClickAddProduct = () => history.push(`/admin/addproduct`)
-  const handleOnChange = e => {setCategory(e.target.value); setSearch("")}
+  const handleOnChange = e => {setCategory(e.target.value); actions.setSearch("")}
 
   const dispatch = useDispatch()
   const { products, countProducts } = useSelector(state => state)
   const maxPages = useMemo(() => Math.ceil(countProducts/limit), [countProducts])
+  
   const search = useSelector(state => state.search)
+  const categories = useSelector(state => state.categories)
 
   useEffect( () => {
-    if(category !== 'allCategories') dispatch(getProductsByCategory(category, page, limit))
-    else if (search.length > 0) dispatch(getProductsByQuery(search, page, limit))
-    else dispatch(getProducts(page, limit))
+    if(category !== 'allCategories') dispatch(actions.getProductsByCategory(category, page, limit))
+    else if (search.length > 0) dispatch(actions.getProductsByQuery(search, page, limit))
+    else dispatch(actions.getProducts(page, limit))
   }, [dispatch, category, page, limit, search])
   
   useEffect( () => {(async () => {
-    const categories = await axios.get(`http://localhost:3001/categories/`)
-    setCategories(categories.data)
-  })()}, [])
+    dispatch(actions.getCategories())
+  })()}, [dispatch])
 
 
   const mapProducts = () => {

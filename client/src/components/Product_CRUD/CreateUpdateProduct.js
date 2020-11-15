@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from "react-router-dom"
 import axios from 'axios'
 import './create.css'
-import Select from 'react-select'
 import UploadImage from '../UploadImage/UploadImage'
+import { useDispatch, useSelector } from 'react-redux'
+import * as actions from "../../redux/actions/actions.js"
+import { useHistory } from "react-router-dom"
 
 function CreateUpdateProduct({id}){
     let [product, setProduct] = useState();
-    let [categories, setCategories] = useState([]);
+    let [selectedCategories, setSelectedCategories] = useState([])
+    let [image, setImage] = useState("")
 
+    const dispatch = useDispatch()
+
+    const categories = useSelector(state => state.categories)
+    const ngos = useSelector(state => state.ngos)
     // let [images, setImages] = useState({image: []});
     const history = useHistory();
 
@@ -48,7 +54,7 @@ function CreateUpdateProduct({id}){
     const handleURL = (url) => {
         setProduct({
             ...product,
-            "url": url
+            url: url
         })
     }
 
@@ -58,28 +64,25 @@ function CreateUpdateProduct({id}){
                 // eslint-disable-next-line react-hooks/exhaustive-deps
                 product = await axios.get(`http://localhost:3001/products/${id}`)
                 setProduct(product.data)
+                setSelectedCategories(product.data.categories.map(cat => cat.id))
+                setImage(product.data.images[0].url)
             }
             )()}}, [id])
-
-    useEffect( () => {(async () => {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        categories = await axios.get(`http://localhost:3001/categories/`)
-        categories = categories.data.map(cat => {
-            return {...cat, label: cat.name, value: cat.id}
-        })
-        setCategories(categories)
-    })()}, [])
 
     const handleGoBack = () => {
         history.push(`/admin/products`)
     }
     
-    const handleOnChangeCategory = (data) => {
+    const handleOnChangeCategory = (e) => {
         setProduct({
             ...product,
-            categories: data
+            selectedCategories: e.target.value
         });
     }
+    
+    useEffect( () => {(async () => {
+        dispatch(actions.getNgos())
+      })()}, [dispatch])
 
     return (
         <>
@@ -90,7 +93,19 @@ function CreateUpdateProduct({id}){
         <div className="crud-form">
             <br /><br />
             <form>
-                {/* <input onChange={handleOnSubmit} value={product ? product.ngoId : ""} name="ngoId" required type="text" placeholder="ONG" /><br /><br /> */}
+                <select onChange={handleOnChange} 
+                    name="ngoId" required 
+                    type="dropdown" >
+                {ngos.map( ngo => {    
+                    return ( 
+                        <option 
+                            key={ngo.id}
+                            value={ngo.id}
+                        >{ngo.name}</option> 
+                    )
+                })}
+                </select>
+                <br /><br />
                 <input onChange={handleOnChange} 
                     value={product ? product.name : ""} 
                     name="name" required type="text" 
@@ -99,16 +114,33 @@ function CreateUpdateProduct({id}){
                     value={product ? product.description : ""} 
                     name="description" 
                     required type="text"
-                    placeholder="Descripción del producto" /><br /><br />
-                <Select 
+                    placeholder="Descripción del producto" />
+                <br/>
+                {categories.map(cat => {
+                    return (
+                        <>
+                        <input 
+                            key={cat.id}
+                            type="checkbox"
+                            id={cat.id}
+                            checked={product ? selectedCategories.includes(cat.id) : false} 
+                            value={cat.id}
+                            onChange={handleOnChangeCategory}
+                        />
+                        <label> {cat.name} </label>
+                        </>
+                    )
+                })}                
+                {/* <Select 
                     options={categories} 
                     placeholder={"Categorías"} 
                     isMulti={true} 
                     onChange={handleOnChangeCategory} 
                     name="categories"
+                    loadOptions={currentCategories.map(cat => cat)}
                     key={product ? product.categories : ""}
                     value={product ? product.categories : ""}
-                />
+                /> */}
                 <br /><br />
                 <input onChange={handleOnChange}
                     value={product ? product.price : ""} 
@@ -120,7 +152,9 @@ function CreateUpdateProduct({id}){
                     name="stock" 
                     required type="number" 
                     placeholder="Stock del producto" /><br /><br />
-               <UploadImage handleURL={handleURL}/>
+                {image ? <img className="photo-small" src={image} alt={"Imagen no encontrada"}/> : null}
+                <br></br>
+                <UploadImage handleURL={handleURL}/>
                 <br></br>
                 <button className="button-crud" onClick={handleOnClick}>{id ? 'ACTUALIZAR' : 'CREAR'}</button>
             </form>

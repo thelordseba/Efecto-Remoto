@@ -67,9 +67,93 @@ export function setSearch(payload){
       };
   }
 
+export function getCategories() {
+    return async function(dispatch) {
+        try {
+            const response = await axios.get(`http://localhost:3001/categories/`);
+            dispatch({
+                type: actions.GETCATEGORIES,
+                payload: response.data
+            });
+        } catch (e) {
+            alert("Hubo un error. Por favor, intentá de nuevo.");
+        }
+    }
+}
+export function getOrders() {
+    return function(dispatch) {
+        return axios.get(`http://localhost:3001/orders`)
+        .then(response => {
+            dispatch({ 
+                type: actions.GETORDERS, 
+                payload: response.data
+            });
+          })
+        .catch(() => {
+              alert("Hubo un error. Por favor, intentá de nuevo.")
+        })
+    }
+}
 
+export function getOrderById(id) {
+    return function(dispatch) {
+        return axios.get(`http://localhost:3001/orders/${id}`)
+        .then(response => {
+            dispatch({ 
+                type: actions.GETORDERBYID, 
+                payload: response.data
+            });
+          })
+        .catch(() => {
+              alert("Hubo un error. Por favor, intentá de nuevo.")
+        })
+    }
+}
+
+export function getNgos() {
+    return function(dispatch) {
+        return axios.get(`http://localhost:3001/ngos`)
+        .then(response => {
+            dispatch({ 
+                type: actions.GETNGOS, 
+                payload: response.data
+            });
+          })
+        .catch(() => {
+              alert("Hubo un error. Por favor, intentá de nuevo.")
+        })
+    }
+}
+
+export function getUsers() {
+    return function(dispatch) {
+        return axios.get(`http://localhost:3001/users`)
+        .then(response => {
+            dispatch({ 
+                type: actions.GETUSERS, 
+                payload: response.data
+            });
+          })
+        .catch(() => {
+              alert("Hubo un error. Por favor, intentá de nuevo.")
+        })
+    }
+}
       
-  
+export function getUserById(id) {
+    return function(dispatch) {
+        return axios.get(`http://localhost:3001/users/${id}`)
+        .then(response => {
+            dispatch({ 
+                type: actions.GETUSERBYID, 
+                payload: response.data
+            });
+          })
+        .catch(() => {
+              alert("Hubo un error. Por favor, intentá de nuevo.")
+        })
+    }
+}
 
 
 

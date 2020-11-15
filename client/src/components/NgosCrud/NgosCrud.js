@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import { useHistory } from "react-router-dom"
-// import axios from 'axios'
 import './NgosCrud.css'
 import axios from 'axios'
 
@@ -10,11 +9,9 @@ function CreateUpdateNGO({id}){
     const history = useHistory();
 
     const handleOnChange = (event) => {
-        const value = event.target.value;
-        const name = event.target.name;
         setNGO({
             ...ngo,
-            [name]: value
+            [event.target.name]: event.target.value
         });
     }
 
@@ -35,14 +32,16 @@ function CreateUpdateNGO({id}){
         }
     };
 
-    // const handleGoBack = () => {
-    //     history.push(`/admin/products`)
-    // }
+    const handleGoBack = () => {
+        history.push(`/admin/ngos`)
+    }
 
     return (
         <>
+            <div className="volver" onClick={handleGoBack}>
+            Volver
+            </div>
             {/* <div className="volver" onClick={handleGoBack}> Volver </div> */}
-            <h3>Todavía no guarda los datos en la base de datos!!! Me gustaría poner en esta misma página el CRUD y la tabla con todas las ONGs (si no es mucho pedir je!)</h3>
             <h1 className="tituloForm">{id ? 'Actualizar' : 'Crear'} ONG</h1>
             <div className="crud-form">
                 <br /><br />

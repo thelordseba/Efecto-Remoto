@@ -5,8 +5,12 @@ const initialState = {
     products: [],
     categories: [],
     deleted: [],
-    countProducts: 0
-};
+    order:[],
+    countProducts: 0,
+    ngos:[],
+    users:[],
+    currentUser:[]
+  };
 
   export default (state = initialState, action) => {
     switch(action.type) {
@@ -38,7 +42,36 @@ const initialState = {
           ...state,
           deleted: action.payload
         }
-  
+      case constants.GETCATEGORIES:
+        return {
+          ...state,
+          categories: action.payload
+        }
+      case constants.GETORDERS:
+        return {
+          ...state,
+          orders: action.payload
+        }
+      case constants.GETORDERBYID:
+        return {
+          ...state,
+          order: action.payload
+        }      
+      case constants.GETNGOS:
+        return {
+          ...state,
+          ngos: action.payload
+        } 
+      case constants.GETUSERS:
+        return {
+          ...state,
+          users: action.payload
+        } 
+      case constants.GETUSERBYID:
+        return {
+          ...state,
+          currentUser: action.payload
+        } 
       default:
          return state;
     }

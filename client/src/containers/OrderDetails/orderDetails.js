@@ -1,15 +1,16 @@
-import OrderLine from '../../components/OrderLine/OrderLine';
-import React, {useEffect, useState} from 'react';
-import axios from 'axios'
+import OrderLine from 'components/OrderLine/OrderLine';
+import React, {useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import {getOrderById} from '../../redux/actions/actions'
 
 export default function OrderDetails({id}) {
 
-  let [order, setOrder] = useState()
+  const order = useSelector(state => state.order)
+  const dispatch = useDispatch()
 
   useEffect( () => {(async () => {
-    order = await axios.get(`http://localhost:3001/orders/${id}`)
-    setOrder(order.data)
-  })()}, [])
+    dispatch(getOrderById(id))
+  })()}, [dispatch, id])
 
   return ( //recibe info de redux   //cambiar html si es necesario para css
     <div>
@@ -20,12 +21,12 @@ export default function OrderDetails({id}) {
       <label>Estado de la orden: {order.status}</label>
 
       <h1>Aca renderizo OrderLine</h1>
-      {order.orderlines && order.orderlines.map(order => (
-      <OrderLine
-        orderLineId={order.orderLineId}
-        productId={order.productId}
-        price={order.price}
-        quantity={order.quantity}
+      {order.orderlines && order.orderlines.map(orderline => (
+      <OrderLine        //// VAMOS A TENER QUE LLAMAR A LA API PARA PEDIR ORDERLINES DEL ORDERID
+        orderLineId={orderline.orderLineId}
+        productId={orderline.productId}
+        price={orderline.price}
+        quantity={orderline.quantity}
       />
       ))
       }
