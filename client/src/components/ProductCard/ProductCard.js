@@ -11,12 +11,10 @@ function ProductCard({product, small=true, stars, admin, id}) {
   // const [cart, setCart] = useState([]);
   let localCart = localStorage.getItem("cart");
   const [cart, setCart] = useState(localCart ? JSON.parse(localCart) : []);
-
   const dispatch = useDispatch()
   // const deleted = useSelector(state => state.deleted)
 
   function handleOnClickEdit(id) { history.push(`/product/edit/${id}`) }
-
   function handleOnClickDelete(id) { dispatch(deleteProduct(id)) }
 
   let quantity;
@@ -24,9 +22,6 @@ function ProductCard({product, small=true, stars, admin, id}) {
   const addItem = (product, quantity) => {
     let cartCopy = [...cart];
     let { id } = product;
-    // console.log(product)
-    // console.log(product.quantity)
-    // console.log(cartCopy)
     let existingItem = cartCopy.find(cartItem => cartItem.id == id);
     if (existingItem) { existingItem.quantity += quantity }
     else { 

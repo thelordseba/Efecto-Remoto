@@ -31,7 +31,7 @@ function ShoppingCart (props){
   const editItem = (itemID, value) => {
     let cartCopy = [...cart]
     let existentItem = cartCopy.find(item => item.id = itemID);
-    if (!existentItem) { console.log("Hubo un error.") }
+    if (!existentItem) { alert("Hubo un error.") }
 
     else {
       existentItem.quantity = parseInt(value);
@@ -54,8 +54,6 @@ function ShoppingCart (props){
     axios.post(`http://localhost:3001/orders/7`) // por ahora está para el usuario 1
     .then((response) => {
       alert("Orden creada")
-      console.log(products)
-      console.log(cart)
       return axios.post(`http://localhost:3001/orders/1/cart`, cart)
     }, (error) => {
       alert("Hubo un error. Por favor, intentá de nuevo.")

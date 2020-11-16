@@ -26,8 +26,7 @@ function UploadImage({handleURL}){
                 .child(image.name)
                 .getDownloadURL()
                 .then(url => {
-                console.log(url)
-                handleURL(url)
+                    handleURL(url)
                 });
             }
         )

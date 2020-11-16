@@ -8,7 +8,8 @@ import Home from "containers/Home/Home.js";
 import CreateUpdateProduct from "components/Product_CRUD/CreateUpdateProduct"
 import NgosCrud from "components/NgosCrud/NgosCrud.js"
 import NgoTable from "containers/NgoTable/NgoTable.js"
-import FormCategorias from "components/FormCategory/FormCategory";
+import CategoryTable from "containers/CategoryTable/CategoryTable";
+import FormCategory from "components/FormCategory/FormCategory";
 import OrderDetails from 'containers/OrderDetails/orderDetails';
 import OrderTable from "containers/OrderTable/OrderTable.js";
 import FormUser from 'components/FormUser/FormUser';
@@ -23,7 +24,6 @@ const routes = [
     component: Home,
     exact:true
   },    
-  
   {
     path:"/nosotros",
     component: Nosotros,
@@ -48,6 +48,7 @@ const routes = [
   {
     path:"/admin/products",
     render: () => <ProductCatalog admin={true}/>,
+    exact: true
   },
   {
     path:"/admin/ngos",
@@ -57,6 +58,7 @@ const routes = [
   {
     path:"/admin/ngos/add",
     component: NgosCrud,
+    exact: true
   },
   {
     path: "/carrito",
@@ -78,10 +80,14 @@ const routes = [
     render:({match}) => <CreateUpdateProduct id={match.params.id} />,
     exact: true
   },
-
   {
     path:"/admin/categories",
-    component: FormCategorias,
+    component: CategoryTable,
+    exact: true
+  },
+  {
+    path:"/admin/categories/add",
+    component: FormCategory,
     exact: true
   },
   {
@@ -100,7 +106,7 @@ const routes = [
     exact:true
   },
   {
-    path:"/admin/users/add",
+    path:"/admin/adduser",
     component: FormUser,
     exact: true
   },

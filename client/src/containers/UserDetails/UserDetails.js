@@ -10,8 +10,6 @@ export default function UserDetails({id}) {
     useEffect( () => {( async () => {
         dispatch(getUserById(id));
         })()}, [dispatch, id])
-    
-    console.log(user)
 
     return ( //recibe info de redux   //cambiar html si es necesario para css
         <div>

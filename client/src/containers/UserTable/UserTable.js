@@ -8,7 +8,7 @@ export default function UserTable() {
 
   const users = useSelector(state => state.users)
   const dispatch = useDispatch()
-  const handleOnClickAddUser = () => history.push(`/admin/users/add`)
+  const handleOnClickAddUser = () => history.push(`/admin/adduser`)
   const history = useHistory();
 
   useEffect( () => {(async () => {

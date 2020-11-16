@@ -14,11 +14,13 @@ export default function OrderTable() {
 
   return( //además deberia mostrar el nombre del producto,precio e imagen
     <div>
-      <label>Listado de orden</label>
-      <h3>OrderTable: acá renderizo OrderDetails</h3>
+      <label>--- Listado de ordenes ---</label>
+      <br />
+      <br />
       {orders && orders.map(order => 
           <OrderCard 
             order={order}
+            key={order.id}
           />
       )}
     </div>

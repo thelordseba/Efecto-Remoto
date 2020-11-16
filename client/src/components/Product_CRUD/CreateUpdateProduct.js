@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as actions from "../../redux/actions/actions.js"
 import { useHistory } from "react-router-dom"
 
-function CreateUpdateProduct({id}){
+export default function CreateUpdateProduct({id}){
     let [product, setProduct] = useState();
     let [selectedCategories, setSelectedCategories] = useState([])
     let [image, setImage] = useState("")
@@ -37,8 +37,7 @@ function CreateUpdateProduct({id}){
                 return cat.map(e => axios.post(`http://localhost:3001/products/${response.data.id}/category/${e}`))
             })
             .then(() => alert("Producto agregado"))
-            .catch(() => {
-                alert("Hubo un error. Por favor, intentá de nuevo.")})
+            .catch(() => alert("Hubo un error. Por favor, intentá de nuevo."))
             .then(() => history.push('/admin/products'))
         }
     };
@@ -162,5 +161,3 @@ function CreateUpdateProduct({id}){
         </>
     );
 }
-
-export default CreateUpdateProduct;

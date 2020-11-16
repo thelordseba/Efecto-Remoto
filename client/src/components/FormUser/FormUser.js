@@ -3,139 +3,151 @@ import React from 'react';
 import {withFormik, Field, ErrorMessage, Form} from 'formik';
 import './FormUser.css';
 import axios from 'axios'
+import { useHistory } from "react-router-dom"
 
 //isSubmit indica si actulmente esta en proceso de submicion, para no permitir que se haga submit mas de una vez al mismo tiempo
 //Field es un componente que conecta directamente a formik
 function FormUser(props) {
     const{isSubmitting, isValid} = props; // viene de las props del componente
 
-    return(
-        <Form>
-            <div className="row">
-                Administrador:
-                 <Field name="isAdmin" type="checkbox" />
-                 
-            </div>
+    const history = useHistory();
 
-            <div className="row">
-                Nombre de usuario:
-                 <Field name="userName" type="text" />
-                 <ErrorMessage name="userName">
-                {message => <div className="error">{message}</div>}
-                </ErrorMessage>
-            </div>
-
-            <div className="row">
-                Email:
-                 <Field name="email" type="email" />
-                 <ErrorMessage name="email">
-                {message => <div className="error">{message}</div>}
-                </ErrorMessage>
-            </div>
-
-            <div className="row">
-                Contraseña:
-                <Field name="password" type="password" />
-                <ErrorMessage name="password">
-                {message => <div className="error">{message}</div>}
-                </ErrorMessage>
-            </div>
-
-            <div className="row">
-                Nombre:
-                 <Field name="firstName" type="text" />
-                 <ErrorMessage name="firstName">
-                {message => <div className="error">{message}</div>}
-                </ErrorMessage>
-            </div>
-
-            <div className="row">
-                Apellido:
-                 <Field name="lastName" type="text" />
-                 <ErrorMessage name="lastName">
-                {message => <div className="error">{message}</div>}
-                </ErrorMessage>
-            </div>
-
-            <div className="row">
-                Teléfono:
-                 <Field name="telephone" type="tel" />
-                 <ErrorMessage name="telephone">
-                {message => <div className="error">{message}</div>}
-                </ErrorMessage>
-            </div>
-
-            <div className="row">
-                Dirección:
-                 <Field name="address" type="selector" />
-                 <ErrorMessage name="address">
-                {message => <div className="error">{message}</div>}
-                </ErrorMessage>
-            </div>
-
-            <div className="row">
-                Número:
-                 <Field name="number" type="selector" />
-                 <ErrorMessage name="number">
-                {message => <div className="error">{message}</div>}
-                </ErrorMessage>
-            </div>
-
-            <div className="row">
-                Código Postal:
-                 <Field name="postalCode" type="selector" />
-                 <ErrorMessage name="postalCode">
-                {message => <div className="error">{message}</div>}
-                </ErrorMessage>
-            </div>
-
-            <div className="row">
-                Localidad:
-                 <Field name="city" type="selector" />
-                 <ErrorMessage name="city">
-                {message => <div className="error">{message}</div>}
-                </ErrorMessage>
-            </div>
-
-            <div className="row">
-                Provincia:
-                 <Field name="province" type="selector" />
-                 <ErrorMessage name="province">
-                {message => <div className="error">{message}</div>}
-                </ErrorMessage>
-            </div>
-
-            <div className="row">
-                Pais:
-                 <Field name="country" type="selector" />
-                 <ErrorMessage name="country">
-                {message => <div className="error">{message}</div>}
-                </ErrorMessage>
-            </div>
-
-            <div className="row">
-                Usuario GitHub:
-                 <Field name="gitHubId" type="text" />
-            </div>
-
-            <div className="row">
-                Usuario GMail:
-                 <Field name="gmailId" type="text" />
-            </div>
+    const handleGoBack = () => {
+        history.push(`/admin/ngos`)
+    }
     
-            <div className="row">
-                Usuario Facebook:
-                 <Field name="facebookId" type="text" />
+    return(
+        <>
+            <div className="volver" onClick={handleGoBack}>
+            Volver
             </div>
+            <Form>
+                <div className="row">
+                    Administrador:
+                    <Field name="isAdmin" type="checkbox" />
+                    
+                </div>
 
-            
-            <div className="">
-            <button type="submit"
-                    className={`submit ${isSubmitting || !isValid ? 'disabled' : ''}`}
-                    disabled={isSubmitting || !isValid} //si se hace submit bloquea el boton (isSubmitting=true)
-            >Submit</button>
-            </div>
-        </Form>
+                <div className="row">
+                    Nombre de usuario:
+                    <Field name="userName" type="text" />
+                    <ErrorMessage name="userName">
+                    {message => <div className="error">{message}</div>}
+                    </ErrorMessage>
+                </div>
+
+                <div className="row">
+                    Email:
+                    <Field name="email" type="email" />
+                    <ErrorMessage name="email">
+                    {message => <div className="error">{message}</div>}
+                    </ErrorMessage>
+                </div>
+
+                <div className="row">
+                    Contraseña:
+                    <Field name="password" type="password" />
+                    <ErrorMessage name="password">
+                    {message => <div className="error">{message}</div>}
+                    </ErrorMessage>
+                </div>
+
+                <div className="row">
+                    Nombre:
+                    <Field name="firstName" type="text" />
+                    <ErrorMessage name="firstName">
+                    {message => <div className="error">{message}</div>}
+                    </ErrorMessage>
+                </div>
+
+                <div className="row">
+                    Apellido:
+                    <Field name="lastName" type="text" />
+                    <ErrorMessage name="lastName">
+                    {message => <div className="error">{message}</div>}
+                    </ErrorMessage>
+                </div>
+
+                <div className="row">
+                    Teléfono:
+                    <Field name="telephone" type="tel" />
+                    <ErrorMessage name="telephone">
+                    {message => <div className="error">{message}</div>}
+                    </ErrorMessage>
+                </div>
+
+                <div className="row">
+                    Dirección:
+                    <Field name="address" type="selector" />
+                    <ErrorMessage name="address">
+                    {message => <div className="error">{message}</div>}
+                    </ErrorMessage>
+                </div>
+
+                <div className="row">
+                    Número:
+                    <Field name="number" type="selector" />
+                    <ErrorMessage name="number">
+                    {message => <div className="error">{message}</div>}
+                    </ErrorMessage>
+                </div>
+
+                <div className="row">
+                    Código Postal:
+                    <Field name="postalCode" type="selector" />
+                    <ErrorMessage name="postalCode">
+                    {message => <div className="error">{message}</div>}
+                    </ErrorMessage>
+                </div>
+
+                <div className="row">
+                    Localidad:
+                    <Field name="city" type="selector" />
+                    <ErrorMessage name="city">
+                    {message => <div className="error">{message}</div>}
+                    </ErrorMessage>
+                </div>
+
+                <div className="row">
+                    Provincia:
+                    <Field name="province" type="selector" />
+                    <ErrorMessage name="province">
+                    {message => <div className="error">{message}</div>}
+                    </ErrorMessage>
+                </div>
+
+                <div className="row">
+                    Pais:
+                    <Field name="country" type="selector" />
+                    <ErrorMessage name="country">
+                    {message => <div className="error">{message}</div>}
+                    </ErrorMessage>
+                </div>
+
+                <div className="row">
+                    Usuario GitHub:
+                    <Field name="gitHubId" type="text" />
+                </div>
+
+                <div className="row">
+                    Usuario GMail:
+                    <Field name="gmailId" type="text" />
+                </div>
+        
+                <div className="row">
+                    Usuario Facebook:
+                    <Field name="facebookId" type="text" />
+                </div>
+
+                
+                <div className="">
+                <button type="submit"
+                        className={`submit ${isSubmitting || !isValid ? 'disabled' : ''}`}
+                        disabled={isSubmitting || !isValid} //si se hace submit bloquea el boton (isSubmitting=true)
+                >Submit</button>
+                </div>
+            </Form>
+        </>
     );
 
 }

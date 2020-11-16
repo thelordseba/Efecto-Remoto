@@ -20,9 +20,6 @@ function ShoppingItem ({product, handleOnChangeQuantity}){
     //     setProduct(product)
     // })()}, [])
 
-  console.log(product)
-
-
   return(
     <>
         <div key={product.id} className="product-container-shopping-cart">
