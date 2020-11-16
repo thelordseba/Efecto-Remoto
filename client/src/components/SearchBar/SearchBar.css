@@ -6,7 +6,7 @@
 .searchbar-button{
     background: #FFFFFF 0% 0% no-repeat padding-box;
     border-radius: 5px;
-    font: normal normal 500 16px/21px Segoe UI;
+    font: normal normal 500 16px/21px;
     letter-spacing: 0px;
     color: teal;
     opacity: 1;
@@ -16,9 +16,9 @@
 
 .searchbar-button:hover{
     background: #0D7377 0% 0% no-repeat padding-box;
-    font: normal normal bold 16px/21px Segoe UI;
+    font: normal normal bold 16px/21px;
     color: #FFFFFF;
-    }
+}
 
 .input{
     background: #FFFFFF 0% 0% no-repeat padding-box;

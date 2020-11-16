@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
 
     completionDate:{
         type: DataTypes.DATE,
-        allowNull: false        
+        allowNull: true
     },
 
     status:{

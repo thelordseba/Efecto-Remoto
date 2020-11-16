@@ -1,7 +1,8 @@
 const server = require('express').Router();
-const { Product } = require('../db.js');
-const { Category } = require('../db.js');
+const { Product, Category, Image } = require('../db.js');
+
 const { Sequelize } = require('sequelize');
+// const { response } = require('express');
 
 // Task S17: Crear ruta para agregar o sacar categorías de un producto
 server.post('/:productId/category/:categoryId', async (req, res, next) => {
@@ -42,48 +43,60 @@ server.delete('/:productId/category/:categoryId', async (req, res, next) => {
     catch(error) {next()};
 });
 
-// Task S21: Crear ruta que devuelva todos los productos
-server.get('/', (req, res, next) => {
-    Product.findAll()
-    .then(products => res.send(products))
-    .catch(next);
-});
 
 // Task S22: Crear ruta que devuelva los productos de X categoría
 server.get('/categories/:categoryId', (req, res, next) => {
     const categoryId = req.params.categoryId;
-    Category.findOne({
-        where: {
-            id: categoryId
-        },
-        include: [Product]})    
-    .then(products => {
-        if(products) {
-            res.send(products)
+    const offset = req.query.offset;
+    const limit = req.query.limit;
+    Product.findAndCountAll({limit, offset, 
+        include: [{
+            model: Category,
+            where: {id: categoryId}
+        }, Image]
+    })
+    .then(({count, rows: products}) => {
+        if(products.length > 0) {
+            res.send({products, count});
         } else {
-            res.status(404).json({error: "Esta categoría no tiene productos asociados"})
+            res.status(404).json({error: "Esta categoría no tiene productos asociados."})
         }
     })
     .catch(next);
+});
+
+// Task S21: Crear ruta que devuelva todos los productos
+server.get('/', (req, res, next) => {
+    const offset = req.query.offset;
+    const limit = req.query.limit;
+    Product.findAndCountAll({limit, offset, include: {model: Image}})
+    .then(({count, rows: products}) => {
+        if(products.length > 0) {
+            res.send({products, count});
+        } else {
+            res.status(404).json({error: "No hay productos para seleccionar en este momento."})
+        }
+    })
+    .catch((err) => res.send(err));
 });
 
 // Task S23: Crear ruta que retorne productos según el keyword de búsqueda
 // GET /search?query={valor}
 server.get('/search', (req, res, next) => {
     const valor = req.query.query;
-    console.log(valor)
-    Product.findAll({
-      where: {
-        [Sequelize.Op.or]: [
-          { name: { [Sequelize.Op.substring]: valor } },
-          { description: { [Sequelize.Op.substring]: valor } },
-        //   { category: { [Sequelize.Op.substring]: valor} },
-        ],
-      },
+    const offset = req.query.offset;
+    const limit = req.query.limit;
+    Product.findAndCountAll({limit, offset,
+        where: {
+            [Sequelize.Op.or]: [
+                { name: { [Sequelize.Op.substring]: valor } },
+                { description: { [Sequelize.Op.substring]: valor } },
+            ],
+        }, include: [Image]
     })
-    .then((products) => {
+    .then(({count, rows: products}) => {
         if(products.length > 0) {
-            res.send(products);
+            res.send({products,count});
         } else {
             res.status(404).json({error: "No se encontraron resultados para esta búsqueda"})
         }
@@ -93,7 +106,7 @@ server.get('/search', (req, res, next) => {
 
 // Task S24: Crear ruta de producto individual, pasado un ID que retorne un producto con sus detalles
 server.get('/:id', (req, res, next) => {
-    Product.findByPk(req.params.id, {include: {model: Category}})
+    Product.findByPk(req.params.id, {include: [{model: Category}, {model: Image}]})
     .then(product => {
         if(product) {
             res.send(product)
@@ -105,25 +118,23 @@ server.get('/:id', (req, res, next) => {
 });
 
 // Task S25: Crear ruta para crear/agregar Producto
-// POST /products
-server.post('/', (req, res, next) => {
-    const { ngoId, name, description, price, categoryId, img, stock } = req.body;
-    Product.create(
-        {
-        ngoId: ngoId,
-        name: name,
-        description: description, 
-        price: price, 
-        categoryId: categoryId, 
-        img: img, 
-        stock: stock,
-        }
-    )            
-    .then(product => {
-        res.status(201).json(product);
-    })
-    .catch(next);
-});
+server.post('/', async (req, res) => {
+    try {
+        const product = await Product.create({
+            ngoId: req.body.ngoId,
+            name: req.body.name,
+            description: req.body.description, 
+            price: req.body.price, 
+            stock: req.body.stock,
+        })
+        const image = await Image.create({
+            url: req.body.url, 
+        })
+        await product.addImage(image)
+        res.status(201).json(product)
+    }
+    catch(error) {console.log(error)};
+    });
 
 // Task S26 : Crear ruta para Modificar Producto
 server.put('/:id', (req, res, next) => {
@@ -138,17 +149,30 @@ server.put('/:id', (req, res, next) => {
 })
 
 // Task S27: Crear Ruta para eliminar Producto
-server.delete('/:id', (req, res, next) => {
-    Product.destroy({
-        where: {
-            id: req.params.id 
+server.delete('/:userId', (req, res, next)=>{
+    Product.findOne({
+        where:{
+            id: req.params.userId
         }
     })
-    .then((prod) => {
-        if(!prod) res.status(400).send({error: 'No se encontró ese ID de producto'})
-        if(prod) res.sendStatus(200)
+    .then(product => {
+        if(!product){
+            res.status(400).send("ERROR: El usuario que intenta eliminar no existe.");
+        }else{ 
+            Image.findOne({
+                where: {
+                    id: product.imageId
+                }
+            })   
+            .then(image=>{
+                image.destroy();
+            }) 
+            product.destroy();
+            res.sendStatus(200);       
+        }
     })
-    .catch(next);
+    .catch(next);       
 });
 
 module.exports = server;
+

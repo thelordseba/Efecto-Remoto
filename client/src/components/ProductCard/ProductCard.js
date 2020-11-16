@@ -1,35 +1,54 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Stars from "./Stars"
-import { useHistory } from "react-router-dom"
+import {useHistory } from "react-router-dom"
+import {useDispatch} from 'react-redux'
+import {deleteProduct} from '../../redux/actions/actions'
+import { ReactComponent as CartIcon } from '../common/cart.svg'
 
-import axios from 'axios'
-
-function ProductCard({product, small=true, stars, admin, id, refresh}) {
+function ProductCard({product, small=true, stars, admin, id}) {
   const history = useHistory();
+  const [showSnackbar, setShowSnackbar] = useState(false);
+  // const [cart, setCart] = useState([]);
+  let localCart = localStorage.getItem("cart");
+  const [cart, setCart] = useState(localCart ? JSON.parse(localCart) : []);
+  const dispatch = useDispatch()
+  // const deleted = useSelector(state => state.deleted)
 
-  function handleOnClickEdit(id){
-    history.push(`/product/edit/${id}`)
+  function handleOnClickEdit(id) { history.push(`/product/edit/${id}`) }
+  function handleOnClickDelete(id) { dispatch(deleteProduct(id)) }
+
+  let quantity;
+
+  const addItem = (product, quantity) => {
+    let cartCopy = [...cart];
+    let { id } = product;
+    let existingItem = cartCopy.find(cartItem => cartItem.id == id);
+    // let existingItem = cartCopy.find(cartItem => cartItem.id === parseInt(id));
+    if (existingItem) { existingItem.quantity += quantity }
+    else { 
+      cartCopy.push(product);
+      product.quantity = parseInt(quantity);
+    }
+    setCart(cartCopy);
+    let stringCart = JSON.stringify(cartCopy);
+    localStorage.setItem("cart", stringCart);
   }
-
-  function handleOnClickDelete(id) {
-    axios.delete(`http://localhost:3001/products/${id}`, product)
-    .then((response) => {
-        refresh && refresh()
-        alert("Producto eliminado")
-    }, (error) => {
-        console.log(error);
-        alert("Hubo un error. Por favor, intentá de nuevo.")
-    });
+  
+  const handleAddToCart = (product, quantity = 1) => {
+    addItem(product, quantity)
+    setShowSnackbar(true)
+    setTimeout(function() { setShowSnackbar(false) }, 2000);
+    window.location.reload();
   }
-
-  function handleOnClickAddProduct() {}
-
+  
   return (
   <>
     <div className={small ? "product-card-container-small" : "product-card-container"}>
-        <img className={small ? "product-card-photo-small" : "product-card-photo"} src={product.img} alt={"Imagen no encontrada"}/>
+        <img className={small ? "product-card-photo-small" : "product-card-photo"}
+          src={product.images[0].url} 
+          alt={"Imagen no encontrada"}/>
         <div className="product-card-content">
-          <a href={"/products/" + product.id}>
+          <a href={`/products/${product.id}`}>
             <div className="title">{product.name}</div>
           </a>
           {/* {small && <div className="stars-small"> <Stars disabledClick={true} stars={stars}/> </div>} */}
@@ -46,8 +65,10 @@ function ProductCard({product, small=true, stars, admin, id, refresh}) {
                 <div className="product-card-button" onClick={() => handleOnClickEdit(id)}>Editar</div>
                 <div className="product-card-button" onClick={() => handleOnClickDelete(id)}>Eliminar</div>
             </div> : null}
-           {!small ? <div className="product-card-button" onClick={handleOnClickAddProduct}>Agregar al carrito</div> : null} 
-
+           {!showSnackbar && <CartIcon className={"cart-icon"} onClick={() => handleAddToCart(product)}/>}
+           {showSnackbar && <div className="snackbar-success">
+              ¡El producto se agregó correctamente a tu carrito!
+           </div>}
           </div>
           <div>
       </div>

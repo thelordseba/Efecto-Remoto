@@ -1,0 +1,33 @@
+.grid-container-homeAdmin {
+    background-color: white;
+    /* display: grid; */
+    grid-template-columns: 0.20fr 0.80fr;
+    width: 100%;
+    height: 50%;
+}
+
+.grid-container-sidebar {
+    background-color: lightgrey;
+    display: block;
+    width: 100%;
+    border-radius: 15px;
+    margin: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.432);
+}
+
+.list-homeAdmin {
+    display:flex;
+    color: teal;
+    font-size: 1em;
+    padding-inline-start: 0;
+    list-style-type: none;
+}
+
+.listee {
+    margin-left: 25px;
+}
+
+a, a:visited, a:hover, a:active {
+    color: inherit;
+    text-decoration: none
+  }

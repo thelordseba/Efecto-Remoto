@@ -1,13 +1,22 @@
 import React from 'react';
-import ProductCatalog from "../containers/ProductCatalog/productCatalog";
-import ProductDetail from "../components/ProductDetail/ProductDetail.js";
-import Nosotros from "../components/Nosotros/Nosotros.js";
-import FAQ from "../components/FAQ/FAQ.js";
-import HomeAdmin from "../containers/HomeAdmin/HomeAdmin.js"
-import Home from "../containers/Home/Home.js";
-// import Success from "../components/Success";
-import CreateUpdateProduct from "../components/Product_CRUD/CreateUpdateProduct"
-import FormCategorias from "../components/FormCategory/FormCategory";
+import ProductCatalog from "containers/ProductCatalog/productCatalog";
+import ProductDetail from "components/ProductDetail/ProductDetail.js";
+import Nosotros from "components/Nosotros/Nosotros.js";
+import FAQ from "components/FAQ/FAQ.js";
+import HomeAdmin from "containers/HomeAdmin/HomeAdmin.js"
+import Home from "containers/Home/Home.js";
+import CreateUpdateProduct from "components/Product_CRUD/CreateUpdateProduct"
+import NgosCrud from "components/NgosCrud/NgosCrud.js"
+import NgoTable from "containers/NgoTable/NgoTable.js"
+import CategoryTable from "containers/CategoryTable/CategoryTable";
+import FormCategory from "components/FormCategory/FormCategory";
+import OrderDetails from 'containers/OrderDetails/orderDetails';
+import OrderTable from "containers/OrderTable/OrderTable.js";
+import FormUser from 'components/FormUser/FormUser';
+import ShoppingCart from "components/ShoppingCart/ShoppingCart";
+import UserTable from "containers/UserTable/UserTable.js";
+import UserDetails from "containers/UserDetails/UserDetails.js";
+
 
 const routes = [
   {
@@ -35,11 +44,35 @@ const routes = [
   {
     path:"/admin",
     component: HomeAdmin,
+  },
+  {
+    path:"/admin/products",
+    render: () => <ProductCatalog admin={true}/>,
     exact: true
   },
   {
-    path: '/product/add',
-    component: CreateUpdateProduct,
+    path:"/admin/ngos",
+    component: NgoTable,
+    exact: true
+  },
+  {
+    path:"/admin/ngos/add",
+    component: NgosCrud,
+    exact: true
+  },
+  {
+    path: "/carrito",
+    component: ShoppingCart,
+    exact: true,
+  },
+  {
+    path:"/admin/users",
+    render: () => <UserTable />,
+    exact: true,
+  },
+  {
+    path: '/admin/addproduct',
+    render: () => <CreateUpdateProduct />,
     exact: true
   },
   {
@@ -47,12 +80,46 @@ const routes = [
     render:({match}) => <CreateUpdateProduct id={match.params.id} />,
     exact: true
   },
-
   {
-    path:"/categories/add",
-    component: FormCategorias,
+    path:"/admin/categories",
+    component: CategoryTable,
     exact: true
   },
+  {
+    path:"/admin/categories/add",
+    component: FormCategory,
+    exact: true
+  },
+  {
+    path: "/admin/orders/:orderId",
+    render:({match}) => <OrderDetails id={match.params.orderId} />,
+    exact: true
+  }, 
+  {
+    path: "/orderdetails",
+    render:({match}) => <OrderDetails id={match.params.id} />,
+    exact: true
+  },
+  {
+    path:"/admin/orders",
+    component: OrderTable,
+    exact:true
+  },
+  {
+    path:"/admin/adduser",
+    render:({match}) => <FormUser admin={true} />,
+    exact: true
+  },
+  {
+    path: "/admin/users/:userId",
+    render:({match}) => <UserDetails id={match.params.userId} />,
+    exact: true
+  },
+  {
+    path: "/register",
+    render:({match}) => <FormUser admin={false} />,
+    exact: true
+  }, 
  
 ];
   
