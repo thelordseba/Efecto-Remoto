@@ -37,7 +37,7 @@ export default function Form() {
   };
  
   const handleGoBack = () => {
-    history.push(`/admin/products`)
+    history.push(`/admin/categories`)
   }
   
   return (
