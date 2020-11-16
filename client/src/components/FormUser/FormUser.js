@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom"
 //Field es un componente que conecta directamente a formik
 function FormUser(props) {
     const{isSubmitting, isValid} = props; // viene de las props del componente
-
+    console.log(isSubmitting)
     const history = useHistory();
 
     const handleGoBack = () => {
@@ -18,6 +18,7 @@ function FormUser(props) {
     
     return(
         <>
+            <h1>Crear usuario</h1>
             {props.admin ? <div className="volver" onClick={handleGoBack}>Volver</div> : null}
             <Form>
                 <div className="row">
@@ -142,7 +143,7 @@ function FormUser(props) {
                 <button type="submit"
                         className={`submit ${isSubmitting || !isValid ? 'disabled' : ''}`}
                         disabled={isSubmitting || !isValid} //si se hace submit bloquea el boton (isSubmitting=true)
-                >Submit</button>
+                >Crear usuario</button>
                 </div>
             </Form>
         </>
@@ -257,10 +258,15 @@ export default withFormik({
 
     handleSubmit(values, formikBag){ //funcion recibe el nombre de los valores del input.FormikBag da acceso a props de la forma
         axios.post(`http://localhost:3001/users`, values)
-        .then(() => alert("Usuario creado"))
-        .catch(() => { alert("Hubo un error. Por favor, intentá de nuevo.")})
+        .then(() => {
+            formikBag.setSubmitting(false);//debo deshabilitar isSubmitting una vez que pasa la info
+            alert("Usuario creado")
+        })
+        .catch(() => { 
+            formikBag.setSubmitting(false);//debo deshabilitar isSubmitting una vez que pasa la info
+            alert("Hubo un error. Por favor, intentá de nuevo.")
+        })
         // .then(() => useHistory().push('/'))
-        formikBag.setSubmitting(false);//debo deshabilitar isSubmitting una vez que pasa la info
     },
 
 }) (FormUser);

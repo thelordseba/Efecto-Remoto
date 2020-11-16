@@ -30,7 +30,7 @@ function ShoppingCart (props){
           
   const editItem = (itemID, value) => {
     let cartCopy = [...cart]
-    let existentItem = cartCopy.find(item => item.id = itemID);
+    let existentItem = cartCopy.find(cartItem => cartItem.id == parseInt(itemID));
     if (!existentItem) { alert("Hubo un error.") }
 
     else {

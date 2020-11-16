@@ -9,7 +9,9 @@ export default function UserDetails({id}) {
 
     useEffect( () => {( async () => {
         dispatch(getUserById(id));
-        })()}, [dispatch, id])
+    })()}, [dispatch, id])
+    
+    console.log(user)
 
     return ( //recibe info de redux   //cambiar html si es necesario para css
         <div>
@@ -25,17 +27,17 @@ export default function UserDetails({id}) {
             <br />
             <label>E-Mail: {user.email}</label>
             <br />
-            <label>Domicilio: {user.address}</label>
+            <label>Domicilio: {user.location?.address}</label>
             <br />
-            <label>Número: {user.number}</label>
+            <label>Número: {user.location?.number}</label>
             <br />
-            <label>Ciudad: {user.city}</label>
+            <label>Ciudad: {user.location?.city}</label>
             <br />
-            <label>Código Postal: {user.postalCode}</label>
+            <label>Código Postal: {user.location?.postalCode}</label>
             <br />
-            <label>Provincia: {user.province}</label>
+            <label>Provincia: {user.location?.province}</label>
             <br />
-            <label>País: {user.country}</label>
+            {/* <label>País: {user.location?.country}</label> */}
 
             {/* <h1>Aca renderizo OrderLine</h1>
             {user.orderlines && user.orderlines.map(orderline => (

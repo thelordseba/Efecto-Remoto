@@ -23,6 +23,7 @@ function ProductCard({product, small=true, stars, admin, id}) {
     let cartCopy = [...cart];
     let { id } = product;
     let existingItem = cartCopy.find(cartItem => cartItem.id == id);
+    // let existingItem = cartCopy.find(cartItem => cartItem.id === parseInt(id));
     if (existingItem) { existingItem.quantity += quantity }
     else { 
       cartCopy.push(product);

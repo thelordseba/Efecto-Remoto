@@ -28,9 +28,9 @@ export default function OrderDetails({id}) {
         <br />
         <label>Numero de usuario: {order.userId}</label>
         <br />
-        <label>Compra iniciada: {order.startDate}</label>
+        <label>Compra iniciada: {new Date(order.startDate).toLocaleDateString("es-AR")}</label>
         <br />
-        <label>Compra confirmada: {order.completionDate}</label>
+        <label>Compra confirmada: {new Date(order.completionDate).toLocaleDateString("es-AR")}</label>
         <br />
         <label>Estado de la orden: {order.status}</label>
         {order.orderlines && order.orderlines.map(orderline => (

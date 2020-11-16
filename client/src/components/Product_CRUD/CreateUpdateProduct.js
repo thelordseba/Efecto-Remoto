@@ -23,8 +23,7 @@ export default function CreateUpdateProduct({id}){
         if(id) {
             axios.put(`http://localhost:3001/products/${id}`, product)
             .then(() => {
-                var cat = product.categories.map(e => e.id)
-                return cat.map(e => axios.post(`http://localhost:3001/products/${id}/category/${e}`))
+                return selectedCategories.map(e => axios.post(`http://localhost:3001/products/${id}/category/${e}`))
             })
             .then(() => alert("Producto modificado"))
             .catch(() => {
@@ -33,8 +32,7 @@ export default function CreateUpdateProduct({id}){
         } else {
             axios.post(`http://localhost:3001/products`, product)
             .then(response => {
-                var cat = product.categories.map(e => e.id)
-                return cat.map(e => axios.post(`http://localhost:3001/products/${response.data.id}/category/${e}`))
+                return selectedCategories.map(e => axios.post(`http://localhost:3001/products/${response.data.id}/category/${e}`))
             })
             .then(() => alert("Producto agregado"))
             .catch(() => alert("Hubo un error. Por favor, intentá de nuevo."))
@@ -73,16 +71,19 @@ export default function CreateUpdateProduct({id}){
     }
     
     const handleOnChangeCategory = (e) => {
-        setProduct({
-            ...product,
-            selectedCategories: e.target.value
-        });
+        console.log(e.target.value)
+        setSelectedCategories(
+            // ...product,
+            // selectedCategories: e.target.value
+            selectedCategories.includes(parseInt(e.target.value)) ? selectedCategories.reduce((result, value) => value !== parseInt(e.target.value) ? [...result, value] : result, []) : [...selectedCategories, parseInt(e.target.value)]
+        );
     }
     
     useEffect( () => {(async () => {
         dispatch(actions.getNgos())
       })()}, [dispatch])
 
+    console.log(selectedCategories)
     return (
         <>
         <div className="volver" onClick={handleGoBack}>
@@ -122,11 +123,11 @@ export default function CreateUpdateProduct({id}){
                             key={cat.id}
                             type="checkbox"
                             id={cat.id}
-                            // checked={product ? selectedCategories.includes(cat.id) : false} 
+                            checked={product ? selectedCategories.includes(cat.id) : false} 
                             value={cat.id}
                             onChange={handleOnChangeCategory}
                         />
-                        <label> {cat.name} </label>
+                        <label>{cat.name}</label>
                         </>
                     )
                 })}                
