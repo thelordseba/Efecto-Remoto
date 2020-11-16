@@ -107,12 +107,17 @@ const routes = [
   },
   {
     path:"/admin/adduser",
-    component: FormUser,
+    render:({match}) => <FormUser admin={true} />,
     exact: true
   },
   {
     path: "/admin/users/:userId",
     render:({match}) => <UserDetails id={match.params.userId} />,
+    exact: true
+  },
+  {
+    path: "/register",
+    render:({match}) => <FormUser admin={false} />,
     exact: true
   }, 
  

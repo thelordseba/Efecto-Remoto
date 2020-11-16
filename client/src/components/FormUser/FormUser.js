@@ -18,9 +18,7 @@ function FormUser(props) {
     
     return(
         <>
-            <div className="volver" onClick={handleGoBack}>
-            Volver
-            </div>
+            {props.admin ? <div className="volver" onClick={handleGoBack}>Volver</div> : null}
             <Form>
                 <div className="row">
                     Administrador:
@@ -261,7 +259,7 @@ export default withFormik({
         axios.post(`http://localhost:3001/users`, values)
         .then(() => alert("Usuario creado"))
         .catch(() => { alert("Hubo un error. Por favor, intentá de nuevo.")})
-        // .then(() => useHistory().push('/admin/users'))
+        // .then(() => useHistory().push('/'))
         formikBag.setSubmitting(false);//debo deshabilitar isSubmitting una vez que pasa la info
     },
 

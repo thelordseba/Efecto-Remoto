@@ -44,7 +44,7 @@ function NavBar (){
                         <a href="/carrito">Carrito</a>
                     </li>
                     <li className="listee">
-                        <a href="/formuser">Registrate</a>
+                        <a href="/register">Registrate</a>
                     </li>
                 </ul>
             </div>

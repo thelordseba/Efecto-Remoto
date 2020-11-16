@@ -122,7 +122,7 @@ export default function CreateUpdateProduct({id}){
                             key={cat.id}
                             type="checkbox"
                             id={cat.id}
-                            checked={product ? selectedCategories.includes(cat.id) : false} 
+                            // checked={product ? selectedCategories.includes(cat.id) : false} 
                             value={cat.id}
                             onChange={handleOnChangeCategory}
                         />
