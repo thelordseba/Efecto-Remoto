@@ -51,7 +51,7 @@ export default function CreateUpdateProduct({id}){
     const handleURL = (url) => {
         setProduct({
             ...product,
-            url: url
+            "url": url
         })
     }
 
