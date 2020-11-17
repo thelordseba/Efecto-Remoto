@@ -60,6 +60,17 @@ server.put('/:userId', async (req, res, next) => {
     }    
 });
 
+// S67: POST /auth/promote/:id --> Promote convierte al usuario con ID: id a Admin.
+server.put('/:userId/isAdmin', async (req, res, next) => {
+    const { isAdmin } = req.body;
+    try {
+        const user = await User.findOne({ where: { id: req.params.userId } });
+        await user.update({ isAdmin });
+        res.json(user);
+    }
+    catch(error) { next(error) }    
+});
+
 //S36 Crear ruta que retorne todos los usuarios
 server.get('/', async(req, res, next)=>{
     try{
