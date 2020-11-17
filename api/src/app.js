@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
 const cors = require("cors");
+const passport = require('./passport.js');
 
 require('./db.js');
 
@@ -24,6 +25,18 @@ server.use((req, res, next) => {
 });
 
 server.use('/', routes);
+
+
+// ENTENDER QUÉ ES ESTO
+server.all("*", function (req, res, next) {
+  passport.authenticate("bearer", function (err, user) {
+    if (err) return next(err);
+    if (user) { req.user = user; }
+    return next();
+  }) (req, res, next);
+});
+
+server.use(passport.initialize());
 
 // Error catching endware.
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
