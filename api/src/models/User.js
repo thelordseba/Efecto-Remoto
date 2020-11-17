@@ -53,10 +53,6 @@ sequelize.define('user', {
 //hay un código en sql documentación para que la pass no se guarde en la BD
 //no se si quieren que la agregue aca o es futura tarea
 
-    gitHubId: {
-        type: DataTypes.STRING,
-    },  
-
     gmailId: {
         type: DataTypes.STRING,
       
