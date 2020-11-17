@@ -46,6 +46,9 @@ function NavBar (){
                     <li className="listee">
                         <a href="/register">Registrate</a>
                     </li>
+                    <li className="listee">
+                        <a href="/loginuser">Iniciar Sesión</a>
+                    </li>
                 </ul>
             </div>
 

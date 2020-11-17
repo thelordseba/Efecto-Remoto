@@ -12,7 +12,7 @@ function Login(props) {
     }
     return(
     <>
-        <h1>INICIA SESIÓN</h1>
+        <h1>Iniciar Sesión en Efecto Remoto</h1>
         {props.admin ? <div className="volver" onClick={handleGoBack}>Volver</div> : null}
         <Form>
 
