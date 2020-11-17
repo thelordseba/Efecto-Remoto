@@ -16,6 +16,7 @@ import FormUser from 'components/FormUser/FormUser';
 import ShoppingCart from "components/ShoppingCart/ShoppingCart";
 import UserTable from "containers/UserTable/UserTable.js";
 import UserDetails from "containers/UserDetails/UserDetails.js";
+import Login from 'components/Login/Login.js';
 
 
 const routes = [
@@ -120,6 +121,11 @@ const routes = [
     render:({match}) => <FormUser admin={false} />,
     exact: true
   }, 
+  {
+    path:"/loginuser",
+    component: Login,
+    exact:true
+  },
  
 ];
   
