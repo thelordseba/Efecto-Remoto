@@ -6,6 +6,7 @@ import {useHistory } from "react-router-dom"
 import user from '../MyProfile/Images/usuario.png'
 
 function NavBar (){
+    const loggedIn = false;
 
     // const history = useHistory();
     // const handleOnClickCart = () => {
@@ -44,23 +45,22 @@ function NavBar (){
                     <li className="listee">
                         <a href="/carrito">Carrito</a>
                     </li>
+
+                    {!loggedIn ? <>
                     <li className="listee">
                         <a href="/register">Registrate</a>
                     </li>
                     <li className="listee">
                         <a href="/loginuser">Iniciar Sesión</a>
                     </li>
+                    </>: null}
                     
+                    {loggedIn ? <>
                     <li className="profile">
                     <a href="">Mi Perfil</a>
-                    <ul className="ulProfile">
-                        <li className="liProfile"><a href="">Mis Datos</a></li>
-                        <li className="liProfile"><a href="">Mis Ordenes</a></li>
-                        <li className="liProfile"><a href="http://localhost:3000/">Cerrar Sesión</a></li>
-                        <li className="liProfile"><a href="">Ayuda</a></li>
-                        
-                    </ul>
                     </li>
+                    </>: null}
+
                 </ul>
             </div>
 
