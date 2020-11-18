@@ -50,12 +50,13 @@ function NavBar (){
                     <li className="listee">
                         <a href="/loginuser">Iniciar Sesión</a>
                     </li>
+                    
                     <li className="profile">
                     <a href="">Mi Perfil</a>
                     <ul className="ulProfile">
                         <li className="liProfile"><a href="">Mis Datos</a></li>
                         <li className="liProfile"><a href="">Mis Ordenes</a></li>
-                        <li className="liProfile"><a href="">Cerrar Sesión</a></li>
+                        <li className="liProfile"><a href="http://localhost:3000/">Cerrar Sesión</a></li>
                         <li className="liProfile"><a href="">Ayuda</a></li>
                         
                     </ul>
