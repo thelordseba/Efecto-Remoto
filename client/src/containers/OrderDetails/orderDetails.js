@@ -27,6 +27,10 @@ export default function OrderDetails({ id }) {
     { id: 5, name: "Completada", value: "completed" },
   ];
 
+  const handleOnChange = (e) => {
+    // setStatus(e.target.value);
+  };
+
   return (
     //recibe info de redux   //cambiar html si es necesario para css
     <>
