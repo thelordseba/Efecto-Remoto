@@ -114,7 +114,6 @@ server.get("/getUserbyId", async (req, res, next) => {
       where: {
         email: userEmail,
       },
-      include: [{ model: Location }],
     });
     res.json(user.id);
   } catch (error) {

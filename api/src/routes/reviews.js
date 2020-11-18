@@ -66,16 +66,10 @@ server.delete("/:productId", async (req, res, next) => {
       userId: userId,
     },
   })
-    .then((review) => {
-      if (!review) {
-        res
-          .status(400)
-          .send("ERROR: La review que intenta eliminar no existe.");
-      } else {
-        await review.destroy();
-        res.sendStatus(200);
-      }
-    })
+    .then(review => {
+      await review.destroy();
+      res.sendStatus(200);
+      })
   } catch(error) { next(error) }
 });
 
