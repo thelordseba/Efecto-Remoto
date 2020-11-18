@@ -51,13 +51,15 @@ function ShoppingCart (props){
   }
 
   const handleCreateOrder = () => {
-    axios.post(`http://localhost:3001/orders/7`) // por ahora está para el usuario 1
-    .then((response) => {
-      alert("Orden creada")
-      return axios.post(`http://localhost:3001/orders/1/cart`, cart)
-    }, (error) => {
-      alert("Hubo un error. Por favor, intentá de nuevo.")
-    });
+     history.push(`/checkout`) 
+    
+    // axios.post(`http://localhost:3001/orders/7`) // por ahora está para el usuario 1
+    // .then((response) => {
+    //   alert("Orden creada")
+    //   return axios.post(`http://localhost:3001/orders/1/cart`, cart)
+    // }, (error) => {
+    //   alert("Hubo un error. Por favor, intentá de nuevo.")
+    // });
   }
 
   useEffect(() => {
@@ -70,7 +72,7 @@ function ShoppingCart (props){
       <div className="back" onClick={handleBack}>Volver</div>
       <div className= "shoppingCart-container">
         <div className="container-cart">
-        <div className="title-container-cart">Carrito de Compras</div>
+         <div className="title-container-cart">Carrito de Compras</div>
         <div className="divider-cart"/>
         {products.map(prod => <ShoppingItem 
           product={prod}
