@@ -82,11 +82,9 @@ server.get("/", (req, res, next) => {
       if (products.length > 0) {
         res.send({ products, count });
       } else {
-        res
-          .status(404)
-          .json({
-            error: "No hay productos para seleccionar en este momento.",
-          });
+        res.status(404).json({
+          error: "No hay productos para seleccionar en este momento.",
+        });
       }
     })
     .catch((err) => res.send(err));
