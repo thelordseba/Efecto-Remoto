@@ -11,6 +11,7 @@ const initialState = {
   users: [],
   currentUser: [],
   loggedIn: false,
+  reviews: [],
 };
 
 export default (state = initialState, action) => {
@@ -78,7 +79,11 @@ export default (state = initialState, action) => {
         ...state,
         orders: action.payload,
       };
-
+    case constants.GETREVIEWS:
+      return {
+        ...state,
+        reviews: action.payload,
+      };
     default:
       return state;
   }
