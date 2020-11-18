@@ -17,7 +17,7 @@ export default function OrderDetails({ id }) {
   }, [dispatch, id]);
 
   const handleGoBack = () => {
-    history.push(`/admin/products`);
+    history.push(`/admin/orders`);
   };
 
   function handleOnClickCancel(id) {
