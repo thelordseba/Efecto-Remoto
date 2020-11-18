@@ -26,13 +26,11 @@ server.use((req, res, next) => {
 
 server.use('/', routes);
 
-
-// ENTENDER QUÉ ES ESTO
 server.all("*", function (req, res, next) {
-  passport.authenticate("bearer", function (err, user) {
+  passport.authenticate("bearer", (err, user) => { // el bearer es como un middleware hecho a mano, identifica el token, ve si es valido y devuelve el usuario que está en este token. Pregunta si hay un error; si no, envía el user. 
     if (err) return next(err);
-    if (user) { req.user = user; }
-    return next();
+    if (user) { req.user = user; } // agarra el usuario y lo mete dentro de req. 
+    return next(); // si no está loggeado, va a ir a la próxima función
   }) (req, res, next);
 });
 
