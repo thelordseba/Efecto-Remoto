@@ -56,4 +56,27 @@ server.put("/:productId", async (req, res, next) => {
   }
 });
 
+server.delete("/:productId", async (req, res, next) => {
+  const productId = req.params.productId;
+  const userId = req.body.userId;
+  try {
+    Review.findOne({
+    where: {
+      productId: productId,
+      userId: userId,
+    },
+  })
+    .then((review) => {
+      if (!review) {
+        res
+          .status(400)
+          .send("ERROR: La review que intenta eliminar no existe.");
+      } else {
+        await review.destroy();
+        res.sendStatus(200);
+      }
+    })
+  } catch(error) { next(error) }
+});
+
 module.exports = server;
