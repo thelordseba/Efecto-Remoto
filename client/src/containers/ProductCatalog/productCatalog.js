@@ -50,7 +50,7 @@ function ProductCatalog ({admin}){
     <>
       <div className="product-catalog-container">
         <label className="tituloForm">Seleccioná una categoría: </label>
-        <select className="select"onChange={handleOnChange}>
+        <select className="select" onChange={handleOnChange}>
           <option value="allCategories">Todas las categorías</option>
           {categories.map((category) => 
           <option value={category.id} key={category.id}>{category.name}</option> 

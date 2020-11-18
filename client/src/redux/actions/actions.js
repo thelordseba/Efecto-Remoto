@@ -155,7 +155,19 @@ export function getUserById(id) {
     }
 }
 
-
+export function getOrdersByStatus(status) {
+    return async function(dispatch) {
+        try {
+            const response = await axios.get(`http://localhost:3001/orders/?status=${status}`);
+            dispatch({
+                type: actions.GETORDERSBYSTATUS,
+                payload: response.data
+            });
+        } catch (error) {
+            alert("Hubo un error. Por favor, intentá de nuevo.");
+        }
+    }
+}
 
   
 //   export function getMovies(titulo) {
