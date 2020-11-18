@@ -59,7 +59,6 @@ server.put("/:productId", async (req, res, next) => {
 server.delete("/:productId", async (req, res, next) => {
   const productId = req.params.productId;
   const userId = req.body.userId;
-  console.log("ENTRE")
   try {
     Review.findOne({
     where: {
@@ -71,7 +70,7 @@ server.delete("/:productId", async (req, res, next) => {
       if (!review) {
         res
           .status(400)
-          .send("ERROR: El usuario que intenta eliminar no existe.");
+          .send("ERROR: La review que intenta eliminar no existe.");
       } else {
         await review.destroy();
         res.sendStatus(200);
