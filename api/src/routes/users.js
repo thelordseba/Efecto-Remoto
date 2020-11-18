@@ -159,13 +159,12 @@ server.delete("/:userId", async (req, res, next) => {
 });
 
 server.post("/:userId/passwordReset", async (req, res, next) => {
-  const userId = req.params.id;
+  const userId = req.params.userId;
   try {
     const user = await User.update(req.body, {
       where: { id: userId },
     });
-    console.log(user);
-    res.status(200).json(user);
+    res.sendStatus(200);
   } catch (error) {
     next(error);
   }
