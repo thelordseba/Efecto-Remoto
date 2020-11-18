@@ -3,6 +3,7 @@ import SearchBar from '../../components/SearchBar/SearchBar.js';
 import manitos from './Images/Manitos2.jpeg';
 import './NavBar.css';
 import {useHistory } from "react-router-dom"
+import user from '../MyProfile/Images/usuario.png'
 
 function NavBar (){
 
@@ -48,6 +49,16 @@ function NavBar (){
                     </li>
                     <li className="listee">
                         <a href="/loginuser">Iniciar Sesión</a>
+                    </li>
+                    <li className="profile">
+                    <a href="">Mi Perfil</a>
+                    <ul className="ulProfile">
+                        <li className="liProfile"><a href="">Mis Datos</a></li>
+                        <li className="liProfile"><a href="">Mis Ordenes</a></li>
+                        <li className="liProfile"><a href="">Cerrar Sesión</a></li>
+                        <li className="liProfile"><a href="">Ayuda</a></li>
+                        
+                    </ul>
                     </li>
                 </ul>
             </div>
