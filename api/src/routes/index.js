@@ -23,6 +23,7 @@ router.use("/categories", categoryRouter);
 router.use("/users", userRouter);
 router.use("/orders", orderRouter);
 router.use("/ngos", ngoRouter);
-router.use("/locations", locationsRouter),
-  router.use("/reviews", reviewsRouter);
+router.use("/locations", locationsRouter);
+router.use("/reviews", reviewsRouter);
+
 module.exports = router;
