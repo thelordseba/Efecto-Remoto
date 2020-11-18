@@ -3,10 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderById } from "../../redux/actions/actions";
 import { useHistory } from "react-router-dom";
-<<<<<<< Updated upstream
-=======
 import axios from "axios";
->>>>>>> Stashed changes
 
 export default function OrderDetails({ id }) {
   const order = useSelector((state) => state.order);
@@ -23,19 +20,6 @@ export default function OrderDetails({ id }) {
     history.push(`/admin/products`);
   };
 
-<<<<<<< Updated upstream
-  const statusList = [
-    { id: 1, name: "Carrito", value: "cart" },
-    { id: 2, name: "Iniciada", value: "created" },
-    { id: 3, name: "En Proceso", value: "processing" },
-    { id: 4, name: "Cancelada", value: "cancelled" },
-    { id: 5, name: "Completada", value: "completed" },
-  ];
-
-  const handleOnChange = (e) => {
-    // setStatus(e.target.value);
-  };
-=======
   function handleOnClickCancel(id) {
     axios
       .put(`http://localhost:3001/orders/${id}`, { status: "cancelled" })
@@ -43,7 +27,6 @@ export default function OrderDetails({ id }) {
       .catch(() => alert("Hubo un error. Por favor, intentá de nuevo."))
       .then(() => history.push("/admin/orders"));
   }
->>>>>>> Stashed changes
 
   return (
     //recibe info de redux   //cambiar html si es necesario para css
