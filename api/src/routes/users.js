@@ -115,7 +115,7 @@ server.get("/getUserbyEmail", async (req, res, next) => {
         email: userEmail,
       },
     });
-    await res.json(user.id);
+    res.json(user.id);
   } catch (error) {
     next(error);
   }

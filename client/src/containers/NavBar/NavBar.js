@@ -2,8 +2,8 @@ import React from "react";
 import SearchBar from "../../components/SearchBar/SearchBar.js";
 import manitos from "./Images/Manitos2.jpeg";
 import "./NavBar.css";
-import { useHistory } from "react-router-dom";
-import user from "../MyProfile/Images/usuario.png";
+// import { useHistory } from "react-router-dom";
+// import user from "../MyProfile/Images/usuario.png";
 
 function NavBar() {
   const loggedIn = true;

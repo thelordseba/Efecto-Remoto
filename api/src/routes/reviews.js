@@ -59,7 +59,7 @@ server.delete("/:productId", async (req, res, next) => {
   const productId = req.params.productId;
   const userId = req.body.userId;
   try {
-    Review.findOne({
+    const review = await Review.findOne({
       where: {
         productId: productId,
         userId: userId,
