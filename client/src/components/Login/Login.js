@@ -40,7 +40,7 @@ function Login(props) {
             </div>
 
             <div>
-            <a href="AcaPegoElLinkParaRecuperarLaContraseña">¿Olvidaste tu contraseña?</a>
+            <a href="/reset-password">¿Olvidaste tu contraseña?</a>
             <a href="/register"> Regístrate</a>
             </div>
         </Form>

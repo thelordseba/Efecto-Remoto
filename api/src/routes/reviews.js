@@ -2,7 +2,6 @@ const server = require("express").Router();
 const { Review, Product, User } = require("../db.js");
 
 server.get("/", async (req, res, next) => {
-  console.log("Ya se lo saqué");
   try {
     const reviews = await Review.findAll({
       include: [{ model: Product }, { model: User }],
