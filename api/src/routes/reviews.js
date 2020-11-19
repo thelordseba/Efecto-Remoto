@@ -61,16 +61,16 @@ server.delete("/:productId", async (req, res, next) => {
   const userId = req.body.userId;
   try {
     Review.findOne({
-    where: {
-      productId: productId,
-      userId: userId,
-    },
-  })
-    .then(review => {
-      await review.destroy();
-      res.sendStatus(200);
-      })
-  } catch(error) { next(error) }
+      where: {
+        productId: productId,
+        userId: userId,
+      },
+    });
+    await review.destroy();
+    res.sendStatus(200);
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = server;
