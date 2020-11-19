@@ -107,7 +107,7 @@ server.get("/", async (req, res, next) => {
 });
 
 //Get user Id by Email
-server.get("/getUserbyId", async (req, res, next) => {
+server.get("/getUserbyEmail", async (req, res, next) => {
   const userEmail = req.query.userEmail;
   try {
     const user = await User.findOne({
@@ -115,7 +115,7 @@ server.get("/getUserbyId", async (req, res, next) => {
         email: userEmail,
       },
     });
-    res.json(user.id);
+    await res.json(user.id);
   } catch (error) {
     next(error);
   }
