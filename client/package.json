@@ -9,6 +9,7 @@
     "axios": "^0.21.0",
     "firebase": "^8.0.2",
     "formik": "^2.2.5",
+    "jsonwebtoken": "^8.5.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-images-upload": "^1.2.8",

@@ -45,18 +45,6 @@ function FormUser(props) {
         })();
     }, [useQuery.token, history, loginWithToken]);
 
-    // const renderButton = () => {
-    //     gapi.signin2.render('my-signin2', {
-    //         'scope': 'profile email',
-    //         'width': 240,
-    //         'height': 50,
-    //         'longtitle': true,
-    //         'theme': 'dark',
-    //         'onsuccess': onSuccess,
-    //         'onfailure': onFailure
-    //     });
-    // }
-
     
     return(
         <>
@@ -171,7 +159,7 @@ function FormUser(props) {
             </div>
             <div>
                 <button className="g-signin2" data-longtitle="true" onClick={() => (window.location = `http://localhost:3001/auth/login/google`)}></button>
-                <button onClick={ () => (window.location = `http://localhost:3001/auth/login/facebook`) }>
+                <button onClick={ () => (window.location = `http://localhost:3000/auth/login/facebook`) }>
                     <div class="fb-login-button" data-size="small" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div>
                 </button>
             </div>
