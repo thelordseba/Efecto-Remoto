@@ -17,7 +17,7 @@ import ShoppingCart from "components/ShoppingCart/ShoppingCart";
 import UserTable from "containers/UserTable/UserTable.js";
 import UserDetails from "containers/UserDetails/UserDetails.js";
 import Login from 'components/Login/Login.js';
-
+import ResetPassword from 'components/ResetPassword'
 
 const routes = [
   {
@@ -126,7 +126,11 @@ const routes = [
     component: Login,
     exact:true
   },
- 
+  {
+    path:"/reset-password",
+    component: ResetPassword,
+    exact:true
+  }
 ];
   
   export default routes;
