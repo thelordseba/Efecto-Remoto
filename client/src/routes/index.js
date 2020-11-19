@@ -1,65 +1,82 @@
-import React from 'react';
+import React from "react";
 import ProductCatalog from "containers/ProductCatalog/productCatalog";
 import ProductDetail from "components/ProductDetail/ProductDetail.js";
 import Nosotros from "components/Nosotros/Nosotros.js";
 import FAQ from "components/FAQ/FAQ.js";
-import HomeAdmin from "containers/HomeAdmin/HomeAdmin.js"
+import HomeAdmin from "containers/HomeAdmin/HomeAdmin.js";
+import HomeUser from "containers/HomeUser/HomeUser.js";
 import Home from "containers/Home/Home.js";
-import CreateUpdateProduct from "components/Product_CRUD/CreateUpdateProduct"
-import NgosCrud from "components/NgosCrud/NgosCrud.js"
-import NgoTable from "containers/NgoTable/NgoTable.js"
+import CreateUpdateProduct from "components/Product_CRUD/CreateUpdateProduct";
+import NgosCrud from "components/NgosCrud/NgosCrud.js";
+import NgoTable from "containers/NgoTable/NgoTable.js";
 import CategoryTable from "containers/CategoryTable/CategoryTable";
 import FormCategory from "components/FormCategory/FormCategory";
-import OrderDetails from 'containers/OrderDetails/orderDetails';
+import OrderDetails from "containers/OrderDetails/orderDetails";
 import OrderTable from "containers/OrderTable/OrderTable.js";
-import FormUser from 'components/FormUser/FormUser';
+import FormUser from "components/FormUser/FormUser";
 import ShoppingCart from "components/ShoppingCart/ShoppingCart";
 import UserTable from "containers/UserTable/UserTable.js";
 import UserDetails from "containers/UserDetails/UserDetails.js";
-import Login from 'components/Login/Login.js';
-
+import Checkout from "containers/Checkout/Checkout.js";
+import Login from "components/Login/Login.js";
+import ResetPassword from "components/ResetPassword";
+import ReviewTable from "containers/ReviewTable/ReviewTable.js";
 
 const routes = [
   {
-    path:"/",
+    path: "/",
     component: Home,
-    exact:true
-  },    
+    exact: true,
+  },
   {
-    path:"/nosotros",
+    path: "/nosotros",
     component: Nosotros,
   },
   {
-    path:"/faq",
+    path: "/faq",
     component: FAQ,
   },
   {
     path: "/products/:id",
-    render:({match}) => <ProductDetail id={match.params.id} />
+    render: ({ match }) => <ProductDetail id={match.params.id} />,
   },
   {
-    path:"/products",
+    path: "/products",
     component: ProductCatalog,
-    exact: true
+    exact: true,
   },
   {
-    path:"/admin",
+    path: "/profile",
+    component: HomeUser,
+  },
+  {
+    path: "/profile/orders",
+    render: () => <OrderTable user={true} />,
+    exact: true,
+  },
+  {
+    path: "/profile/data",
+    component: FormUser,
+    exact: true,
+  },
+  {
+    path: "/admin",
     component: HomeAdmin,
   },
   {
-    path:"/admin/products",
-    render: () => <ProductCatalog admin={true}/>,
-    exact: true
+    path: "/admin/products",
+    render: () => <ProductCatalog admin={true} />,
+    exact: true,
   },
   {
-    path:"/admin/ngos",
+    path: "/admin/ngos",
     component: NgoTable,
-    exact: true
+    exact: true,
   },
   {
-    path:"/admin/ngos/add",
+    path: "/admin/ngos/add",
     component: NgosCrud,
-    exact: true
+    exact: true,
   },
   {
     path: "/carrito",
@@ -67,67 +84,80 @@ const routes = [
     exact: true,
   },
   {
-    path:"/admin/users",
+    path: "/admin/users",
     render: () => <UserTable />,
     exact: true,
   },
   {
-    path: '/admin/addproduct',
+    path: "/admin/addproduct",
     render: () => <CreateUpdateProduct />,
-    exact: true
+    exact: true,
   },
   {
     path: "/product/edit/:id",
-    render:({match}) => <CreateUpdateProduct id={match.params.id} />,
-    exact: true
+    render: ({ match }) => <CreateUpdateProduct id={match.params.id} />,
+    exact: true,
   },
   {
-    path:"/admin/categories",
+    path: "/admin/categories",
     component: CategoryTable,
-    exact: true
+    exact: true,
   },
   {
-    path:"/admin/categories/add",
+    path: "/admin/categories/add",
     component: FormCategory,
-    exact: true
+    exact: true,
   },
   {
     path: "/admin/orders/:orderId",
-    render:({match}) => <OrderDetails id={match.params.orderId} />,
-    exact: true
-  }, 
+    render: ({ match }) => <OrderDetails id={match.params.orderId} />,
+    exact: true,
+  },
   {
     path: "/orderdetails",
-    render:({match}) => <OrderDetails id={match.params.id} />,
-    exact: true
+    render: ({ match }) => <OrderDetails id={match.params.id} />,
+    exact: true,
   },
   {
-    path:"/admin/orders",
+    path: "/admin/orders",
     component: OrderTable,
-    exact:true
+    exact: true,
   },
   {
-    path:"/admin/adduser",
-    render:({match}) => <FormUser admin={true} />,
-    exact: true
+    path: "/admin/adduser",
+    render: ({ match }) => <FormUser admin={true} />,
+    exact: true,
   },
   {
     path: "/admin/users/:userId",
-    render:({match}) => <UserDetails id={match.params.userId} />,
-    exact: true
+    render: ({ match }) => <UserDetails id={match.params.userId} />,
+    exact: true,
   },
   {
     path: "/register",
-    render:({match}) => <FormUser admin={false} />,
-    exact: true
-  }, 
-  {
-    path:"/loginuser",
-    component: Login,
-    exact:true
+    render: ({ match }) => <FormUser admin={false} />,
+    exact: true,
   },
- 
+  {
+    path: "/checkout",
+    component: Checkout,
+    exact: true,
+  },
+  {
+    path: "/loginuser",
+    component: Login,
+    exact: true,
+  },
+  {
+    path: "/admin/reviews",
+    component: ReviewTable,
+    exact: true,
+  },
+  {
+    path: "/reset-password",
+    component: ResetPassword,
+    exact: true,
+  },
 ];
-  
-  export default routes;
-  
+
+export default routes;
