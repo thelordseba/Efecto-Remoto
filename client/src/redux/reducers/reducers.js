@@ -1,4 +1,4 @@
-import * as constants from './constants.js'
+import * as constants from "./constants.js";
 
 const initialState = {
     search: "",
@@ -78,7 +78,17 @@ const initialState = {
           ...state,
           order: action.payload
         }           
+      case constants.GETORDERSBYSTATUS:
+        return {
+          ...state,
+          orders: action.payload,
+        };
+      case constants.GETREVIEWS:
+        return {
+          ...state,
+          reviews: action.payload,
+        };
       default:
-         return state;
-    }
+        return state;
   }
+};

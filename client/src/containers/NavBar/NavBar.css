@@ -26,7 +26,7 @@
 }
 
 .grid4 {
-    grid-column: 4;
+    grid-column: 5;
     font-size: 1.8em;
     margin:auto
 }
@@ -48,3 +48,35 @@ a, a:visited, a:hover, a:active {
     color: inherit;
     text-decoration: none
   }
+.profile{
+    padding: 10px;
+    margin: auto
+
+  }
+.ulProfile{
+    list-style: none;
+
+}
+.profile li a{
+    background-color: #0d7377;
+    color:#ffff;
+    text-decoration: none;
+    padding:10px 15px;
+    display: block;
+    min-width:90px;
+   
+}
+.profile li a:hover {
+    background-color: lightgrey;
+    display: block;
+
+}
+.profile li ul{
+    display: none;
+    position: absolute;
+    min-width: 90px;;
+}
+.profile li:hover > ul{
+    display: block;
+}
+  
