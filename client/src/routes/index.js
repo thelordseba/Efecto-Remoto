@@ -135,13 +135,13 @@ const routes = [
   },
   {
     path: "/register",
-    render:({match}) => <FormUser admin={false} />,
-    exact: true
-  }, 
+    render: ({ match }) => <FormUser admin={false} />,
+    exact: true,
+  },
   {
-    path:"/checkout",
-    component: Ceckout,
-    exact: true
+    path: "/checkout",
+    component: Checkout,
+    exact: true,
   },
   {
     path: "/loginuser",
