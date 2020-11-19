@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { useLocalStorage } from "react-use";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserById } from "../../redux/actions/actions.js";
+import { getUsers } from "../../../redux/actions/actions.js";
 import axios from "axios";
 
 async function signIn(userName, password) {
@@ -18,8 +17,10 @@ async function signIn(userName, password) {
 
 export default function useUser() {
   const [isAdmin, setIsAdmin] = useState(false);
-  const [localUser, setLocalUser, removeLocalUser] = useLocalStorage( "user", undefined );
-  const userLogin = useSelector(state => state); // qué debería tener este useSelector??? 
+  const user = localStorage.getItem("user");
+  const [localUser, setLocalUser, removeLocalUser] = useState( user ? JSON.parse(user) : null );
+
+  const userLogin = useSelector(state => state.user); // qué debería tener este useSelector??? 
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,7 +33,7 @@ export default function useUser() {
     } else {
       axios.defaults.headers.common[ "Authorization" ] = ``;
     }
-    dispatch(getUserById(localUser));
+    dispatch(getUsers(localUser));
   }, [localUser, dispatch]);
 
   useEffect(() => {
@@ -45,7 +46,7 @@ export default function useUser() {
   async function loginWithEmail(userName, password) {
     const user = await signIn(userName, password); // acá defino el user cuando se loggea con mail
     if (user) setLocalUser(user); // y lo seteo en el store de redux
-    dispatch(getUserById(user));
+    dispatch(getUsers(user));
   }
 
   async function loginWithToken(token) {
@@ -57,10 +58,7 @@ export default function useUser() {
   }
 
   async function register( email, password) {
-    const { data: user } = await axios.post(`http://localhost:3001/auth/register`, { // pensar esta ruta
-      email,
-      password,
-    });
+    const { data: user } = await axios.post(`http://localhost:3001/auth/register`, { email, password });
     if (user) setLocalUser(user);
   }
 

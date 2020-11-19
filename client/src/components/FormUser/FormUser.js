@@ -1,16 +1,16 @@
-//user name
 import React from 'react';
+import { useEffect, useState } from "react";
 import { withFormik, Field, ErrorMessage, Form } from 'formik';
 import './FormUser.css';
 import axios from 'axios'
-import { useHistory } from "react-router-dom"
+import { useHistory, useLocation } from "react-router-dom"
 import useUser from "../FormUser/Hooks/useUser.js";
 
 //isSubmit indica si actulmente esta en proceso de submicion, para no permitir que se haga submit mas de una vez al mismo tiempo
 //Field es un componente que conecta directamente a formik
 function FormUser(props) {
     const{isSubmitting, isValid} = props; // viene de las props del componente
-    console.log(isSubmitting)
+    // console.log(isSubmitting)
     const history = useHistory();
 
     const handleGoBack = () => {
@@ -18,8 +18,6 @@ function FormUser(props) {
     }
 
     const { localUser } = useUser();
-    const history = useHistory();
-    const { isSubmitting, isValid } = props; 
    
     useEffect(() => {
         if (localUser) history.push('/')
@@ -27,7 +25,7 @@ function FormUser(props) {
 
     const { loginWithEmail, loginWithToken } = useUser();
 
-    const query = () => {
+    const useQuery = () => {
         let search = useLocation().search;
         let result = search.slice(1).split("&");
         result = result.reduce((dataResult, item) => {
@@ -40,12 +38,24 @@ function FormUser(props) {
 
     useEffect(() => {
         (async () => {
-          if (query.token) {
-            await loginWithToken(query.token);
+          if (useQuery.token) {
+            await loginWithToken(useQuery.token);
             history.push("/");
           }
         })();
-      }, [query.token, history, loginWithToken]);
+    }, [useQuery.token, history, loginWithToken]);
+
+    // const renderButton = () => {
+    //     gapi.signin2.render('my-signin2', {
+    //         'scope': 'profile email',
+    //         'width': 240,
+    //         'height': 50,
+    //         'longtitle': true,
+    //         'theme': 'dark',
+    //         'onsuccess': onSuccess,
+    //         'onfailure': onFailure
+    //     });
+    // }
 
     
     return(
@@ -53,45 +63,37 @@ function FormUser(props) {
             <h1>Crear usuario</h1>
             {props.admin ? <div className="volver" onClick={handleGoBack}>Volver</div> : null}
             <Form>
-                {props.admin ? <div className="row">
-                    Administrador:
-                    <Field name="isAdmin" type="checkbox" /> 
-                </div> : null}
+                {props.admin ? <div className="row">Administrador:<Field name="isAdmin" type="checkbox" /></div> : null}
 
-                <div className="row">
-                    Nombre de usuario:
+                <div className="row">Nombre de usuario:
                     <Field name="userName" type="text" />
                     <ErrorMessage name="userName">
                     {message => <div className="error">{message}</div>}
                     </ErrorMessage>
                 </div>
 
-                <div className="row">
-                    Email:
+                <div className="row">Email:
                     <Field name="email" type="email" />
                     <ErrorMessage name="email">
                     {message => <div className="error">{message}</div>}
                     </ErrorMessage>
                 </div>
 
-                <div className="row">
-                    Nombre:
+                <div className="row">Nombre:
                     <Field name="firstName" type="text" />
                     <ErrorMessage name="firstName">
                     {message => <div className="error">{message}</div>}
                     </ErrorMessage>
                 </div>
 
-                <div className="row">
-                    Apellido:
+                <div className="row">Apellido:
                     <Field name="lastName" type="text" />
                     <ErrorMessage name="lastName">
                     {message => <div className="error">{message}</div>}
                     </ErrorMessage>
                 </div>
 
-                <div className="row">
-                    Contraseña:
+                <div className="row">Contraseña:
                     <Field name="password" type="password" />
                     <ErrorMessage name="password">
                     {message => <div className="error">{message}</div>}
@@ -156,13 +158,26 @@ function FormUser(props) {
                     </div>
 
                 </div> : null}
+                
                 <div className="">
-                <button type="submit"
-                    className={`submit ${isSubmitting || !isValid ? 'disabled' : ''}`}
-                    disabled={isSubmitting || !isValid} //si se hace submit bloquea el boton (isSubmitting=true)
-                >Crear usuario</button>
+                    <button type="submit"
+                        className={`submit ${isSubmitting || !isValid ? 'disabled' : ''}`}
+                        disabled={isSubmitting || !isValid} //si se hace submit bloquea el boton (isSubmitting=true)
+                    >Crear usuario</button>
                 </div>
             </Form>
+            <div>
+              También podés registrarte con:
+            </div>
+            <div>
+                <button className="g-signin2" data-longtitle="true" onClick={() => (window.location = `http://localhost:3001/auth/login/google`)}></button>
+                <button onClick={ () => (window.location = `http://localhost:3001/auth/login/facebook`) }>
+                    <div class="fb-login-button" data-size="small" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div>
+                </button>
+            </div>
+            <div>
+                <span className={"yatengocuenta"} onClick={() => history.push("/loginuser")}>Ya tengo cuenta</span>
+            </div>
         </>
     );
 }

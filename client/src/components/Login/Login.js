@@ -6,9 +6,13 @@ import axios from 'axios'
 
 
 function Login(props) {
-    
+    const{isSubmitting, isValid} = props; // viene de las props del componente
+    console.log(isSubmitting)
+    const history = useHistory();
+
+
     const handleGoBack = () => {
-        history.push(`/admin/ngos`)
+        history.push(`/admin/users`)
     }
    
     return(
@@ -45,7 +49,7 @@ function Login(props) {
             <a href="/register">Registrate</a>
             </div>
 
-
+            
             {/* AGREGAR LOS BOTONES DE GOOGLE Y FB */}
         </Form>
     </>
