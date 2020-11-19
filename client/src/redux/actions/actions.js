@@ -173,20 +173,20 @@ export function getUsers() {
 }
 
 export function getUserById(id) {
-  return function (dispatch) {
-    return axios
-      .get(`http://localhost:3001/users/${id}`)
-      .then((response) => {
-        dispatch({
-          type: actions.GETUSERBYID,
-          payload: response.data,
+  return function(dispatch) {
+    return axios.get(`http://localhost:3001/users/${id}`)
+    .then(response => {
+        dispatch({ 
+          type: actions.GETUSERBYID, 
+          payload: response.data
         });
       })
-      .catch(() => {
-        alert("Hubo un error. Por favor, intentá de nuevo.");
-      });
-  };
+    .catch(() => {
+        alert("Hubo un error. Por favor, intentá de nuevo.")
+    })
+  }
 }
+
 
 export function getOrdersByStatus(status) {
   return async function (dispatch) {
@@ -218,20 +218,4 @@ export function getReviews() {
         alert("Hubo un error. Por favor, intentá de nuevo.");
       });
   };
-}
-
-//   export function getMovies(titulo) {
-//     return function(dispatch) {
-//       return fetch("http://www.omdbapi.com/?apikey=20dac387&s=" + titulo)
-//         .then(response => response.json())
-//         .then(json => {
-//           dispatch({ type: "GET_MOVIES", payload: json });
-//         });
-//     };
-//   }
-//   export function getMovieDetail(id){
-//       return function(dispatch) {
-//           fetch("http://www.omdbapi.com/?apikey=20dac387&s=" + id)
-//       }
-
-//   }
+};

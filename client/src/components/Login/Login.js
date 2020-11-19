@@ -1,18 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { withFormik, Field, ErrorMessage, Form } from "formik";
 import { useHistory } from "react-router-dom";
-// import axios from 'axios'
+import { useLocation } from "react-router";
+import useUser from "Hooks/useUser";
+import LoginWithToken from "../LoginWToken/LoginWToken.js"
+
+function useQuery() {
+  let search = useLocation().search;
+  let result = search.slice(1).split("&");
+  result = result.reduce((dataResult, item) => {
+    const pair = item.split("=");
+    dataResult[pair[0]] = pair[1];
+    return dataResult;
+  }, {});
+  return result;
+}
 
 function Login(props) {
-  const { isSubmitting, isValid } = props;
+  const { isSubmitting, isValid } = props; // viene de las props del componente
+  console.log(isSubmitting);
   const history = useHistory();
 
+  const query = useQuery();
+  const { loginWithToken } = useUser();
+
+  useEffect(() => {
+    if (query.t) loginWithToken(query.t);
+  }, [query]);
+
   const handleGoBack = () => {
-    history.push(`/admin/ngos`);
+    history.push(`/admin/users`);
   };
+
+  if (query.t) {
+    history.push(`/products`)
+  }
+
   return (
     <>
-      <h1>Iniciar Sesión en Efecto Remoto</h1>
+      <h1>Iniciar sesión en Efecto Remoto</h1>
       {props.admin ? (
         <div className="volver" onClick={handleGoBack}>
           Volver
@@ -41,15 +67,19 @@ function Login(props) {
             className={`submit ${isSubmitting || !isValid ? "disabled" : ""}`}
             disabled={isSubmitting || !isValid} //si se hace submit bloquea el boton (isSubmitting=true)
           >
-            Iniciar Sesión
+            Iniciar sesión
           </button>
         </div>
-
-        <div>
-          <a href="/reset-password">¿Olvidaste tu contraseña?</a>
-          <a href="/register"> Regístrate</a>
-        </div>
       </Form>
+      <div>
+        <a href="AcaPegoElLinkParaRecuperarLaContraseña">
+          ¿Olvidaste tu contraseña?
+        </a>
+        <a href="/register">Registrate</a>
+      </div>
+      <div>También podés iniciar sesión con:</div>
+        <LoginWithToken />
+      <div></div>
     </>
   );
 }

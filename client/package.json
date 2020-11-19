@@ -10,6 +10,7 @@
     "expressjs": "^1.0.1",
     "firebase": "^8.0.2",
     "formik": "^2.2.5",
+    "jsonwebtoken": "^8.5.1",
     "jade": "^1.11.0",
     "mailgun": "^0.5.0",
     "react": "^16.13.1",

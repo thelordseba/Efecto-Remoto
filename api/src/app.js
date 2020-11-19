@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
 const cors = require("cors");
+const passport = require('./passport.js');
 
 require('./db.js');
 
@@ -24,6 +25,16 @@ server.use((req, res, next) => {
 });
 
 server.use('/', routes);
+
+server.all("*", function (req, res, next) {
+  passport.authenticate("bearer", (err, user) => { // el bearer es como un middleware hecho a mano, identifica el token, ve si es valido y devuelve el usuario que está en este token. Pregunta si hay un error; si no, envía el user. 
+    if (err) return next(err);
+    if (user) { req.user = user; } // agarra el usuario y lo mete dentro de req. 
+    return next(); // si no está loggeado, va a ir a la próxima función
+  }) (req, res, next);
+});
+
+server.use(passport.initialize());
 
 // Error catching endware.
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
