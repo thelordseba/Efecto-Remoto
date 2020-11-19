@@ -60,7 +60,7 @@ function NavBar() {
             {loggedIn ? (
               <>
                 <li className="profile">
-                  <a href="">Mi Perfil</a>
+                  <a href="/profile">Mi Perfil</a>
                 </li>
               </>
             ) : null}
