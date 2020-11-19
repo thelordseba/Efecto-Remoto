@@ -1,4 +1,4 @@
-const router = require('express');
+const router = require('express').Router();
 const passport = require('passport');
 const {User} = require('../db');
 const token = require('jsonwebtoken');
@@ -23,4 +23,4 @@ router.post('/logout/email', (req, res,) => {
 
 
 
-module.exports = passport
+module.exports = router;
