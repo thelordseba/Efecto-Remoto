@@ -16,7 +16,6 @@ const authRouterLocal = require("./authLocal");
 router.use('/auth', authRouter);
 router.use('/authGM', authRouterGM);
 router.use('/authLocal', authRouterLocal);
-// router.use('/auth', authRouter);
 router.use('/products', productRouter);
 router.use('/categories', categoryRouter);
 router.use('/users', userRouter)

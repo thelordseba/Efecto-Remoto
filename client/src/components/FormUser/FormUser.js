@@ -1,9 +1,10 @@
 //user name
 import React from 'react';
-import {withFormik, Field, ErrorMessage, Form} from 'formik';
+import { withFormik, Field, ErrorMessage, Form } from 'formik';
 import './FormUser.css';
 import axios from 'axios'
 import { useHistory } from "react-router-dom"
+import useUser from "../FormUser/Hooks/useUser.js";
 
 //isSubmit indica si actulmente esta en proceso de submicion, para no permitir que se haga submit mas de una vez al mismo tiempo
 //Field es un componente que conecta directamente a formik
@@ -13,19 +14,49 @@ function FormUser(props) {
     const history = useHistory();
 
     const handleGoBack = () => {
-        history.push(`/admin/ngos`)
+        history.push(`/admin/users`)
     }
+
+    const { localUser } = useUser();
+    const history = useHistory();
+    const { isSubmitting, isValid } = props; 
+   
+    useEffect(() => {
+        if (localUser) history.push('/')
+    }, [localUser, history])
+
+    const { loginWithEmail, loginWithToken } = useUser();
+
+    const query = () => {
+        let search = useLocation().search;
+        let result = search.slice(1).split("&");
+        result = result.reduce((dataResult, item) => {
+          const pair = item.split("=");
+          dataResult[pair[0]] = pair[1];
+          return dataResult;
+        }, {});
+        return result;
+    }
+
+    useEffect(() => {
+        (async () => {
+          if (query.token) {
+            await loginWithToken(query.token);
+            history.push("/");
+          }
+        })();
+      }, [query.token, history, loginWithToken]);
+
     
     return(
         <>
             <h1>Crear usuario</h1>
             {props.admin ? <div className="volver" onClick={handleGoBack}>Volver</div> : null}
             <Form>
-                <div className="row">
+                {props.admin ? <div className="row">
                     Administrador:
-                    <Field name="isAdmin" type="checkbox" />
-                    
-                </div>
+                    <Field name="isAdmin" type="checkbox" /> 
+                </div> : null}
 
                 <div className="row">
                     Nombre de usuario:
@@ -39,14 +70,6 @@ function FormUser(props) {
                     Email:
                     <Field name="email" type="email" />
                     <ErrorMessage name="email">
-                    {message => <div className="error">{message}</div>}
-                    </ErrorMessage>
-                </div>
-
-                <div className="row">
-                    Contraseña:
-                    <Field name="password" type="password" />
-                    <ErrorMessage name="password">
                     {message => <div className="error">{message}</div>}
                     </ErrorMessage>
                 </div>
@@ -68,92 +91,85 @@ function FormUser(props) {
                 </div>
 
                 <div className="row">
-                    Teléfono:
-                    <Field name="telephone" type="tel" />
-                    <ErrorMessage name="telephone">
+                    Contraseña:
+                    <Field name="password" type="password" />
+                    <ErrorMessage name="password">
                     {message => <div className="error">{message}</div>}
                     </ErrorMessage>
                 </div>
 
-                <div className="row">
-                    Dirección:
-                    <Field name="address" type="selector" />
-                    <ErrorMessage name="address">
-                    {message => <div className="error">{message}</div>}
-                    </ErrorMessage>
-                </div>
+                {props.admin ? <div>
+                    <div className="row">
+                        Teléfono:
+                        <Field name="telephone" type="tel" />
+                        <ErrorMessage name="telephone">
+                        {message => <div className="error">{message}</div>}
+                        </ErrorMessage>
+                    </div>
 
-                <div className="row">
-                    Número:
-                    <Field name="number" type="selector" />
-                    <ErrorMessage name="number">
-                    {message => <div className="error">{message}</div>}
-                    </ErrorMessage>
-                </div>
+                    <div className="row">
+                        Dirección:
+                        <Field name="address" type="selector" />
+                        <ErrorMessage name="address">
+                        {message => <div className="error">{message}</div>}
+                        </ErrorMessage>
+                    </div>
 
-                <div className="row">
-                    Código Postal:
-                    <Field name="postalCode" type="selector" />
-                    <ErrorMessage name="postalCode">
-                    {message => <div className="error">{message}</div>}
-                    </ErrorMessage>
-                </div>
+                    <div className="row">
+                        Número:
+                        <Field name="number" type="selector" />
+                        <ErrorMessage name="number">
+                        {message => <div className="error">{message}</div>}
+                        </ErrorMessage>
+                    </div>
 
-                <div className="row">
-                    Localidad:
-                    <Field name="city" type="selector" />
-                    <ErrorMessage name="city">
-                    {message => <div className="error">{message}</div>}
-                    </ErrorMessage>
-                </div>
+                    <div className="row">
+                        Código Postal:
+                        <Field name="postalCode" type="selector" />
+                        <ErrorMessage name="postalCode">
+                        {message => <div className="error">{message}</div>}
+                        </ErrorMessage>
+                    </div>
 
-                <div className="row">
-                    Provincia:
-                    <Field name="province" type="selector" />
-                    <ErrorMessage name="province">
-                    {message => <div className="error">{message}</div>}
-                    </ErrorMessage>
-                </div>
+                    <div className="row">
+                        Localidad:
+                        <Field name="city" type="selector" />
+                        <ErrorMessage name="city">
+                        {message => <div className="error">{message}</div>}
+                        </ErrorMessage>
+                    </div>
 
-                <div className="row">
-                    Pais:
-                    <Field name="country" type="selector" />
-                    <ErrorMessage name="country">
-                    {message => <div className="error">{message}</div>}
-                    </ErrorMessage>
-                </div>
+                    <div className="row">
+                        Provincia:
+                        <Field name="province" type="selector" />
+                        <ErrorMessage name="province">
+                        {message => <div className="error">{message}</div>}
+                        </ErrorMessage>
+                    </div>
 
-                <div className="row">
-                    Usuario GitHub:
-                    <Field name="gitHubId" type="text" />
-                </div>
+                    <div className="row">
+                        País:
+                        <Field name="country" type="selector" />
+                        <ErrorMessage name="country">
+                        {message => <div className="error">{message}</div>}
+                        </ErrorMessage>
+                    </div>
 
-                <div className="row">
-                    Usuario GMail:
-                    <Field name="gmailId" type="text" />
-                </div>
-        
-                <div className="row">
-                    Usuario Facebook:
-                    <Field name="facebookId" type="text" />
-                </div>
-
-                
+                </div> : null}
                 <div className="">
                 <button type="submit"
-                        className={`submit ${isSubmitting || !isValid ? 'disabled' : ''}`}
-                        disabled={isSubmitting || !isValid} //si se hace submit bloquea el boton (isSubmitting=true)
+                    className={`submit ${isSubmitting || !isValid ? 'disabled' : ''}`}
+                    disabled={isSubmitting || !isValid} //si se hace submit bloquea el boton (isSubmitting=true)
                 >Crear usuario</button>
                 </div>
             </Form>
         </>
     );
-
 }
 
 export default withFormik({
     mapPropsToValues(props){
-        return{
+        return {
             userName: '', //si
             email: '',    //si     //inicializo el estado (puede traer valor por default recibido desde props)
             password: '',  //si
@@ -166,18 +182,16 @@ export default withFormik({
             province: '',
             city: '',
             country: '',
-            gitHubId: '',
             gmailId: '',
             facebookId: ''
         };
     },
 
-    validate(values) {
-        
+    validate(values) {  
         const errors = {};
         if(!values.userName){                            //Espacios no
             errors.userName = "Completar campo";
-        }else if(/[^A-Za-z0-9+]/.test(values.userName)){
+        } else if(/[^A-Za-z0-9+]/.test(values.userName)) {
             errors.userName = "Carácteres inválidos";
         }
 
