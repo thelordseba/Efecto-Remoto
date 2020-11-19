@@ -220,7 +220,7 @@ server.get('/:orderId', async (req, res, next)=>{
 //Recibe orderId por parametro y los atributos a modificar 
 //por body --> status y compltionDate (este último puede ser nulo)
 server.put('/:orderId', async (req, res, next) => {   
-    try{  
+    try{
         const order = await Order.findByPk(req.params.orderId);
         await order.update({            
             completionDate: req.body.completionDate,
