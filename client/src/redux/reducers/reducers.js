@@ -9,7 +9,8 @@ const initialState = {
     countProducts: 0,
     ngos:[],
     users:[],
-    currentUser:[]
+    currentUser:[],
+    loggedIn: true
   };
 
   export default (state = initialState, action) => {
@@ -72,6 +73,11 @@ const initialState = {
           ...state,
           currentUser: action.payload
         } 
+      case constants.GETORDERBYUSERID:
+        return {
+          ...state,
+          order: action.payload
+        }           
       default:
          return state;
     }

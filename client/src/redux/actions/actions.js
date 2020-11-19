@@ -110,6 +110,21 @@ export function getOrderById(id) {
     }
 }
 
+export function getOrderByUserId(userId) {
+    return function(dispatch) {
+        return axios.get(`http://localhost:3001/orders/${userId}/shopping-cart`)
+        .then(response => {
+            dispatch({ 
+                type: actions.GETORDERBYUSERID, 
+                payload: response.data
+            });
+          })
+        .catch(() => {
+              alert("Hubo un error. Por favor, intentá de nuevo.")
+        })
+    }
+}
+
 export function getNgos() {
     return function(dispatch) {
         return axios.get(`http://localhost:3001/ngos`)
