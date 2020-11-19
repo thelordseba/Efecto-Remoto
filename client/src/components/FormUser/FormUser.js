@@ -1,12 +1,13 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { withFormik, Field, ErrorMessage, Form } from "formik";
 import "./FormUser.css";
 import axios from "axios";
 import { useHistory, useLocation } from "react-router-dom";
-import useUser from "../FormUser/Hooks/useUser.js";
-import Facebook from "components/Icons/Facebook";
-import Google from "components/Icons/Google";
+import useUser from "../../Hooks/useUser.js";
+import LoginWithToken from "../LoginWToken/LoginWToken";
+// import Facebook from "components/LoginWToken/Facebook";
+// import Google from "components/LoginWToken/Google";
 
 //isSubmit indica si actulmente esta en proceso de submicion, para no permitir que se haga submit mas de una vez al mismo tiempo
 //Field es un componente que conecta directamente a formik
@@ -15,9 +16,7 @@ function FormUser(props) {
   // console.log(isSubmitting)
   const history = useHistory();
 
-  const handleGoBack = () => {
-    history.push(`/admin/users`);
-  };
+  const handleGoBack = () => { history.push(`/admin/users`) };
 
   const { localUser } = useUser();
 
@@ -25,7 +24,7 @@ function FormUser(props) {
     if (localUser) history.push("/");
   }, [localUser, history]);
 
-  const { loginWithEmail, loginWithToken } = useUser();
+  const { loginWithToken } = useUser();
 
   const useQuery = () => {
     let search = useLocation().search;
@@ -46,18 +45,6 @@ function FormUser(props) {
       }
     })();
   }, [useQuery.token, history, loginWithToken]);
-
-  // const renderButton = () => {
-  //     gapi.signin2.render('my-signin2', {
-  //         'scope': 'profile email',
-  //         'width': 240,
-  //         'height': 50,
-  //         'longtitle': true,
-  //         'theme': 'dark',
-  //         'onsuccess': onSuccess,
-  //         'onfailure': onFailure
-  //     });
-  // }
 
   return (
     <>
@@ -186,23 +173,7 @@ function FormUser(props) {
         </div>
       </Form>
       <div>También podés registrarte con:</div>
-      <div>
-        <button
-          onClick={() =>
-            (window.location = `http://localhost:3001/auth/login/google`)
-          }
-        >
-          <Google fill="teal" />
-        </button>
-        <button
-          onClick={() =>
-            (window.location = `http://localhost:3001/auth/login/facebook`)
-          }
-        >
-          {/* <div class="fb-login-button" data-size="small" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div> */}
-          <Facebook fill="teal" />
-        </button>
-      </div>
+      <LoginWithToken />
       <div>
         <span
           className={"yatengocuenta"}

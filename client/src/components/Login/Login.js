@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { withFormik, Field, ErrorMessage, Form } from "formik";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
-
 import { useLocation } from "react-router";
-import useUser from "components/FormUser/Hooks/useUser";
+import useUser from "Hooks/useUser";
+import LoginWithToken from "../LoginWToken/LoginWToken.js"
 
 function useQuery() {
   let search = useLocation().search;
@@ -32,6 +31,10 @@ function Login(props) {
   const handleGoBack = () => {
     history.push(`/admin/users`);
   };
+
+  if (query.t) {
+    history.push(`/products`)
+  }
 
   return (
     <>
@@ -67,16 +70,16 @@ function Login(props) {
             Iniciar sesión
           </button>
         </div>
-
-        <div>
-          <a href="AcaPegoElLinkParaRecuperarLaContraseña">
-            ¿Olvidaste tu contraseña?
-          </a>
-          <a href="/register">Registrate</a>
-        </div>
-
-        {/* AGREGAR LOS BOTONES DE GOOGLE Y FB */}
       </Form>
+      <div>
+        <a href="AcaPegoElLinkParaRecuperarLaContraseña">
+          ¿Olvidaste tu contraseña?
+        </a>
+        <a href="/register">Registrate</a>
+      </div>
+      <div>También podés iniciar sesión con:</div>
+        <LoginWithToken />
+      <div></div>
     </>
   );
 }
