@@ -1,78 +1,83 @@
-import * as constants from './constants.js'
+import * as constants from "./constants.js";
 
 const initialState = {
   search: "",
   products: [],
   categories: [],
   deleted: [],
-  order:[],
+  order: [],
   countProducts: 0,
-  ngos:[],
-  users:[],
-  currentUser:[]
+  ngos: [],
+  users: [],
+  currentUser: [],
 };
 
 export default (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case constants.SEARCHBYQUERY:
       return {
         ...state,
         products: action.payload.products,
-        countProducts: action.payload.count
-      }
+        countProducts: action.payload.count,
+      };
     case constants.GETPRODUCTS:
       return {
         ...state,
         products: action.payload.products,
-        countProducts: action.payload.count
-      }
+        countProducts: action.payload.count,
+      };
     case constants.SETSEARCH:
       return {
         ...state,
         search: action.payload,
-      }
+      };
     case constants.SEARCHBYCATEGORY:
       return {
         ...state,
         products: action.payload.products,
-        countProducts: action.payload.count
-      }
+        countProducts: action.payload.count,
+      };
     case constants.DELETEPRODUCT:
       return {
         ...state,
-        deleted: action.payload
-      }
+        deleted: action.payload,
+      };
     case constants.GETCATEGORIES:
       return {
         ...state,
-        categories: action.payload
-      }
+        categories: action.payload,
+      };
     case constants.GETORDERS:
       return {
         ...state,
-        orders: action.payload
-      }
+        orders: action.payload,
+      };
     case constants.GETORDERBYID:
       return {
         ...state,
-        order: action.payload
-      }      
+        order: action.payload,
+      };
     case constants.GETNGOS:
       return {
         ...state,
-        ngos: action.payload
-      } 
+        ngos: action.payload,
+      };
     case constants.GETUSERS:
       return {
         ...state,
-        users: action.payload
-      } 
+        users: action.payload,
+      };
     case constants.GETUSERBYID:
       return {
         ...state,
-        currentUser: action.payload
-      }
+        currentUser: action.payload,
+      };
+    case constants.SETCURRENTUSER:
+      return {
+        ...state,
+        currentUser: action.payload,
+      };
     default:
-        return state;
+      return state;
   }
-}
+};
