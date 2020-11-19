@@ -18,127 +18,159 @@ function FormUser(props) {
     
     return(
         <>
-            <h1>Crear usuario</h1>
+        <div className='creatUserCont'>
+            <h1 className='create-user-h1'>Crear usuario</h1>
             {props.admin ? <div className="volver" onClick={handleGoBack}>Volver</div> : null}
             <Form>
-                <div className="row">
+                <div className="rowAdmin">
                     Administrador:
                     <Field name="isAdmin" type="checkbox" />
                     
                 </div>
+                <div className='campos----'>
 
-                <div className="row">
+                <div className='row'>
+                    <div  className="rw-2">
                     Nombre de usuario:
-                    <Field name="userName" type="text" />
+                    </div>
+                    <Field className='fielllld' name="userName" type="text" />
                     <ErrorMessage name="userName">
                     {message => <div className="error">{message}</div>}
                     </ErrorMessage>
                 </div>
 
-                <div className="row">
+                <div className='row'>
+                    <div  className="rw-2">
                     Email:
-                    <Field name="email" type="email" />
+                    </div>
+                    <Field className='fielllld' name="email" type="email" />
                     <ErrorMessage name="email">
                     {message => <div className="error">{message}</div>}
                     </ErrorMessage>
                 </div>
 
-                <div className="row">
+                <div className='row'>
+                    <div  className="rw-2">
                     Contraseña:
-                    <Field name="password" type="password" />
+                    </div>
+                    <Field className='fielllld' name="password" type="password" />
                     <ErrorMessage name="password">
                     {message => <div className="error">{message}</div>}
                     </ErrorMessage>
                 </div>
-
-                <div className="row">
+                
+                <div className='row'>
+                    <div className="rw-2">
                     Nombre:
-                    <Field name="firstName" type="text" />
+                    </div>
+                    <Field className='fielllld' name="firstName" type="text" />
                     <ErrorMessage name="firstName">
                     {message => <div className="error">{message}</div>}
                     </ErrorMessage>
                 </div>
 
-                <div className="row">
+                <div className='row'>
+                    <div  className="rw-2">
                     Apellido:
-                    <Field name="lastName" type="text" />
+                    </div>
+                    <Field className='fielllld' name="lastName" type="text" />
                     <ErrorMessage name="lastName">
                     {message => <div className="error">{message}</div>}
                     </ErrorMessage>
                 </div>
 
-                <div className="row">
+                <div className='row'>
+                    <div  className="rw-2">
                     Teléfono:
-                    <Field name="telephone" type="tel" />
+                    </div>
+                    <Field className='fielllld' name="telephone" type="tel" />
                     <ErrorMessage name="telephone">
                     {message => <div className="error">{message}</div>}
                     </ErrorMessage>
                 </div>
 
-                <div className="row">
+                <div className='row'>
+                    <div  className="rw-2">
                     Dirección:
-                    <Field name="address" type="selector" />
+                    </div>
+                    <Field className='fielllld' name="address" type="selector" />
                     <ErrorMessage name="address">
                     {message => <div className="error">{message}</div>}
                     </ErrorMessage>
                 </div>
 
-                <div className="row">
-                    Número:
-                    <Field name="number" type="selector" />
+                <div className='row'>
+                    <div  className="rw-2">
+                        Número:
+                        </div>
+                    <Field className='fielllld' name="number" type="selector" />
                     <ErrorMessage name="number">
                     {message => <div className="error">{message}</div>}
                     </ErrorMessage>
                 </div>
 
-                <div className="row">
+                <div className='row'>
+                    <div  className="rw-2">
                     Código Postal:
-                    <Field name="postalCode" type="selector" />
+                    </div>
+                    <Field className='fielllld' name="postalCode" type="selector" />
                     <ErrorMessage name="postalCode">
                     {message => <div className="error">{message}</div>}
                     </ErrorMessage>
                 </div>
 
-                <div className="row">
+                <div className='row'>
+                    <div  className="rw-2">
                     Localidad:
-                    <Field name="city" type="selector" />
+                    </div>
+                    <Field className='fielllld' name="city" type="selector" />
                     <ErrorMessage name="city">
                     {message => <div className="error">{message}</div>}
                     </ErrorMessage>
                 </div>
 
-                <div className="row">
+                <div className='row'>
+                    <div  className="rw-2">
                     Provincia:
-                    <Field name="province" type="selector" />
+                    </div>
+                    <Field className='fielllld' name="province" type="selector" />
                     <ErrorMessage name="province">
                     {message => <div className="error">{message}</div>}
                     </ErrorMessage>
                 </div>
 
-                <div className="row">
+                <div className='row'>
+                    <div className="rw-2">
                     Pais:
-                    <Field name="country" type="selector" />
+                    </div>
+                    <Field className='fielllld' name="country" type="selector" />
                     <ErrorMessage name="country">
                     {message => <div className="error">{message}</div>}
                     </ErrorMessage>
                 </div>
 
-                <div className="row">
+                <div className='row'>
+                    <div className="rw-2">
                     Usuario GitHub:
-                    <Field name="gitHubId" type="text" />
+                    </div>
+                    <Field className='fielllld' name="gitHubId" type="text" />
                 </div>
 
-                <div className="row">
-                    Usuario GMail:
-                    <Field name="gmailId" type="text" />
+                <div className='row'>
+                <div className="rw-2">
+                    Usuario GMail: 
+                    </div>
+                    <Field className='fielllld' name="gmailId" type="text" />
                 </div>
         
-                <div className="row">
+                <div className='row'>
+                    <div className="rw-2">
                     Usuario Facebook:
-                    <Field name="facebookId" type="text" />
+                    </div>
+                    <Field className='fielllld' name="facebookId" type="text" />
                 </div>
 
-                
+                </div>
                 <div className="">
                 <button type="submit"
                         className={`submit ${isSubmitting || !isValid ? 'disabled' : ''}`}
@@ -146,6 +178,7 @@ function FormUser(props) {
                 >Crear usuario</button>
                 </div>
             </Form>
+            </div>
         </>
     );
 
