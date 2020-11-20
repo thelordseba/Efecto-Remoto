@@ -72,11 +72,21 @@ a, a:visited, a:hover, a:active {
     min-width: 120px;
     text-align: center;
 
+    &:hover{
+        .menu{
+            display: block;
+        }
+    }
+
+
+
     .menu{
         padding-left: 0;
         position: absolute;
         list-style: none;   
+        display: none;
     }
+    
 
   }
 .ulProfile{
@@ -87,7 +97,7 @@ a, a:visited, a:hover, a:active {
     background-color: #0d7377;
     color:#ffff;
     text-decoration: none;
-    padding:10px 15px;
+    padding: 10px 15px;
     display: block;
     min-width:90px;
     

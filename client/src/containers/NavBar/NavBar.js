@@ -1,6 +1,7 @@
 import React from "react";
 import SearchBar from "../../components/SearchBar/SearchBar.js";
 import manitos from "./Images/Manitos2.jpeg";
+import useUser from "../../Hooks/useUser"
 import "./NavBar.scss";
 // import { useHistory } from "react-router-dom";
 // import user from "../MyProfile/Images/usuario.png";
@@ -11,7 +12,7 @@ import { useSelector } from "react-redux";
 function NavBar() {
   // const loggedIn = true;
   const currentUser = useSelector(state => state.currentUser);
-
+  const {logOut} = useUser()
   // const history = useHistory();
   // const handleOnClickCart = () => {
   //     history.push(`/carrito`)
@@ -44,7 +45,7 @@ function NavBar() {
         <div className="grid grid4">
           <ul className="grid list">
             <li className="listee">
-              <a href="/admin/products">Admin <SettingsIcon
+              <a href="/admin/products"><SettingsIcon
                   fill="#fff"
                   style={{ marginLeft: "8px" }}
                 /></a>
@@ -63,12 +64,11 @@ function NavBar() {
                 </li>
               </>
             ) : <li className="profile">
-                     <a href="">Hola! {currentUser.firstName}</a>
+                     <a href="" style={{padding: "10px 15px"}}>Hola, {currentUser.firstName}</a>
                      <ul className="menu">
-                       <li><a href="/profile/data">Mis Datos</a></li>
-                       <li><a href="/profile/orders">Mis Ordenes</a></li>
-                       <li><a href="">Ayuda</a></li>
-                       <li><a href="/localhost:3000/">Cerrar Sesión</a></li>
+                       <li><a href="/profile/data">Mi Perfil</a></li>
+                       <li><a href="#">FAQ</a></li>
+                       <li><a onClick={() => logOut()}>Cerrar Sesión</a></li>
                      </ul>
                </li>}
 
