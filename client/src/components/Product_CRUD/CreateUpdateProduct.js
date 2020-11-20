@@ -21,18 +21,18 @@ export default function CreateUpdateProduct({id}){
     const handleOnClick = (e) => {
         e.preventDefault()
         if(id) {
-            axios.put(`${process.env.REACT_APP_API}/products/${id}`, product)
+            axios.put(`http://localhost:3001/products/${id}`, product)
             .then(() => {
-                return selectedCategories.map(e => axios.post(`${process.env.REACT_APP_API}/products/${id}/category/${e}`))
+                return selectedCategories.map(e => axios.post(`http://localhost:3001/products/${id}/category/${e}`))
             })
             .then(() => alert("Producto modificado"))
             .catch(() => {
                 alert("Hubo un error. Por favor, intentá de nuevo.")}
             )
         } else {
-            axios.post(`${process.env.REACT_APP_API}/products`, product)
+            axios.post(`http://localhost:3001/products`, product)
             .then(response => {
-                return selectedCategories.map(e => axios.post(`${process.env.REACT_APP_API}/products/${response.data.id}/category/${e}`))
+                return selectedCategories.map(e => axios.post(`http://localhost:3001/products/${response.data.id}/category/${e}`))
             })
             .then(() => alert("Producto agregado"))
             .catch(() => alert("Hubo un error. Por favor, intentá de nuevo."))
@@ -59,7 +59,7 @@ export default function CreateUpdateProduct({id}){
         if (id) {
             (async () => {
                 // eslint-disable-next-line react-hooks/exhaustive-deps
-                product = await axios.get(`${process.env.REACT_APP_API}/products/${id}`)
+                product = await axios.get(`http://localhost:3001/products/${id}`)
                 setProduct(product.data)
                 setSelectedCategories(product.data.categories.map(cat => cat.id))
                 setImage(product.data.images[0].url)
