@@ -1,5 +1,6 @@
 const server = require("express").Router();
 const { User } = require("./db.js");
+const passport = require('passport'); //se lo agregue porque no estaba
 
 const { FACEBOOK_APP_ID, FACEBOOK_APP_SECRET, HOST, secretJWT, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
 

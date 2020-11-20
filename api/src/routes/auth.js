@@ -96,7 +96,15 @@ server.get("/login/google/callback", (req, res, next) => {
     if (!user) {
       res.redirect(`${HOSTFRONT}/loginuser?error=401`);
     } else {
-      const token = jwt.sign({ id: user.id, isAdmin: user.isAdmin }, secretJWT);
+      const token = jwt.sign({ 
+        id: user.id,
+          isAdmin: user.isAdmin,
+          userName: user.userName,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email, },
+          `${secretJWT}`
+           );
       res.redirect(`${HOSTFRONT}/loginuser?t=${token}`);
     }
   })(req, res, next);
