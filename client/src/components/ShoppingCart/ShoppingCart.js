@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import ShoppingItem from "../ShoppingItem/ShoppingItem";
 import { useHistory } from "react-router-dom";
-import "./ShoppingCart.css";
+
 
 function ShoppingCart(props) {
   const history = useHistory();
@@ -14,11 +14,17 @@ function ShoppingCart(props) {
 
   const products = useMemo(() => {
     return JSON.parse(localStorage.getItem("cart"));
-  }, []);
+  }, [cart]);
 
   const handleBack = () => {
     history.push(`/products`);
   };
+
+  const onRemoveProduct = (productId) => {
+    let filteredList = cart.filter((item) => item.id !== productId);
+    localStorage.setItem("cart", JSON.stringify(filteredList) );
+    setCart(filteredList)
+  }
 
   const total = useMemo(() => {
     if (products) {
@@ -29,7 +35,7 @@ function ShoppingCart(props) {
       return acumulador;
     }
   }, [products]);
-
+  
   const editItem = (itemID, value) => {
     let cartCopy = [...cart];
     let existentItem = cartCopy.find(
@@ -48,6 +54,9 @@ function ShoppingCart(props) {
     let cartString = JSON.stringify(cartCopy);
     localStorage.setItem("cart", cartString);
   };
+
+
+
 
   const handleOnChangeQuantity = (event) => {
     const value = event.target.value;
@@ -79,10 +88,11 @@ function ShoppingCart(props) {
         <div className="container-cart">
           <div className="title-container-cart">Carrito de Compras</div>
           <div className="divider-cart" />
-          {products.map((prod) => (
+          {products && products.map((prod) => (
             <ShoppingItem
               product={prod}
               handleOnChangeQuantity={handleOnChangeQuantity}
+              onRemoveProduct={onRemoveProduct}
             />
           ))}
         </div>
