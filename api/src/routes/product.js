@@ -1,5 +1,6 @@
 const server = require("express").Router();
 const { Product, Category, Image } = require("../db.js");
+const { Op } = require("sequelize");
 
 const { Sequelize } = require("sequelize");
 // const { response } = require('express');
@@ -100,9 +101,9 @@ server.get("/search", (req, res, next) => {
     limit,
     offset,
     where: {
-      [Sequelize.Op.or]: [
-        { name: { [Sequelize.Op.substring]: valor } },
-        { description: { [Sequelize.Op.substring]: valor } },
+      [Op.or]: [
+        { name: { [Op.iLike]: "%" + valor + "%" } },
+        { description: { [Op.iLike]: "%" + valor + "%" } },
       ],
     },
     include: [Image],
