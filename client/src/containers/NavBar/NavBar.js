@@ -1,9 +1,11 @@
 import React from "react";
 import SearchBar from "../../components/SearchBar/SearchBar.js";
 import manitos from "./Images/Manitos2.jpeg";
-import "./NavBar.css";
+import "./NavBar.scss";
 // import { useHistory } from "react-router-dom";
 // import user from "../MyProfile/Images/usuario.png";
+import BagIcon from 'components/Icons/Bag'
+import SettingsIcon from 'components/Icons/SettingsIcon'
 
 function NavBar() {
   const loggedIn = true;
@@ -40,10 +42,13 @@ function NavBar() {
         <div className="grid grid4">
           <ul className="grid list">
             <li className="listee">
-              <a href="/admin/products"> Acceso Admin</a>
+              <a href="/admin/products">Admin <SettingsIcon
+                  fill="#fff"
+                  style={{ marginLeft: "8px" }}
+                /></a>
             </li>
             <li className="listee">
-              <a href="/carrito">Carrito</a>
+              <a href="/carrito"><BagIcon fill="#fff" /></a>
             </li>
 
             {!loggedIn ? (
@@ -55,15 +60,16 @@ function NavBar() {
                   <a href="/loginuser">Iniciar Sesión</a>
                 </li>
               </>
-            ) : null}
+            ) : <li className="profile">
+                     <a href="/profile">Mi Perfil</a>
+                     <ul className="menu">
+                       <li><a>Mis Datos</a></li>
+                       <li><a>Mis Ordenes</a></li>
+                       <li><a>Ayuda</a></li>
+                       <li><a>Cerrar Sesión</a></li>
+                     </ul>
+               </li>}
 
-            {loggedIn ? (
-              <>
-                <li className="profile">
-                  <a href="/profile">Mi Perfil</a>
-                </li>
-              </>
-            ) : null}
           </ul>
         </div>
       </div>
