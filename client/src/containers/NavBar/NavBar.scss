@@ -75,8 +75,7 @@ a, a:visited, a:hover, a:active {
     .menu{
         padding-left: 0;
         position: absolute;
-        list-style: none;
-        
+        list-style: none;   
     }
 
   }
@@ -91,6 +90,7 @@ a, a:visited, a:hover, a:active {
     padding:10px 15px;
     display: block;
     min-width:90px;
+    
    
 }
 
@@ -103,8 +103,14 @@ a, a:visited, a:hover, a:active {
     display: none;
     position: absolute;
     min-width: 90px;;
+    
 }
 .profile li:hover > ul{
     display: block;
 }
   
+// .menu{
+//     ul{
+//         border-radius: 12px;
+//     }
+// }

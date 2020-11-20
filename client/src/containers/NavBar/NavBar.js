@@ -61,12 +61,12 @@ function NavBar() {
                 </li>
               </>
             ) : <li className="profile">
-                     <a href="/profile">Mi Perfil</a>
+                     <a href="">Hola, Rocio</a>
                      <ul className="menu">
-                       <li><a>Mis Datos</a></li>
-                       <li><a>Mis Ordenes</a></li>
-                       <li><a>Ayuda</a></li>
-                       <li><a>Cerrar Sesión</a></li>
+                       <li><a href="/profile/data">Mis Datos</a></li>
+                       <li><a href="/profile/orders">Mis Ordenes</a></li>
+                       <li><a href="">Ayuda</a></li>
+                       <li><a href="/localhost:3000/">Cerrar Sesión</a></li>
                      </ul>
                </li>}
 
