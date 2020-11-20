@@ -40,17 +40,43 @@
 }
 
 .listee {
-    padding: 10px;
-    margin: auto
+    
+    padding: 8px 16px;
+    margin: auto;
+    border-radius: 8px;
+    font-size: 16px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+        background-color: #329999;
+    }
+
+    a {
+        display: flex;
+        align-items: center;
+    }
+
+    
 }
 
 a, a:visited, a:hover, a:active {
     color: inherit;
     text-decoration: none
   }
+
 .profile{
     padding: 10px;
-    margin: auto
+    margin: auto;
+    min-width: 120px;
+    text-align: center;
+
+    .menu{
+        padding-left: 0;
+        position: absolute;
+        list-style: none;   
+    }
 
   }
 .ulProfile{
@@ -64,10 +90,12 @@ a, a:visited, a:hover, a:active {
     padding:10px 15px;
     display: block;
     min-width:90px;
+    
    
 }
+
 .profile li a:hover {
-    background-color: lightgrey;
+    background-color:  #329999;
     display: block;
 
 }
@@ -75,8 +103,14 @@ a, a:visited, a:hover, a:active {
     display: none;
     position: absolute;
     min-width: 90px;;
+    
 }
 .profile li:hover > ul{
     display: block;
 }
   
+// .menu{
+//     ul{
+//         border-radius: 12px;
+//     }
+// }

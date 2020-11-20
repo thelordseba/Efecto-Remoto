@@ -1,27 +1,29 @@
-import React, { useState } from 'react';
-import './SearchBar.css';
-import { useDispatch } from 'react-redux'
-import { setSearch } from "../../redux/actions/actions.js"
+import SearchIcon from "components/Icons/SearchIcon.js";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setSearch } from "../../redux/actions/actions.js";
+import styles from "./SearchBar.module.scss";
 
-function SearchBar (){
+function SearchBar() {
+  let [content, setContent] = useState("");
 
-  let [content, setContent] = useState("")
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleOnChange = (event) => {
-    setContent(event.target.value)
-  }
-  
-  const handleOnClick = () => {
-    dispatch(setSearch(content)) 
-  }
+    setContent(event.target.value);
+  };
 
-  return(
-      <div className="container">
-        <input className="input" type= "text" onChange={handleOnChange} placeholder= "Buscar..."/>
-        <button className="searchbar-button" onClick={handleOnClick}>Buscar</button>
-      </div> 
+  const handleOnClick = () => {
+    dispatch(setSearch(content));
+  };
+
+  return (
+    <div className={styles.container}>
+      <input type="text" onChange={handleOnChange} placeholder="Buscar..." />
+      <button onClick={handleOnClick}>
+        <SearchIcon fill="#fff" style={{ padding: "0 8px" }} />
+      </button>
+    </div>
   );
 }
 

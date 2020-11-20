@@ -1,0 +1,46 @@
+.container {
+  display: flex;
+  align-items: center;
+  background-color: #329999;
+  border-radius: 8px;
+  border: none;
+  overflow: hidden;
+
+  input {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    margin: 8px 16px;
+    padding-left: 16px;
+    font-size: 16px;
+
+    &::placeholder {
+      color: #fff;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+
+  button {
+    background-color: transparent;
+    font-size: 16px;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    transition-duration: 250ms;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      background-color: #fff;
+      color: teal;
+      svg {
+        fill: teal;
+      }
+    }
+  }
+}
+
