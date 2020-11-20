@@ -51,14 +51,9 @@ export default class ResetPassword extends React.Component {
     if (!this.state.password) {
       alert("Debes completar todos los campos");
     } else {
-      const userId = await axios.get(
-        `http://localhost:3001/users/getUserbyId?userEmail=${user.email}`
-      );
-      await axios.post(
-        `http://localhost:3001/users/${userId}/resetPassword`,
-        this.state.password
-      );
-      alert("contraseña Cambiada");
+      const userId = await axios.get(`${process.env.REACT_APP_API}/users/getUserbyId?userEmail=${user.email}`)
+      await axios.post(`${process.env.REACT_APP_API}/users/${userId}/resetPassword`, this.state.password)
+      alert("Contraseña modificada");
       this.props.history.push("/");
     }
   }

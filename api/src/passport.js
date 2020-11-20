@@ -1,12 +1,13 @@
 const server = require("express").Router();
 const { User } = require("./db.js");
 
-const { FACEBOOK_APP_ID, FACEBOOK_APP_SECRET, HOST, secretJWT } = process.env;
+const { FACEBOOK_APP_ID, FACEBOOK_APP_SECRET, HOST, secretJWT, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
 
 const passport = require("passport"),
   FacebookStrategy = require("passport-facebook").Strategy,
-  BearerStrategy = require("passport-http-bearer").Strategy;
-
+  BearerStrategy = require("passport-http-bearer").Strategy,
+  GoogleStrategy = require('passport-google-oauth20').Strategy
+  
 const getOneByFacebookId = async (facebookId) => {
   try {
     const user = User.findOne({
@@ -73,5 +74,28 @@ passport.use(
     });
   })
 );
+
+// passport.serializeUser(function(user, done) {
+//   done(null, user.id);
+// });
+//   passport.deserializeUser(function(id, done){
+//     User.findById(id, function(err, user){
+//       done(err, user);
+//     });
+//   }); Esto es para una estrategia de sesión, no sirve para la estrategia de JWT
+
+passport.use(new GoogleStrategy({
+    clientID: GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET,
+    callbackURL: `${HOST}auth/login/google/callback`
+  },
+  
+  function(accessToken, refreshToken, user, done) {
+    //info del perfil para checkear si el usuario esta registrado en db
+    User.findOrCreate({ googleId: user.id }, function (err, user) {
+      return done(err, user);
+    });
+  }
+));
 
 module.exports = passport;
