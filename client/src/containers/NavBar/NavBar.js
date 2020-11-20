@@ -6,9 +6,11 @@ import "./NavBar.scss";
 // import user from "../MyProfile/Images/usuario.png";
 import BagIcon from 'components/Icons/Bag'
 import SettingsIcon from 'components/Icons/SettingsIcon'
+import { useSelector } from "react-redux";
 
 function NavBar() {
-  const loggedIn = true;
+  // const loggedIn = true;
+  const currentUser = useSelector(state => state.currentUser);
 
   // const history = useHistory();
   // const handleOnClickCart = () => {
@@ -51,7 +53,7 @@ function NavBar() {
               <a href="/carrito"><BagIcon fill="#fff" /></a>
             </li>
 
-            {!loggedIn ? (
+            {!currentUser ? (
               <>
                 <li className="listee">
                   <a href="/register">Registrate</a>
@@ -61,7 +63,7 @@ function NavBar() {
                 </li>
               </>
             ) : <li className="profile">
-                     <a href="">Hola, Rocio</a>
+                     <a href="">Hola! {currentUser.firstName}</a>
                      <ul className="menu">
                        <li><a href="/profile/data">Mis Datos</a></li>
                        <li><a href="/profile/orders">Mis Ordenes</a></li>
