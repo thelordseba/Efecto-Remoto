@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import Stars from "./Stars";
+import './ProductCard.css';
+import Stars from "../Review/Stars";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteProduct } from "../../redux/actions/actions";
@@ -64,17 +65,17 @@ function ProductCard({ product, small = true, stars, admin, id }) {
           <a href={`/products/${product.id}`}>
             <div className="title">{product.name}</div>
           </a>
-          {/* {small && <div className="stars-small"> <Stars disabledClick={true} stars={stars}/> </div>} */}
+           {small && <div className="stars-small"> <Stars disabledClick={true} stars={stars}/> </div>} 
           <div className="price">${product.price}</div>
           {!small ? (
             <>
               <div className="divider" />
               <div className="description">{product.description}</div>
-              {/* <div className="link"> <span>Ver más en:</span> <a href ={product.link}>{product.link}</a> </div> */}
+               <div className="link"> <span>Ver más en:</span> <a href ={product.link}>{product.link}</a> </div> 
               <div className="divider" />
               <div className="cantidad"></div>
               <div className="stock">{product.stock}</div>
-              <div className="review">Review</div>
+              {/*<div className="review">Review</div>*/}
             </>
           ) : null}
           {!small && <Stars disabledClick={true} stars={stars} />}

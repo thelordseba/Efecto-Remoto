@@ -1,14 +1,31 @@
 .row {
-    width: 300px;
     padding: 0.5rem 0;
+    margin-left:10%;
+    text-align:center;
 }
+.rw-2{
+    margin-left: -10%;
+    align-items: center;
+    
+}
+.create-user-h1{
+    text-align: center;
+
+}
+.rowAdmin{
+    margin-left: 1%;
+}
+
+ 
 .error {
-    padding: 0.5rem;
     background-color: rgba(255, 0, 0, 0.5);
     border: 1px solid red;
     border-radius: 6px;
-    margin: 0.5rem 0 0 0;
+    width: 45%;
+    margin-left: 24%;
+    margin-top: 0.5%;
 }
+
 .submit {
     padding: 6px;
     border-radius: 8px;
@@ -32,6 +49,24 @@
     cursor: pointer;
 }
     
+.creatUserCont{
+  /*   display: flex;
+    justify-content: center; */
+    border: 1em solid teal;
+    margin:1%
+   
+
     
-
-
+}
+.campos----{
+    display: grid;
+    grid-template: repeat(5, 1fr) / repeat(3, 1fr);
+    margin-right: 10px;
+}
+.camp-us{
+    width:50px;
+}
+.fielllld{
+    
+    margin-right: 28px;
+}

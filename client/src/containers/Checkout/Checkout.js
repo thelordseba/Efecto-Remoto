@@ -8,7 +8,7 @@ import "./checkout.css";
 const Checkout = () => {
   const history = useHistory();
   const order = useSelector((state) => state.order);
-  //const user = useSelector(state => state.user);
+  const user = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   const getTotal = () =>
@@ -17,32 +17,32 @@ const Checkout = () => {
       0
     );
 
-  const user = {
-    id: 7,
-    userName: "Fini",
-    firstName: "Josefina",
-    lastName: "Cafferata",
-    isAdmin: false,
-    email: "jcl@gmail.com",
-    telephone: "1124623464",
-    password: "asdasdasda",
-    gitHubId: "",
-    gmailId: "",
-    facebookId: "",
-    createdAt: "2020-11-15T17:09:45.220Z",
-    updatedAt: "2020-11-15T17:09:46.589Z",
-    locationId: 9,
-    location: {
-      id: 9,
-      address: "RSP",
-      number: 692,
-      postalCode: "1642",
-      city: "San Isidro",
-      province: "Buenos Aires",
-      createdAt: "2020-11-15T17:09:46.251Z",
-      updatedAt: "2020-11-15T17:09:46.251Z",
-    },
-  };
+  // const user = {
+  //   id: 7,
+  //   userName: "Fini",
+  //   firstName: "Josefina",
+  //   lastName: "Cafferata",
+  //   isAdmin: false,
+  //   email: "jcl@gmail.com",
+  //   telephone: "1124623464",
+  //   password: "asdasdasda",
+  //   gitHubId: "",
+  //   gmailId: "",
+  //   facebookId: "",
+  //   createdAt: "2020-11-15T17:09:45.220Z",
+  //   updatedAt: "2020-11-15T17:09:46.589Z",
+  //   locationId: 9,
+  //   location: {
+  //     id: 9,
+  //     address: "RSP",
+  //     number: 692,
+  //     postalCode: "1642",
+  //     city: "San Isidro",
+  //     province: "Buenos Aires",
+  //     createdAt: "2020-11-15T17:09:46.251Z",
+  //     updatedAt: "2020-11-15T17:09:46.251Z",
+  //   },
+  // };
 
   useEffect(
     () => async () => {

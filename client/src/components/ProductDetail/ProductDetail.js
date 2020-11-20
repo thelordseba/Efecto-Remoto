@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Stars from "./Stars";
+import Stars from "../Review/Stars";
+import './ProductDetail.css';
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { ReactComponent as CartIcon } from "../common/cart.svg";
@@ -81,7 +82,7 @@ function ProductDetail({ small = false, stars, id }) {
               <div className="divider" />
               <div className="cantidad"></div>
               <div className="stock">{product.stock}</div>
-              <div className="review">Review</div>
+              {/*<div className="review">Review</div>*/}
             </>
           ) : null}
           {!small && <Stars disabledClick={true} stars={stars} />}

@@ -6,8 +6,7 @@ import axios from "axios";
 import { useHistory, useLocation } from "react-router-dom";
 import useUser from "../../Hooks/useUser.js";
 import LoginWithToken from "../LoginWToken/LoginWToken";
-// import Facebook from "components/LoginWToken/Facebook";
-// import Google from "components/LoginWToken/Google";
+import useQuery from "Hooks/useQuery";
 
 //isSubmit indica si actulmente esta en proceso de submicion, para no permitir que se haga submit mas de una vez al mismo tiempo
 //Field es un componente que conecta directamente a formik
@@ -25,26 +24,16 @@ function FormUser(props) {
   }, [localUser, history]);
 
   const { loginWithToken } = useUser();
-
-  const useQuery = () => {
-    let search = useLocation().search;
-    let result = search.slice(1).split("&");
-    result = result.reduce((dataResult, item) => {
-      const pair = item.split("=");
-      dataResult[pair[0]] = pair[1];
-      return dataResult;
-    }, {});
-    return result;
-  };
+  const query = useQuery();
 
   useEffect(() => {
     (async () => {
-      if (useQuery.token) {
-        await loginWithToken(useQuery.token);
+      if (query.token) {
+        await loginWithToken(query.token);
         history.push("/");
       }
     })();
-  }, [useQuery.token, history, loginWithToken]);
+  }, [query.token, history, loginWithToken]);
 
   return (
     <>
