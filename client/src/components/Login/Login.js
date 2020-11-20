@@ -3,7 +3,7 @@ import { withFormik, Field, ErrorMessage, Form } from "formik";
 import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router";
 import useUser from "Hooks/useUser";
-import LoginWithToken from "../LoginWToken/LoginWToken.js"
+import LoginWithToken from "../LoginWToken/LoginWToken.js";
 
 function useQuery() {
   let search = useLocation().search;
@@ -26,14 +26,14 @@ function Login(props) {
 
   useEffect(() => {
     if (query.t) loginWithToken(query.t);
-  }, [query]);
+  }, [query, loginWithToken]);
 
   const handleGoBack = () => {
     history.push(`/admin/users`);
   };
 
   if (query.t) {
-    history.push(`/products`)
+    history.push(`/products`);
   }
 
   return (
@@ -78,7 +78,7 @@ function Login(props) {
         <a href="/register">Registrate</a>
       </div>
       <div>También podés iniciar sesión con:</div>
-        <LoginWithToken />
+      <LoginWithToken />
       <div></div>
     </>
   );

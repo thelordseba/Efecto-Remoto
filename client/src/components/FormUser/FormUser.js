@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { withFormik, Field, ErrorMessage, Form } from "formik";
 import "./FormUser.css";
 import axios from "axios";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import useUser from "../../Hooks/useUser.js";
 import LoginWithToken from "../LoginWToken/LoginWToken";
 import useQuery from "Hooks/useQuery";
@@ -15,7 +15,9 @@ function FormUser(props) {
   // console.log(isSubmitting)
   const history = useHistory();
 
-  const handleGoBack = () => { history.push(`/admin/users`) };
+  const handleGoBack = () => {
+    history.push(`/admin/users`);
+  };
 
   const { localUser } = useUser();
 

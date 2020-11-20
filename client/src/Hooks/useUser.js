@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "../redux/actions/actions.js";
 import axios from "axios";
 import jwt from "jsonwebtoken";
-
 import * as constants from "../redux/reducers/constants.js";
 
 async function signIn(userName, password) {
   try {
-    const response = await axios.post( `http://localhost:3001/auth/login/email`, { userName, password } );
+    const response = await axios.post(
+      `http://localhost:3001/auth/login/email`,
+      { userName, password }
+    );
     return response.data;
   } catch (error) {
     const data = error.response.data;
@@ -20,7 +21,7 @@ async function signIn(userName, password) {
 export default function useUser() {
   const [isAdmin, setIsAdmin] = useState(false);
   const user = localStorage.getItem("user");
-  const [localUser, setLocalUser] = useState( user ? JSON.parse(user) : null );
+  const [localUser, setLocalUser] = useState(user ? JSON.parse(user) : null);
 
   const userLogin = useSelector((state) => state.user); // qué debería tener este useSelector???
   const dispatch = useDispatch();
@@ -83,4 +84,3 @@ export default function useUser() {
     updateUserData,
   };
 }
-

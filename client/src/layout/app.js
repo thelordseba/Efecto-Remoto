@@ -19,7 +19,7 @@ function App() {
         dispatch({ type: constants.SETCURRENTUSER, payload: user });
       }
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

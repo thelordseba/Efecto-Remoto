@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './ProductCard.css';
+import "./ProductCard.css";
 import Stars from "../Review/Stars";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -21,8 +21,6 @@ function ProductCard({ product, small = true, stars, admin, id }) {
   function handleOnClickDelete(id) {
     dispatch(deleteProduct(id));
   }
-
-  let quantity;
 
   const addItem = (product, quantity) => {
     let cartCopy = [...cart];
@@ -65,13 +63,22 @@ function ProductCard({ product, small = true, stars, admin, id }) {
           <a href={`/products/${product.id}`}>
             <div className="title">{product.name}</div>
           </a>
-           {small && <div className="stars-small"> <Stars disabledClick={true} stars={stars}/> </div>} 
+          {small && (
+            <div className="stars-small">
+              {" "}
+              <Stars disabledClick={true} stars={stars} />{" "}
+            </div>
+          )}
           <div className="price">${product.price}</div>
           {!small ? (
             <>
               <div className="divider" />
               <div className="description">{product.description}</div>
-               <div className="link"> <span>Ver más en:</span> <a href ={product.link}>{product.link}</a> </div> 
+              <div className="link">
+                {" "}
+                <span>Ver más en:</span>{" "}
+                <a href={product.link}>{product.link}</a>{" "}
+              </div>
               <div className="divider" />
               <div className="cantidad"></div>
               <div className="stock">{product.stock}</div>

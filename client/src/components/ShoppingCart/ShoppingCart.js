@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import ShoppingItem from "../ShoppingItem/ShoppingItem";
 import { useHistory } from "react-router-dom";
 
-
 function ShoppingCart(props) {
   const history = useHistory();
   // const [quantity, setQuantity] = useState();
@@ -14,7 +13,7 @@ function ShoppingCart(props) {
 
   const products = useMemo(() => {
     return JSON.parse(localStorage.getItem("cart"));
-  }, [cart]);
+  }, []);
 
   const handleBack = () => {
     history.push(`/products`);
@@ -22,9 +21,9 @@ function ShoppingCart(props) {
 
   const onRemoveProduct = (productId) => {
     let filteredList = cart.filter((item) => item.id !== productId);
-    localStorage.setItem("cart", JSON.stringify(filteredList) );
-    setCart(filteredList)
-  }
+    localStorage.setItem("cart", JSON.stringify(filteredList));
+    setCart(filteredList);
+  };
 
   const total = useMemo(() => {
     if (products) {
@@ -35,7 +34,7 @@ function ShoppingCart(props) {
       return acumulador;
     }
   }, [products]);
-  
+
   const editItem = (itemID, value) => {
     let cartCopy = [...cart];
     let existentItem = cartCopy.find(
@@ -55,9 +54,6 @@ function ShoppingCart(props) {
     localStorage.setItem("cart", cartString);
   };
 
-
-
-
   const handleOnChangeQuantity = (event) => {
     const value = event.target.value;
     const id = event.target.name;
@@ -75,9 +71,8 @@ function ShoppingCart(props) {
   };
 
   useEffect(() => {
-    localCart = JSON.parse(localCart);
-    if (localCart) setCart(localCart);
-  }, []);
+    if (localCart) setCart(JSON.parse(localCart));
+  }, [localCart]);
 
   return (
     <>
@@ -88,13 +83,14 @@ function ShoppingCart(props) {
         <div className="container-cart">
           <div className="title-container-cart">Carrito de Compras</div>
           <div className="divider-cart" />
-          {products && products.map((prod) => (
-            <ShoppingItem
-              product={prod}
-              handleOnChangeQuantity={handleOnChangeQuantity}
-              onRemoveProduct={onRemoveProduct}
-            />
-          ))}
+          {products &&
+            products.map((prod) => (
+              <ShoppingItem
+                product={prod}
+                handleOnChangeQuantity={handleOnChangeQuantity}
+                onRemoveProduct={onRemoveProduct}
+              />
+            ))}
         </div>
         <div className="summary">
           <div className="summary-title">Resumen</div>
