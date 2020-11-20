@@ -18,13 +18,13 @@ function CreateUpdateNGO({id}){
     const handleOnSubmit = (e) => {
         e.preventDefault()
         if(id) {
-            axios.put(`http://localhost:3001/ngos/${id}`, ngo)
+            axios.put(`${process.env.REACT_APP_API}/ngos/${id}`, ngo)
             .then(() => alert("ONG modificada!"))
             .catch(() => {
                 alert("Hubo un error. Por favor, intentá de nuevo.")}
             )
         } else {
-            axios.post(`http://localhost:3001/ngos`, ngo)
+            axios.post(`${process.env.REACT_APP_API}/ngos`, ngo)
             .then(() => alert("ONG agregada!"))
             .catch(() => {
                 alert("Hubo un error. Por favor, intentá de nuevo.")})

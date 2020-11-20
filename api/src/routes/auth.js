@@ -12,8 +12,7 @@ server.post("/login/email", (req, res, next) => {
     if (!user) {
       return res.status(401).json({ status: "error", code: "unauthorized", message: "Usuario y/o contraseña inválida", info });
     } else {
-      return res.json({ user, token: jwt.sign({ id: user.id, isAdmin: user.isAdmin }, secretJWT),
-      });
+      return res.send(jwt.sign({ id: user.id, isAdmin: user.isAdmin }, secretJWT));
     }
   })(req, res, next);
 });

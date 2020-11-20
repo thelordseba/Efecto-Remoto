@@ -22,7 +22,7 @@ export default function OrderDetails({ id }) {
 
   function handleOnClickCancel(id) {
     axios
-      .put(`http://localhost:3001/orders/${id}`, { status: "cancelled" })
+      .put(`${process.env.REACT_APP_API}/orders/${id}`, { status: "cancelled" })
       .then(() => alert("Orden cancelada"))
       .catch(() => alert("Hubo un error. Por favor, intentá de nuevo."))
       .then(() => history.push("/admin/orders"));

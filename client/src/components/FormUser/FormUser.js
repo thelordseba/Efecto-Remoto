@@ -281,7 +281,7 @@ export default withFormik({
   handleSubmit(values, formikBag) {
     //funcion recibe el nombre de los valores del input.FormikBag da acceso a props de la forma
     axios
-      .post(`http://localhost:3001/users`, values)
+      .post(`${process.env.REACT_APP_API}/users`, values)
       .then(() => {
         formikBag.setSubmitting(false); //debo deshabilitar isSubmitting una vez que pasa la info
         alert("Usuario creado");

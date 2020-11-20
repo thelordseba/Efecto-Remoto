@@ -6,9 +6,9 @@ import jwt from "jsonwebtoken";
 
 import * as constants from "../redux/reducers/constants.js";
 
-async function signIn(userName, password) {
+async function signIn(email, password) {
   try {
-    const response = await axios.post( `http://localhost:3001/auth/login/email`, { userName, password } );
+    const response = await axios.post( `${process.env.REACT_APP_API}/auth/login/email`, { email, password } );
     return response.data;
   } catch (error) {
     const data = error.response.data;
@@ -51,7 +51,7 @@ export default function useUser() {
 
   async function register(email, password) {
     const { data: user } = await axios.post(
-      `http://localhost:3001/auth/register`,
+      `${process.env.REACT_APP_API}/auth/register`,
       {
         email,
         password,
@@ -62,7 +62,7 @@ export default function useUser() {
 
   async function updateUserData(user) {
     const { data } = await axios.put(
-      `http://localhost:3001/users/${user.id}`,
+      `${process.env.REACT_APP_API}/users/${user.id}`,
       user
     );
     if (data) setLocalUser({ ...localUser, user: data });

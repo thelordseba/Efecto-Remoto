@@ -1,6 +1,5 @@
 const server = require("express").Router();
 const { User } = require("./db.js");
-const passport = require('passport'); //se lo agregue porque no estaba
 
 const { FACEBOOK_APP_ID, FACEBOOK_APP_SECRET, HOST, secretJWT, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
 
@@ -76,14 +75,14 @@ passport.use(
   })
 );
 
-passport.serialUser(function(user, done) {
-  done(null, user.id);
-});
-  passport.deserialzeUser(function(id, done){
-    User.findById(id, function(err, user){
-      done(err, user);
-    });
-  });
+// passport.serializeUser(function(user, done) {
+//   done(null, user.id);
+// });
+//   passport.deserializeUser(function(id, done){
+//     User.findById(id, function(err, user){
+//       done(err, user);
+//     });
+//   }); Esto es para una estrategia de sesión, no sirve para la estrategia de JWT
 
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
