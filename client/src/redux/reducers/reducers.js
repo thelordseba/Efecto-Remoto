@@ -10,8 +10,6 @@ const initialState = {
   ngos: [],
   users: [],
   currentUser: [],
-  loggedIn: false,
-  reviews: [],
 };
 
 export default (state = initialState, action) => {
@@ -74,15 +72,10 @@ export default (state = initialState, action) => {
         ...state,
         currentUser: action.payload,
       };
-    case constants.GETORDERSBYSTATUS:
+    case constants.SETCURRENTUSER:
       return {
         ...state,
-        orders: action.payload,
-      };
-    case constants.GETREVIEWS:
-      return {
-        ...state,
-        reviews: action.payload,
+        currentUser: action.payload,
       };
     default:
       return state;

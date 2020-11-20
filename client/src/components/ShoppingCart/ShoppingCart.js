@@ -1,5 +1,5 @@
-import axios from "axios";
 import React, { useEffect, useMemo, useState } from "react";
+import { useSelector } from "react-redux";
 import ShoppingItem from "../ShoppingItem/ShoppingItem";
 import { useHistory } from "react-router-dom";
 import "./ShoppingCart.css";
@@ -10,6 +10,7 @@ function ShoppingCart(props) {
   // let localCart = JSON.parse(localStorage.getItem("cart"));
   let localCart = localStorage.getItem("cart");
   const [cart, setCart] = useState(localCart ? JSON.parse(localCart) : []);
+  const loggedin = useSelector((state) => state.loggedIn);
 
   const products = useMemo(() => {
     return JSON.parse(localStorage.getItem("cart"));
@@ -55,18 +56,13 @@ function ShoppingCart(props) {
     window.location.reload(); // para que se actualice el Local Storage
   };
 
-  const handleCreateOrder = () => {
-    axios
-      .post(`http://localhost:3001/orders/7`) // por ahora está para el usuario 1
-      .then(
-        () => {
-          alert("Orden creada");
-          return axios.post(`http://localhost:3001/orders/1/cart`, cart);
-        },
-        () => {
-          alert("Hubo un error. Por favor, intentá de nuevo.");
-        }
-      );
+  const handleClickCheckout = () => {
+    if (loggedin) {
+      history.push(`/checkout`);
+    } else {
+      alert("debe loguearse");
+      //Ir a componente de logueo
+    }
   };
 
   useEffect(() => {
@@ -85,7 +81,6 @@ function ShoppingCart(props) {
           <div className="divider-cart" />
           {products.map((prod) => (
             <ShoppingItem
-              key={prod.id}
               product={prod}
               handleOnChangeQuantity={handleOnChangeQuantity}
             />
@@ -107,8 +102,8 @@ function ShoppingCart(props) {
         </div>
       </div>
       <div className="bottom-cart">
-        <div className="cart-next" onClick={handleCreateOrder}>
-          Siguiente
+        <div className="cart-next" onClick={handleClickCheckout}>
+          Checkout
         </div>
       </div>
     </>

@@ -17,6 +17,7 @@ import FormUser from "components/FormUser/FormUser";
 import ShoppingCart from "components/ShoppingCart/ShoppingCart";
 import UserTable from "containers/UserTable/UserTable.js";
 import UserDetails from "containers/UserDetails/UserDetails.js";
+import Checkout from "containers/Checkout/Checkout.js";
 import Login from "components/Login/Login.js";
 import ResetPassword from "components/ResetPassword";
 import ReviewTable from "containers/ReviewTable/ReviewTable.js";
@@ -135,6 +136,11 @@ const routes = [
   {
     path: "/register",
     render: ({ match }) => <FormUser admin={false} />,
+    exact: true,
+  },
+  {
+    path: "/checkout",
+    component: Checkout,
     exact: true,
   },
   {
