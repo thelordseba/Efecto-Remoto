@@ -2,14 +2,22 @@
 import React from "react";
 import emptyRatingLogo from "../common/emptyRating.png";
 import fullRatingLogo from "../common/fullRating.png";
+import './Stars.css'
 
 let array = [1, 2, 3, 4, 5];
 
 class Stars extends React.Component {
-  state = {
-    stars: [null],
-    vacias: [null]
-  };
+  constructor(props){
+    super(props);
+    this.state = { stars: [null], vacias: [null] }
+    this.handleStars = this.handleStars.bind(this);
+  }
+
+
+  // state = {
+  //   stars: [null],
+  //   vacias: [null]
+  // };
 
   componentDidMount() {
     if (this.props.disabledClick && this.props.stars) {
@@ -43,8 +51,8 @@ class Stars extends React.Component {
     if (this.state.stars[0] === null) {
       return (
         <div className="bottom ">
-          {/*<p>Review</p>*/}
 
+          
           <div>
             {array.map(star => (
               <img
