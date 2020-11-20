@@ -1,6 +1,7 @@
 //REVIEW ANDANDO
 import React from "react";
-import './styles.css'
+import emptyRatingLogo from "../common/emptyRating.png";
+import fullRatingLogo from "../common/fullRating.png";
 
 let array = [1, 2, 3, 4, 5];
 
@@ -42,15 +43,15 @@ class Stars extends React.Component {
     if (this.state.stars[0] === null) {
       return (
         <div className="bottom ">
-          <p>Review</p>
+          {/*<p>Review</p>*/}
 
           <div>
             {array.map(star => (
               <img
                 className="stars"
                 onClick={this.handleStars}
-                name={array.indexOf(star) + 1}
-                src="https://image.flaticon.com/icons/svg/1828/1828970.svg"
+                name={array.indexOf(star) + 1}                
+                src= {emptyRatingLogo}
                 alt="starv"
               />
             ))}
@@ -66,8 +67,8 @@ class Stars extends React.Component {
               <img
                 className="stars"
                 onClick={this.handleStars}
-                name={array.indexOf(star) +1}
-                src="https://image.flaticon.com/icons/png/512/1828/1828961.png"
+                name={array.indexOf(star) +1}                
+                src= {fullRatingLogo}
                 alt="starl"
               />
             ))}
@@ -75,8 +76,8 @@ class Stars extends React.Component {
               <img
                 className="stars"
                 onClick={this.handleStars}
-                name={array.indexOf(star) + 1}
-                src="https://image.flaticon.com/icons/svg/1828/1828970.svg"
+                name={array.indexOf(star) + 1}                
+                src= {emptyRatingLogo}
                 alt="starv"
               />
             ))}
