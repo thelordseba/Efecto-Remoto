@@ -5,7 +5,7 @@ export function getProducts(page = 1, limit = 10) {
   return async function (dispatch) {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API}/products?offset=${
+        `http://localhost:3001/products?offset=${
           (page - 1) * limit
         }&limit=${limit}`
       );
@@ -23,7 +23,7 @@ export function getProductsByQuery(search, page = 1, limit = 10) {
   return async function (dispatch) {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API}/products/search?query=${search}&offset=${
+        `http://localhost:3001/products/search?query=${search}&offset=${
           (page - 1) * limit
         }&limit=${limit}`
       );
@@ -41,7 +41,7 @@ export function getProductsByCategory(category, page = 1, limit = 2) {
   return async function (dispatch) {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API}/products/categories/${category}?offset=${
+        `http://localhost:3001/products/categories/${category}?offset=${
           (page - 1) * limit
         }&limit=${limit}`
       );
@@ -59,7 +59,7 @@ export function deleteProduct(id) {
   return async function (dispatch) {
     try {
       const response = await axios.delete(
-        `${process.env.REACT_APP_API}/products/${id}`
+        `http://localhost:3001/products/${id}`
       );
       dispatch({
         type: actions.DELETEPRODUCT,
@@ -83,7 +83,7 @@ export function setSearch(payload) {
 export function getCategories() {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API}/categories/`);
+      const response = await axios.get(`http://localhost:3001/categories/`);
       dispatch({
         type: actions.GETCATEGORIES,
         payload: response.data,
@@ -96,7 +96,7 @@ export function getCategories() {
 export function getOrders() {
   return function (dispatch) {
     return axios
-      .get(`${process.env.REACT_APP_API}/orders`)
+      .get(`http://localhost:3001/orders`)
       .then((response) => {
         dispatch({
           type: actions.GETORDERS,
@@ -112,7 +112,7 @@ export function getOrders() {
 export function getOrderById(id) {
   return function (dispatch) {
     return axios
-      .get(`${process.env.REACT_APP_API}/orders/${id}`)
+      .get(`http://localhost:3001/orders/${id}`)
       .then((response) => {
         dispatch({
           type: actions.GETORDERBYID,
@@ -127,7 +127,7 @@ export function getOrderById(id) {
 
 export function getOrderByUserId(userId) {
     return function(dispatch) {
-        return axios.get(`${process.env.REACT_APP_API}/orders/${userId}/shopping-cart`)
+        return axios.get(`http://localhost:3001/orders/${userId}/shopping-cart`)
         .then(response => {
             dispatch({ 
                 type: actions.GETORDERBYUSERID, 
@@ -143,7 +143,7 @@ export function getOrderByUserId(userId) {
 export function getNgos() {
   return function (dispatch) {
     return axios
-      .get(`${process.env.REACT_APP_API}/ngos`)
+      .get(`http://localhost:3001/ngos`)
       .then((response) => {
         dispatch({
           type: actions.GETNGOS,
@@ -159,7 +159,7 @@ export function getNgos() {
 export function getUsers() {
   return function (dispatch) {
     return axios
-      .get(`${process.env.REACT_APP_API}/users`)
+      .get(`http://localhost:3001/users`)
       .then((response) => {
         dispatch({
           type: actions.GETUSERS,
@@ -174,7 +174,7 @@ export function getUsers() {
 
 export function getUserById(id) {
   return function(dispatch) {
-    return axios.get(`${process.env.REACT_APP_API}/users/${id}`)
+    return axios.get(`http://localhost:3001/users/${id}`)
     .then(response => {
         dispatch({ 
           type: actions.GETUSERBYID, 
@@ -192,7 +192,7 @@ export function getOrdersByStatus(status) {
   return async function (dispatch) {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API}/orders/?status=${status}`
+        `http://localhost:3001/orders/?status=${status}`
       );
       dispatch({
         type: actions.GETORDERSBYSTATUS,
@@ -207,7 +207,7 @@ export function getOrdersByStatus(status) {
 export function getReviews() {
   return function (dispatch) {
     return axios
-      .get(`${process.env.REACT_APP_API}/reviews`)
+      .get(`http://localhost:3001/reviews`)
       .then((response) => {
         dispatch({
           type: actions.GETREVIEWS,

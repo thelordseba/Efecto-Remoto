@@ -7,14 +7,14 @@ export default function LoginWithToken() {
         <div>
         <button
           onClick={() =>
-            (window.location = `${process.env.REACT_APP_API}/auth/login/google`)
+            (window.location = `http://localhost:3001/auth/login/google`)
           }
         >
           <Google fill="teal" />
         </button>
         <button
           onClick={() =>
-            (window.location = `${process.env.REACT_APP_API}/auth/login/facebook`)
+            (window.location = `http://localhost:3001/auth/login/facebook`)
           }
         >
           <Facebook fill="teal" />
