@@ -5,6 +5,51 @@ const { User } = require("../db.js");
 
 const { HOSTFRONT, secretJWT } = process.env;
 
+// login local
+server.post("/login/email", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) return next(err);
+    if (!user) {
+      return res.status(401).json({ status: "error", code: "unauthorized", message: "Usuario y/o contraseña inválida", info });
+    } else {
+      return res.json({ user, token: jwt.sign({ id: user.id, isAdmin: user.isAdmin }, secretJWT),
+      });
+    }
+  })(req, res, next);
+});
+
+server.post('/logout/email', (req, res,) => {
+	if (req.isAuthenticated()) {
+		req.logout();
+		res.sendStatus(200);
+	}
+    return res.status(401).send('Error de logueo');
+}); 
+
+server.post("/register", async (req, res) => {
+  const {
+    firstName, 
+    lastName,
+    email,
+    password,
+  } = req.body;
+  try {
+    if (!name || !email || !password)
+      res.status(400).json({ message: 'Datos incompletos' })
+    else {
+      const user = await User.create(firstName, lastName, email, password)
+      return res.json({
+        user,
+        token: jwt.sign({ id: user.id, isAdmin: user.isAdmin }, secretJWT),
+      });
+    }
+  }
+  catch (err) {
+    console.log(err.message)
+    res.status(400).json({ message: 'Email en uso' })
+  }
+})
+
 // PROBAR LA RUTA EN CHROME!!!
 server.get("/login/facebook", passport.authenticate("facebook"));
 
@@ -42,5 +87,20 @@ server.get("/me", async (req, res) => {
     res.json({ id, userName, firstName, lastName, email, isAdmin });
   }
 });
+
+server.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
+
+server.get("/login/google/callback", (req, res, next) => {
+  passport.authorize("google", (err, user) => {
+    if (err) return next(err);
+    if (!user) {
+      res.redirect(`${HOSTFRONT}/loginuser?error=401`);
+    } else {
+      const token = jwt.sign({ id: user.id, isAdmin: user.isAdmin }, secretJWT);
+      res.redirect(`${HOSTFRONT}/loginuser?t=${token}`);
+    }
+  })(req, res, next);
+});
+
 
 module.exports = server;
