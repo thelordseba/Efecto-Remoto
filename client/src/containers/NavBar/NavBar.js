@@ -34,9 +34,10 @@ function NavBar() {
             <li className="listee">
               <a href="/products">Productos</a>
             </li>
-            <li className="listee">
+
+            {/* <li className="listee">
               <a href="/faq">FAQ</a>
-            </li>
+            </li> */}
           </ul>
         </div>
         <div className="grid grid3">
@@ -44,12 +45,17 @@ function NavBar() {
         </div>
         <div className="grid grid4">
           <ul className="grid list">
+
             <li className="listee">
+              
+              <div>
               <a href="/admin/products"><SettingsIcon
                   fill="#fff"
                   style={{ marginLeft: "8px" }}
                 /></a>
+                </div>
             </li>
+
             <li className="listee">
               <a href="/carrito"><BagIcon fill="#fff" /></a>
             </li>
@@ -67,7 +73,7 @@ function NavBar() {
                      <a href="" style={{padding: "10px 15px"}}>Hola, {currentUser.firstName}</a>
                      <ul className="menu">
                        <li><a href="/profile/data">Mi Perfil</a></li>
-                       <li><a href="#">FAQ</a></li>
+                       <li><a href="/faq">FAQ</a></li>
                        <li><a onClick={() => logOut()}>Cerrar Sesión</a></li>
                      </ul>
                </li>}
