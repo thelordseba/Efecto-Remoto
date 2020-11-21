@@ -9,7 +9,7 @@ function ShoppingCart(props) {
   // let localCart = JSON.parse(localStorage.getItem("cart"));
   let localCart = localStorage.getItem("cart");
   const [cart, setCart] = useState(localCart ? JSON.parse(localCart) : []);
-  const loggedin = useSelector((state) => state.loggedIn);
+  const currentUser = useSelector((state) => state.currentUser);
 
   const products = useMemo(() => {
     return JSON.parse(localStorage.getItem("cart"));
@@ -62,11 +62,11 @@ function ShoppingCart(props) {
   };
 
   const handleClickCheckout = () => {
-    if (loggedin) {
+    currentUser.push(1); //HARDCODEADO: Le pongo un elemento al array para que pase el if
+    if (currentUser.length !== 0) {     
       history.push(`/checkout`);
     } else {
-      alert("debe loguearse");
-      //Ir a componente de logueo
+      history.push("/loginuser");
     }
   };
 
