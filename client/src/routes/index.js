@@ -4,7 +4,6 @@ import ProductDetail from "components/ProductDetail/ProductDetail.js";
 import Nosotros from "components/Nosotros/Nosotros.js";
 import FAQ from "components/FAQ/FAQ.js";
 import HomeAdmin from "containers/HomeAdmin/HomeAdmin.js";
-import HomeUser from "containers/HomeUser/HomeUser.js";
 import Home from "containers/Home/Home.js";
 import ProductCrud from "components/ProductCrud/ProductCrud";
 import NgosCrud from "components/NgosCrud/NgosCrud.js";
@@ -45,20 +44,11 @@ const routes = [
     component: ProductCatalog,
     exact: true,
   },
-  {
-    path: "/profile",
-    component: HomeUser,
-  },
-  {
-    path: "/profile/orders",
-    render: () => <OrderTable user={true} />,
-    exact: true,
-  },
-  {
-    path: "/profile/data",
-    component: FormUser,
-    exact: true,
-  },
+  // {
+  //   path: "/profile",
+  //   component: HomeUser,
+  // },
+  
   {
     path: "/admin",
     component: HomeAdmin,
