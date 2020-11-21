@@ -1,12 +1,66 @@
 const server = require("express").Router();
 const { User } = require("./db.js");
 
-const { FACEBOOK_APP_ID, FACEBOOK_APP_SECRET, HOST, secretJWT } = process.env;
+const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET, HOST, secretJWT } = process.env;
 
 const passport = require("passport"),
+  LocalStrategy = require("passport-local").Strategy,
   FacebookStrategy = require("passport-facebook").Strategy,
+  GoogleStrategy = require("passport-google-oauth20").Strategy,
   BearerStrategy = require("passport-http-bearer").Strategy;
 
+/// ESTRATEGIA LOCAL ///
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({ userName: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      if (!user.verifyPassword(password)) { return done(null, false); }
+      return done(null, user);
+    });
+  }
+));
+
+/// ESTRATEGIA GOOGLE ///
+const getOneByGoogleId = async (gmailId) => {
+  try {
+    const user = User.findOne({
+      where: { gmailId },
+      include: [{ model: Review, include: Product }],
+    });
+    return user;
+  } catch (error) {
+    return error;
+  }
+};
+
+passport.use(new GoogleStrategy(
+    {
+      clientID: GOOGLE_CLIENT_ID,
+      clientSecret: GOOGLE_CLIENT_SECRET,
+      callbackURL: `${HOST}/auth/login/google/callback`,
+      session: false,
+    },
+    async (token, tokenSecret, profile, done) => {
+      let user = await getOneByGoogleId(profile.id);
+      if (!user)
+        user = await User.create({
+          userName: username,
+          firstName: profile.displayName[0],
+          lastName: profile.displayName[1],
+          email: profile.emails[0].value,
+          gmailId: profile.id,
+          isAdmin: false,
+        });
+      const { id, userName, firstName, lastName, email, isAdmin } = user;
+      return done(null, {
+        id, userName, firstName, lastName, email, isAdmin
+      });
+    }
+  )
+);
+
+/// ESTRATEGIA DE FACEBOOK ///
 const getOneByFacebookId = async (facebookId) => {
   try {
     const user = User.findOne({
@@ -64,6 +118,8 @@ passport.use(
     }
   )
 );
+
+///
 
 passport.use(
   new BearerStrategy((token, done) => {
