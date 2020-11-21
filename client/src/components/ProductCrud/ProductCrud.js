@@ -203,10 +203,7 @@ export default function ProductCrud({ id }) {
           <UploadImage handleURL={handleURL} />
           <br></br>
           <button className="button-crud" onClick={handleOnClick}>
-            <img
-              src={product.url?.product.url}
-              alt="La imagen no puede ser mostrada"
-            />
+            <img src={product?.url} alt="La imagen no puede ser mostrada" />
             {id ? "ACTUALIZAR" : "CREAR"}
           </button>
         </form>
