@@ -46,15 +46,15 @@ function NavBar() {
         <div className="grid grid4">
           <ul className="grid list">
 
+          { currentUser?.isAdmin ?
             <li className="listee">
-              
               <div>
-              <a href="/admin/products"><SettingsIcon
+                <a href="/admin/products"><SettingsIcon
                   fill="#fff"
                   style={{ marginLeft: "8px" }}
                 /></a>
-                </div>
-            </li>
+              </div> 
+            </li> : null }
 
             <li className="listee">
               <a href="/carrito"><BagIcon fill="#fff" /></a>

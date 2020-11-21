@@ -179,16 +179,16 @@ function FormUser(props) {
 
 export default withFormik({
   mapPropsToValues(props) {
-    return {
-      userName: "", //si
-      email: "", //si     //inicializo el estado (puede traer valor por default recibido desde props)
-      password: "", //si
-      firstName: "", //si
-      lastName: "", //si
-      telephone: "", //si
-      address: "", //si
-      number: "", //si
-      postalCode: "", //si
+    return {    //inicializo el estado (puede traer valor por default recibido desde props)
+      userName: "", 
+      email: "",     
+      password: "", 
+      firstName: "", 
+      lastName: "", 
+      telephone: "", 
+      address: "", 
+      number: "", 
+      postalCode: "", 
       province: "",
       city: "",
       country: "",
@@ -221,7 +221,6 @@ export default withFormik({
     }
 
     //validacion de números
-
     if (!values.telephone) {
       errors.telephone = "Completar campo";
     } else if (isNaN(values.telephone)) {

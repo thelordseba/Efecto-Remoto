@@ -72,6 +72,8 @@ a, a:visited, a:hover, a:active {
     min-width: 120px;
     text-align: center;
 
+   
+
     &:hover{
         .menu{
             display: block;
@@ -100,19 +102,20 @@ a, a:visited, a:hover, a:active {
     padding: 10px 15px;
     display: block;
     min-width:90px;
-    
-   
+  
 }
 
 .profile li a:hover {
     background-color:  #329999;
     display: block;
+   
 
 }
 .profile li ul{
     display: none;
     position: absolute;
     min-width: 90px;;
+   
     
 }
 .profile li:hover > ul{
