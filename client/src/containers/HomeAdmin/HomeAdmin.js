@@ -24,7 +24,6 @@ function HomeAdmin() {
           <a href="/admin/reviews">Reviews</a>
         </li>
       </ul>
-      {/* <ProductCatalog admin={true} /> */}
     </div>
   );
 }

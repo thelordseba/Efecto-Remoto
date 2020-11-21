@@ -18,7 +18,7 @@ function useQuery() {
 
 function Login(props) {
   const { isSubmitting, isValid } = props; // viene de las props del componente
-  console.log(isSubmitting);
+  // console.log(isSubmitting);
   const history = useHistory();
 
   const query = useQuery();
@@ -72,9 +72,7 @@ function Login(props) {
         </div>
       </Form>
       <div>
-        <a href="AcaPegoElLinkParaRecuperarLaContraseña">
-          ¿Olvidaste tu contraseña?
-        </a>
+        <a href="/resetpassword">¿Olvidaste tu contraseña?</a>
         <a href="/register">Registrate</a>
       </div>
       <div>También podés iniciar sesión con:</div>

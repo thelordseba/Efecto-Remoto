@@ -19,13 +19,13 @@ function FormUser(props) {
     history.push(`/admin/users`);
   };
 
-  const { localUser } = useUser();
+  const { localUser, register } = useUser();
 
   useEffect(() => {
     if (localUser) history.push("/");
   }, [localUser, history]);
 
-  const { loginWithToken } = useUser();
+  const { loginWithToken, loginWithEmail } = useUser();
   const query = useQuery();
 
   useEffect(() => {
@@ -37,6 +37,18 @@ function FormUser(props) {
     })();
   }, [query.token, history, loginWithToken]);
 
+
+  const handleSubmit = async (values) => {
+    console.log("entré")
+    try {
+      await register(values.userName, values.firstName, values.lastName, values.email, values.password)
+      history.push("/");
+    } catch (error) {
+      const data = error.response.data
+      if (data.message) alert(data.message)
+    }
+  }
+
   return (
     <>
       <h1>Crear usuario</h1>
@@ -45,7 +57,7 @@ function FormUser(props) {
           Volver
         </div>
       ) : null}
-      <Form>
+      <Form onSubmit={handleSubmit}>
         {props.admin ? (
           <div className="row">
             Administrador:
@@ -280,20 +292,22 @@ export default withFormik({
     return errors;
   },
 
-  handleSubmit(values, formikBag) {
-    //funcion recibe el nombre de los valores del input.FormikBag da acceso a props de la forma
-    axios
-      .post(`http://localhost:3001/users`, values)
-      .then(() => {
-        formikBag.setSubmitting(false); //debo deshabilitar isSubmitting una vez que pasa la info
-        alert("Usuario creado");
-      })
-      .catch(() => {
-        formikBag.setSubmitting(false); //debo deshabilitar isSubmitting una vez que pasa la info
-        alert("Hubo un error. Por favor, intentá de nuevo.");
-      });
-    // .then(() => useHistory().push('/'))
-  },
+//   handleSubmit(values, formikBag) {
+//     //funcion recibe el nombre de los valores del input.FormikBag da acceso a props de la forma
+//     axios
+//       .post(`http://localhost:3001/users`, values)
+//       .then(() => {
+//         formikBag.setSubmitting(false); //debo deshabilitar isSubmitting una vez que pasa la info
+//         alert("Usuario creado");
+//       })
+//       .catch(() => {
+//         formikBag.setSubmitting(false); //debo deshabilitar isSubmitting una vez que pasa la info
+//         alert("Hubo un error. Por favor, intentá de nuevo.");
+//       });
+//     // .then(() => useHistory().push('/'))
+//   },
 })(FormUser);
+
+
 //manda un objeto de configuracion y al resultado le mandamos a llamar el componente que queremos que configure, le pasamos varias opciones de configuracion
 //withformik metodo para saber y procesar cuando la forma se submiteo

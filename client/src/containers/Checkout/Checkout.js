@@ -8,6 +8,7 @@ import "./checkout.css";
 const Checkout = () => {
   const history = useHistory();
   const order = useSelector((state) => state.order);
+
   const currentUser = useSelector(state => state.currentUser);
   const dispatch = useDispatch();
 
@@ -53,17 +54,18 @@ const Checkout = () => {
         <div className="container-summary">
           <div className="title-container-summary">Orden de compra:</div>
           <div className="divider-summary" />
-          <div>Nombre completo: {currentUser.firstName + " " + currentUser.lastName}</div>
+
+          <div>Nombre completo: {" " + currentUser.firstName + " " + currentUser.lastName}</div>
           <div>Email: {currentUser.email}</div>
           <div>
             Dirección de facturación:{" "}
-            {currentUser.location.address +
+            {currentUser.location?.address +
               " " +
-              currentUser.location.number +
+              currentUser.location?.number +
               " - " +
-              currentUser.location.city +
+              currentUser.location?.city +
               " (" +
-              currentUser.location.postalCode +
+              currentUser.location?.postalCode +
               ")"}
           </div>
         </div>

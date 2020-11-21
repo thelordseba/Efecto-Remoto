@@ -13,7 +13,7 @@ function ShoppingCart(props) {
 
   const products = useMemo(() => {
     return JSON.parse(localStorage.getItem("cart"));
-  }, []);
+  }, [cart]);
 
   const handleBack = () => {
     history.push(`/products`);
@@ -61,9 +61,10 @@ function ShoppingCart(props) {
     window.location.reload(); // para que se actualice el Local Storage
   };
 
-  const handleClickCheckout = () => {
-    currentUser.push(1); //HARDCODEADO: Le pongo un elemento al array para que pase el if
+
+   // currentUser.push(1); //HARDCODEADO: Le pongo un elemento al array para que pase el if
     if (currentUser.length !== 0) {     
+
       history.push(`/checkout`);
     } else {
       history.push("/loginuser");
@@ -73,6 +74,8 @@ function ShoppingCart(props) {
   useEffect(() => {
     if (localCart) setCart(JSON.parse(localCart));
   }, [localCart]);
+
+  console.log(currentUser);
 
   return (
     <>
