@@ -1,18 +1,18 @@
 import React from "react";
 import SearchBar from "../../components/SearchBar/SearchBar.js";
 import manitos from "./Images/Manitos2.jpeg";
-import useUser from "../../Hooks/useUser"
+import useUser from "../../Hooks/useUser";
 import "./NavBar.scss";
 // import { useHistory } from "react-router-dom";
 // import user from "../MyProfile/Images/usuario.png";
-import BagIcon from 'components/Icons/Bag'
-import SettingsIcon from 'components/Icons/SettingsIcon'
+import BagIcon from "components/Icons/Bag";
+import SettingsIcon from "components/Icons/SettingsIcon";
 import { useSelector } from "react-redux";
 
 function NavBar() {
   // const loggedIn = true;
-  const currentUser = useSelector(state => state.currentUser);
-  const {logOut} = useUser()
+  const currentUser = useSelector((state) => state.currentUser);
+  const { logOut } = useUser();
   // const history = useHistory();
   // const handleOnClickCart = () => {
   //     history.push(`/carrito`)
@@ -45,22 +45,23 @@ function NavBar() {
         </div>
         <div className="grid grid4">
           <ul className="grid list">
+            {currentUser?.isAdmin ? (
+              <li className="listee">
+                <div>
+                  <a href="/admin/products">
+                    <SettingsIcon fill="#fff" style={{ marginLeft: "8px" }} />
+                  </a>
+                </div>
+              </li>
+            ) : null}
 
-          { currentUser?.isAdmin ?
             <li className="listee">
-              <div>
-                <a href="/admin/products"><SettingsIcon
-                  fill="#fff"
-                  style={{ marginLeft: "8px" }}
-                /></a>
-              </div> 
-            </li> : null }
-
-            <li className="listee">
-              <a href="/carrito"><BagIcon fill="#fff" /></a>
+              <a href="/carrito">
+                <BagIcon fill="#fff" />
+              </a>
             </li>
 
-            {!currentUser ? (
+            {!currentUser || currentUser?.length ? (
               <>
                 <li className="listee">
                   <a href="/register">Registrate</a>
@@ -69,15 +70,26 @@ function NavBar() {
                   <a href="/loginuser">Iniciar Sesión</a>
                 </li>
               </>
-            ) : <li className="profile">
-                     <a href="" style={{padding: "10px 15px"}}>Hola, {currentUser.firstName}</a>
-                     <ul className="menu">
-                       <li><a href="/profile/data">Mi Perfil</a></li>
-                       <li><a href="/faq">FAQ</a></li>
-                       <li><a onClick={() => logOut()}>Cerrar Sesión</a></li>
-                     </ul>
-               </li>}
-
+            ) : (
+              <li className="profile">
+                <a href="*" style={{ padding: "10px 15px" }}>
+                  PROFILE
+                </a>
+                <ul className="menu">
+                  <li>
+                    <a href="/profile/data">Mi Perfil</a>
+                  </li>
+                  <li>
+                    <a href="/faq">FAQ</a>
+                  </li>
+                  <li>
+                    <a href="*" onClick={() => logOut()}>
+                      Cerrar Sesión
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            )}
           </ul>
         </div>
       </div>
