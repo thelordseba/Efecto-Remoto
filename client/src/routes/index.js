@@ -6,7 +6,7 @@ import FAQ from "components/FAQ/FAQ.js";
 import HomeAdmin from "containers/HomeAdmin/HomeAdmin.js";
 import HomeUser from "containers/HomeUser/HomeUser.js";
 import Home from "containers/Home/Home.js";
-import CreateUpdateProduct from "components/Product_CRUD/CreateUpdateProduct";
+import ProductCrud from "components/ProductCrud/ProductCrud";
 import NgosCrud from "components/NgosCrud/NgosCrud.js";
 import NgoTable from "containers/NgoTable/NgoTable.js";
 import CategoryTable from "containers/CategoryTable/CategoryTable";
@@ -90,12 +90,12 @@ const routes = [
   },
   {
     path: "/admin/addproduct",
-    render: () => <CreateUpdateProduct />,
+    render: () => <ProductCrud />,
     exact: true,
   },
   {
     path: "/product/edit/:id",
-    render: ({ match }) => <CreateUpdateProduct id={match.params.id} />,
+    render: ({ match }) => <ProductCrud id={match.params.id} />,
     exact: true,
   },
   {
