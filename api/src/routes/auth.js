@@ -61,7 +61,8 @@ server.get("/me", async (req, res) => {
 });
 
 /// ESTRATEGIA GOOGLE ///
-server.route("/login/google").get(passport.authenticate("google", { scope: ["profile", "email"]}));
+server.get("/login/google", passport.authenticate("google", { scope: ["profile", "email"]}));
+
 server.get("/login/google/callback", (req, res, next) => {
   passport.authorize("google", (err, user) => {
     if (err) return next(err);
@@ -75,7 +76,8 @@ server.get("/login/google/callback", (req, res, next) => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-      }, secretJWT);
+      }, `${secretJWT}`);
+
       res.redirect(`${HOSTFRONT}/loginuser?t=${token}`);
     }
   })(req, res, next);
@@ -102,6 +104,7 @@ server.get("/login/facebook/callback", (req, res, next) => {
         },
         `${secretJWT}`
       ); // acá necesito los datos de la base de datos
+      console.log(token)
       res.redirect(`${HOSTFRONT}/loginuser?t=${token}`); // VA AL FRONT Y PONE COMO QUERY EL TOKEN.
     }
   })(req, res, next);

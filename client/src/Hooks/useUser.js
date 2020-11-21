@@ -47,7 +47,6 @@ export default function useUser() {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       dispatch({ type: constants.SETCURRENTUSER, payload: user });
     }
-    console.log(user);
   }
 
   async function register(userName, firstName, lastName, email, password) {

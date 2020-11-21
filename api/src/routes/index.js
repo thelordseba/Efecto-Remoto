@@ -9,8 +9,6 @@ const locationsRouter = require("./locations");
 const reviewsRouter = require("./reviews");
 const router = Router();
 const authRouter = require("./auth");
-const authRouterGM = require("./authGM");
-const authRouterLocal = require("./authLocal");
 
 // load each router on a route
 // i.e: router.use('/auth', authRouter);

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import "./ProductCard.css";
-import Stars from "../Review/Stars";
+//import Stars from "../Review/Stars";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteProduct } from "../../redux/actions/actions";
 import { ReactComponent as CartIcon } from "../common/cart.svg";
 
-function ProductCard({ product, small = true, stars, admin, id }) {
+//function ProductCard({ product, small = true, stars, admin, id }) {
+function ProductCard({ product, small = true, admin, id }) {
   const history = useHistory();
   const [showSnackbar, setShowSnackbar] = useState(false);
   // const [cart, setCart] = useState([]);
@@ -66,7 +67,7 @@ function ProductCard({ product, small = true, stars, admin, id }) {
           {small && (
             <div className="stars-small">
               {" "}
-              <Stars disabledClick={true} stars={stars} />{" "}
+              {/*<Stars disabledClick={true} stars={stars} />{" "}*/}
             </div>
           )}
           <div className="price">${product.price}</div>
@@ -85,7 +86,7 @@ function ProductCard({ product, small = true, stars, admin, id }) {
               {/*<div className="review">Review</div>*/}
             </>
           ) : null}
-          {!small && <Stars disabledClick={true} stars={stars} />}
+          {/*!small && <Stars disabledClick={true} stars={stars} />*/}
           {small && admin ? (
             <div className="buttons-container">
               <div
