@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Stars from "../Review/Stars";
+//import Stars from "../Review/Stars";
 import './ProductDetail.css';
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { ReactComponent as CartIcon } from "../common/cart.svg";
 
-function ProductDetail({ small = false, stars, id }) {
+//function ProductDetail({ small = false, stars, id }) {
+
+function ProductDetail({ small = false, id }) {  
   const [showSnackbar, setShowSnackbar] = useState(false);
   const history = useHistory();
   let [product, setProduct] = useState([]);
@@ -70,7 +72,7 @@ function ProductDetail({ small = false, stars, id }) {
           {small && (
             <div className="stars-small">
               {" "}
-              <Stars disabledClick={true} stars={stars} />{" "}
+              {/*<Stars disabledClick={true} stars={stars} />{" "}*/}
             </div>
           )}
           <div className="title">${product.price}</div>
@@ -85,7 +87,7 @@ function ProductDetail({ small = false, stars, id }) {
               {/*<div className="review">Review</div>*/}
             </>
           ) : null}
-          {!small && <Stars disabledClick={true} stars={stars} />}
+          {/*!small && <Stars disabledClick={true} stars={stars} />*/}
           {small ? (
             <div
               className="product-detail-button"

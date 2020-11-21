@@ -61,12 +61,13 @@ function ShoppingCart(props) {
     window.location.reload(); // para que se actualice el Local Storage
   };
 
-  const handleClickCheckout = () => {
-    if (currentUser) {
+
+   // currentUser.push(1); //HARDCODEADO: Le pongo un elemento al array para que pase el if
+    if (currentUser.length !== 0) {     
+
       history.push(`/checkout`);
     } else {
-      alert("debe loguearse");
-      //Ir a componente de logueo
+      history.push("/loginuser");
     }
   };
 
