@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { User } = require("./db.js");
+const { User, Review, Product } = require("./db.js");
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET, HOST, secretJWT } = process.env;
 
@@ -34,6 +34,23 @@ const getOneByGoogleId = async (gmailId) => {
   }
 };
 
+const createOne = (firstName, lastName, email, isAdmin, gmailId) => {
+  // console.log(userName)
+  return new Promise((resolve, reject) => {
+    console.log(firstName)
+    User.create({ firstName, lastName, email, isAdmin, gmailId})
+      .then((user) => {
+        if (isAdmin) {
+          user.isAdmin = isAdmin;
+          user.save();
+        }
+        return user;
+      })
+      .then((user) => resolve(user))
+      .catch((err) => reject(err));
+  });
+};
+
 passport.use(new GoogleStrategy(
     {
       clientID: GOOGLE_CLIENT_ID,
@@ -44,17 +61,17 @@ passport.use(new GoogleStrategy(
     async (token, tokenSecret, profile, done) => {
       let user = await getOneByGoogleId(profile.id);
       if (!user)
-        user = await User.create({
-          userName: username,
-          firstName: profile.displayName[0],
-          lastName: profile.displayName[1],
-          email: profile.emails[0].value,
-          gmailId: profile.id,
-          isAdmin: false,
-        });
-      const { id, userName, firstName, lastName, email, isAdmin } = user;
+        user = await createOne(
+          profile.name.givenName,
+          profile.name.familyName,
+          profile.emails[0].value,
+          false,
+          profile.id,
+        );
+        console.log("user:", user)
+      const { id, firstName, lastName, email, isAdmin, gmailId } = user;
       return done(null, {
-        id, userName, firstName, lastName, email, isAdmin
+        id, firstName, lastName, email, isAdmin, gmailId
       });
     }
   )
