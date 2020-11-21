@@ -62,11 +62,10 @@ function ShoppingCart(props) {
   };
 
   const handleClickCheckout = () => {
-    // currentUser.push(1); //HARDCODEADO: Le pongo un elemento al array para que pase el if
-    if (currentUser.length !== 0) {
-      history.push(`/checkout`);
-    } else {
+    if (currentUser?.length === 0) {
       history.push("/loginuser");
+    } else {
+      history.push(`/checkout`);
     }
   };
 

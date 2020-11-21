@@ -61,7 +61,7 @@ function NavBar() {
               </a>
             </li>
 
-            {!currentUser || currentUser?.length ? (
+            {currentUser?.length ? (
               <>
                 <li className="listee">
                   <a href="/register">Registrate</a>
