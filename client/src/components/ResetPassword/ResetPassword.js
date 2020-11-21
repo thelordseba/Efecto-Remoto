@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import Password from "./Password.js";
 import PasswordConfirmation from "./PasswordConfirmation.js";
 import ErrorsList from "./ErrorsList.js";

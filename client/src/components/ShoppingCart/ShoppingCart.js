@@ -85,6 +85,7 @@ function ShoppingCart(props) {
           {products &&
             products.map((prod) => (
               <ShoppingItem
+                key={prod.id}
                 product={prod}
                 handleOnChangeQuantity={handleOnChangeQuantity}
                 onRemoveProduct={onRemoveProduct}

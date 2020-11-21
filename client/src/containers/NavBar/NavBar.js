@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SearchBar from "../../components/SearchBar/SearchBar.js";
 import manitos from "./Images/Manitos2.jpeg";
 import useUser from "../../Hooks/useUser";
@@ -17,6 +17,10 @@ function NavBar() {
   // const handleOnClickCart = () => {
   //     history.push(`/carrito`)
   //   }
+
+  useEffect(() => {
+    (async () => {})();
+  }, [currentUser]);
 
   return (
     <>
@@ -61,7 +65,7 @@ function NavBar() {
               </a>
             </li>
 
-            {currentUser?.length ? (
+            {!currentUser || currentUser.length === 0 ? (
               <>
                 <li className="listee">
                   <a href="/register">Registrate</a>
@@ -83,7 +87,7 @@ function NavBar() {
                     <a href="/faq">FAQ</a>
                   </li>
                   <li>
-                    <a href="*" onClick={() => logOut()}>
+                    <a href="/" onClick={() => logOut()}>
                       Cerrar Sesión
                     </a>
                   </li>

@@ -2,7 +2,6 @@ import React from "react";
 import { useEffect } from "react";
 import { withFormik, Field, ErrorMessage, Form } from "formik";
 import "./FormUser.css";
-import axios from "axios";
 import { useHistory } from "react-router-dom";
 import useUser from "../../Hooks/useUser.js";
 import LoginWithToken from "../LoginWToken/LoginWToken";
@@ -24,7 +23,7 @@ function FormUser(props) {
     if (localUser) history.push("/");
   }, [localUser, history]);
 
-  const { loginWithToken, loginWithEmail } = useUser();
+  const { loginWithToken } = useUser();
   const query = useQuery();
 
   useEffect(() => {
