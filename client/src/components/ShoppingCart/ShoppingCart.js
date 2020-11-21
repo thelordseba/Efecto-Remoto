@@ -9,7 +9,7 @@ function ShoppingCart(props) {
   // let localCart = JSON.parse(localStorage.getItem("cart"));
   let localCart = localStorage.getItem("cart");
   const [cart, setCart] = useState(localCart ? JSON.parse(localCart) : []);
-  const loggedin = useSelector((state) => state.loggedIn);
+  const currentUser = useSelector((state) => state.currentUser);
 
   const products = useMemo(() => {
     return JSON.parse(localStorage.getItem("cart"));
@@ -62,7 +62,7 @@ function ShoppingCart(props) {
   };
 
   const handleClickCheckout = () => {
-    if (loggedin) {
+    if (currentUser) {
       history.push(`/checkout`);
     } else {
       alert("debe loguearse");
@@ -73,6 +73,8 @@ function ShoppingCart(props) {
   useEffect(() => {
     if (localCart) setCart(JSON.parse(localCart));
   }, [localCart]);
+
+  console.log(currentUser);
 
   return (
     <>

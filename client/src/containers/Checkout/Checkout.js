@@ -8,7 +8,7 @@ import "./checkout.css";
 const Checkout = () => {
   const history = useHistory();
   const order = useSelector((state) => state.order);
-  const user = useSelector(state => state.user);
+  const currentUser = useSelector((state) => state.currentUser);
   const dispatch = useDispatch();
 
   const getTotal = () =>
@@ -46,9 +46,9 @@ const Checkout = () => {
 
   useEffect(
     () => async () => {
-      await dispatch(getOrderByUserId(user.id));
+      await dispatch(getOrderByUserId(currentUser.id));
     },
-    [dispatch, user.id]
+    [dispatch, currentUser.id]
   );
 
   const handleBack = () => {
@@ -83,17 +83,20 @@ const Checkout = () => {
         <div className="container-summary">
           <div className="title-container-summary">Orden de compra:</div>
           <div className="divider-summary" />
-          <div>Nombre completo: {user.firstName + " " + user.lastName}</div>
-          <div>Email: {user.email}</div>
+          <div>
+            Nombre completo:{" "}
+            {currentUser.firstName + " " + currentUser.lastName}
+          </div>
+          <div>Email: {currentUser.email}</div>
           <div>
             Dirección de facturación:{" "}
-            {user.location.address +
+            {currentUser.location?.address +
               " " +
-              user.location.number +
+              currentUser.location?.number +
               " - " +
-              user.location.city +
+              currentUser.location?.city +
               " (" +
-              user.location.postalCode +
+              currentUser.location?.postalCode +
               ")"}
           </div>
         </div>

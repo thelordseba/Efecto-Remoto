@@ -72,9 +72,7 @@ function Login(props) {
         </div>
       </Form>
       <div>
-        <a href="AcaPegoElLinkParaRecuperarLaContraseña">
-          ¿Olvidaste tu contraseña?
-        </a>
+        <a href="/resetpassword">¿Olvidaste tu contraseña?</a>
         <a href="/register">Registrate</a>
       </div>
       <div>También podés iniciar sesión con:</div>

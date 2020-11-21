@@ -154,7 +154,7 @@ const routes = [
     exact: true,
   },
   {
-    path: "/reset-password",
+    path: "/resetpassword",
     component: ResetPassword,
     exact: true,
   },
