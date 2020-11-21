@@ -12,7 +12,6 @@ import useQuery from "Hooks/useQuery";
 //Field es un componente que conecta directamente a formik
 function FormUser(props) {
   const { isSubmitting, isValid } = props; // viene de las props del componente
-  // console.log(isSubmitting)
   const history = useHistory();
 
   const handleGoBack = () => {
@@ -37,17 +36,21 @@ function FormUser(props) {
     })();
   }, [query.token, history, loginWithToken]);
 
-
   const handleSubmit = async (values) => {
-    console.log("entré")
     try {
-      await register(values.userName, values.firstName, values.lastName, values.email, values.password)
+      await register(
+        values.userName,
+        values.firstName,
+        values.lastName,
+        values.email,
+        values.password
+      );
       history.push("/");
     } catch (error) {
-      const data = error.response.data
-      if (data.message) alert(data.message)
+      const data = error.response.data;
+      if (data.message) alert(data.message);
     }
-  }
+  };
 
   return (
     <>
@@ -191,16 +194,17 @@ function FormUser(props) {
 
 export default withFormik({
   mapPropsToValues(props) {
-    return {    //inicializo el estado (puede traer valor por default recibido desde props)
-      userName: "", 
-      email: "",     
-      password: "", 
-      firstName: "", 
-      lastName: "", 
-      telephone: "", 
-      address: "", 
-      number: "", 
-      postalCode: "", 
+    return {
+      //inicializo el estado (puede traer valor por default recibido desde props)
+      userName: "",
+      email: "",
+      password: "",
+      firstName: "",
+      lastName: "",
+      telephone: "",
+      address: "",
+      number: "",
+      postalCode: "",
       province: "",
       city: "",
       country: "",
@@ -291,22 +295,21 @@ export default withFormik({
     return errors;
   },
 
-//   handleSubmit(values, formikBag) {
-//     //funcion recibe el nombre de los valores del input.FormikBag da acceso a props de la forma
-//     axios
-//       .post(`http://localhost:3001/users`, values)
-//       .then(() => {
-//         formikBag.setSubmitting(false); //debo deshabilitar isSubmitting una vez que pasa la info
-//         alert("Usuario creado");
-//       })
-//       .catch(() => {
-//         formikBag.setSubmitting(false); //debo deshabilitar isSubmitting una vez que pasa la info
-//         alert("Hubo un error. Por favor, intentá de nuevo.");
-//       });
-//     // .then(() => useHistory().push('/'))
-//   },
+  //   handleSubmit(values, formikBag) {
+  //     //funcion recibe el nombre de los valores del input.FormikBag da acceso a props de la forma
+  //     axios
+  //       .post(`http://localhost:3001/users`, values)
+  //       .then(() => {
+  //         formikBag.setSubmitting(false); //debo deshabilitar isSubmitting una vez que pasa la info
+  //         alert("Usuario creado");
+  //       })
+  //       .catch(() => {
+  //         formikBag.setSubmitting(false); //debo deshabilitar isSubmitting una vez que pasa la info
+  //         alert("Hubo un error. Por favor, intentá de nuevo.");
+  //       });
+  //     // .then(() => useHistory().push('/'))
+  //   },
 })(FormUser);
-
 
 //manda un objeto de configuracion y al resultado le mandamos a llamar el componente que queremos que configure, le pasamos varias opciones de configuracion
 //withformik metodo para saber y procesar cuando la forma se submiteo

@@ -25,7 +25,6 @@ export default function OrderTable(user) {
       if (status === "allStatus") dispatch(actions.getOrders());
       else {
         dispatch(actions.getOrdersByStatus(status));
-        console.log(status);
       }
     })();
   }, [dispatch, status]);

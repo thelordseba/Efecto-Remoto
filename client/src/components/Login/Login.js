@@ -18,7 +18,6 @@ function useQuery() {
 
 function Login(props) {
   const { isSubmitting, isValid } = props; // viene de las props del componente
-  // console.log(isSubmitting);
   const history = useHistory();
 
   const query = useQuery();

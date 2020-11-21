@@ -79,7 +79,6 @@ export default function ProductCrud({ id }) {
   };
 
   const handleOnChangeCategory = (e) => {
-    console.log(e.target.value);
     setSelectedCategories(
       // ...product,
       // selectedCategories: e.target.value
@@ -99,7 +98,6 @@ export default function ProductCrud({ id }) {
     })();
   }, [dispatch]);
 
-  console.log(selectedCategories);
   return (
     <>
       <div className="volver" onClick={handleGoBack}>

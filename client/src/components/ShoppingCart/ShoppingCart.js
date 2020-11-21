@@ -73,8 +73,6 @@ function ShoppingCart(props) {
     if (localCart) setCart(JSON.parse(localCart));
   }, [localCart]);
 
-  console.log(currentUser);
-
   return (
     <>
       <div className="back" onClick={handleBack}>
