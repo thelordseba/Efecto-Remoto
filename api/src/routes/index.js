@@ -14,14 +14,14 @@ const authRouterLocal = require("./authLocal");
 
 // load each router on a route
 // i.e: router.use('/auth', authRouter);
-router.use('/auth', authRouter);
-router.use('/authGM', authRouterGM);
-router.use('/authLocal', authRouterLocal);
-router.use('/products', productRouter);
-router.use('/categories', categoryRouter);
-router.use('/users', userRouter)
-router.use('/orders', orderRouter)
-router.use('/ngos', ngoRouter)
-router.use('/locations', locationsRouter), 
+router.use("/auth", authRouter);
+router.use("/authGM", authRouterGM);
+router.use("/authLocal", authRouterLocal);
+router.use("/products", productRouter);
+router.use("/categories", categoryRouter);
+router.use("/users", userRouter);
+router.use("/orders", orderRouter);
+router.use("/ngos", ngoRouter);
+router.use("/locations", locationsRouter);
 
 module.exports = router;
