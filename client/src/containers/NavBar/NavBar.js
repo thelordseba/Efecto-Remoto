@@ -80,7 +80,7 @@ function NavBar() {
             ) : (
               <li className={[styles.profile].join(' ')}>
                 <a href="*" style={{ padding: "10px 15px" }}>
-                  <span>Hola, {currentUser.firstName}</span>
+                  <span>¡Hola {currentUser.firstName.trim()}!</span>
                   <UserIcon fill="#fff" style={{marginLeft:"1rem"}} />
                 </a>
                 <ul className={styles.menu}>
