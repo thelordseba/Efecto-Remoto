@@ -20,10 +20,6 @@ export default function ProductCrud({ id }) {
 
   const handleOnClick = (e) => {
     e.preventDefault();
-    setProduct({
-      ...product,
-      url: image,
-    });
     if (id) {
       axios
         .put(`http://localhost:3001/products/${id}`, product)
