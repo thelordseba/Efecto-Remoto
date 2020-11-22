@@ -42,9 +42,9 @@ function NavBar() {
               <a href="/products">Productos</a>
             </li>
 
-            {/* <li className="listee">
-              <a href="/faq">FAQ</a>
-            </li> */}
+            <li className="listee">
+              <a href="#">Experiencias</a>
+            </li>
           </ul>
         </div>
         <div className="grid grid3">
@@ -78,12 +78,12 @@ function NavBar() {
                 </li>
               </>
             ) : (
-              <li className={styles.profile}>
+              <li className={[styles.profile].join(' ')}>
                 <a href="*" style={{ padding: "10px 15px" }}>
                   <span>Hola, {currentUser.firstName}</span>
                   <UserIcon fill="#fff" style={{marginLeft:"1rem"}} />
                 </a>
-                <ul className="menu">
+                <ul className={styles.menu}>
                   <li>
                     <a href="/profile/data">Mi Perfil</a>
                   </li>

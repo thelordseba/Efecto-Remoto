@@ -10,9 +10,10 @@
     background-color: transparent;
     border: none;
     color: #fff;
-    margin: 8px 16px;
+    margin: 0.25rem 0.5rem;
     padding-left: 16px;
     font-size: 16px;
+    width: 6rem;
 
     &::placeholder {
       color: #fff;
@@ -27,8 +28,12 @@
     font-size: 16px;
     color: white;
     border: none;
-    padding: 8px 16px;
+    padding: 0.25rem 0.5rem;
     transition-duration: 250ms;
+    display: flex;
+    align-items: center;
+    height: 1.75rem;
+    box-sizing: border-box;
 
     &:focus {
       outline: none;

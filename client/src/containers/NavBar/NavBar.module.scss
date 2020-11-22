@@ -64,43 +64,51 @@
 a, a:visited, a:hover, a:active {
     color: inherit;
     text-decoration: none
-  }
+}
 
 .profile{
-    padding: 10px;
     margin: auto;
     min-width: 120px;
     text-align: center;
+    position: relative;
+    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
+
     a{
         display: flex;
         align-items: center;
     }
-
-   
-
+ 
     &:hover{
+        background-color: #329999;
         .menu{
             display: block;
+            background-color: #329999;
         }
     }
-
-
 
     .menu{
         padding-left: 0;
         position: absolute;
         list-style: none;   
         display: none;
-    }
-    
+        border-bottom-right-radius: 0.5rem;
+        border-bottom-left-radius: 0.5rem;
+        overflow: hidden;
+        width:100%;
 
+        li {
+          &:hover {
+              background-color: #4ca6a6;
+          }  
+        }
+    }
   }
 .ulProfile{
     list-style: none;
 
 }
 .profile li a{
-    background-color: #0d7377;
     color:#ffff;
     text-decoration: none;
     padding: 10px 15px;
@@ -109,7 +117,6 @@ a, a:visited, a:hover, a:active {
 }
 
 .profile li a:hover {
-    background-color:  #329999;
     display: block;
    
 
