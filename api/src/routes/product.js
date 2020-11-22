@@ -6,14 +6,17 @@ const { Sequelize } = require("sequelize");
 // const { response } = require('express');
 
 // Task S17: Crear ruta para agregar o sacar categorías de un producto
-server.post("/:productId/category/:categoryId", async (req, res, next) => {
-  const { productId, categoryId } = req.params;
+server.post("/:productId/category", async (req, res, next) => {
+  const { productId } = req.params;
   try {
     const product = await Product.findByPk(productId);
     if (product) {
-      const category = await Category.findByPk(categoryId);
-      if (category) {
-        await product.addCategory(category);
+      const categories = [];
+      if (req.body) {
+        for (const cat of req.body) {
+          categories.push(Category.findByPk(cat));
+        }
+        await product.setCategories(await Promise.all(categories));
         res.sendStatus(201);
       } else {
         res.status(404).json({ error: "No se identificó ese ID de categoría" });

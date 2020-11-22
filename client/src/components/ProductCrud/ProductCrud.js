@@ -24,8 +24,9 @@ export default function ProductCrud({ id }) {
       axios
         .put(`http://localhost:3001/products/${id}`, product)
         .then(() => {
-          return selectedCategories.map((e) =>
-            axios.post(`http://localhost:3001/products/${id}/category/${e}`)
+          axios.post(
+            `http://localhost:3001/products/${id}/category`,
+            selectedCategories
           );
         })
         .then(() => alert("Producto modificado"))
@@ -36,10 +37,9 @@ export default function ProductCrud({ id }) {
       axios
         .post(`http://localhost:3001/products`, product)
         .then((response) => {
-          return selectedCategories.map((e) =>
-            axios.post(
-              `http://localhost:3001/products/${response.data.id}/category/${e}`
-            )
+          axios.post(
+            `http://localhost:3001/products/${response.data.id}/category`,
+            selectedCategories
           );
         })
         .then(() => alert("Producto agregado"))
