@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import ShoppingItem from "../ShoppingItem/ShoppingItem";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 function ShoppingCart(props) {
   const history = useHistory();
@@ -65,6 +66,17 @@ function ShoppingCart(props) {
     if (currentUser?.length === 0) {
       history.push("/loginuser");
     } else {
+      console.log('currentUser', currentUser)
+      const cart = JSON.parse(localStorage.getItem("cart"))
+      console.log('cart', cart)
+      cart.forEach(prod => {
+        const product = {productId: prod.id, quantity: prod.quantity, price: prod.price}
+        return axios.post(`http://localhost:3001/orders/${currentUser.id}/cart`, product)
+        .then (response =>console.log(response)) 
+        .catch(error=>console.log(error))
+        
+        
+              })
       history.push(`/checkout`);
     }
   };
@@ -72,6 +84,8 @@ function ShoppingCart(props) {
   useEffect(() => {
     if (localCart) setCart(JSON.parse(localCart));
   }, [localCart]);
+
+ 
 
   return (
     <>
