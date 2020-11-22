@@ -2,7 +2,7 @@ import React from "react";
 import "./ShoppingItem.css";
 import { ReactComponent as TrashIcon } from "../common/trash.svg";
 
-function ShoppingItem({ product, handleOnChangeQuantity, onRemoveProduct }) {
+function ShoppingItem({ product, handleOnChangeQuantity, onRemoveProduct, maxQuantity }) {
   return (
     <>
       <div key={product.id} className="product-container-shopping-cart">
@@ -24,7 +24,7 @@ function ShoppingItem({ product, handleOnChangeQuantity, onRemoveProduct }) {
             value={product.quantity}
             type="number"
             min="0"
-            max="100"
+            max={maxQuantity}
           />
         </form>
         <TrashIcon

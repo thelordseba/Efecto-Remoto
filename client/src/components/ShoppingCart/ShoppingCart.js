@@ -87,10 +87,12 @@ function ShoppingCart(props) {
               <ShoppingItem
                 key={prod.id}
                 product={prod}
+                maxQuantity={prod.stock}
                 handleOnChangeQuantity={handleOnChangeQuantity}
                 onRemoveProduct={onRemoveProduct}
               />
-            ))}
+            ))
+          }
         </div>
         <div className="summary">
           <div className="summary-title">Resumen</div>
