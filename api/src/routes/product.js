@@ -5,7 +5,7 @@ const { Op } = require("sequelize");
 const { Sequelize } = require("sequelize");
 // const { response } = require('express');
 
-// Task S17: Crear ruta para agregar o sacar categorías de un producto
+// Task S17: Crear ruta para agregar o sacar categorías de un producto //(si)
 server.post("/:productId/category/:categoryId", async (req, res, next) => {
   const { productId, categoryId } = req.params;
   try {
@@ -25,7 +25,7 @@ server.post("/:productId/category/:categoryId", async (req, res, next) => {
     next();
   }
 });
-
+//(si)
 server.delete("/:productId/category/:categoryId", async (req, res, next) => {
   const { productId, categoryId } = req.params;
   try {
@@ -135,8 +135,10 @@ server.get("/:id", (req, res, next) => {
     .catch(next);
 });
 
-// Task S25: Crear ruta para crear/agregar Producto
+// Task S25: Crear ruta para crear/agregar Producto //S68
 server.post("/", async (req, res) => {
+  if(req.user) {
+    if(req.user.isAdmin) {
   try {
     const product = await Product.create({
       ngoId: req.body.ngoId,
@@ -153,10 +155,14 @@ server.post("/", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+} else {res.sendStatus(401)}}
+    else {res.sendStatus(401)}
 });
 
-// Task S26 : Crear ruta para Modificar Producto
+// Task S26 : Crear ruta para Modificar Producto //S68
 server.put("/:id", (req, res, next) => {
+  if(req.user) {
+    if(req.user.isAdmin) {
   Product.update(req.body, {
     where: { id: req.params.id },
   })
@@ -166,10 +172,14 @@ server.put("/:id", (req, res, next) => {
         res.status(400).send({ error: "No se encontró ese ID de producto" });
     })
     .catch(next);
+  } else {res.sendStatus(401)}}
+      else {res.sendStatus(401)}
 });
 
-// Task S27: Crear Ruta para eliminar Producto
+// Task S27: Crear Ruta para eliminar Producto //S68
 server.delete("/:userId", (req, res, next) => {
+  if(req.user) {
+    if(req.user.isAdmin) {
   Product.findOne({
     where: {
       id: req.params.userId,
@@ -193,6 +203,8 @@ server.delete("/:userId", (req, res, next) => {
       }
     })
     .catch(next);
+  } else {res.sendStatus(401)}}
+      else {res.sendStatus(401)}
 });
 
 module.exports = server;

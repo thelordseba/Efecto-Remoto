@@ -82,8 +82,10 @@ server.put("/:userId", async (req, res, next) => {
   }
 });
 
-// S67: POST /auth/promote/:id --> Promote convierte al usuario con ID: id a Admin.
+// S67: POST /auth/promote/:id --> Promote convierte al usuario con ID: id a Admin. S68
 server.put("/:userId/isAdmin", async (req, res, next) => {
+  if(req.user) {
+    if(req.user.isAdmin) {
   const { isAdmin } = req.body;
   try {
     const user = await User.findOne({ where: { id: req.params.userId } });
@@ -92,10 +94,14 @@ server.put("/:userId/isAdmin", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+} else {res.sendStatus(401)}}
+    else {res.sendStatus(401)}
 });
 
-//S36 Crear ruta que retorne todos los usuarios
+//S36 Crear ruta que retorne todos los usuarios S68
 server.get("/", async (req, res, next) => {
+  if(req.user) {
+    if(req.user.isAdmin) {
   try {
     const user = await User.findAll({
       include: [{ model: Location }],
@@ -104,10 +110,14 @@ server.get("/", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+} else {res.sendStatus(401)}}
+    else {res.sendStatus(401)}
 });
 
-//Get user Id by Email
+//Get user Id by Email S68
 server.get("/getUserbyEmail", async (req, res, next) => {
+  if(req.user) {
+    if(req.user.isAdmin) {
   const userEmail = req.query.userEmail;
   try {
     const user = await User.findOne({
@@ -119,10 +129,14 @@ server.get("/getUserbyEmail", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+} else {res.sendStatus(401)}}
+   else {res.sendStatus(401)}
 });
 
-//Get user by Id
+//Get user by Id S68
 server.get("/:userId", async (req, res, next) => {
+  if(req.user) {
+    if(req.user.isAdmin) {
   try {
     const user = await User.findOne({
       where: {
@@ -134,10 +148,14 @@ server.get("/:userId", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+} else {res.sendStatus(401)}}
+    else {res.sendStatus(401)}
 });
 
-//S37 Crear ruta para eliminar un usuario
+//S37 Crear ruta para eliminar un usuario S68
 server.delete("/:userId", async (req, res, next) => {
+  if(req.user) {
+    if(req.user.isAdmin) {
   try {
     const user = await User.findOne({
       where: {
@@ -155,6 +173,8 @@ server.delete("/:userId", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+} else {res.sendStatus(401)}}
+    else {res.sendStatus(401)}
 });
 
 server.post("/:userId/passwordReset", async (req, res, next) => {
