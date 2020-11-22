@@ -186,7 +186,7 @@ function FormUser(props) {
           </ErrorMessage>
         </div>
 
-        {props.admin ? (
+        {/* {props.admin ? (
           <div>
             <div className="row">
               Teléfono:
@@ -244,7 +244,7 @@ function FormUser(props) {
               </ErrorMessage>
             </div>
           </div>
-        ) : null}
+        ) : null} */}
 
         <div className="">
           <button
@@ -256,8 +256,13 @@ function FormUser(props) {
           </button>
         </div>
       </Form></Formik>
-      <div>También podés registrarte con:</div>
+      {!props.admin ? (
+        <div>También podés registrarte con:</div>
+      ) : null}
+      {!props.admin ? (
       <LoginWithToken />
+      ) : null} 
+      {!props.admin ? (
       <div>
         <span
           className={"yatengocuenta"}
@@ -266,6 +271,7 @@ function FormUser(props) {
           Ya tengo cuenta
         </span>
       </div>
+      ) : null} 
     </>
   );
 }
