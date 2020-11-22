@@ -28,7 +28,7 @@ server.post("/:productId/category", async (req, res, next) => {
     next();
   }
 });
-
+//(si)
 server.delete("/:productId/category/:categoryId", async (req, res, next) => {
   const { productId, categoryId } = req.params;
   try {
@@ -138,64 +138,90 @@ server.get("/:id", (req, res, next) => {
     .catch(next);
 });
 
-// Task S25: Crear ruta para crear/agregar Producto
+// Task S25: Crear ruta para crear/agregar Producto //S68
 server.post("/", async (req, res) => {
-  try {
-    const product = await Product.create({
-      ngoId: req.body.ngoId,
-      name: req.body.name,
-      description: req.body.description,
-      price: req.body.price,
-      stock: req.body.stock,
-    });
-    const image = await Image.create({
-      url: req.body.url,
-    });
-    await product.addImage(image);
-    res.status(201).json(product);
-  } catch (error) {
-    console.log(error);
+  if (req.user) {
+    if (req.user.isAdmin) {
+      try {
+        const product = await Product.create({
+          ngoId: req.body.ngoId,
+          name: req.body.name,
+          description: req.body.description,
+          price: req.body.price,
+          stock: req.body.stock,
+        });
+        const image = await Image.create({
+          url: req.body.url,
+        });
+        await product.addImage(image);
+        res.status(201).json(product);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      res.sendStatus(404);
+    }
+  } else {
+    res.sendStatus(404);
   }
 });
 
-// Task S26 : Crear ruta para Modificar Producto
+// Task S26 : Crear ruta para Modificar Producto //S68
 server.put("/:id", (req, res, next) => {
-  Product.update(req.body, {
-    where: { id: req.params.id },
-  })
-    .then((prod) => {
-      if (prod) res.status(200).send(prod);
-      if (!prod)
-        res.status(400).send({ error: "No se encontró ese ID de producto" });
-    })
-    .catch(next);
+  if (req.user) {
+    if (req.user.isAdmin) {
+      Product.update(req.body, {
+        where: { id: req.params.id },
+      })
+        .then((prod) => {
+          if (prod) res.status(200).send(prod);
+          if (!prod)
+            res
+              .status(400)
+              .send({ error: "No se encontró ese ID de producto" });
+        })
+        .catch(next);
+    } else {
+      res.sendStatus(404);
+    }
+  } else {
+    res.sendStatus(404);
+  }
 });
 
-// Task S27: Crear Ruta para eliminar Producto
+// Task S27: Crear Ruta para eliminar Producto //S68
 server.delete("/:userId", (req, res, next) => {
-  Product.findOne({
-    where: {
-      id: req.params.userId,
-    },
-  })
-    .then((product) => {
-      if (!product) {
-        res
-          .status(400)
-          .send("ERROR: El usuario que intenta eliminar no existe.");
-      } else {
-        Image.findOne({
-          where: {
-            id: product.imageId,
-          },
-        }).then((image) => {
-          image.destroy();
-        });
-        product.destroy();
-        res.sendStatus(200);
-      }
-    })
-    .catch(next);
+  if (req.user) {
+    if (req.user.isAdmin) {
+      Product.findOne({
+        where: {
+          id: req.params.userId,
+        },
+      })
+        .then((product) => {
+          if (!product) {
+            res
+              .status(400)
+              .send("ERROR: El usuario que intenta eliminar no existe.");
+          } else {
+            Image.findOne({
+              where: {
+                id: product.imageId,
+              },
+            }).then((image) => {
+              image.destroy();
+            });
+            product.destroy();
+            res.sendStatus(200);
+          }
+        })
+        .catch(next);
+    } else {
+      res.sendStatus(404);
+    }
+  } else {
+    res.sendStatus(404);
+  }
 });
 
 module.exports = server;

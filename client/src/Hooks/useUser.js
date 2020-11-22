@@ -5,19 +5,9 @@ import jwt from "jsonwebtoken";
 import * as constants from "../redux/reducers/constants.js";
 
 export default function useUser() {
-  // const [isAdmin, setIsAdmin] = useState(false);
   const user = localStorage.getItem("user");
   const [localUser, setLocalUser] = useState(user ? JSON.parse(user) : null);
   const dispatch = useDispatch();
-
-  // const userLogin = useSelector((state) => state.user); // qué debería tener este useSelector???
-
-  // useEffect(() => {
-  //   if (!userLogin) setIsAdmin(false);
-  //   else if (!userLogin.user) setIsAdmin(false);
-  //   else if (userLogin.user.isAdmin !== true) setIsAdmin(false);
-  //   else setIsAdmin(true);
-  // }, [userLogin]);
 
   async function loginWithEmail(values) {
     const {data: token} = await axios.post(
@@ -35,15 +25,16 @@ export default function useUser() {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       dispatch({ type: constants.SETCURRENTUSER, payload: user });
     }
+    axios.get(`http://localhost:3001/orders/${user.id}/shopping-cart`)
+    .then(response => {
+      if(response.data === null) axios.post(`http://localhost:3001/orders/${user.id}`)
+    }, (error) => {console.log(error);})
+    .catch(error => console.log(error))
   }
 
   async function register(values) {
-    const { data: token } = await axios.post(
-      `http://localhost:3001/auth/register`,
-      {
-        ...values,
-      }
-    );
+    console.log("entró 2")
+    const { data: token } = await axios.post(`http://localhost:3001/auth/register`, {...values});
     if (token) loginWithToken(token);
   }
 
