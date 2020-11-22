@@ -94,8 +94,8 @@ server.put("/:userId/isAdmin", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-} else {res.sendStatus(401)}}
-    else {res.sendStatus(401)}
+} else {res.sendStatus(404)}}
+    else {res.sendStatus(404)}
 });
 
 //S36 Crear ruta que retorne todos los usuarios S68
@@ -110,8 +110,8 @@ server.get("/", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-} else {res.sendStatus(401)}}
-    else {res.sendStatus(401)}
+} else {res.sendStatus(404)}}
+    else {res.sendStatus(404)}
 });
 
 //Get user Id by Email S68
@@ -129,8 +129,8 @@ server.get("/getUserbyEmail", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-} else {res.sendStatus(401)}}
-   else {res.sendStatus(401)}
+} else {res.sendStatus(404)}}
+   else {res.sendStatus(404)}
 });
 
 //Get user by Id S68
@@ -148,8 +148,8 @@ server.get("/:userId", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-} else {res.sendStatus(401)}}
-    else {res.sendStatus(401)}
+} else {res.sendStatus(404)}}
+    else {res.sendStatus(404)}
 });
 
 //S37 Crear ruta para eliminar un usuario S68
@@ -173,8 +173,8 @@ server.delete("/:userId", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-} else {res.sendStatus(401)}}
-    else {res.sendStatus(401)}
+} else {res.sendStatus(404)}}
+    else {res.sendStatus(404)}
 });
 
 server.post("/:userId/passwordReset", async (req, res, next) => {

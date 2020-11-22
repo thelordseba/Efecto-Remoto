@@ -155,8 +155,8 @@ server.post("/", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-} else {res.sendStatus(401)}}
-    else {res.sendStatus(401)}
+} else {res.sendStatus(404)}}
+    else {res.sendStatus(404)}
 });
 
 // Task S26 : Crear ruta para Modificar Producto //S68
@@ -172,8 +172,8 @@ server.put("/:id", (req, res, next) => {
         res.status(400).send({ error: "No se encontró ese ID de producto" });
     })
     .catch(next);
-  } else {res.sendStatus(401)}}
-      else {res.sendStatus(401)}
+  } else {res.sendStatus(404)}}
+      else {res.sendStatus(404)}
 });
 
 // Task S27: Crear Ruta para eliminar Producto //S68
@@ -203,8 +203,8 @@ server.delete("/:userId", (req, res, next) => {
       }
     })
     .catch(next);
-  } else {res.sendStatus(401)}}
-      else {res.sendStatus(401)}
+  } else {res.sendStatus(404)}}
+      else {res.sendStatus(404)}
 });
 
 module.exports = server;

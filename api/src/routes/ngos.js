@@ -25,8 +25,8 @@ server.post('/', async (req, res, next) => {
     await ngo.setLocation(location)
     res.json(ngo);
     } catch(error) {next(error)}
-} else {res.sendStatus(401)}}
-    else {res.sendStatus(401)}
+} else {res.sendStatus(404)}}
+    else {res.sendStatus(404)}
 });
 //(S68)
 server.delete('/:id', (req, res, next) => {
@@ -45,8 +45,8 @@ server.delete('/:id', (req, res, next) => {
         ngo.destroy()
     })
     .catch(next);
-} else {res.sendStatus(401)}}
-    else {res.sendStatus(401)}
+} else {res.sendStatus(404)}}
+    else {res.sendStatus(404)}
 });
 //(S68)
 server.put('/:id', (req, res, next) => {
@@ -60,8 +60,8 @@ server.put('/:id', (req, res, next) => {
         if(!ngo) res.status(400).send({error: 'No se encontró ese ID de producto'})
     })
     .catch(next);
-} else {res.sendStatus(401)}}
-    else {res.sendStatus(401)}
+} else {res.sendStatus(404)}}
+    else {res.sendStatus(404)}
 })
 
 module.exports = server;
