@@ -13,8 +13,6 @@ const authRouter = require("./auth");
 // load each router on a route
 // i.e: router.use('/auth', authRouter);
 router.use("/auth", authRouter);
-//router.use("/authGM", authRouterGM);
-//router.use("/authLocal", authRouterLocal);
 router.use("/products", productRouter);
 router.use("/categories", categoryRouter);
 router.use("/users", userRouter);

@@ -1,27 +1,16 @@
 import React, { useEffect } from "react";
-import { withFormik, Field, ErrorMessage, Form } from "formik";
+import { Field, ErrorMessage, Form, Formik } from "formik";
 import { useHistory } from "react-router-dom";
-import { useLocation } from "react-router";
 import useUser from "Hooks/useUser";
+import useQuery from "Hooks/useQuery";
 import LoginWithToken from "../LoginWToken/LoginWToken.js";
-
-function useQuery() {
-  let search = useLocation().search;
-  let result = search.slice(1).split("&");
-  result = result.reduce((dataResult, item) => {
-    const pair = item.split("=");
-    dataResult[pair[0]] = pair[1];
-    return dataResult;
-  }, {});
-  return result;
-}
 
 function Login(props) {
   const { isSubmitting, isValid } = props; // viene de las props del componente
   const history = useHistory();
 
   const query = useQuery();
-  const { loginWithToken } = useUser();
+  const { loginWithToken, loginWithEmail } = useUser();
 
   useEffect(() => {
     if (query.t) loginWithToken(query.t);
@@ -43,6 +32,34 @@ function Login(props) {
           Volver
         </div>
       ) : null}
+      <Formik 
+        initialValues={{email: "", password: ""}} 
+        validate={(values) => {
+          const errors = {};
+          if (!values.email) {
+            errors.email = "Ingresar email";
+          } else if (!/\S+@\S+\.\S+/.test(values.email)) {
+            errors.email = "Email incorrecto";
+          }
+          if (!values.password) {
+            errors.password = "Completar campo";
+          } else if (values.password.length < 9) {
+              errors.password = "Tu contraseña debe contener más de 9 caracteres"
+          } else if(values.password.includes(' ')){
+              errors.password = "No debe contener espacios"
+          }
+          return errors;
+        }} 
+        onSubmit={async (values, formikBag) => {
+          try {
+            await loginWithEmail(values)
+            formikBag.setSubmitting(false); //debo deshabilitar isSubmitting una vez que pasa la info
+            history.replace("/");
+          } catch (error) {
+            formikBag.setSubmitting(false); //debo deshabilitar isSubmitting una vez que pasa la info
+            const data = error.response.data
+            if (data.message) alert(data.message)
+        }}}>
       <Form>
         <div className="row">
           Email:
@@ -64,12 +81,13 @@ function Login(props) {
           <button
             type="submit"
             className={`submit ${isSubmitting || !isValid ? "disabled" : ""}`}
-            disabled={isSubmitting || !isValid} //si se hace submit bloquea el boton (isSubmitting=true)
+            // disabled={isSubmitting || !isValid} //si se hace submit bloquea el boton (isSubmitting=true)
           >
             Iniciar sesión
           </button>
         </div>
       </Form>
+      </Formik>
       <div>
         <a href="/resetpassword">¿Olvidaste tu contraseña?</a>
         <a href="/register">Registrate</a>
@@ -81,35 +99,4 @@ function Login(props) {
   );
 }
 
-export default withFormik({
-  mapPropsToValues(props) {
-    return {
-      email: "",
-      password: "",
-    };
-  },
-
-  validate(values) {
-    const errors = {};
-    if (!values.email) {
-      errors.email = "Ingresar email";
-    } else if (!/\S+@\S+\.\S+/.test(values.email)) {
-      errors.email = "Email incorrecto";
-    }
-    if (!values.password) {
-      errors.password = "Completar campo";
-      // } else if (values.password.length < 9) {
-      //     errors.password = "Tu contraseña debe contener más de 9 caracteres"
-      // } else if(values.password.includes(' ')){
-      //     errors.password = "No debe contener espacios"
-    }
-    return errors;
-  },
-
-  handleSubmit(values, formikBag) {
-    //funcion recibe el nombre de los valores del input.FormikBag da acceso a props de la forma
-    formikBag.setSubmitting(false); //debo deshabilitar isSubmitting una vez que pasa la info
-  },
-})(Login);
-//manda un objeto de configuracion y al resultado le mandamos a llamar el componente que queremos que configure, le pasamos varias opciones de configuracion
-//withformik metodo para saber y procesar cuando la forma se submiteo
+export default Login;

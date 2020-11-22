@@ -20,7 +20,17 @@ server.post("/login/email", (req, res, next) => {
         });
     } else {
       return res.send(
-        jwt.sign({ id: user.id, isAdmin: user.isAdmin }, secretJWT)
+        jwt.sign(
+          {
+            id: user.id,
+            isAdmin: user.isAdmin,
+            userName: user.userName,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+          },
+          `${secretJWT}`
+        )
       );
     }
   })(req, res, next);
@@ -32,13 +42,14 @@ server.post("/register", async (req, res) => {
     if (!userName || !firstName || !lastName || !email || !password) {
       res.status(400).json({ message: "Datos incompletos" });
     } else {
-      const user = await User.create(
+      const user = await User.create({
         userName,
         firstName,
         lastName,
         email,
-        password
-      );
+        password,
+        isAdmin: false,
+      });
       return res.send(
         jwt.sign(
           {
@@ -49,13 +60,13 @@ server.post("/register", async (req, res) => {
             lastName: user.lastName,
             email: user.email,
           },
-          secretJWT
+          `${secretJWT}`
         )
       );
     }
   } catch (err) {
     console.log(err.message);
-    res.status(400).json({ message: "Email en uso" });
+    res.status(400).json({ message: "No se ha podido registrar al usuario" });
   }
 });
 

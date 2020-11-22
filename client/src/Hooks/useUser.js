@@ -1,43 +1,31 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import jwt from "jsonwebtoken";
 import * as constants from "../redux/reducers/constants.js";
 
-async function signIn(userName, password) {
-  try {
-    const response = await axios.post(
-      `http://localhost:3001/auth/login/email`,
-      { userName, password }
-    );
-    return response.data;
-  } catch (error) {
-    const data = error.response.data;
-    if (data.message) alert(data.message);
-    return undefined;
-  }
-}
-
 export default function useUser() {
-  const [isAdmin, setIsAdmin] = useState(false);
+  // const [isAdmin, setIsAdmin] = useState(false);
   const user = localStorage.getItem("user");
   const [localUser, setLocalUser] = useState(user ? JSON.parse(user) : null);
-
-  const userLogin = useSelector((state) => state.user); // qué debería tener este useSelector???
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (!userLogin) setIsAdmin(false);
-    else if (!userLogin.user) setIsAdmin(false);
-    else if (userLogin.user.isAdmin !== true) setIsAdmin(false);
-    else setIsAdmin(true);
-  }, [userLogin]);
+  // const userLogin = useSelector((state) => state.user); // qué debería tener este useSelector???
 
-  async function loginWithEmail(userName, password) {
-    const user = await signIn(userName, password); // acá defino el user cuando se loggea con mail
-    if (user) setLocalUser(user); // y lo seteo en el store de redux
-    dispatch({ type: constants.SETCURRENTUSER, payload: user });
-  } // confirmar cómo tiene que funcionar esta función
+  // useEffect(() => {
+  //   if (!userLogin) setIsAdmin(false);
+  //   else if (!userLogin.user) setIsAdmin(false);
+  //   else if (userLogin.user.isAdmin !== true) setIsAdmin(false);
+  //   else setIsAdmin(true);
+  // }, [userLogin]);
+
+  async function loginWithEmail(values) {
+    const {data: token} = await axios.post(
+      `http://localhost:3001/auth/login/email`,
+      {...values}
+    );
+    if (token) loginWithToken(token);
+  }
 
   async function loginWithToken(token) {
     token = token.split("#")[0]; // esta línea es necesaria para cuando FB nos manda el token.
@@ -49,18 +37,14 @@ export default function useUser() {
     }
   }
 
-  async function register(userName, firstName, lastName, email, password) {
-    const { data: user } = await axios.post(
+  async function register(values) {
+    const { data: token } = await axios.post(
       `http://localhost:3001/auth/register`,
       {
-        userName,
-        firstName,
-        lastName,
-        email,
-        password,
+        ...values,
       }
     );
-    if (user) setLocalUser(user);
+    if (token) loginWithToken(token);
   }
 
   async function updateUserData(user) {

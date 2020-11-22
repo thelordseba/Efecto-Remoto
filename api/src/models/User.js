@@ -1,15 +1,9 @@
-//exportar
-//definir el modelo de Usuario
-
-//copio y pego lo de product.js de prueba
 const { DataTypes } = require("sequelize");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 module.exports = (sequelize) => {
-  //defino el modelo como en product
-
-  sequelize.define("user", {
-    //en name tengo que hacer una función por firstname y lastname= por
-    //
+  const User = sequelize.define("user", {
     userName: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -28,7 +22,7 @@ module.exports = (sequelize) => {
     isAdmin: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
-      allowNull: false,
+      allowNull: true,
     },
 
     email: {
@@ -48,6 +42,13 @@ module.exports = (sequelize) => {
     password: {
       type: DataTypes.STRING,
       allowNull: true,
+      set(value) {
+        if (value) { // tiene que ser sincrónico
+          const salt = bcrypt.genSaltSync(saltRounds) // si guardo como contraseña hola dos veces, en la base de datos van a ser diferentes (para que las contraseñas no sean iguales)
+          const hash = bcrypt.hashSync(value, salt) // hashea en base 64
+          this.setDataValue("password", hash) // le decimos el valor que queremos setear y el hash
+        }
+      }
     },
     //hay un código en sql documentación para que la pass no se guarde en la BD
     //no se si quieren que la agregue aca o es futura tarea
@@ -59,4 +60,9 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
     },
   });
+
+  User.prototype.verifyPassword = function(password) {
+    return bcrypt.compareSync(password, this.password)
+  }
+  return User;
 };

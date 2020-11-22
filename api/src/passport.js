@@ -11,15 +11,14 @@ const passport = require("passport"),
 
 /// ESTRATEGIA LOCAL ///
 passport.use(new LocalStrategy(
-  function(username, password, done) {
-    User.findOne({ userName: username }, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) { return done(null, false); }
-      if (!user.verifyPassword(password)) { return done(null, false); }
+  {usernameField: "email", passwordField: "password", session: false},
+  async (email, password, done) => {
+    const user = await User.findOne({where: { email }})
+      if (!user) { return done(null, false) }
+      if (!user.verifyPassword(password)) { return done(null, false) }
       return done(null, user);
-    });
-  }
-));
+  })
+)
 
 /// ESTRATEGIA GOOGLE ///
 const getOneByGoogleId = async (gmailId) => {
