@@ -20,6 +20,10 @@ export default function ProductCrud({ id }) {
 
   const handleOnClick = (e) => {
     e.preventDefault();
+    setProduct({
+      ...product,
+      url: image,
+    });
     if (id) {
       axios
         .put(`http://localhost:3001/products/${id}`, product)
@@ -60,6 +64,8 @@ export default function ProductCrud({ id }) {
       ...product,
       url: url,
     });
+    setImage(url);
+    alert("Imagen agregada!");
   };
 
   useEffect(() => {
@@ -108,6 +114,7 @@ export default function ProductCrud({ id }) {
         <br />
         <br />
         <form>
+          <label>ONG</label>
           <select
             onChange={handleOnChange}
             name="ngoId"
@@ -124,6 +131,7 @@ export default function ProductCrud({ id }) {
           </select>
           <br />
           <br />
+          <label>Nombre</label>
           <input
             onChange={handleOnChange}
             value={product ? product.name : ""}
@@ -134,6 +142,7 @@ export default function ProductCrud({ id }) {
           />
           <br />
           <br />
+          <label>Descripción</label>
           <input
             onChange={handleOnChange}
             value={product ? product.description : ""}
@@ -143,6 +152,7 @@ export default function ProductCrud({ id }) {
             placeholder="Descripción del producto"
           />
           <br />
+          <label>Categorías</label>
           {categories.map((cat) => {
             return (
               <>
@@ -172,6 +182,7 @@ export default function ProductCrud({ id }) {
                 /> */}
           <br />
           <br />
+          <label>Precio</label>
           <input
             onChange={handleOnChange}
             value={product ? product.price : ""}
@@ -182,6 +193,7 @@ export default function ProductCrud({ id }) {
           />
           <br />
           <br />
+          <label>Stock</label>
           <input
             onChange={handleOnChange}
             value={product ? product.stock : ""}
@@ -203,7 +215,6 @@ export default function ProductCrud({ id }) {
           <UploadImage handleURL={handleURL} />
           <br></br>
           <button className="button-crud" onClick={handleOnClick}>
-            <img src={product?.url} alt="La imagen no puede ser mostrada" />
             {id ? "ACTUALIZAR" : "CREAR"}
           </button>
         </form>
