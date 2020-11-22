@@ -33,26 +33,6 @@ function FormUser(props) {
     })();
   }, [query.token, history, loginWithToken]);
 
-  // const formik = useFormik({
-  //   initialValues: {
-
-  //   },
-    // onSubmit: async (values, formikBag) => {
-    // console.log("hola entré")
-    // console.log("values", values)
-    // try {
-    //   await useUser.register(values.userName, values.firstName, values.lastName, values.email, values.password)
-    //   formikBag.setSubmitting(false); //debo deshabilitar isSubmitting una vez que pasa la info
-    //   alert("Usuario creado");
-    //   // history.push("/");
-    // } catch (error) {
-    //   formikBag.setSubmitting(false); //debo deshabilitar isSubmitting una vez que pasa la info
-    //   // alert("Hubo un error. Por favor, intentá de nuevo.");
-    //   const data = error.response.data
-    //   if (data.message) alert(data.message)
-    // }
-  // }})
-
   return (
     <>
       <h1>Crear usuario</h1>
@@ -67,7 +47,6 @@ function FormUser(props) {
           const errors = {};
           if (!values.userName) {
             //Espacios no
-            console.log("valores", values)
             errors.userName = "Completar campo";
           } else if (/[^A-Za-z0-9+]/.test(values.userName)) {
             errors.userName = "Carácteres inválidos";
@@ -89,24 +68,24 @@ function FormUser(props) {
           }
 
           //validacion de números
-          if (!values.telephone) {
-            errors.telephone = "Completar campo";
-          } else if (isNaN(values.telephone)) {
-            errors.telephone = "Ingresar solo números";
-          }
+          // if (!values.telephone) {
+          //   errors.telephone = "Completar campo";
+          // } else if (isNaN(values.telephone)) {
+          //   errors.telephone = "Ingresar solo números";
+          // }
           // }else if(/^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/.test(values.phone)) {
           //     errors.phone = "Completar número"
           // }
 
-          if (!values.number) errors.number = "Completar campo";
-          if (isNaN(values.number)) errors.number = "Ingresar números";
+          // if (!values.number) errors.number = "Completar campo";
+          // if (isNaN(values.number)) errors.number = "Ingresar números";
 
-          if (!values.postalCode) {
-            errors.postalCode = "Completar campo";
-          }
-          if (isNaN(values.postalCode)) {
-            errors.postalCode = "Ingresar números";
-          }
+          // if (!values.postalCode) {
+          //   errors.postalCode = "Completar campo";
+          // }
+          // if (isNaN(values.postalCode)) {
+          //   errors.postalCode = "Ingresar números";
+          // }
 
           //validación string
           if (!values.firstName) {
@@ -121,32 +100,33 @@ function FormUser(props) {
             errors.lastName = "Carácteres inválidos";
           }
 
-          if (!values.address) {
-            errors.address = "Completar campo";
-          } else if (/[^A-Za-z-' ']/.test(values.address)) {
-            errors.address = "Carácteres inválidos";
-          }
+          // if (!values.address) {
+          //   errors.address = "Completar campo";
+          // } else if (/[^A-Za-z-' ']/.test(values.address)) {
+          //   errors.address = "Carácteres inválidos";
+          // }
 
-          if (!values.province) {
-            errors.province = "Completar campo";
-          } else if (/[^A-Za-z-' ']/.test(values.province)) {
-            errors.province = "Carácteres inválidos";
-          }
+          // if (!values.province) {
+          //   errors.province = "Completar campo";
+          // } else if (/[^A-Za-z-' ']/.test(values.province)) {
+          //   errors.province = "Carácteres inválidos";
+          // }
 
-          if (!values.city) {
-            errors.city = "Completar campo";
-          } else if (/[^A-Za-z-' ']/.test(values.city)) {
-            errors.city = "Carácteres inválidos";
-          }
+          // if (!values.city) {
+          //   errors.city = "Completar campo";
+          // } else if (/[^A-Za-z-' ']/.test(values.city)) {
+          //   errors.city = "Carácteres inválidos";
+          // }
 
-          if (!values.country) {
-            errors.country = "Completar campo";
-          } else if (/[^A-Za-z-' ']/.test(values.country)) {
-            errors.country = "Carácteres inválidos";
-          }
-          return errors;
+          // if (!values.country) {
+          //   errors.country = "Completar campo";
+          // } else if (/[^A-Za-z-' ']/.test(values.country)) {
+          //   errors.country = "Carácteres inválidos";
+          // }
+          // return errors;
         }}
         onSubmit={async (values, formikBag) => {
+          console.log("entró")
           try {
             await register(values)
             formikBag.setSubmitting(false);
