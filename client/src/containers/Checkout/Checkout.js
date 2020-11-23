@@ -56,17 +56,25 @@ const Checkout = () => {
           <div className="divider-summary" />
 
           <div>Nombre completo: {" " + currentUser.firstName + " " + currentUser.lastName}</div>
-          <div>Email: {currentUser.email}</div>
+          <div>Email: {!currentUser.email ? (<input></input>) : (currentUser.email)}</div>
           <div>
             Dirección de facturación:{" "}
-            {currentUser.location?.address +
+            {!currentUser.location ? 
+            (<div>
+              <div><label>Calle: {" "}</label><input></input></div>
+              <div><label>Número: {" "}</label><input></input></div>
+              <div><label>Provincia: {" "}</label><input></input></div>
+              <div><label>Código postal: {" "}</label><input></input></div>              
+             </div>) 
+            
+            : (currentUser.location?.address +
               " " +
               currentUser.location?.number +
               " - " +
               currentUser.location?.city +
               " (" +
               currentUser.location?.postalCode +
-              ")"}
+              ")")}
           </div>
         </div>
       </div>
