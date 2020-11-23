@@ -2,6 +2,7 @@
 import React from "react";
 import emptyRatingLogo from "../common/emptyRating.png";
 import fullRatingLogo from "../common/fullRating.png";
+import Review from "./Review";
 import "./Stars.css";
 
 let array = [1, 2, 3, 4, 5];
@@ -43,6 +44,8 @@ class Stars extends React.Component {
 
       this.setState({ stars: arrayLlenas });
       this.setState({ vacias: arrayVacias });
+
+      this.props.setReview(this.state.stars.length + 1)
     }
   };
 
@@ -66,7 +69,7 @@ class Stars extends React.Component {
     } else {
       return (
         <div className="bottom ">
-          {!this.props.disabledClick && <p>Thank you for your review</p>}
+          {/*!this.props.disabledClick && <p></p>*/}
           <div>
             {this.state.stars.map((star) => (
               <img
