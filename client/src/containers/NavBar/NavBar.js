@@ -8,6 +8,9 @@ import "./NavBar.scss";
 import BagIcon from "components/Icons/Bag";
 import SettingsIcon from "components/Icons/SettingsIcon";
 import { useSelector } from "react-redux";
+import UserIcon from "components/Icons/UserIcon.js";
+import styles from "./NavBar.module.scss";
+
 
 function NavBar() {
   // const loggedIn = true;
@@ -39,9 +42,9 @@ function NavBar() {
               <a href="/products">Productos</a>
             </li>
 
-            {/* <li className="listee">
-              <a href="/faq">FAQ</a>
-            </li> */}
+            <li className="listee">
+              <a href="#">Experiencias</a>
+            </li>
           </ul>
         </div>
         <div className="grid grid3">
@@ -75,11 +78,12 @@ function NavBar() {
                 </li>
               </>
             ) : (
-              <li className="profile">
+              <li className={[styles.profile].join(' ')}>
                 <a href="*" style={{ padding: "10px 15px" }}>
-                  PROFILE
+                  <span>¡Hola {currentUser.firstName.trim()}!</span>
+                  <UserIcon fill="#fff" style={{marginLeft:"1rem"}} />
                 </a>
-                <ul className="menu">
+                <ul className={styles.menu}>
                   <li>
                     <a href={`/profile/${currentUser.id}`}>Mi Perfil</a>
                   </li>

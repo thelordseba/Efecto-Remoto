@@ -10,8 +10,8 @@ import useQuery from "Hooks/useQuery";
 //isSubmit indica si actulmente esta en proceso de submicion, para no permitir que se haga submit mas de una vez al mismo tiempo
 //Field es un componente que conecta directamente a formik
 function FormUser(props) {
-  const { localUser, register, loginWithToken } = useUser();
-  const query = useQuery();
+  const { localUser, register, loginWithToken } = useUser(); //hook para definir funciones de usuarios
+  const query = useQuery();  //hook para leer token
   const { isSubmitting, isValid } = props; // viene de las props del componente
   const history = useHistory();
 
@@ -20,14 +20,14 @@ function FormUser(props) {
   };
 
   useEffect(() => {
-    if (localUser) history.push("/");
+    if (localUser) history.push("/");  //si esta log te lleva a products
   }, [localUser, history]);
 
 
   useEffect(() => {
     (async () => {
       if (query.token) {
-        await loginWithToken(query.token);
+        await loginWithToken(query.token); //token(trae la info del usuario,admin,email,etc) para setear user (google y face)
         history.push("/");
       }
     })();

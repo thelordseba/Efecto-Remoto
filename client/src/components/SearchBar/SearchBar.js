@@ -21,7 +21,7 @@ function SearchBar() {
     <div className={styles.container}>
       <input type="text" onChange={handleOnChange} placeholder="Buscar..." />
       <button onClick={handleOnClick}>
-        <SearchIcon fill="#fff" style={{ padding: "0 8px" }} />
+        <SearchIcon fill="#fff" size="1rem" style={{ padding: "0 8px" }} />
       </button>
     </div>
   );

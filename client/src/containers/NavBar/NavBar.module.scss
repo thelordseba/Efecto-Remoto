@@ -4,19 +4,11 @@
     grid-template-columns: 0.25fr 1fr 1fr 0.2fr;
     width: 100%;
     height: 50%;
-    box-sizing: border-box;
-    padding: 0 0.5rem;
 }
 
 .grid1 {
     grid-column: 1;
-    margin: auto;
-
-    img{
-        width: 3.25rem;
-        height: 3.25rem;
-    }
-    
+    margin: auto
 }
 
 .grid2 {
@@ -45,11 +37,11 @@
     list-style: none;
     font-size: 0.5em;
     padding-inline-start: 0;
-    margin: 0;
 }
 
 .listee {
-    padding: 0.125rem 0.5rem;
+    
+    padding: 8px 16px;
     margin: auto;
     border-radius: 8px;
     font-size: 16px;
@@ -64,7 +56,6 @@
     a {
         display: flex;
         align-items: center;
-        margin-bottom: 0.125rem;
     }
 
     
@@ -73,43 +64,51 @@
 a, a:visited, a:hover, a:active {
     color: inherit;
     text-decoration: none
-  }
+}
 
 .profile{
-    padding: 10px;
     margin: auto;
     min-width: 120px;
     text-align: center;
+    position: relative;
+    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
+
     a{
         display: flex;
         align-items: center;
     }
-
-   
-
+ 
     &:hover{
+        background-color: #329999;
         .menu{
             display: block;
+            background-color: #329999;
         }
     }
-
-
 
     .menu{
         padding-left: 0;
         position: absolute;
         list-style: none;   
         display: none;
-    }
-    
+        border-bottom-right-radius: 0.5rem;
+        border-bottom-left-radius: 0.5rem;
+        overflow: hidden;
+        width:100%;
 
+        li {
+          &:hover {
+              background-color: #4ca6a6;
+          }  
+        }
+    }
   }
 .ulProfile{
     list-style: none;
 
 }
 .profile li a{
-    background-color: #0d7377;
     color:#ffff;
     text-decoration: none;
     padding: 10px 15px;
@@ -118,7 +117,6 @@ a, a:visited, a:hover, a:active {
 }
 
 .profile li a:hover {
-    background-color:  #329999;
     display: block;
    
 

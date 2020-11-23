@@ -1,8 +1,13 @@
 .cards-container {
   width: 100%;
+  max-width: 90rem;
+  padding: 0 2rem;
+  margin: 0 auto;
   display: grid;
-  grid-template: repeat(4, 1fr) / repeat(3, 1fr);
+  grid-template: repeat(2, 1fr) / repeat(6, 1fr);
   column-gap: 10px;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
 }
 
 .product-catalog-container {
