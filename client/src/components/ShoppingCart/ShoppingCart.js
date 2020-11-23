@@ -13,7 +13,7 @@ function ShoppingCart(props) {
 
   const products = useMemo(() => {
     return JSON.parse(localStorage.getItem("cart"));
-  }, []);
+  }, [cart]);
 
   const handleBack = () => {
     history.push(`/products`);
@@ -91,8 +91,7 @@ function ShoppingCart(props) {
                 handleOnChangeQuantity={handleOnChangeQuantity}
                 onRemoveProduct={onRemoveProduct}
               />
-            ))
-          }
+            ))}
         </div>
         <div className="summary">
           <div className="summary-title">Resumen</div>
