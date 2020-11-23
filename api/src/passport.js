@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { User, Review, Product } = require("./db.js");
+const { User, Product } = require("./db.js");
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET, HOST, secretJWT } = process.env;
 
@@ -24,8 +24,7 @@ passport.use(new LocalStrategy(
 const getOneByGoogleId = async (gmailId) => {
   try {
     const user = User.findOne({
-      where: { gmailId },
-      include: [{ model: Review, include: Product }],
+      where: { gmailId }     
     });
     return user;
   } catch (error) {

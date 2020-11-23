@@ -1,7 +1,7 @@
 const server = require("express").Router();
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
-const { User, Review, Order, Product } = require("../db.js");
+const { User, Order, Product } = require("../db.js");
 
 const { HOSTFRONT, secretJWT } = process.env;
 
@@ -79,9 +79,7 @@ server.get("/me", async (req, res) => {
   } else {
     const user = await User.findOne({
       where: { id },
-      include: [
-        { model: Review, include: Product },
-        Review,
+      include: [       
         { model: Order, include: Product },
       ],
     });
