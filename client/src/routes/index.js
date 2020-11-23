@@ -12,8 +12,6 @@ import CategoryTable from "containers/CategoryTable/CategoryTable";
 import FormCategory from "components/FormCategory/FormCategory";
 import OrderDetails from "containers/OrderDetails/orderDetails";
 import MyProfile from "containers/MyProfile/MyProfile";
-import MyProfileOrders from "containers/MyProfile/MyProfileOrders";
-import MyProfileData from "containers/MyProfile/MyProfileData";
 import OrderTable from "containers/OrderTable/OrderTable.js";
 import FormUser from "components/FormUser/FormUser";
 import ShoppingCart from "components/ShoppingCart/ShoppingCart";
@@ -53,14 +51,14 @@ const routes = [
      render: ({ match }) => <MyProfile id={match.params.id} />,
      exact: true
    },
-   {
+  /*  {
     path: "/profile/:id/orders",
     render: ({ match }) => <MyProfileOrders id={match.params.id} />
   },
   {
     path: "/profile/:id/data",
     render: ({ match }) => <MyProfileData id={match.params.id} />
-  },
+  }, */
   {
     path: "/admin",
     component: HomeAdmin,
