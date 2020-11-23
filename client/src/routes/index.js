@@ -20,6 +20,7 @@ import Checkout from "containers/Checkout/Checkout.js";
 import Login from "components/Login/Login.js";
 import ResetPassword from "components/ResetPassword";
 import ReviewTable from "containers/ReviewTable/ReviewTable.js";
+import Review from "components/Review/Review.js"
 
 const routes = [
   {
@@ -148,6 +149,11 @@ const routes = [
     component: ResetPassword,
     exact: true,
   },
+  {
+    path:"/review/:orderId",
+    render: ({ match }) => <Review id={match.params.orderId} />,
+    exact: true
+  }
 ];
 
 export default routes;

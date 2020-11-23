@@ -218,18 +218,20 @@ server.get('/:orderId', async (req, res, next)=>{
 
 //S47: Ruta para modificar una Orden.                               
 //Recibe orderId por parametro y los atributos a modificar 
-//por body --> status y compltionDate (este último puede ser nulo)
+//por body --> status, compltionDate, rating, reviews
 server.put('/:orderId', async (req, res, next) => {   
-    try{
+    try{  
         const order = await Order.findByPk(req.params.orderId);
         await order.update({            
             completionDate: req.body.completionDate,
-            status: req.body.status                                   
+            status: req.body.status,
+            rating: req.body.rating,
+            review: req.body.review                                   
         });
         res.json(order)    
     }catch(error){
         next(error);        
     }
-})
+});
 
 module.exports = server;

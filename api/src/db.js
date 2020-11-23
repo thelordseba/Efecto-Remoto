@@ -49,8 +49,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 const {
   Product,
   Category,
-  User,
-  Review,
+  User,         //Review,
   Order,
   Payment,
   Ngo,
@@ -65,13 +64,13 @@ const {
 Product.belongsToMany(Category, { through: "prodCat" });
 Category.belongsToMany(Product, { through: "prodCat" });
 
-//Relacion user 1-----* review
-User.hasMany(Review);
-Review.belongsTo(User);
+// //Relacion user 1-----* review
+// User.hasMany(Review);
+// Review.belongsTo(User);
 
-//Relacion product 1-----* review
-Product.hasMany(Review);
-Review.belongsTo(Product);
+// //Relacion product 1-----* review
+// Product.hasMany(Review);
+// Review.belongsTo(Product);
 
 //Relación order 1-----* payment  //¿Una orden puede tener varios metodos de pago?
 Order.hasMany(Payment); //REVISAR ESTA RELACIÓN
@@ -105,9 +104,9 @@ Image.belongsTo(Product);
 Location.hasOne(Ngo);
 Ngo.belongsTo(Location);
 
-//Relación User 1-----* reviews *-----1 product
-User.belongsToMany(Product, { through: Review });
-Product.belongsToMany(User, { through: Review });
+// //Relación User 1-----* reviews *-----1 product
+// User.belongsToMany(Product, { through: Review });
+// Product.belongsToMany(User, { through: Review });
 
 //FALTA RELACION CON TABLA PAYMENT Y POSIBLEMENTE LA CREACION DE TABLA PaymentType
 
