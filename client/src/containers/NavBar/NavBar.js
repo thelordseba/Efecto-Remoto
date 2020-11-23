@@ -81,7 +81,7 @@ function NavBar() {
                 </a>
                 <ul className="menu">
                   <li>
-                    <a href="/profile/data">Mi Perfil</a>
+                    <a href={`/profile/${currentUser.id}`}>Mi Perfil</a>
                   </li>
                   <li>
                     <a href="/faq">FAQ</a>
