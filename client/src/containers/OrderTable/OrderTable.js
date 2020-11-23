@@ -61,7 +61,7 @@ export default function OrderTable({userId}) {
         </select>
       </div>
       <div>
-        <label>--- Listado de ordenes ---</label>
+        <label>--- Listado de órdenes ---</label>
         <br />
         <br />
         {mappedOrders}

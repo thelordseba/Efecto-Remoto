@@ -16,8 +16,8 @@ const Checkout = () => {
     order.products?.reduce((acc, el) => acc + el.orderLine.price * el.orderLine.quantity, 0);
 
   useEffect(
-    () => async () => {
-      await dispatch(getOrderByUserId(currentUser.id));
+    () => {
+      if(currentUser?.id) dispatch(getOrderByUserId(currentUser.id));
     },
     [dispatch, currentUser.id]
   );
@@ -73,7 +73,7 @@ const Checkout = () => {
 
       <div className="payment-button">
         <div className="payment" onClick={handlePayment}>
-          Boton de pago
+          Botón de pago
         </div>
       </div>
     </>

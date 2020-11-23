@@ -66,20 +66,19 @@ function ShoppingCart(props) {
     if (currentUser?.length === 0) {
       history.push("/loginuser");
     } else {
-      console.log('currentUser', currentUser)
+      // console.log('currentUser', currentUser)
       const cart = JSON.parse(localStorage.getItem("cart"))
-      console.log('cart', cart)
-      cart.forEach(prod => {
+      // console.log('cart', cart)
+      cart.forEach(async prod => {
         const product = {productId: prod.id, quantity: prod.quantity, price: prod.price}
-        return axios.post(`http://localhost:3001/orders/${currentUser.id}/cart`, product)
-        .then (response =>console.log(response)) 
-        .catch(error=>console.log(error))
-        
-        
-              })
-      history.push(`/checkout`);
-    }
-  };
+        try {
+          const response = await axios.post(`http://localhost:3001/orders/${currentUser.id}/cart`, product);
+          history.push(`/checkout`);
+          // return console.log(response);
+        } catch (error) {
+          return console.log(error);
+        }
+  })}};
 
   useEffect(() => {
     if (localCart) setCart(JSON.parse(localCart));

@@ -72,6 +72,11 @@ export default (state = initialState, action) => {
         ...state,
         currentUser: action.payload,
       };
+      case constants.GETORDERBYUSERID:
+        return {
+          ...state,
+          order: action.payload,
+        };
     case constants.SETCURRENTUSER:
       return {
         ...state,
