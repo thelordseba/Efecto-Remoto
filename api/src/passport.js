@@ -1,5 +1,6 @@
 const server = require("express").Router();
 const { User, Product } = require("./db.js");
+const jwt = require("jsonwebtoken");
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET, HOST, secretJWT } = process.env;
 
@@ -92,7 +93,7 @@ passport.use(
     {
       clientID: FACEBOOK_APP_ID,
       clientSecret: FACEBOOK_APP_SECRET,
-      callbackURL: `${HOST}auth/login/facebook/callback`,
+      callbackURL: `${HOST}/auth/login/facebook/callback`,
       profileFields: ["id", "email", "displayName", "first_name", "last_name"],
       session: false, // Le estamos diciendo a FB "esta estrategia no es para guardar en la sesión"
     },

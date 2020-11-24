@@ -159,10 +159,10 @@ server.post("/", async (req, res) => {
         console.log(error);
       }
     } else {
-      res.sendStatus(404);
+      res.sendStatus(401);
     }
   } else {
-    res.sendStatus(404);
+    res.sendStatus(401);
   }
 });
 
@@ -182,20 +182,21 @@ server.put("/:id", (req, res, next) => {
         })
         .catch(next);
     } else {
-      res.sendStatus(404);
+      res.sendStatus(401);
     }
   } else {
-    res.sendStatus(404);
+    res.sendStatus(401);
   }
 });
 
 // Task S27: Crear Ruta para eliminar Producto //S68
-server.delete("/:userId", (req, res, next) => {
+server.delete("/:id", (req, res, next) => {
   if (req.user) {
+
     if (req.user.isAdmin) {
       Product.findOne({
         where: {
-          id: req.params.userId,
+          id: req.params.id,
         },
       })
         .then((product) => {
@@ -206,7 +207,7 @@ server.delete("/:userId", (req, res, next) => {
           } else {
             Image.findOne({
               where: {
-                id: product.imageId,
+                productId: product.id,
               },
             }).then((image) => {
               image.destroy();
@@ -217,11 +218,12 @@ server.delete("/:userId", (req, res, next) => {
         })
         .catch(next);
     } else {
-      res.sendStatus(404);
+      res.sendStatus(401);
     }
   } else {
-    res.sendStatus(404);
+    res.sendStatus(401);
   }
 });
+
 
 module.exports = server;

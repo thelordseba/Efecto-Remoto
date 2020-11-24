@@ -23,8 +23,8 @@ server.post('/', (req, res, next) => {
             res.status(201).json(cat);
         })
     .catch(next);
-} else {res.sendStatus(404)}}
-else {res.sendStatus(404)}
+} else {res.sendStatus(401)}}
+else {res.sendStatus(401)}
 });
 
 // S19: Crear ruta para eliminar categoría (s68)
@@ -41,8 +41,8 @@ server.delete('/:categoryId', (req, res, next) => {
             res.sendStatus(200)
         }    /// ¿Qué mando?
     })
-} else {res.sendStatus(404)}}
-  else {res.sendStatus(404)}
+} else {res.sendStatus(401)}}
+  else {res.sendStatus(401)}
 });
 
 // S20: Crear ruta para modificar categoría (s68)
@@ -60,8 +60,8 @@ server.put('/:categoryId', (req, res, next) => {
         res.status(200).send(cat);
     })
     .catch(next);
-} else {res.sendStatus(404)}}
-else {res.sendStatus(404)}
+} else {res.sendStatus(401)}}
+else {res.sendStatus(401)}
 });
 
 module.exports = server;

@@ -26,6 +26,7 @@ export default function Form() {
 
   function handleOnClick (e){
     e.preventDefault()
+    console.log(category);
     if(!category.name || !category.description) {
       alert("Debes completar todos los campos");
     } else {
@@ -46,7 +47,7 @@ export default function Form() {
       Volver
       </div>
       <div className="formContainer">
-      <form>
+      <form onSubmit= {handleOnClick}>
         <div>
           <h1 className="titulo">Crear categoría</h1>
           </div>
@@ -67,8 +68,7 @@ export default function Form() {
           </span>
         </div >
         <div className="cont-btn">
-        <button 
-          onClick={() => handleOnClick()}
+        <button          
           className="add-buttom" 
           type="submit" 
           value="Agregar categoría">Agregar Categoría</button>
