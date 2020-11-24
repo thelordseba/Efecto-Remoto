@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../redux/actions/actions.js";
 
-function ProductCatalog({ home, admin, sale }) {
+function ProductCatalog({ cat, home, admin, sale }) {
   const limit = 6;
 
   let [category, setCategory] = useState("allCategories");
@@ -45,7 +45,8 @@ function ProductCatalog({ home, admin, sale }) {
     return products
       ? Array.isArray(products)
         ? products
-            // .filter((product) => (sale ? product.stock : product.stock < 5))
+            .filter((product) => (sale ? product.stock : product.stock < 5))
+            // .filter((product) => (cat ? product.categories.includes(cat))
             .map((product) => (
               <ProductCard
                 admin={admin}
@@ -88,20 +89,16 @@ function ProductCatalog({ home, admin, sale }) {
           Agregar producto
         </div>
       ) : null}
-      {sale ? (
-        <div>
-          <button disabled={page === 1} onClick={() => setPage(page - 1)}>
-            Anterior
-          </button>
-          <button
-            disabled={page === maxPages}
-            onClick={() => setPage(page + 1)}
-          >
-            Siguiente
-          </button>
-        </div>
-      ) : null}
       <div className="cards-container"> {mapProducts(sale)} </div>
+      <div>
+        <button disabled={page === 1} onClick={() => setPage(page - 1)}>
+          Anterior
+        </button>
+        <button disabled={page === maxPages} onClick={() => setPage(page + 1)}>
+          Siguiente
+        </button>
+      </div>
+      <hr></hr>
     </>
   );
 }

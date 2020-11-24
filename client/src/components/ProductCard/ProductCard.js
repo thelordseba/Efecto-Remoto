@@ -109,7 +109,7 @@ function ProductCard({ product, small = true, admin, id }) {
               onClick={() => handleAddToCart(product)}
             >
               <BagIcon fill="#fff" />
-              <span style={{ marginLeft: "0.5rem" }}>COMPRAR</span>
+              <span style={{ marginLeft: "0.5rem" }}>DONAR</span>
               <span style={{ marginLeft: "0.5rem" }}>${product.price}</span>
             </button>
           ) : (
