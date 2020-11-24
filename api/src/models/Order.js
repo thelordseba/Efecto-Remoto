@@ -10,13 +10,24 @@ module.exports = (sequelize) => {
 
     completionDate:{
         type: DataTypes.DATE,
-        allowNull: false        
+        allowNull: true
     },
 
     status:{
         type: DataTypes.ENUM({
             values: ['cart', 'created', 'processing', 'cancelled', 'completed']
         })         
+    },
+
+    rating:{
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      allowNull: true
+    },
+
+    review:{
+      type: DataTypes.TEXT,
+      allowNull: true
     }
   });
 };

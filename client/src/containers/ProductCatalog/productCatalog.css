@@ -1,35 +1,39 @@
-
 .cards-container {
-    width:100%;
-    display: flex;
-    grid-template: repeat(4, 1fr) / repeat(3, 1fr);
-    column-gap: 10px;
+  width: 100%;
+  max-width: 90rem;
+  padding: 0 2rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template: repeat(2, 1fr) / repeat(6, 1fr);
+  column-gap: 10px;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
 }
 
 .product-catalog-container {
-    display: flex;
-    align-items: baseline;
-    border-radius: 8px;
+  display: flex;
+  align-items: baseline;
+  border-radius: 8px;
 }
 
 .select {
-    height: 28px;
-    border-radius: 8px;
-    color: black;
-    border: none;
-    cursor: pointer;
-    font-family: sans-serif;
+  height: 28px;
+  border-radius: 8px;
+  color: black;
+  border: none;
+  cursor: pointer;
+  font-family: sans-serif;
 }
 
-.product-catalog-button{
-    padding: 6px;
-    border-radius: 8px;
-    background-color: teal;
-    width: 134px;
-    margin-top: 4px;
-    margin-bottom: 8px;
-    margin-left: 4px;
-    text-align: center;
-    color: white;
-    cursor: pointer;
+.product-catalog-button {
+  padding: 6px;
+  border-radius: 8px;
+  background-color: teal;
+  width: 134px;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  margin-left: 4px;
+  text-align: center;
+  color: white;
+  cursor: pointer;
 }
