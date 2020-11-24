@@ -4,8 +4,9 @@ import "./productCatalog.css";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../redux/actions/actions.js";
+import moment from "moment";
 
-function ProductCatalog({ cat, home, admin, sale }) {
+function ProductCatalog({ cat, home, admin, sale, latest }) {
   const limit = 6;
 
   let [category, setCategory] = useState("allCategories");
@@ -41,33 +42,40 @@ function ProductCatalog({ cat, home, admin, sale }) {
     })();
   }, [dispatch]);
 
-  const mapProducts = (sale) => {
-    return products
-      ? Array.isArray(products)
-        ? products
-            .filter((product) => (sale ? product.stock : product.stock < 5))
-            // .filter((product) => (cat ? product.categories.includes(cat))
-            .map((product) => (
-              <ProductCard
-                admin={admin}
-                key={product.id}
-                id={product.id}
-                product={product}
-              />
-            ))
-        : null
-      : null;
+  const calculateDiff = (date) => {
+    const dif1 = (moment() - moment(date?.slice(0, 10))) / 1000 / 60 / 60 / 24;
+    return Math.round(dif1);
+  };
+
+  const mapProducts = () => {
+    let filteredProducts = products;
+
+    if (!admin) {
+      filteredProducts = products.filter((product) => product.stock > 5);
+    }
+    if (cat) {
+      filteredProducts = filteredProducts.filter((product) =>
+        cat ? product.categories.some((cat1) => cat1.id === cat) : null
+      );
+    }
+    if (latest) {
+      filteredProducts = filteredProducts.filter(
+        (product) => calculateDiff(product.createdAt) < 5
+      );
+    }
+
+    return filteredProducts.map((product) => (
+      <ProductCard
+        admin={admin}
+        key={product.id}
+        id={product.id}
+        product={product}
+      />
+    ));
   };
 
   return (
     <>
-      {!home ? (
-        !sale ? (
-          <h1>LIQUIDACIÓN</h1>
-        ) : (
-          <h1>TODOS LOS PRODUCTOS</h1>
-        )
-      ) : null}
       {!home ? (
         <div className="product-catalog-container">
           <label className="tituloForm">Seleccioná una categoría: </label>
@@ -89,7 +97,7 @@ function ProductCatalog({ cat, home, admin, sale }) {
           Agregar producto
         </div>
       ) : null}
-      <div className="cards-container"> {mapProducts(sale)} </div>
+      <div className="cards-container"> {mapProducts()} </div>
       <div>
         <button disabled={page === 1} onClick={() => setPage(page - 1)}>
           Anterior

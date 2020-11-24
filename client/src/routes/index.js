@@ -65,7 +65,7 @@ const routes = [
   },
   {
     path: "/admin/products",
-    render: () => <ProductCatalog admin={true} />,
+    render: () => <ProductCatalog admin={true} sale={false} cat={false} />,
     exact: true,
   },
   {

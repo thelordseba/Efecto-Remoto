@@ -81,7 +81,11 @@ server.get("/categories/:categoryId", (req, res, next) => {
 server.get("/", (req, res, next) => {
   const offset = req.query.offset;
   const limit = req.query.limit;
-  Product.findAndCountAll({ limit, offset, include: { model: Image } })
+  Product.findAndCountAll({
+    limit,
+    offset,
+    include: [{ model: Image }, { model: Category }],
+  })
     .then(({ count, rows: products }) => {
       if (products.length > 0) {
         res.send({ products, count });
@@ -192,7 +196,6 @@ server.put("/:id", (req, res, next) => {
 // Task S27: Crear Ruta para eliminar Producto //S68
 server.delete("/:id", (req, res, next) => {
   if (req.user) {
-
     if (req.user.isAdmin) {
       Product.findOne({
         where: {
@@ -224,6 +227,5 @@ server.delete("/:id", (req, res, next) => {
     res.sendStatus(401);
   }
 });
-
 
 module.exports = server;
