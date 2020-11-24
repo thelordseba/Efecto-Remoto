@@ -92,7 +92,7 @@ passport.use(
     {
       clientID: FACEBOOK_APP_ID,
       clientSecret: FACEBOOK_APP_SECRET,
-      callbackURL: `${HOST}/auth/login/facebook/callback`,
+      callbackURL: `${HOST}auth/login/facebook/callback`,
       profileFields: ["id", "email", "displayName", "first_name", "last_name"],
       session: false, // Le estamos diciendo a FB "esta estrategia no es para guardar en la sesión"
     },
