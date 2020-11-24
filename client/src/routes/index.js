@@ -22,6 +22,7 @@ import Login from "components/Login/Login.js";
 import ResetPassword from "components/ResetPassword";
 import ReviewTable from "containers/ReviewTable/ReviewTable.js";
 import Review from "components/Review/Review.js";
+import Dashboard from "containers/Dashboard/Dashboard.js";
 
 const routes = [
   {
@@ -62,6 +63,11 @@ const routes = [
   {
     path: "/admin",
     component: HomeAdmin,
+  },
+  {
+    path: "/admin",
+    component: Dashboard,
+    exact: true,
   },
   {
     path: "/admin/products",
