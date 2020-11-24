@@ -79,11 +79,18 @@ const Checkout = () => {
         </div>
       </div>
 
-      <div className="payment-button">
+      <div>
+      <script
+        src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
+        data-preference-id='<%= global.id %>'>
+      </script>
+      </div>
+
+      {/* <div className="payment-button">
         <div className="payment" onClick={handlePayment}>
           Botón de pago
         </div>
-      </div>
+      </div> */}
     </>
   );
 };
