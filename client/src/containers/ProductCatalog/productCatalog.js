@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from "../../redux/actions/actions.js"
 
-function ProductCatalog ({admin}){
+function ProductCatalog ({admin, sale}){
 
   const limit = 6
 
@@ -34,9 +34,9 @@ function ProductCatalog ({admin}){
   })()}, [dispatch])
 
 
-  const mapProducts = () => {
+  const mapProducts = (sale) => {
     return products ? Array.isArray(products) ? products
-      .filter(product => product.stock > 0)
+      .filter(product => sale ? product.stock : product.stock < 5)
       .map(product => 
       <ProductCard
         admin={admin}
@@ -48,6 +48,7 @@ function ProductCatalog ({admin}){
 
   return (
     <>
+      { !sale ? <h1>LIQUIDACIÓN</h1> : <h1>TODOS LOS PRODUCTOS</h1>}
       <div className="product-catalog-container">
         <label className="tituloForm">Seleccioná una categoría: </label>
         <select className="select" onChange={handleOnChange}>
@@ -58,11 +59,13 @@ function ProductCatalog ({admin}){
         </select> 
       </div> 
       {admin ? <div className="product-catalog-button" onClick={handleOnClickAddProduct}>Agregar producto</div> : null}
-      <div>
-        <button disabled={page===1} onClick={() => setPage(page-1)}>Anterior</button>
-        <button disabled={page===maxPages} onClick={() => setPage(page+1)}>Siguiente</button>
-      </div>
-      <div className="cards-container"> {mapProducts()} </div>
+      { sale 
+        ? <div>
+            <button disabled={page===1} onClick={() => setPage(page-1)}>Anterior</button>
+            <button disabled={page===maxPages} onClick={() => setPage(page+1)}>Siguiente</button>
+          </div>
+        : null}
+      <div className="cards-container"> {mapProducts(sale)} </div>
     </>
   )
 }

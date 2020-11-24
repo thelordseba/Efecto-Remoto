@@ -5,7 +5,8 @@ function Home({search}){
 
     return (
     <div>
-        <ProductCatalog search={search}/>
+        <ProductCatalog sale={false} search={search}/>
+        <ProductCatalog sale={true} search={search}/>
     </div>  
     
     )
