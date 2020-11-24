@@ -79,12 +79,12 @@ const Checkout = () => {
         </div>
       </div>
 
-      <div>
+      <form action="/procesar-pago" method="POST">
         <script
           src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
-          data-preference-id='<%= global.id %>'>
+          data-preference-id="$$id$$">
         </script>
-      </div>
+      </form>
 
       {/* <div className="payment-button">
         <div className="payment" onClick={handlePayment}>

@@ -14,7 +14,7 @@ server.post('/', async (req, res, next) => {
         name: req.body.name,
         description: req.body.description,
         url: req.body.url,
-        accessToken: req.body.accessToken
+        // accessToken: req.body.accessToken
     })
     const location = await Location.create({
         address: req.body.address,

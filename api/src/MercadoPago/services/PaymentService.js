@@ -62,19 +62,14 @@ class PaymentService {
               excluded_payment_types: [{ id: "atm" }],
                 // aca podemos excluir TIPOS de pagos, es un array de objetos
                 // Por ejemplo, aca estamos excluyendo pago por cajero
-              installments: 0, 
+              installments: 1, 
                 // mayor cantidad de cuotas permitidas
-              default_installments: 0
+              default_installments: 1
                 // la cantidad de cuotas que van a aparecer por defecto
             }, 
-            back_urls: {
-                // declaramos las urls de redireccionamiento
-              success: "https://localhost:3001/success", 
-                // url a la que va a redireccionar si sale todo bien
-              pending: "https://localhost:3001.com/pending",
-                // url a la que va a redireccionar si decide pagar en efectivo por ejemplo
-              failure: "https://localhost:3001.com/error"
-                // url a la que va a redireccionar si falla el pago
+            back_urls: { // declaramos las urls de redireccionamiento
+              success: "https://localhost:3001/meli/callback", // url a la que va a redireccionar si sale todo bien
+              failure: "https://localhost:3001/meli/callback" // url a la que va a redireccionar si falla el pago
             }, 
             notification_url: "https://localhost:3001/payment/webhook", 
                 // declaramos nuestra url donde recibiremos las notificaciones
@@ -83,25 +78,17 @@ class PaymentService {
                 // si la compra es exitosa automaticamente redirige a "success" de back_urls
         };
         
-        //NOTA: TODAS las URLS que usemos tienen que ser reales,
-        // si prueban con localhost, va a fallar
-        
-        try {
-            const request = await axios.post(url, preferences, {
-       // hacemos el POST a la url que declaramos arriba, con las preferencias
-              headers: { 
-      // y el header, que contiene content-Type
-                "Content-Type": "application/json"
-              }
-            });
-      
-            return request.data; 
-      // devolvemos la data que devuelve el POST
-          } catch (e) {
-            console.log(e); 
-      // mostramos error en caso de que falle el POST
-          }
-        }    
+      try {
+        const request = await axios.post(url, preferences, { // hacemos el POST a la url que declaramos arriba, con las preferencias
+          headers: { // y el header, que contiene content-Type
+            "Content-Type": "application/json"
+            }
+        });
+        return request.data; // devolvemos la data que devuelve el POST
+      } catch (e) {
+        console.log(e); // mostramos error en caso de que falle el POST
+      }
+    }    
 }
 //NOTA: TODAS las URLS que usemos tienen que ser reales, 
 //si prueban con localhost, va a fallar
