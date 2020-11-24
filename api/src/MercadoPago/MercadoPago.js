@@ -1,9 +1,9 @@
-// SDK de Mercado Pago
 const mercadopago = require ('mercadopago');
 
+const { PROD_ACCESS_TOKEN } = process.env
 // Agrega credenciales
 mercadopago.configure({
-  access_token: 'PROD_ACCESS_TOKEN'
+  access_token: PROD_ACCESS_TOKEN
 });
 
 // Crea un objeto de preferencia
