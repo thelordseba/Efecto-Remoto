@@ -21,7 +21,7 @@ import Checkout from "containers/Checkout/Checkout.js";
 import Login from "components/Login/Login.js";
 import ResetPassword from "components/ResetPassword";
 import ReviewTable from "containers/ReviewTable/ReviewTable.js";
-import Review from "components/Review/Review.js"
+import Review from "components/Review/Review.js";
 
 const routes = [
   {
@@ -43,14 +43,14 @@ const routes = [
   },
   {
     path: "/products",
-    component: ProductCatalog,
+    render: ({ match }) => <ProductCatalog home={false} />,
     exact: true,
   },
-   {
-     path: "/profile/:id",
-     render: ({ match }) => <MyProfile id={match.params.id} />,
-     exact: true
-   },
+  {
+    path: "/profile/:id",
+    render: ({ match }) => <MyProfile id={match.params.id} />,
+    exact: true,
+  },
   /*  {
     path: "/profile/:id/orders",
     render: ({ match }) => <MyProfileOrders id={match.params.id} />
@@ -159,10 +159,10 @@ const routes = [
     exact: true,
   },
   {
-    path:"/review/:orderId",
+    path: "/review/:orderId",
     render: ({ match }) => <Review id={match.params.orderId} />,
-    exact: true
-  }
+    exact: true,
+  },
 ];
 
 export default routes;

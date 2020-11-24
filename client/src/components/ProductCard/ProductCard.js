@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteProduct } from "../../redux/actions/actions";
 import { ReactComponent as CartIcon } from "../common/cart.svg";
-import BagIcon from '../Icons/Bag'
+import BagIcon from "../Icons/Bag";
 
 //function ProductCard({ product, small = true, stars, admin, id }) {
 function ProductCard({ product, small = true, admin, id }) {
@@ -58,7 +58,7 @@ function ProductCard({ product, small = true, admin, id }) {
       >
         <img
           className={small ? "product-card-photo-small" : "product-card-photo"}
-          src={product.images[0].url}
+          src={product.images[0]?.url}
           alt={"Imagen no encontrada"}
         />
         <div className="product-card-content">
@@ -103,15 +103,16 @@ function ProductCard({ product, small = true, admin, id }) {
                 Eliminar
               </div>
             </div>
-          ) : 
-          !showSnackbar ? (
-            <button className="product-card-add-cart-button" onClick={() => handleAddToCart(product)}>
-              <BagIcon fill="#fff"/>
-              <span style={{marginLeft: '0.5rem'}}>COMPRAR</span>
-              <span style={{marginLeft: '0.5rem'}}>${product.price}</span>
+          ) : !showSnackbar ? (
+            <button
+              className="product-card-add-cart-button"
+              onClick={() => handleAddToCart(product)}
+            >
+              <BagIcon fill="#fff" />
+              <span style={{ marginLeft: "0.5rem" }}>COMPRAR</span>
+              <span style={{ marginLeft: "0.5rem" }}>${product.price}</span>
             </button>
-          )
-          : (
+          ) : (
             <div className="snackbar-success">
               ¡El producto se agregó correctamente a tu carrito!
             </div>
