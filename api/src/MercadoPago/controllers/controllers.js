@@ -52,16 +52,16 @@ const getOne = (id) => {
     });
 };
 
-const confirmedOrder = async ({id, payment_method_id, payment_type_id, status, status_detail, card, transaction_amount }) => {
+const confirmedOrder = async ({ id, payment_method_id, payment_type_id, status, status_detail, card, transaction_amount }) => {
     const Order = await getOne(id);
     Order.status = "completed";
     Order.paymentMethodId = payment_method_id;
     Order.paymentTypeId = payment_type_id;
     Order.paymentStatus = status;
     Order.paymentStatusDetail = status_detail;
-    Order.cardExpMonth = card.card_expiration_month;
-    Order.cardExpYear = card.card_expiration_year;
-    Order.lastFourDigits = card.card_last_four_digits;
+    Order.cardExpMonth = card.expiration_month;
+    Order.cardExpYear = card.expiration_year;
+    Order.lastFourDigits = card.last_four_digits;
     // Order.recurringPayment = recurring_payment;
     Order.transactionAmount = transaction_amount;
 
@@ -69,7 +69,7 @@ const confirmedOrder = async ({id, payment_method_id, payment_type_id, status, s
     return Order;
 };
 
-const toPaymentOrder = async ({ id, init_point }) => {
+const toPaymentOrder = async ({ id, initPoint }) => {
     const Order = await getOne(id);
     let poderComprar = true;
 
@@ -101,7 +101,7 @@ const toPaymentOrder = async ({ id, init_point }) => {
         Promise.all(products)
             .then(() => {
                 Order.status = "processing";
-                Order.initPoint = init_point;
+                Order.initPoint = initPoint;
                 Order.save();
             })
             .catch((err) => reject({error: err}));

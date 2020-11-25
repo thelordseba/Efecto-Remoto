@@ -44,7 +44,7 @@ server.post("/:id/toPayment", async (req, res) => {
 });
 
 server.get('/meli/callback', async (req, res) => {
-    if (req.query.collection_status !== 'null') {
+    if (req.query.collection_status !== 'null' || req.query.collection_status !== 'rejected') {
       try {
         const { body } = await mercadopago.payment.get(req.query.collection_id)
         const data = {
