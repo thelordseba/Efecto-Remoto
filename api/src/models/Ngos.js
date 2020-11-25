@@ -20,9 +20,9 @@ module.exports = (sequelize) => {
       },
     },
 
-    accessToken: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    }
+    // accessToken: {
+    //   type: DataTypes.STRING,
+    //   allowNull: true,
+    // }
   });
 };
