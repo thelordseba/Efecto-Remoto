@@ -18,7 +18,7 @@ server.post('/', async (req, res, next) => {
     const location = await Location.create({
         address: req.body.address,
         number: req.body.number,
-        postalCode: req.body.url,
+        postalCode: req.body.postalCode,
         city: req.body.city,
         province: req.body.province
     })
