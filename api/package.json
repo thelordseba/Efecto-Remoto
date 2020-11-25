@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "axios": "^0.21.0",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
@@ -23,7 +24,15 @@
     "express": "^4.17.1",
     "ioredis": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
+    "mercadopago": "^1.5.1",
     "morgan": "^1.10.0",
+    "passport": "^0.4.1",
+    "passport-facebook": "^3.0.0",
+    "passport-facebook-token": "^4.0.0",
+    "passport-google-oauth": "^2.0.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-http-bearer": "^1.0.1",
+    "passport-local": "^1.0.0",
     "pg": "^8.3.0",
     "react-images-upload": "^1.2.8",
     "sequelize": "^6.3.4"

@@ -1,15 +1,14 @@
-import React from 'react';
+import React from "react";
 
-export default function OrderLine({orderLineId,orderId,productId,price,quantity}) {
-//traer nombre del producto
+export default function OrderLine({ name, orderLine }) {
+  //traer nombre del producto
 
-  return(
+  return (
     <div>
-        <h1>Esto es OrderLine</h1>
-        <label>{orderLineId}</label>
-        <h3>{productId}</h3>
-        <h3>${price}</h3>
-        <h3>cantidad: {quantity}</h3>
+      <label>Producto: {name} </label>
+      <label>Precio: ${orderLine.price} </label>
+      <label>Cantidad: {orderLine.quantity} </label>
+      <label>Total: ${orderLine.price * orderLine.quantity} </label>
     </div>
-  )
-};
+  );
+}

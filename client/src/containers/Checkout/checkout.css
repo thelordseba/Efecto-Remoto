@@ -1,0 +1,77 @@
+.payment-button{
+    display: flex;
+    margin-left: 24px;
+}
+.back2{
+    cursor: pointer;
+    margin: 8px;
+    border-radius: 8px;
+    border: solid 1px;
+    padding: 4px;
+    width: 150px;
+    height: 25px;
+    background-color: teal;
+    color: white;
+    margin-left: 36px;
+    text-align: center;
+}
+
+.back2:hover{ 
+    cursor: pointer;
+    margin: 8px;
+    border-radius: 8px;
+    border: solid 1px;
+    padding: 4px;
+    width: 150px;
+    background-color:white;
+    color: teal;
+    margin-left: 36px;
+    height: 25px;
+    text-align: center;
+}
+
+.payment{
+    cursor: pointer;
+    margin: 8px;
+    border-radius: 8px;
+    border: solid 1px;
+    padding: 4px;
+    width: 150px;
+    height: 25px;
+    background-color: teal;
+    color: white;
+    text-align: center;
+}
+.payment:hover{ 
+    cursor: pointer;
+    margin: 12px;
+    border-radius: 8px;
+    border: solid 1px;
+    padding: 4px;
+    width: 150px;
+    height: 25px;
+    background-color:white;
+    color: teal;
+    text-align: center;
+}
+.checkout-container{
+    border: 3px solid teal;
+    margin: 10px;
+    display:flex;
+    padding: 24px;
+}
+.container-summary{
+    width: 100%;    
+}
+.title-container-summary{
+    font-size: 25px;
+}
+.total{
+    font-size: 35px;
+}
+.divider-summary{
+    margin-bottom: 16px;
+    border-top: solid 1px;
+    width: 100%;
+    margin-top: 16px;
+}
