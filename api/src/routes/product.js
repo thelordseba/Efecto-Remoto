@@ -1,6 +1,7 @@
 const server = require("express").Router();
 const { Product, Category, Image } = require("../db.js");
 const { Op } = require("sequelize");
+const isAdmin = require("./isAdmin.js");
 
 const { Sequelize } = require("sequelize");
 // const { response } = require('express');
@@ -28,8 +29,8 @@ server.post("/:productId/category", async (req, res, next) => {
     next();
   }
 });
-//(si)
-server.delete("/:productId/category/:categoryId", async (req, res, next) => {
+//(S115)
+server.delete("/:productId/category/:categoryId", isAdmin,async (req, res, next) => {
   const { productId, categoryId } = req.params;
   try {
     const product = await Product.findByPk(productId);
@@ -142,10 +143,9 @@ server.get("/:id", (req, res, next) => {
     .catch(next);
 });
 
-// Task S25: Crear ruta para crear/agregar Producto //S68
+// Task S25: Crear ruta para crear/agregar Producto //S115
 server.post("/", async (req, res) => {
-  // if (req.user) {
-  //   if (req.user.isAdmin) {
+  if (isAdmin(req)){
       try {
         const product = await Product.create({
           ngoId: req.body.ngoId,
@@ -162,18 +162,12 @@ server.post("/", async (req, res) => {
       } catch (error) {
         console.log(error);
       }
-  //   } else {
-  //     res.sendStatus(404);
-  //   }
-  // } else {
-  //   res.sendStatus(404);
-  // }
+    }
 });
 
-// Task S26 : Crear ruta para Modificar Producto //S68
+// Task S26 : Crear ruta para Modificar Producto //S115
 server.put("/:id", (req, res, next) => {
-  if (req.user) {
-    if (req.user.isAdmin) {
+  if (isAdmin(req)){
       Product.update(req.body, {
         where: { id: req.params.id },
       })
@@ -185,18 +179,12 @@ server.put("/:id", (req, res, next) => {
               .send({ error: "No se encontró ese ID de producto" });
         })
         .catch(next);
-    } else {
-      res.sendStatus(401);
-    }
-  } else {
-    res.sendStatus(401);
-  }
+      }
 });
 
-// Task S27: Crear Ruta para eliminar Producto //S68
+// Task S27: Crear Ruta para eliminar Producto //S115
 server.delete("/:id", (req, res, next) => {
-  if (req.user) {
-    if (req.user.isAdmin) {
+  if (isAdmin(req)){
       Product.findOne({
         where: {
           id: req.params.id,
@@ -220,12 +208,7 @@ server.delete("/:id", (req, res, next) => {
           }
         })
         .catch(next);
-    } else {
-      res.sendStatus(401);
-    }
-  } else {
-    res.sendStatus(401);
-  }
+      }
 });
 
 module.exports = server;

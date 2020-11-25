@@ -1,15 +1,15 @@
 const server = require('express').Router();
 const { Ngo, Location } = require('../db.js');
+const isAdmin = require("./isAdmin.js");
 
 server.get('/', (req, res, next)=>{
     Ngo.findAll()
    .then(ngos=> res.status(200).json(ngos))
     .catch(next);
 });
-//(S68)
+//(115)
 server.post('/', async (req, res, next) => {
-    if(req.user) {
-        if(req.user.isAdmin) {
+  if (isAdmin(req)){
     try {const ngo = await Ngo.create({
         name: req.body.name,
         description: req.body.description,
@@ -26,13 +26,11 @@ server.post('/', async (req, res, next) => {
     await ngo.setLocation(location)
     res.json(ngo);
     } catch(error) {next(error)}
-} else {res.sendStatus(404)}}
-    else {res.sendStatus(404)}
+}
 });
-//(S68)
+//(S115)
 server.delete('/:id', (req, res, next) => {
-    if(req.user) {
-        if(req.user.isAdmin) {
+  if (isAdmin(req)){
     Ngo.findByPk({
         where: {
             id: req.params.id 
@@ -46,13 +44,11 @@ server.delete('/:id', (req, res, next) => {
         ngo.destroy()
     })
     .catch(next);
-} else {res.sendStatus(404)}}
-    else {res.sendStatus(404)}
+}
 });
-//(S68)
+//(S115)
 server.put('/:id', (req, res, next) => {
-    if(req.user) {
-        if(req.user.isAdmin) {
+  if (isAdmin(req)){
     Ngo.update(req.body, {
         where: {id: req.params.id}
     })
@@ -61,8 +57,7 @@ server.put('/:id', (req, res, next) => {
         if(!ngo) res.status(400).send({error: 'No se encontró ese ID de producto'})
     })
     .catch(next);
-} else {res.sendStatus(404)}}
-    else {res.sendStatus(404)}
+}
 })
 
 module.exports = server;
