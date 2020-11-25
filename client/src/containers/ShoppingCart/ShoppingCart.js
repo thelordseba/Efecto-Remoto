@@ -14,7 +14,7 @@ function ShoppingCart(props) {
 
   const products = useMemo(() => {
     return JSON.parse(localStorage.getItem("cart"));
-  }, [cart]);
+  }, []);
 
   const handleBack = () => {
     history.push(`/products`);
