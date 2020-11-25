@@ -25,10 +25,10 @@ function CreateUpdateNGO({id}){
             )
         } else {
             axios.post(`http://localhost:3001/ngos`, ngo)
-            .then(() => alert("ONG agregada!"))
+            .then(() => alert("¡ONG agregada!"))
             .catch(() => {
                 alert("Hubo un error. Por favor, intentá de nuevo.")})
-            .then(() => history.push('/admin'))
+            .then(() => history.push('/admin/ngos'))
         }
     };
 
@@ -45,10 +45,10 @@ function CreateUpdateNGO({id}){
             <h1 className="tituloForm">{id ? 'Actualizar' : 'Crear'} ONG</h1>
             <div className="crud-form">
                 <br /><br />
-                <form className="" onSubmmit={handleOnSubmit}>
+                <form className="" onSubmit={handleOnSubmit}>
                     <p class="thick">Datos básicos</p>
                     <label>Nombre de la ONG</label>
-                        <input onChange={handleOnChange} value={ngo ? ngo.id : ""} name="ngoId" required type="text" placeholder="ONG" /><br /><br />
+                        <input onChange={handleOnChange} value={ngo ? ngo.id : ""} name="name" required type="text" placeholder="ONG" /><br /><br />
                     <label>Descripción de la ONG</label>
                         <input onChange={handleOnChange} value={ngo ? ngo.description : ""} name="description" required type="text" placeholder="Descripción de la ONG" /><br /><br />
                     <label>Página Web</label>
