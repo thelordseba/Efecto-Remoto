@@ -85,43 +85,46 @@ server.put("/:userId", async (req, res, next) => {
 
 // S67: POST /auth/promote/:id --> Promote convierte al usuario con ID: id a Admin. S115
 server.put("/:userId/isAdmin", async (req, res, next) => {
-  if (isAdmin(req)){
-  const { isAdmin } = req.body;
-  try {
-    const user = await User.findOne({ where: { id: req.params.userId } });
-    await user.update({ isAdmin });
-    res.json(user);
-  } catch (error) {
-    next(error);
+  if (isAdmin(req)) {
+    const { isAdmin } = req.body;
+    try {
+      const user = await User.findOne({ where: { id: req.params.userId } });
+      await user.update({ isAdmin });
+      res.json(user);
+    } catch (error) {
+      next(error);
+    }
   }
-  }});
+});
 
 //S36 Crear ruta que retorne todos los usuarios S115
 server.get("/", async (req, res, next) => {
-  if (isAdmin(req)){
-  try {
-    const user = await User.findAll({
-      include: [{ model: Location }],
-    });
-    res.json(user);
-  } catch (error) {
-    next(error);
+  if (isAdmin(req)) {
+    try {
+      const user = await User.findAll({
+        include: [{ model: Location }],
+      });
+      res.json(user);
+    } catch (error) {
+      next(error);
+    }
   }
 });
 
 //Get user Id by Email S115
 server.get("/getUserbyEmail", async (req, res, next) => {
-  if (isAdmin(req)){
-  const userEmail = req.query.userEmail;
-  try {
-    const user = await User.findOne({
-      where: {
-        email: userEmail,
-      },
-    });
-    res.json(user.id);
-  } catch (error) {
-    next(error);
+  if (isAdmin(req)) {
+    const userEmail = req.query.userEmail;
+    try {
+      const user = await User.findOne({
+        where: {
+          email: userEmail,
+        },
+      });
+      res.json(user.id);
+    } catch (error) {
+      next(error);
+    }
   }
 });
 
@@ -142,24 +145,25 @@ server.get("/:userId", async (req, res, next) => {
 
 //S37 Crear ruta para eliminar un usuario S115
 server.delete("/:userId", async (req, res, next) => {
-  if (isAdmin(req)){
-  try {
-    const user = await User.findOne({
-      where: {
-        id: req.params.userId,
-      },
-    });
-    const location = await Location.findOne({
-      where: {
-        id: user.locationId,
-      },
-    });
-    await location.destroy();
-    await user.destroy();
-    res.sendStatus(200);
-  } catch (error) {
-    next(error);
-  }}
+  if (isAdmin(req)) {
+    try {
+      const user = await User.findOne({
+        where: {
+          id: req.params.userId,
+        },
+      });
+      const location = await Location.findOne({
+        where: {
+          id: user.locationId,
+        },
+      });
+      await location.destroy();
+      await user.destroy();
+      res.sendStatus(200);
+    } catch (error) {
+      next(error);
+    }
+  }
 });
 
 server.post("/:userId/passwordReset", async (req, res, next) => {
