@@ -9,26 +9,26 @@ const Checkout = () => {
   const history = useHistory();
   const order = useSelector((state) => state.order);
 
-  const currentUser = useSelector(state => state.currentUser);
+  const currentUser = useSelector((state) => state.currentUser);
   const dispatch = useDispatch();
 
   const getTotal = () =>
-    order.products?.reduce((acc, el) => acc + el.orderLine.price * el.orderLine.quantity, 0);
+    order.products?.reduce(
+      (acc, el) => acc + el.orderLine.price * el.orderLine.quantity,
+      0
+    );
 
-  useEffect(
-    () => {
-      if(currentUser?.id) dispatch(getOrderByUserId(currentUser.id));
-    },
-    [dispatch, currentUser.id]
-  );
+  useEffect(() => {
+    if (currentUser?.id) dispatch(getOrderByUserId(currentUser.id));
+  }, [dispatch, currentUser.id]);
 
   const handleBack = () => {
     history.push(`/carrito`);
   };
-  
+
   const handlePayment = () => {
     //Acá iría la conección con mercadoPago
-    alert('Hay que pagar. No se haga el loco.');
+    alert("Hay que pagar. No se haga el loco.");
   };
 
   return (
@@ -39,11 +39,16 @@ const Checkout = () => {
       <div className="checkout-container">
         <div className="container-summary">
           <div className="title-container-summary">Productos</div>
-          <div className="divider-summary" />         
-          {order.products?.map(( product ) => (                               //order.products && order.products.map()
-             <OrderLine name={product.name} orderLine={product.orderLine} /> )
-            ) 
-          }
+          <div className="divider-summary" />
+          {order.products?.map((
+            product //order.products && order.products.map()
+          ) => (
+            <OrderLine
+              key={product.createdAt}
+              name={product.name}
+              orderLine={product.orderLine}
+            />
+          ))}
 
           <div className="divider-summary" />
           <div className="total">Total: ${getTotal()} </div>
@@ -55,26 +60,44 @@ const Checkout = () => {
           <div className="title-container-summary">Orden de compra:</div>
           <div className="divider-summary" />
 
-          <div>Nombre completo: {" " + currentUser.firstName + " " + currentUser.lastName}</div>
-          <div>Email: {!currentUser.email ? (<input></input>) : (currentUser.email)}</div>
+          <div>
+            Nombre completo:{" "}
+            {" " + currentUser.firstName + " " + currentUser.lastName}
+          </div>
+          <div>
+            Email: {!currentUser.email ? <input></input> : currentUser.email}
+          </div>
           <div>
             Dirección de facturación:{" "}
-            {!currentUser.location ? 
-            (<div>
-              <div><label>Calle: {" "}</label><input></input></div>
-              <div><label>Número: {" "}</label><input></input></div>
-              <div><label>Provincia: {" "}</label><input></input></div>
-              <div><label>Código postal: {" "}</label><input></input></div>              
-             </div>) 
-            
-            : (currentUser.location?.address +
+            {!currentUser.location ? (
+              <div>
+                <div>
+                  <label>Calle: </label>
+                  <input></input>
+                </div>
+                <div>
+                  <label>Número: </label>
+                  <input></input>
+                </div>
+                <div>
+                  <label>Provincia: </label>
+                  <input></input>
+                </div>
+                <div>
+                  <label>Código postal: </label>
+                  <input></input>
+                </div>
+              </div>
+            ) : (
+              currentUser.location?.address +
               " " +
               currentUser.location?.number +
               " - " +
               currentUser.location?.city +
               " (" +
               currentUser.location?.postalCode +
-              ")")}
+              ")"
+            )}
           </div>
         </div>
       </div>

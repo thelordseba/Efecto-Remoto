@@ -44,7 +44,7 @@ const routes = [
   },
   {
     path: "/products",
-    render: ({ match }) => <ProductCatalog home={false} />,
+    render: () => <ProductCatalog home={false} />,
     exact: true,
   },
   {
@@ -131,7 +131,7 @@ const routes = [
   },
   {
     path: "/admin/adduser",
-    render: ({ match }) => <FormUser admin={true} />,
+    render: () => <FormUser admin={true} />,
     exact: true,
   },
   {
@@ -141,7 +141,7 @@ const routes = [
   },
   {
     path: "/register",
-    render: ({ match }) => <FormUser admin={false} />,
+    render: () => <FormUser admin={false} />,
     exact: true,
   },
   {

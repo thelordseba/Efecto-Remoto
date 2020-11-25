@@ -9,11 +9,11 @@ export default function OrderTable({ userId }) {
   let [status, setStatus] = useState("allStatus");
 
   const statusList = [
-    { id: 1, name: "Carrito", value: "cart" },
-    { id: 2, name: "Iniciada", value: "created" },
-    { id: 3, name: "En Proceso", value: "processing" },
-    { id: 4, name: "Cancelada", value: "cancelled" },
-    { id: 5, name: "Completada", value: "completed" },
+    { id: 101, name: "Carrito", value: "cart" },
+    { id: 102, name: "Iniciada", value: "created" },
+    { id: 103, name: "En Proceso", value: "processing" },
+    { id: 104, name: "Cancelada", value: "cancelled" },
+    { id: 105, name: "Completada", value: "completed" },
   ];
 
   const handleOnChange = (e) => {
@@ -37,12 +37,12 @@ export default function OrderTable({ userId }) {
       if (userId) {
         mappedOrders = orders.map((order) =>
           order.user?.id === userId ? (
-            <OrderCard order={order} key={order.id} />
+            <OrderCard order={order} key={order.createdAt} />
           ) : null
         );
       } else {
         mappedOrders = orders.map((order) => (
-          <OrderCard order={order} key={order.id} />
+          <OrderCard order={order} key={order.createdAt} />
         ));
       }
       return mappedOrders;

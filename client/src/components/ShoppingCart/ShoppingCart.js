@@ -67,24 +67,31 @@ function ShoppingCart(props) {
       history.push("/loginuser");
     } else {
       // console.log('currentUser', currentUser)
-      const cart = JSON.parse(localStorage.getItem("cart"))
+      const cart = JSON.parse(localStorage.getItem("cart"));
       // console.log('cart', cart)
-      cart.forEach(async prod => {
-        const product = {productId: prod.id, quantity: prod.quantity, price: prod.price}
+      cart.forEach(async (prod) => {
+        const product = {
+          productId: prod.id,
+          quantity: prod.quantity,
+          price: prod.price,
+        };
         try {
-          const response = await axios.post(`http://localhost:3001/orders/${currentUser.id}/cart`, product);
+          await axios.post(
+            `http://localhost:3001/orders/${currentUser.id}/cart`,
+            product
+          );
           history.push(`/checkout`);
           // return console.log(response);
         } catch (error) {
           return console.log(error);
         }
-  })}};
+      });
+    }
+  };
 
   useEffect(() => {
     if (localCart) setCart(JSON.parse(localCart));
   }, [localCart]);
-
- 
 
   return (
     <>
@@ -98,7 +105,7 @@ function ShoppingCart(props) {
           {products &&
             products.map((prod) => (
               <ShoppingItem
-                key={prod.id}
+                key={prod.createdAt}
                 product={prod}
                 maxQuantity={prod.stock}
                 handleOnChangeQuantity={handleOnChangeQuantity}

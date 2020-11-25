@@ -23,7 +23,8 @@ export default function UserTable() {
       </div>
 
       <label>--- Listado de Usuarios ---</label>
-      {users && users.map((user) => <UserCard key={user.id} user={user} />)}
+      {users &&
+        users.map((user) => <UserCard key={user.createdAt} user={user} />)}
     </div>
   );
 }

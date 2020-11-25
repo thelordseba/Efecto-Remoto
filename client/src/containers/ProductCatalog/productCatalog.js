@@ -55,7 +55,7 @@ function ProductCatalog({ cat, home, admin, sale, latest }) {
     }
     if (cat) {
       filteredProducts = filteredProducts.filter((product) =>
-        cat ? product.categories.some((cat1) => cat1.id === cat) : null
+        cat ? product.categories?.some((cat1) => cat1.id === cat) : null
       );
     }
     if (latest) {
@@ -67,7 +67,7 @@ function ProductCatalog({ cat, home, admin, sale, latest }) {
     return filteredProducts.map((product) => (
       <ProductCard
         admin={admin}
-        key={product.id}
+        key={product.createdAt}
         id={product.id}
         product={product}
       />
@@ -82,7 +82,7 @@ function ProductCatalog({ cat, home, admin, sale, latest }) {
           <select className="select" onChange={handleOnChange}>
             <option value="allCategories">Todas las categorías</option>
             {categories.map((category) => (
-              <option value={category.id} key={category.id}>
+              <option value={category.id} key={category.createdAt}>
                 {category.name}
               </option>
             ))}

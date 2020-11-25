@@ -37,7 +37,9 @@ export default function CategoryTable() {
       <br />
       <br />
       {orders &&
-        orders.map((order) => <ReviewCard order={order} key={order.id} />)}
+        orders.map((order) => (
+          <ReviewCard order={order} key={order.createdAt} />
+        ))}
     </div>
   );
 }
