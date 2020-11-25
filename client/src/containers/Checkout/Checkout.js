@@ -47,7 +47,15 @@ const Checkout = () => {
   };
 
   const handlePayment = () => {
-    if (!currentUser.email || !currentUser.location) {
+    if (!currentUser.email) {
+      updateUser(currentUser.id, data);
+    }
+    if (
+      !currentUser?.address ||
+      !currentUser?.number ||
+      !currentUser?.city ||
+      !currentUser?.postalCode
+    ) {
       updateUser(currentUser.id, data);
     }
     toPayment(order.id);
@@ -88,35 +96,40 @@ const Checkout = () => {
           </div>
           <div>
             Dirección de facturación:{" "}
-            {!currentUser.location ? (
-              <div>
+            <div>
+              {!currentUser.location?.address ? (
                 <div>
                   <label>Calle: </label>
                   <input name="address" onChange={handleOnChange}></input>
                 </div>
+              ) : (
+                currentUser.location?.address + " "
+              )}
+              {!currentUser.location?.number ? (
                 <div>
-                  <label>Número: </label>
+                  <label>Numero: </label>
                   <input name="number" onChange={handleOnChange}></input>
                 </div>
+              ) : (
+                currentUser.location?.number + " "
+              )}
+              {!currentUser.location?.city ? (
                 <div>
                   <label>Provincia: </label>
                   <input name="city" onChange={handleOnChange}></input>
                 </div>
+              ) : (
+                " - " + currentUser.location?.city + " "
+              )}
+              {!currentUser.location?.postalCode ? (
                 <div>
                   <label>Código postal: </label>
                   <input name="postalCode" onChange={handleOnChange}></input>
                 </div>
-              </div>
-            ) : (
-              currentUser.location?.address +
-              " " +
-              currentUser.location?.number +
-              " - " +
-              currentUser.location?.city +
-              " (" +
-              currentUser.location?.postalCode +
-              ")"
-            )}
+              ) : (
+                "(" + currentUser.location?.postalCode + ")"
+              )}
+            </div>
           </div>
         </div>
       </div>
