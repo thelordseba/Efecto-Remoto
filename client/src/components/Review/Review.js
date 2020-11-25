@@ -13,12 +13,14 @@ const Review = ({ id }) => {
     //history.push(``);
   };
 
-  const handleClickReview = async (id) => {
-    try {
-      await axios.put(`http://localhost:3001/orders/${id}`, review);
-    } catch (error) {
-      alert(error);
-    }
+  
+  const handleClickReview = async (id) => {      
+      try{
+        await axios.put(`http://localhost:3001/orders/${id}`, review)
+      }catch(error){  
+          console.log(error);
+      }      
+
   };
 
   const handleOnChange = (e) => {

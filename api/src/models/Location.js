@@ -2,21 +2,20 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
 
-sequelize.define('location', {
-    //en name tengo que hacer una función por firstname y lastname= por 
+sequelize.define('location', {    
     address: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: true
     },
 
     number: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: true
     },
 
     postalCode: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: true
     }, 
 
     city: {
