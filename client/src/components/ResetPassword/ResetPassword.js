@@ -1,143 +1,141 @@
-import React from "react";
+import React, {useEffect,  useMemo,  useState } from 'react';
 import Password from "./Password.js";
 import PasswordConfirmation from "./PasswordConfirmation.js";
 import ErrorsList from "./ErrorsList.js";
 import ConfirmBtn from "./ConfirmBtn.js";
 import axios from "axios";
 
-export default class ResetPassword extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      password: "",
-      passwordConfirmation: "",
-      allPasswordErrors: this.allPasswordErrors(),
-      passwordErrors: {},
-      allPasswordConfirmationErrors: this.allPasswordConfirmationErrors(),
-      passwordConfirmationErrors: {},
-    };
+function ResetPassword({history, minLength=null, shouldContainUpperCase = false, shouldContainLowerCase = false,shouldContainNumber = false, shouldContainSpecialCharacter = false}) {
+  const [password, setPassword] = useState('')
+  const [passwordConfirmation, setPasswordConfirmation] = useState('')
+  const [passwordErrors, setPasswordErrors] = useState({})
+  const [passwordConfirmationErrors, setPasswordConfirmationErrors] = useState({})
 
-    this.updatePassword = this.updatePassword.bind(this);
-    this.updatePasswordConfirmation = this.updatePasswordConfirmation.bind(
-      this
-    );
-    this.handleOnClick = this.handleOnClick.bind(this);
+  const allPasswordErrors =  {
+    invalid_length:
+      "Debe contener al menos " + minLength + " muchos caracteres",
+    missing_characters: invalidCharactersMessage()
   }
 
-  updatePassword(password) {
-    this.setState({ password: password }, function () {
-      this.validatePassword();
-      this.validatePasswordConfirmation();
-    });
+  const allPasswordConfirmationErrors = {
+    match_password_and_confirmation: "Las contraseñas no coinciden.",
+  }
+ 
+  function updatePassword(password) {
+    setPassword(password)
   }
 
-  updatePasswordConfirmation(passwordConfirmation) {
-    this.setState({ passwordConfirmation: passwordConfirmation }, function () {
-      this.validatePasswordConfirmation();
-    });
+ function updatePasswordConfirmation(passwordConfirmation) {
+    setPasswordConfirmation(passwordConfirmation)
   }
 
-  validatePassword() {
-    this.validateLength();
-    this.validateCharacters();
+  useEffect(() => {
+    validatePassword()
+    validatePasswordConfirmation()
+  },[password, passwordConfirmation])
+
+  
+ function validatePassword() {
+    validateLength()
+    validateCharacters()
   }
 
-  async handleOnClick(event) {
+  async function handleOnClick(event) {
     const user = {
       email: "jose@123.com",
     };
     event.preventDefault();
-    if (!this.state.password) {
+    if (!password) {
       alert("Debes completar todos los campos");
     } else {
       const userId = await axios.get(
         `http://localhost:3001/users/getUserbyId?userEmail=${user.email}`
       );
       await axios.post(
-        `http://localhost:3001/users/${userId}/resetPassword`,
-        this.state.password
+        `http://localhost:3001/users/${userId}/resetPassword`,password
       );
       alert("contraseña Cambiada");
-      this.props.history.push("/");
+      history.push("/");
     }
   }
-
-  validatePasswordConfirmation() {
-    var errors = this.state.passwordConfirmationErrors;
+  
+  function validatePasswordConfirmation() {
+    var errors = {...passwordConfirmationErrors};
     var errorKey = "match_password_and_confirmation";
-
-    if (this.state.password !== this.state.passwordConfirmation) {
-      errors[errorKey] = this.state.allPasswordConfirmationErrors[errorKey];
+    if (password !== passwordConfirmation) {
+      errors[errorKey] = allPasswordConfirmationErrors[errorKey];
     } else {
       delete errors[errorKey];
     }
-
-    this.setState({ passwordConfirmationErrors: errors });
+    setPasswordConfirmationErrors(errors)
   }
 
-  validateLength() {
-    var errors = this.state.passwordErrors;
+  function validateLength() {
+    var errors = {...passwordErrors};
     var errorKey = "invalid_length";
 
-    if (this.state.password.length < this.props.minLength) {
-      errors[errorKey] = this.state.allPasswordErrors[errorKey];
+    if (password.length < minLength) {
+      errors[errorKey] = allPasswordErrors[errorKey];
     } else {
       delete errors[errorKey];
     }
-
-    this.setState({ passwordErrors: errors });
+    setPasswordErrors(errors)
   }
 
-  validateCharacters() {
-    var errors = this.state.passwordErrors,
+  function validateCharacters() {
+    var errors = {...passwordErrors},
       errorKey = "missing_characters";
+    const upper = shouldContainUpperCase && !containsUpperCase()
+    const lower = shouldContainLowerCase && !containsLowerCase()
+    const number = shouldContainNumber && !containsNumber()
+    const special = shouldContainSpecialCharacter &&
+    !containsSpecialCharacter()
 
     if (
-      (this.props.shouldContainUpperCase && !this.containsUpperCase()) ||
-      (this.props.shouldContainLowerCase && !this.containsLowerCase()) ||
-      (this.props.shouldContainNumber && !this.containsNumber()) ||
-      (this.props.shouldContainSpecialCharacter &&
-        !this.containsSpecialCharacter())
+      upper ||
+      lower ||
+      number ||
+      special
     ) {
-      errors[errorKey] = this.state.allPasswordErrors[errorKey];
+      errors[errorKey] = allPasswordErrors[errorKey];
     } else {
       delete errors[errorKey];
     }
 
-    this.setState({ passwordErrors: errors });
+    setPasswordErrors(errors)
   }
 
-  containsNumber() {
-    return /[0-9]/g.test(this.state.password);
+  function containsNumber() {
+    return /[0-9]/g.test(password);
   }
 
-  containsUpperCase() {
-    return /[A-Z]/g.test(this.state.password);
+  function containsUpperCase() {
+    return /[A-Z]/g.test(password);
   }
 
-  containsLowerCase() {
-    return /[a-z]/g.test(this.state.password);
+  function containsLowerCase() {
+    return /[a-z]/g.test(password)
   }
 
-  containsSpecialCharacter() {
-    let regex = /[!@#$%&*+=;,|:<>]\?/g;
-    return regex.test(this.state.password);
+  function containsSpecialCharacter() {
+    let regex =  /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]*$/g
+    return regex.test(password);
   }
 
-  invalidCharactersMessage() {
+  function invalidCharactersMessage() {
     var startString = "Debe contener al menos",
       errors = [];
 
-    if (this.props.shouldContainUpperCase) {
+    if (shouldContainUpperCase) {
       errors.push("1 letra mayúscula");
     }
-    if (this.props.shouldContainLowerCase) {
+    if (shouldContainLowerCase) {
       errors.push("1 letra minúscula");
     }
-    if (this.props.shouldContainNumber) {
+    if (shouldContainNumber) {
       errors.push("1 número");
     }
-    if (this.props.shouldContainSpecialCharacter) {
+    if (shouldContainSpecialCharacter) {
       errors.push("1 caracter especial (!, @, *, etc)");
     }
 
@@ -155,48 +153,28 @@ export default class ResetPassword extends React.Component {
       );
     }
   }
+ const mappedErrorList= useMemo(()=> {
+  return <ErrorsList
+      allErrors={allPasswordConfirmationErrors}
+      errors={passwordConfirmationErrors}
+    />
+  },[passwordConfirmationErrors])
+  
+return (
+  <div className="container-rp">
+    <h2 className="res-pass">Restablecer contraseña</h2>
+    <Password updatePassword={updatePassword} />
+    <ErrorsList
+      allErrors={allPasswordErrors}
+      errors={passwordErrors}
+    ></ErrorsList>
 
-  allPasswordConfirmationErrors() {
-    return {
-      match_password_and_confirmation: "Las contraseñas no coinciden.",
-    };
-  }
-
-  allPasswordErrors() {
-    return {
-      invalid_length:
-        "Debe contener al menos " + this.props.minLength + " muchos caracteres",
-      missing_characters: this.invalidCharactersMessage(),
-    };
-  }
-
-  render() {
-    return (
-      <div className="container-rp">
-        <h2 className="res-pass">Restablecer contraseña</h2>
-        <Password updatePassword={this.updatePassword} />
-        <ErrorsList
-          allErrors={this.state.allPasswordErrors}
-          errors={this.state.passwordErrors}
-        ></ErrorsList>
-
-        <PasswordConfirmation
-          updatePasswordConfirmation={this.updatePasswordConfirmation}
-        />
-        <ErrorsList
-          allErrors={this.state.allPasswordConfirmationErrors}
-          errors={this.state.passwordConfirmationErrors}
-        ></ErrorsList>
-        <ConfirmBtn onClick={this.handleOnClick} />
-      </div>
-    );
-  }
-}
-
-ResetPassword.defaultProps = {
-  minLength: null,
-  shouldContainUpperCase: false,
-  shouldContainLowerCase: false,
-  shouldContainSpecialCharacter: false,
-  shouldContainNumber: false,
-};
+    <PasswordConfirmation
+      updatePasswordConfirmation={updatePasswordConfirmation}
+    />
+    {mappedErrorList}
+    <ConfirmBtn onClick={handleOnClick} />
+  </div>
+) 
+} 
+export default ResetPassword

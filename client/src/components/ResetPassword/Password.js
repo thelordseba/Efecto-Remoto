@@ -1,44 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-export default class Password extends React.Component {
-
-  constructor() {
-    super();
-    this.state = {
-      showPassword: false
-    }
+function Password({ updatePassword }) {
+  const [showPassword, setShowPassword] = useState(false)
+  function handlePasswordChange(event) {
+    updatePassword(event.target.value)
   }
 
-  handlePasswordChange(event) {
-    this.props.updatePassword(event.target.value);
+  function handleToggleShowClick() {
+    setShowPassword(!showPassword)
   }
 
-  handleOnFocus(event) {
-    this.props.updatePassword(event.target.value || '');
+  function handleOnFocus(event) {
+    updatePassword(event.target.value || '')
   }
 
-  handleToggleShowClick() {
-    this.setState({
-      showPassword: !this.state.showPassword
-    });
+  function passwordType() {
+    return showPassword ? 'text' : 'password'
   }
 
-  passwordType() {
-    return this.state.showPassword ? 'text' : 'password';
+  function showHideText() {
+    return showPassword ? 'Ocultar' : 'Mostrar'
   }
+  return (<div className='newPass'>
+  <input type={ passwordType() }
+         placeholder="Nueva contraseña"
+         onFocus={ handleOnFocus }
+         onChange={ handlePasswordChange }></input>
+  <button title='Mostrar' onClick={ handleToggleShowClick }>{ showHideText() }</button>
 
-  showHideText() {
-    return this.state.showPasswordConfirmation ? 'Ocultar' : 'Mostrar'
-  }
+</div>)
 
-  render() {
-    return <div className='newPass'>
-      <input type={ this.passwordType() }
-             placeholder="Nueva contraseña"
-             onFocus={ this.handleOnFocus.bind(this) }
-             onChange={ this.handlePasswordChange.bind(this) }></input>
-      <button title='Mostrar' onClick={ this.handleToggleShowClick.bind(this) }>{ this.showHideText() }</button>
-    
-    </div>
-  }
 }
+
+export default Password
