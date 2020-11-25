@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import OrderStatusPie from "graphs/OrderStatusPie/OrderStatusPie";
 import DailyOrdersLinear from "graphs/DailyOrdersLinear/DailyOrdersLinear.js";
 import DailyRevenueLinear from "graphs/DailyRevenueLinear/DailyRevenueLinear.js";
-import QAIndex from "graphs/QAIndex/QAIndex.js";
 import axios from "axios";
 import "containers/Dashboard/Dashboard.css";
 
