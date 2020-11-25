@@ -22,7 +22,7 @@ const Dashboard = () => {
       <h1>ESTO ES DASHBOARD</h1>;
       <div className="graph-grid">
         <div className="graph-grid-0">
-          <QAIndex rating={ratings} />
+          <h1>{ratings}</h1>
         </div>
         <div className="graph-grid-1">
           <DailyRevenueLinear />
