@@ -11,10 +11,13 @@ const Checkout = () => {
   const order = useSelector((state) => state.order);
   const currentUser = useSelector(state => state.currentUser);
   const [data, setData] = useState({});  
+
   const dispatch = useDispatch();
 
   const getTotal = () =>
-    order.products?.reduce((acc, el) => acc + el.orderLine.price * el.orderLine.quantity, 0);
+    order.products?.reduce(
+      (acc, el) => acc + el.orderLine.price * el.orderLine.quantity, 0
+    );
 
   const updateUser = async (id, userData)=>{   
     try{
@@ -82,13 +85,15 @@ const Checkout = () => {
               <div><label>Código postal: {" "}</label><input name= "postalCode" onChange={handleOnChange}></input></div>              
              </div>
             ): (currentUser.location?.address +
+
               " " +
               currentUser.location?.number +
               " - " +
               currentUser.location?.city +
               " (" +
               currentUser.location?.postalCode +
-              ")")}
+              ")"
+            )}
           </div>
         </div>
       </div>

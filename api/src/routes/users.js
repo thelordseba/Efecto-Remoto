@@ -84,24 +84,29 @@ server.put("/:userId", async (req, res, next) => {
 
 // S67: POST /auth/promote/:id --> Promote convierte al usuario con ID: id a Admin. S68
 server.put("/:userId/isAdmin", async (req, res, next) => {
-  if(req.user) {
-    if(req.user.isAdmin) {
-  const { isAdmin } = req.body;
-  try {
-    const user = await User.findOne({ where: { id: req.params.userId } });
-    await user.update({ isAdmin });
-    res.json(user);
-  } catch (error) {
-    next(error);
+  if (req.user) {
+    if (req.user.isAdmin) {
+      const { isAdmin } = req.body;
+      try {
+        const user = await User.findOne({ where: { id: req.params.userId } });
+        await user.update({ isAdmin });
+        res.json(user);
+      } catch (error) {
+        next(error);
+      }
+    } else {
+      res.sendStatus(404);
+    }
+  } else {
+    res.sendStatus(404);
   }
-} else {res.sendStatus(404)}}
-    else {res.sendStatus(404)}
 });
 
 //S36 Crear ruta que retorne todos los usuarios S68
 server.get("/", async (req, res, next) => {
-  // if(req.user) {
-  //   if(req.user.isAdmin) {
+  // if (req.user) {
+  //   if (req.user.isAdmin) {
+
   try {
     const user = await User.findAll({
       include: [{ model: Location }],
@@ -110,27 +115,36 @@ server.get("/", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-// } else {res.sendStatus(404)}}
-//     else {res.sendStatus(404)}
+  //   } else {
+  //     res.sendStatus(404);
+  //   }
+  // } else {
+  //   res.sendStatus(404);
+  // }
+
 });
 
 //Get user Id by Email S68
 server.get("/getUserbyEmail", async (req, res, next) => {
-  if(req.user) {
-    if(req.user.isAdmin) {
-  const userEmail = req.query.userEmail;
-  try {
-    const user = await User.findOne({
-      where: {
-        email: userEmail,
-      },
-    });
-    res.json(user.id);
-  } catch (error) {
-    next(error);
+  if (req.user) {
+    if (req.user.isAdmin) {
+      const userEmail = req.query.userEmail;
+      try {
+        const user = await User.findOne({
+          where: {
+            email: userEmail,
+          },
+        });
+        res.json(user.id);
+      } catch (error) {
+        next(error);
+      }
+    } else {
+      res.sendStatus(404);
+    }
+  } else {
+    res.sendStatus(404);
   }
-} else {res.sendStatus(404)}}
-   else {res.sendStatus(404)}
 });
 
 //Get user by Id S68
@@ -150,27 +164,31 @@ server.get("/:userId", async (req, res, next) => {
 
 //S37 Crear ruta para eliminar un usuario S68
 server.delete("/:userId", async (req, res, next) => {
-  if(req.user) {
-    if(req.user.isAdmin) {
-  try {
-    const user = await User.findOne({
-      where: {
-        id: req.params.userId,
-      },
-    });
-    const location = await Location.findOne({
-      where: {
-        id: user.locationId,
-      },
-    });
-    await location.destroy();
-    await user.destroy();
-    res.sendStatus(200);
-  } catch (error) {
-    next(error);
+  if (req.user) {
+    if (req.user.isAdmin) {
+      try {
+        const user = await User.findOne({
+          where: {
+            id: req.params.userId,
+          },
+        });
+        const location = await Location.findOne({
+          where: {
+            id: user.locationId,
+          },
+        });
+        await location.destroy();
+        await user.destroy();
+        res.sendStatus(200);
+      } catch (error) {
+        next(error);
+      }
+    } else {
+      res.sendStatus(404);
+    }
+  } else {
+    res.sendStatus(404);
   }
-} else {res.sendStatus(404)}}
-    else {res.sendStatus(404)}
 });
 
 server.post("/:userId/passwordReset", async (req, res, next) => {

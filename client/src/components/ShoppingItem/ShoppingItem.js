@@ -2,7 +2,12 @@ import React from "react";
 import "./ShoppingItem.css";
 import { ReactComponent as TrashIcon } from "../common/trash.svg";
 
-function ShoppingItem({ product, handleOnChangeQuantity, onRemoveProduct, maxQuantity }) {
+function ShoppingItem({
+  product,
+  handleOnChangeQuantity,
+  onRemoveProduct,
+  maxQuantity,
+}) {
   return (
     <>
       <div key={product.id} className="product-container-shopping-cart">
@@ -28,9 +33,9 @@ function ShoppingItem({ product, handleOnChangeQuantity, onRemoveProduct, maxQua
           />
         </form>
         <TrashIcon
-              className={"cart-icon"}
-              onClick={() => onRemoveProduct(product.id)}
-            />
+          className={"cart-icon"}
+          onClick={() => onRemoveProduct(product.id)}
+        />
       </div>
     </>
   );

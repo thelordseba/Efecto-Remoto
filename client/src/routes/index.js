@@ -22,6 +22,8 @@ import Login from "components/Login/Login.js";
 import ResetPassword from "components/ResetPassword";
 import ReviewTable from "containers/ReviewTable/ReviewTable.js";
 import Review from "components/Review/Review.js";
+import Dashboard from "containers/Dashboard/Dashboard.js";
+import PaymentStatus from "containers/PaymentStatus/PaymentStatus";
 
 const routes = [
   {
@@ -43,7 +45,7 @@ const routes = [
   },
   {
     path: "/products",
-    render: ({ match }) => <ProductCatalog home={false} />,
+    render: () => <ProductCatalog home={false} />,
     exact: true,
   },
   {
@@ -64,8 +66,13 @@ const routes = [
     component: HomeAdmin,
   },
   {
+    path: "/admin",
+    component: Dashboard,
+    exact: true,
+  },
+  {
     path: "/admin/products",
-    render: () => <ProductCatalog admin={true} />,
+    render: () => <ProductCatalog admin={true} sale={false} cat={false} />,
     exact: true,
   },
   {
@@ -125,7 +132,7 @@ const routes = [
   },
   {
     path: "/admin/adduser",
-    render: ({ match }) => <FormUser admin={true} />,
+    render: () => <FormUser admin={true} />,
     exact: true,
   },
   {
@@ -135,7 +142,7 @@ const routes = [
   },
   {
     path: "/register",
-    render: ({ match }) => <FormUser admin={false} />,
+    render: () => <FormUser admin={false} />,
     exact: true,
   },
   {
@@ -163,6 +170,11 @@ const routes = [
     render: ({ match }) => <Review id={match.params.orderId} />,
     exact: true,
   },
+  {
+    path:"/paymentstatus",
+    render: PaymentStatus,
+    exact:true
+  }
 ];
 
 export default routes;

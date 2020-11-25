@@ -10,10 +10,11 @@ export default function useUser() {
   const dispatch = useDispatch();
 
   async function loginWithEmail(values) {
-    const {data: token} = await axios.post(
-      `http://localhost:3001/auth/login/email`,
-      {...values}
-    );
+    const {
+      data: token,
+    } = await axios.post(`http://localhost:3001/auth/login/email`, {
+      ...values,
+    });
     if (token) loginWithToken(token);
   }
 
@@ -25,16 +26,24 @@ export default function useUser() {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       dispatch({ type: constants.SETCURRENTUSER, payload: user });
     }
-    axios.get(`http://localhost:3001/orders/${user.id}/shopping-cart`)
-    .then(response => {
-      if(response.data === null) axios.post(`http://localhost:3001/orders/${user.id}`)
-    }, (error) => {console.log(error);})
-    .catch(error => console.log(error))
+    axios
+      .get(`http://localhost:3001/orders/${user.id}/shopping-cart`)
+      .then(
+        (response) => {
+          if (response.data === null)
+            axios.post(`http://localhost:3001/orders/${user.id}`);
+        },
+        (error) => {
+          alert(error);
+        }
+      )
+      .catch((error) => alert(error));
   }
 
   async function register(values) {
-    console.log("entró 2")
-    const { data: token } = await axios.post(`http://localhost:3001/auth/register`, {...values});
+    const {
+      data: token,
+    } = await axios.post(`http://localhost:3001/auth/register`, { ...values });
     if (token) loginWithToken(token);
   }
 
