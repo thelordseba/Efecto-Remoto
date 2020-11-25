@@ -9,6 +9,7 @@ const locationsRouter = require("./locations");
 const reviewsRouter = require("./reviews");
 const router = Router();
 const authRouter = require("./auth");
+const paymentRouter = require("./payment");
 
 // load each router on a route
 // i.e: router.use('/auth', authRouter);
@@ -20,5 +21,6 @@ router.use("/orders", orderRouter);
 router.use("/ngos", ngoRouter);
 router.use("/locations", locationsRouter);
 router.use("/reviews", reviewsRouter);
+router.use("/payment", paymentRouter);
 
 module.exports = router;

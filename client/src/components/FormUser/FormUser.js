@@ -11,7 +11,7 @@ import useQuery from "Hooks/useQuery";
 //Field es un componente que conecta directamente a formik
 function FormUser(props) {
   const { localUser, register, loginWithToken } = useUser(); //hook para definir funciones de usuarios
-  const query = useQuery();  //hook para leer token
+  const query = useQuery(); //hook para leer token
   const { isSubmitting, isValid } = props; // viene de las props del componente
   const history = useHistory();
 
@@ -20,9 +20,8 @@ function FormUser(props) {
   };
 
   useEffect(() => {
-    if (localUser) history.push("/");  //si esta log te lleva a products
+    if (localUser) history.push("/"); //si esta log te lleva a products
   }, [localUser, history]);
-
 
   useEffect(() => {
     (async () => {
@@ -41,8 +40,24 @@ function FormUser(props) {
           Volver
         </div>
       ) : null}
-      <Formik 
-        initialValues={{isAdmin: false, userName: "", email: "", password: "", firstName: "", lastName: "", telephone: "", address: "", number: "", postalCode: "", province: "", city: "", country: "", gmailId: "", facebookId: ""}} 
+      <Formik
+        initialValues={{
+          isAdmin: false,
+          userName: "",
+          email: "",
+          password: "",
+          firstName: "",
+          lastName: "",
+          telephone: "",
+          address: "",
+          number: "",
+          postalCode: "",
+          province: "",
+          city: "",
+          country: "",
+          gmailId: "",
+          facebookId: "",
+        }}
         validate={(values) => {
           const errors = {};
           if (!values.userName) {
@@ -126,67 +141,67 @@ function FormUser(props) {
           // return errors;
         }}
         onSubmit={async (values, formikBag) => {
-          console.log("entró")
           try {
-            await register(values)
+            await register(values);
             formikBag.setSubmitting(false);
             alert("Usuario creado");
             history.replace("/");
           } catch (error) {
             formikBag.setSubmitting(false);
-            const data = error.response.data
-            if (data.message) alert(data.message)
+            const data = error.response.data;
+            if (data.message) alert(data.message);
           }
-        }}>
+        }}
+      >
         <Form>
-        {props.admin ? (
+          {props.admin ? (
+            <div className="row">
+              Administrador:
+              <Field name="isAdmin" type="checkbox" />
+            </div>
+          ) : null}
+
           <div className="row">
-            Administrador:
-            <Field name="isAdmin" type="checkbox" />
+            Nombre de usuario:
+            <Field name="userName" type="text" />
+            <ErrorMessage name="userName">
+              {(message) => <div className="error">{message}</div>}
+            </ErrorMessage>
           </div>
-        ) : null}
 
-        <div className="row">
-          Nombre de usuario:
-          <Field name="userName" type="text" />
-          <ErrorMessage name="userName">
-            {(message) => <div className="error">{message}</div>}
-          </ErrorMessage>
-        </div>
+          <div className="row">
+            Email:
+            <Field name="email" type="email" />
+            <ErrorMessage name="email">
+              {(message) => <div className="error">{message}</div>}
+            </ErrorMessage>
+          </div>
 
-        <div className="row">
-          Email:
-          <Field name="email" type="email" />
-          <ErrorMessage name="email">
-            {(message) => <div className="error">{message}</div>}
-          </ErrorMessage>
-        </div>
+          <div className="row">
+            Nombre:
+            <Field name="firstName" type="text" />
+            <ErrorMessage name="firstName">
+              {(message) => <div className="error">{message}</div>}
+            </ErrorMessage>
+          </div>
 
-        <div className="row">
-          Nombre:
-          <Field name="firstName" type="text" />
-          <ErrorMessage name="firstName">
-            {(message) => <div className="error">{message}</div>}
-          </ErrorMessage>
-        </div>
+          <div className="row">
+            Apellido:
+            <Field name="lastName" type="text" />
+            <ErrorMessage name="lastName">
+              {(message) => <div className="error">{message}</div>}
+            </ErrorMessage>
+          </div>
 
-        <div className="row">
-          Apellido:
-          <Field name="lastName" type="text" />
-          <ErrorMessage name="lastName">
-            {(message) => <div className="error">{message}</div>}
-          </ErrorMessage>
-        </div>
+          <div className="row">
+            Contraseña:
+            <Field name="password" type="password" />
+            <ErrorMessage name="password">
+              {(message) => <div className="error">{message}</div>}
+            </ErrorMessage>
+          </div>
 
-        <div className="row">
-          Contraseña:
-          <Field name="password" type="password" />
-          <ErrorMessage name="password">
-            {(message) => <div className="error">{message}</div>}
-          </ErrorMessage>
-        </div>
-
-        {/* {props.admin ? (
+          {/* {props.admin ? (
           <div>
             <div className="row">
               Teléfono:
@@ -246,32 +261,29 @@ function FormUser(props) {
           </div>
         ) : null} */}
 
-        <div className="">
-          <button
-            type="submit"
-            className={`submit ${isSubmitting || !isValid ? "disabled" : ""}`}
-            // disabled={isSubmitting || !isValid} //si se hace submit bloquea el boton (isSubmitting=true)
+          <div className="">
+            <button
+              type="submit"
+              className={`submit ${isSubmitting || !isValid ? "disabled" : ""}`}
+              // disabled={isSubmitting || !isValid} //si se hace submit bloquea el boton (isSubmitting=true)
+            >
+              Crear usuario
+            </button>
+          </div>
+        </Form>
+      </Formik>
+      {!props.admin ? <div>También podés registrarte con:</div> : null}
+      {!props.admin ? <LoginWithToken /> : null}
+      {!props.admin ? (
+        <div>
+          <span
+            className={"yatengocuenta"}
+            onClick={() => history.push("/loginuser")}
           >
-            Crear usuario
-          </button>
+            Ya tengo cuenta
+          </span>
         </div>
-      </Form></Formik>
-      {!props.admin ? (
-        <div>También podés registrarte con:</div>
       ) : null}
-      {!props.admin ? (
-      <LoginWithToken />
-      ) : null} 
-      {!props.admin ? (
-      <div>
-        <span
-          className={"yatengocuenta"}
-          onClick={() => history.push("/loginuser")}
-        >
-          Ya tengo cuenta
-        </span>
-      </div>
-      ) : null} 
     </>
   );
 }

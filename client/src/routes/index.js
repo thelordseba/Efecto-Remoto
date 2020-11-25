@@ -14,14 +14,16 @@ import OrderDetails from "containers/OrderDetails/orderDetails";
 import MyProfile from "containers/MyProfile/MyProfile";
 import OrderTable from "containers/OrderTable/OrderTable.js";
 import FormUser from "components/FormUser/FormUser";
-import ShoppingCart from "components/ShoppingCart/ShoppingCart";
+import ShoppingCart from "containers/ShoppingCart/ShoppingCart";
 import UserTable from "containers/UserTable/UserTable.js";
 import UserDetails from "containers/UserDetails/UserDetails.js";
 import Checkout from "containers/Checkout/Checkout.js";
 import Login from "components/Login/Login.js";
 import ResetPassword from "components/ResetPassword";
 import ReviewTable from "containers/ReviewTable/ReviewTable.js";
-import Review from "components/Review/Review.js";
+import Review from "components/Review/Review.js"
+import PaymentStatus from "containers/PaymentStatus/PaymentStatus.js";
+import Dashboard from "containers/Dashboard/Dashboard.js";
 
 const routes = [
   {
@@ -43,7 +45,7 @@ const routes = [
   },
   {
     path: "/products",
-    render: ({ match }) => <ProductCatalog home={false} />,
+    render: () => <ProductCatalog home={false} />,
     exact: true,
   },
   {
@@ -64,8 +66,13 @@ const routes = [
     component: HomeAdmin,
   },
   {
+    path: "/admin",
+    component: Dashboard,
+    exact: true,
+  },
+  {
     path: "/admin/products",
-    render: () => <ProductCatalog admin={true} />,
+    render: () => <ProductCatalog admin={true} sale={false} cat={false} />,
     exact: true,
   },
   {
@@ -125,7 +132,7 @@ const routes = [
   },
   {
     path: "/admin/adduser",
-    render: ({ match }) => <FormUser admin={true} />,
+    render: () => <FormUser admin={true} />,
     exact: true,
   },
   {
@@ -135,7 +142,7 @@ const routes = [
   },
   {
     path: "/register",
-    render: ({ match }) => <FormUser admin={false} />,
+    render: () => <FormUser admin={false} />,
     exact: true,
   },
   {
@@ -161,8 +168,18 @@ const routes = [
   {
     path: "/review/:orderId",
     render: ({ match }) => <Review id={match.params.orderId} />,
-    exact: true,
+    exact: true
   },
+  {
+    path:"/paymentstatus/success",
+    render: () => <PaymentStatus success={true} />,
+    exact:true
+  },
+  {
+    path:"/paymentstatus/cancel",
+    render: () => <PaymentStatus success={false} />,
+    exact:true
+  }
 ];
 
 export default routes;

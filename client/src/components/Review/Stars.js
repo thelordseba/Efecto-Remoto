@@ -2,7 +2,7 @@
 import React from "react";
 import emptyRatingLogo from "../common/emptyRating.png";
 import fullRatingLogo from "../common/fullRating.png";
-import Review from "./Review";
+// import Review from "./Review";
 import "./Stars.css";
 
 let array = [1, 2, 3, 4, 5];
@@ -45,7 +45,7 @@ class Stars extends React.Component {
       this.setState({ stars: arrayLlenas });
       this.setState({ vacias: arrayVacias });
 
-      this.props.setReview(this.state.stars.length + 1)
+      this.props.setReview(this.state.stars.length + 1);
     }
   };
 

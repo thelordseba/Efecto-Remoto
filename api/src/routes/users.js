@@ -94,7 +94,6 @@ server.put("/:userId/isAdmin", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-}
 });
 
 //S36 Crear ruta que retorne todos los usuarios S115
@@ -108,7 +107,6 @@ server.get("/", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-}
 });
 
 //Get user Id by Email S115
@@ -125,12 +123,10 @@ server.get("/getUserbyEmail", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-}
 });
 
 //Get user by Id S115
 server.get("/:userId", async (req, res, next) => {
- 
   try {
     const user = await User.findOne({
       where: {

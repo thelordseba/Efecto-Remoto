@@ -82,7 +82,11 @@ server.get("/categories/:categoryId", (req, res, next) => {
 server.get("/", (req, res, next) => {
   const offset = req.query.offset;
   const limit = req.query.limit;
-  Product.findAndCountAll({ limit, offset, include: { model: Image } })
+  Product.findAndCountAll({
+    limit,
+    offset,
+    include: [{ model: Image }, { model: Category }],
+  })
     .then(({ count, rows: products }) => {
       if (products.length > 0) {
         res.send({ products, count });
@@ -206,6 +210,5 @@ server.delete("/:id", (req, res, next) => {
         .catch(next);
       }
 });
-
 
 module.exports = server;

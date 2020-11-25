@@ -4,7 +4,7 @@ import "./ProductCard.scss";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteProduct } from "../../redux/actions/actions";
-import { ReactComponent as CartIcon } from "../common/cart.svg";
+// import { ReactComponent as CartIcon } from "../common/cart.svg";
 import BagIcon from "../Icons/Bag";
 
 //function ProductCard({ product, small = true, stars, admin, id }) {

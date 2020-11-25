@@ -119,7 +119,7 @@ export default function ProductCrud({ id }) {
           >
             {ngos.map((ngo) => {
               return (
-                <option key={ngo.id} value={ngo.id}>
+                <option key={ngo.createdAt} value={ngo.id}>
                   {ngo.name}
                 </option>
               );
@@ -153,7 +153,7 @@ export default function ProductCrud({ id }) {
             return (
               <>
                 <input
-                  key={cat.id}
+                  key={cat.createdAt}
                   type="checkbox"
                   id={cat.id}
                   checked={
