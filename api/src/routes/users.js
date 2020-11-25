@@ -94,7 +94,7 @@ server.put("/:userId/isAdmin", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-});
+  }});
 
 //S36 Crear ruta que retorne todos los usuarios S115
 server.get("/", async (req, res, next) => {
