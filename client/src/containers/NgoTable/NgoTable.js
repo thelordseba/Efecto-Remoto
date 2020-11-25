@@ -24,7 +24,7 @@ export default function OrderTable() {
       </div>
 
       <label>--- Listado de ONGs ---</label>
-      {ngos && ngos.map((ngo) => <NgoCard ngo={ngo} />)}
+      {ngos && ngos.map((ngo) => <NgoCard key={ngo.id} ngo={ngo} />)}
     </div>
   );
 }

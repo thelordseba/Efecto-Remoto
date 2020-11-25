@@ -3,7 +3,7 @@ import OrderCard from "../../components/OrderCard/OrderCard.js";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../redux/actions/actions";
 
-export default function OrderTable({userId}) {
+export default function OrderTable({ userId }) {
   const orders = useSelector((state) => state.orders);
   const dispatch = useDispatch();
   let [status, setStatus] = useState("allStatus");
@@ -30,21 +30,24 @@ export default function OrderTable({userId}) {
   }, [dispatch, status]);
 
   const mappedOrders = useMemo(() => {
-    if(orders) {
-      console.log(orders)
-      console.log(userId)
-      let mappedOrders = orders
+    if (orders) {
+      console.log(orders);
+      console.log(userId);
+      let mappedOrders = orders;
       if (userId) {
-        mappedOrders = orders.map((order) => {
-        if (order.user?.id === userId) {
-          return <OrderCard order={order} key={order.id} />}
-        })
+        mappedOrders = orders.map((order) =>
+          order.user?.id === userId ? (
+            <OrderCard order={order} key={order.id} />
+          ) : null
+        );
       } else {
-        mappedOrders = orders.map((order) => <OrderCard order={order} key={order.id} />)
+        mappedOrders = orders.map((order) => (
+          <OrderCard order={order} key={order.id} />
+        ));
       }
-      return mappedOrders
+      return mappedOrders;
     }
-      },[userId, orders])
+  }, [userId, orders]);
 
   return (
     //además deberia mostrar el nombre del producto,precio e imagen

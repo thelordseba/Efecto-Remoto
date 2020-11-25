@@ -1,14 +1,17 @@
 import React from "react";
 
-export default function ReviewCard({ review }) {
+export default function ReviewCard({ order }) {
   return (
     //recibe info de redux   //cambiar html si es necesario para css
-    <div>
-      <label>Numero de Review: {review.id} </label>
-      <label>Usuario: {review.userId} </label>
-      <label>Producto : {review.productId} </label>
-      <label>Rating: {review.rating} </label>
-      <label>Descripción: {review.description} </label>
-    </div>
+    <>
+      {order.rating ? (
+        <div>
+          <label>Numero de Órden: {order.id} </label>
+          <label>Usuario: {order.userId} </label>
+          <label>Rating: {order.rating} </label>
+          <label>Descripción: {order.description} </label>
+        </div>
+      ) : null}
+    </>
   );
 }
