@@ -1,6 +1,6 @@
 const server = require("express").Router();
 const mercadopago = require('mercadopago');
-const { confirmedOrder } = require("../MercadoPago/controllers/getOne_confirmedOrder.js");
+const { confirmedOrder, getOne, toPaymentOrder } = require("../MercadoPago/controllers/controllers.js");
 // const { sendEmail } = require('../mailmodel/sendEmail');sdf
 
 const { PROD_ACCESS_TOKEN } = process.env
@@ -10,15 +10,15 @@ mercadopago.configure({
   access_token: PROD_ACCESS_TOKEN,
 });
 
-server.route("/:id/toPayment").post(async (req, res) => {
+server.post("/:id/toPayment", async (req, res) => {
     const { id } = req.params;
     try {
         let order = await getOne(id);
         let preference = {
             items: order.products.map(product => ({
-                title: props.product.name,
-                unit_price: product.order_product.price,
-                quantity: product.order_product.quantity
+                title: product.name,
+                unit_price: product.price,
+                quantity: product.orderLine.dataValues.quantity
             })),
             payment_methods: {
                 excluded_payment_types: [{ id: "ticket" }, { id: "atm" }],
@@ -26,40 +26,34 @@ server.route("/:id/toPayment").post(async (req, res) => {
             },
             external_reference: order.id.toString(),
             back_urls: {
-                success: `https://localhost:3001/payment/meli/callback`,
-                failure: `https://localhost:3001/payment/meli/callback`,
+                success: `http://localhost:3001/payment/meli/callback`,
+                failure: `http://localhost:3001/payment/meli/callback`,
             },
-            auto_return: "approved",
+            // operation_type: {
+            //     recurring_payment: 
+            // },
+            auto_return: "approved", // redirecciona a nuestra página automáticamente una vez finalizado el pago
         };
         const response = await mercadopago.preferences.create(preference);
         Order = await toPaymentOrder({
             id,
-            init_point: response.body.init_point,
+            initPoint: response.body.init_point, // la url para redireccionar al usuario a la página de pago de MP
         });
         res.json({ redirect: response.body.init_point, order: Order });
-    } catch (error) {
-        res.status(400).json(error);
-    };
+    } catch (error) { console.log(error); res.status(400).json(error)};
 });
 
 server.get('/meli/callback', async (req, res) => {
     if (req.query.collection_status !== 'null') {
       try {
         const { body } = await mercadopago.payment.get(req.query.collection_id)
-        const order_product = await confirmedOrder({
-          id: req.query.external_reference,
-          paymentMethodId: body.payment_method_id,
-          paymentTypeId: body.payment_type_id,
-          paymentStatus: body.status,
-          paymentStatusDetail: body.status_detail,
-          cardExpMonth: body.card.expiration_month,
-          cardExpYear: body.card.expiration_year,
-          lastFourDigits: body.card.first_six_digits,
-          recurringPayment: body.recurring_payment,
-          transactionAmount: body.transaction_amount
-        })
+        const data = {
+            ...body,
+            id: parseInt(req.query.external_reference),
+        }
+        const order_product = await confirmedOrder(data)
         res.redirect(`http://localhost:3000/checkout/success`)
-      } catch (error) { res.status(200).json(error) }
+      } catch (error) { console.log(error); res.status(500).json(error) }
     } else { res.redirect(`http://localhost:3000/checkout/cancel?order=${req.query.external_reference}`) }
 })
 

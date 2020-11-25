@@ -9,10 +9,10 @@
     color: white;
     margin-left: 36px;
 }
-.payment-button{
+/* .payment-button{
     display: flex;
     margin-left: 24px;
-}
+} */
 .payment{
     cursor: pointer;
     margin: 12px;

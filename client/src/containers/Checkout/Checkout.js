@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getOrderByUserId } from "../../redux/actions/actions";
 import OrderLine from "components/OrderLine/OrderLine";
 import "./checkout.css";
+import axios from "axios"
 
 const Checkout = () => {
   const history = useHistory();
@@ -26,9 +27,9 @@ const Checkout = () => {
     history.push(`/carrito`);
   };
   
-  const handlePayment = () => {
-    //Acá iría la conección con mercadoPago
-    alert('Hay que pagar. No se haga el loco.');
+  const toPayment = async (id) => {
+    const { data } = await axios.post(`${process.env.REACT_APP_API}/payment/${id}/toPayment`);
+    window.location = data.redirect;
   };
 
   return (
@@ -78,19 +79,12 @@ const Checkout = () => {
           </div>
         </div>
       </div>
-
-      <form action="/procesar-pago" method="POST">
-        <script
-          src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
-          data-preference-id="$$id$$">
-        </script>
-      </form>
-
-      {/* <div className="payment-button">
-        <div className="payment" onClick={handlePayment}>
-          Botón de pago
-        </div>
-      </div> */}
+      <button
+        className="payment"
+        onClick={() => toPayment(order.id)}
+        >
+        Proceder al pago
+      </button>
     </>
   );
 };
