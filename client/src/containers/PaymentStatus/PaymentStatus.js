@@ -11,6 +11,11 @@ function PaymentStatus(props) {
 //       if(response.data === null) axios.post(`http://localhost:3001/orders/${user.id}`)
 //     }, (error) => {console.log(error);})
 //     .catch(error => console.log(error))
+
+  const history = useHistory();
+  function handleGoBack() {
+      history.push(`/`);
+  }
     
   return (
     <div>
