@@ -99,16 +99,16 @@ server.put("/:userId/isAdmin", async (req, res, next) => {
 
 //S36 Crear ruta que retorne todos los usuarios S115
 server.get("/", async (req, res, next) => {
-  if (isAdmin(req)) {
-    try {
-      const user = await User.findAll({
-        include: [{ model: Location }],
-      });
-      res.json(user);
-    } catch (error) {
-      next(error);
-    }
+  // if (isAdmin(req)) {
+  try {
+    const users = await User.findAll({
+      include: [{ model: Location }],
+    });
+    res.send(users);
+  } catch (error) {
+    next(error);
   }
+  // }
 });
 
 //Get user Id by Email S115
