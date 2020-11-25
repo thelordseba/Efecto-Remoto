@@ -14,7 +14,7 @@ import OrderDetails from "containers/OrderDetails/orderDetails";
 import MyProfile from "containers/MyProfile/MyProfile";
 import OrderTable from "containers/OrderTable/OrderTable.js";
 import FormUser from "components/FormUser/FormUser";
-import ShoppingCart from "components/ShoppingCart/ShoppingCart";
+import ShoppingCart from "containers/ShoppingCart/ShoppingCart";
 import UserTable from "containers/UserTable/UserTable.js";
 import UserDetails from "containers/UserDetails/UserDetails.js";
 import Checkout from "containers/Checkout/Checkout.js";
@@ -171,10 +171,10 @@ const routes = [
     exact: true,
   },
   {
-    path:"/paymentstatus",
+    path: "/paymentstatus",
     render: PaymentStatus,
-    exact:true
-  }
+    exact: true,
+  },
 ];
 
 export default routes;
