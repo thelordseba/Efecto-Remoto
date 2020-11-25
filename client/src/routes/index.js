@@ -22,6 +22,7 @@ import Login from "components/Login/Login.js";
 import ResetPassword from "components/ResetPassword";
 import ReviewTable from "containers/ReviewTable/ReviewTable.js";
 import Review from "components/Review/Review.js"
+import PaymentStatus from "containers/PaymentStatus/PaymentStatus";
 
 const routes = [
   {
@@ -162,6 +163,11 @@ const routes = [
     path:"/review/:orderId",
     render: ({ match }) => <Review id={match.params.orderId} />,
     exact: true
+  },
+  {
+    path:"/paymentstatus",
+    render: PaymentStatus,
+    exact:true
   }
 ];
 
