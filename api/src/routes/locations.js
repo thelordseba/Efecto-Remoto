@@ -1,6 +1,8 @@
 const server = require('express').Router();
 const { User, Ngo, Location } = require('../db.js');
 
+server.post('/locationPureba', (req, res)=>{});
+
 server.get('/', (req, res, next)=>{
     Location.findAll()
    .then(location=> res.status(200).json(location))

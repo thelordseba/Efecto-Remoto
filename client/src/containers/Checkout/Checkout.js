@@ -1,19 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getOrderByUserId } from "../../redux/actions/actions";
 import OrderLine from "components/OrderLine/OrderLine";
 import "./checkout.css";
+import axios from "axios";
 
 const Checkout = () => {
   const history = useHistory();
   const order = useSelector((state) => state.order);
+  const [data, setData] = useState({});  
 
   const currentUser = useSelector(state => state.currentUser);
   const dispatch = useDispatch();
 
   const getTotal = () =>
     order.products?.reduce((acc, el) => acc + el.orderLine.price * el.orderLine.quantity, 0);
+
+  const updateUser = async (id, dataUser)=>{   
+    try{
+      await axios.put(`http://localhost:3001/users/${id}`, dataUser);
+    }catch(error){  
+        console.log(error);
+    } 
+  }  
 
   useEffect(
     () => {
@@ -26,10 +36,19 @@ const Checkout = () => {
     history.push(`/carrito`);
   };
   
-  const handlePayment = () => {
-    //Acá iría la conección con mercadoPago
-    alert('Hay que pagar. No se haga el loco.');
+  const handlePayment = () => {       
+    if(!currentUser.email || !currentUser.location){
+      updateUser(currentUser.id, data);
+    } 
+     //Acá iría la conección con mercadoPago  
   };
+
+  const handleOnChange = (e)=>{
+    setData({
+        ...data,
+        [e.target.name]: e.target.value
+    })
+}
 
   return (
     <>
@@ -61,10 +80,10 @@ const Checkout = () => {
             Dirección de facturación:{" "}
             {!currentUser.location ? 
             (<div>
-              <div><label>Calle: {" "}</label><input></input></div>
-              <div><label>Número: {" "}</label><input></input></div>
-              <div><label>Provincia: {" "}</label><input></input></div>
-              <div><label>Código postal: {" "}</label><input></input></div>              
+              <div><label>Calle: {" "}</label><input name= "address" onChange={handleOnChange}></input></div>
+              <div><label>Número: {" "}</label><input name= "number" onChange={handleOnChange}></input></div>
+              <div><label>Provincia: {" "}</label><input name= "city" onChange={handleOnChange}></input></div>
+              <div><label>Código postal: {" "}</label><input name= "postalCode" onChange={handleOnChange}></input></div>              
              </div>) 
             
             : (currentUser.location?.address +
