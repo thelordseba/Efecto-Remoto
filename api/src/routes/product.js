@@ -144,8 +144,8 @@ server.get("/:id", (req, res, next) => {
 
 // Task S25: Crear ruta para crear/agregar Producto //S68
 server.post("/", async (req, res) => {
-  if (req.user) {
-    if (req.user.isAdmin) {
+  // if (req.user) {
+  //   if (req.user.isAdmin) {
       try {
         const product = await Product.create({
           ngoId: req.body.ngoId,
@@ -162,12 +162,12 @@ server.post("/", async (req, res) => {
       } catch (error) {
         console.log(error);
       }
-    } else {
-      res.sendStatus(401);
-    }
-  } else {
-    res.sendStatus(401);
-  }
+  //   } else {
+  //     res.sendStatus(404);
+  //   }
+  // } else {
+  //   res.sendStatus(404);
+  // }
 });
 
 // Task S26 : Crear ruta para Modificar Producto //S68

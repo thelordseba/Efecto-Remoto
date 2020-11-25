@@ -1,6 +1,6 @@
 const server = require("express").Router();
-const { User, Location } = require("./db.js");
-const jwt = require("jsonwebtoken");
+const { User, Product, Location } = require("./db.js");
+const jwt = require("jsonwebtoken")
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET, HOST, secretJWT } = process.env;
 

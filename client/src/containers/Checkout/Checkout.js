@@ -41,11 +41,16 @@ const Checkout = () => {
     history.push(`/carrito`);
   };
   
+  const toPayment = async (id) => {
+    const { data } = await axios.post(`${process.env.REACT_APP_API}/payment/${id}/toPayment`);
+    window.location = data.redirect;
+  };
+
   const handlePayment = () => {       
     if(!currentUser.email || !currentUser.location){
       updateUser(currentUser.id, data);
     } 
-     //Acá iría la conección con MERCADOPAGO
+    toPayment(order.id)
   };
 
   const handleOnChange = (e)=>{
@@ -99,7 +104,7 @@ const Checkout = () => {
       </div>
       <div className="payment-button">
         <div className="back2" onClick={handleBack}> Seguir comprando </div>
-        <div className="payment" onClick={handlePayment}> Botón de pago </div>        
+        <div className="payment" onClick={handlePayment}> Proceder al pago </div>        
       </div>
     </>
   );

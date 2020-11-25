@@ -13,7 +13,8 @@ server.post('/', async (req, res, next) => {
     try {const ngo = await Ngo.create({
         name: req.body.name,
         description: req.body.description,
-        url: req.body.url
+        url: req.body.url,
+        // accessToken: req.body.accessToken
     })
     const location = await Location.create({
         address: req.body.address,

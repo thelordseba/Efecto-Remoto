@@ -21,9 +21,9 @@ import Checkout from "containers/Checkout/Checkout.js";
 import Login from "components/Login/Login.js";
 import ResetPassword from "components/ResetPassword";
 import ReviewTable from "containers/ReviewTable/ReviewTable.js";
-import Review from "components/Review/Review.js";
+import Review from "components/Review/Review.js"
+import PaymentStatus from "containers/PaymentStatus/PaymentStatus.js";
 import Dashboard from "containers/Dashboard/Dashboard.js";
-import PaymentStatus from "containers/PaymentStatus/PaymentStatus";
 
 const routes = [
   {
@@ -168,13 +168,18 @@ const routes = [
   {
     path: "/review/:orderId",
     render: ({ match }) => <Review id={match.params.orderId} />,
-    exact: true,
+    exact: true
   },
   {
-    path: "/paymentstatus",
-    render: PaymentStatus,
-    exact: true,
+    path:"/paymentstatus/success",
+    render: () => <PaymentStatus success={true} />,
+    exact:true
   },
+  {
+    path:"/paymentstatus/cancel",
+    render: () => <PaymentStatus success={false} />,
+    exact:true
+  }
 ];
 
 export default routes;
