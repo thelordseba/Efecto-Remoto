@@ -34,6 +34,15 @@ server.put('/:id', (req, res, next) => {
         if(!location) res.status(400).send({error: 'No se encontró ese ID de producto'})
     })
     .catch(next);
-})
+});
+
+server.get("/", async (req, res, next) => { 
+    try {
+      const location = await Location.findAll();
+      res.json(location);
+    } catch (error) {
+      next(error);
+    }
+  });
 
 module.exports = server;

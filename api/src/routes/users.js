@@ -100,8 +100,8 @@ server.put("/:userId/isAdmin", async (req, res, next) => {
 
 //S36 Crear ruta que retorne todos los usuarios S68
 server.get("/", async (req, res, next) => {
-  if(req.user) {
-    if(req.user.isAdmin) {
+  // if(req.user) {
+  //   if(req.user.isAdmin) {
   try {
     const user = await User.findAll({
       include: [{ model: Location }],
@@ -110,8 +110,8 @@ server.get("/", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-} else {res.sendStatus(404)}}
-    else {res.sendStatus(404)}
+// } else {res.sendStatus(404)}}
+//     else {res.sendStatus(404)}
 });
 
 //Get user Id by Email S68
@@ -135,8 +135,6 @@ server.get("/getUserbyEmail", async (req, res, next) => {
 
 //Get user by Id S68
 server.get("/:userId", async (req, res, next) => {
-  if(req.user) {
-    if(req.user.isAdmin) {
   try {
     const user = await User.findOne({
       where: {
@@ -148,8 +146,6 @@ server.get("/:userId", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-} else {res.sendStatus(404)}}
-    else {res.sendStatus(404)}
 });
 
 //S37 Crear ruta para eliminar un usuario S68
