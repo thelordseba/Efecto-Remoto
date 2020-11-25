@@ -52,9 +52,9 @@ server.get('/meli/callback', async (req, res) => {
             id: parseInt(req.query.external_reference),
         }
         const order_product = await confirmedOrder(data)
-        res.redirect(`http://localhost:3000/checkout/success`)
+        res.redirect(`http://localhost:3000/paymentstatus/success`)
       } catch (error) { console.log(error); res.status(500).json(error) }
-    } else { res.redirect(`http://localhost:3000/checkout/cancel?order=${req.query.external_reference}`) }
+    } else { res.redirect(`http://localhost:3000/paymentstatus/cancel?order=${req.query.external_reference}`) }
 })
 
 module.exports = server;

@@ -52,23 +52,6 @@ const getOne = (id) => {
     });
 };
 
-const confirmedOrder = async ({ id, payment_method_id, payment_type_id, status, status_detail, card, transaction_amount }) => {
-    const Order = await getOne(id);
-    Order.status = "completed";
-    Order.paymentMethodId = payment_method_id;
-    Order.paymentTypeId = payment_type_id;
-    Order.paymentStatus = status;
-    Order.paymentStatusDetail = status_detail;
-    Order.cardExpMonth = card.expiration_month;
-    Order.cardExpYear = card.expiration_year;
-    Order.lastFourDigits = card.last_four_digits;
-    // Order.recurringPayment = recurring_payment;
-    Order.transactionAmount = transaction_amount;
-
-    await Order.save();
-    return Order;
-};
-
 const toPaymentOrder = async ({ id, initPoint }) => {
     const Order = await getOne(id);
     let poderComprar = true;
@@ -108,6 +91,23 @@ const toPaymentOrder = async ({ id, initPoint }) => {
 
         getOne(id).then((e) => {resolve(e)});
     });
+};
+
+const confirmedOrder = async ({ id, payment_method_id, payment_type_id, status, status_detail, card, transaction_amount }) => {
+    const Order = await getOne(id);
+    Order.status = "completed";
+    Order.paymentMethodId = payment_method_id;
+    Order.paymentTypeId = payment_type_id;
+    Order.paymentStatus = status;
+    Order.paymentStatusDetail = status_detail;
+    Order.cardExpMonth = card.expiration_month;
+    Order.cardExpYear = card.expiration_year;
+    Order.lastFourDigits = card.last_four_digits;
+    // Order.recurringPayment = recurring_payment;
+    Order.transactionAmount = transaction_amount;
+
+    await Order.save();
+    return Order;
 };
 
 module.exports = {
