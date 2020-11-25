@@ -16,7 +16,6 @@ export default function CategoryTable() {
       const ratings = await allOrders.data
         .filter((order) => order.rating)
         .map((order) => order.rating);
-      console.log(ratings);
       setAvgRating(
         Math.round(ratings.reduce((acc, el) => acc + el) / ratings.length, 2)
       );

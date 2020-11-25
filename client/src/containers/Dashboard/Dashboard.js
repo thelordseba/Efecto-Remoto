@@ -14,7 +14,6 @@ const Dashboard = () => {
       const ratings = await allOrders.data
         .filter((order) => order.rating)
         .map((order) => order.rating);
-      console.log(ratings);
       setAvgRating(
         Math.round(ratings.reduce((acc, el) => acc + el) / ratings.length, 2)
       );
@@ -23,7 +22,6 @@ const Dashboard = () => {
 
   return (
     <>
-      <h1>ESTO ES DASHBOARD</h1>;
       <div className="graph-grid">
         <div className="graph-grid-0">
           <h1>Promedio: {avgRating}</h1>

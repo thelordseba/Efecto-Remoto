@@ -130,7 +130,6 @@ export function getOrderByUserId(userId) {
     return axios
       .get(`http://localhost:3001/orders/${userId}/shopping-cart`)
       .then((response) => {
-        console.log(response);
         dispatch({
           type: actions.GETORDERBYUSERID,
           payload: response.data,

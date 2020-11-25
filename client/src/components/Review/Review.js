@@ -14,11 +14,10 @@ const Review = ({ id }) => {
   };
 
   const handleClickReview = async (id) => {
-    console.log(id);
     try {
       await axios.put(`http://localhost:3001/orders/${id}`, review);
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
 

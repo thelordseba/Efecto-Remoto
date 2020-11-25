@@ -31,8 +31,6 @@ export default function OrderTable({ userId }) {
 
   const mappedOrders = useMemo(() => {
     if (orders) {
-      console.log(orders);
-      console.log(userId);
       let mappedOrders = orders;
       if (userId) {
         mappedOrders = orders.map((order) =>
