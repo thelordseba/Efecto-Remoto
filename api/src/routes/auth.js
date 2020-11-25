@@ -1,7 +1,7 @@
 const server = require("express").Router();
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
-const { User, Order, Product } = require("../db.js");
+const { User, Order, Product, Location } = require("../db.js");
 
 const { HOSTFRONT, secretJWT } = process.env;
 
@@ -50,6 +50,8 @@ server.post("/register", async (req, res) => {
         password,
         isAdmin: false,
       });
+      const location = await Location.create();
+      await user.setLocation(location);
       return res.send(
         jwt.sign(
           {
@@ -65,7 +67,7 @@ server.post("/register", async (req, res) => {
       );
     }
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
     res.status(400).json({ message: "No se ha podido registrar al usuario" });
   }
 });

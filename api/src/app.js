@@ -24,7 +24,6 @@ server.use((req, res, next) => {
   next();
 });
 
-server.use('/', routes);
 
 server.all("*", function (req, res, next) {
   passport.authenticate("bearer", (err, user) => { // el bearer es como un middleware hecho a mano, identifica el token, ve si es valido y devuelve el usuario que está en este token. Pregunta si hay un error; si no, envía el user. 
@@ -33,6 +32,8 @@ server.all("*", function (req, res, next) {
     return next(); // si no está loggeado, va a ir a la próxima función
   }) (req, res, next);
 });
+
+server.use('/', routes);
 
 server.use(passport.initialize());
 

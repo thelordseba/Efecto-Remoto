@@ -1,27 +1,57 @@
-.back{
+.payment-button{
+    display: flex;
+    margin-left: 24px;
+}
+.back2{
     cursor: pointer;
     margin: 8px;
     border-radius: 8px;
     border: solid 1px;
     padding: 4px;
-    width: 47px;
+    width: 150px;
+    height: 25px;
     background-color: teal;
     color: white;
     margin-left: 36px;
+    text-align: center;
 }
-/* .payment-button{
-    display: flex;
-    margin-left: 24px;
-} */
+
+.back2:hover{ 
+    cursor: pointer;
+    margin: 8px;
+    border-radius: 8px;
+    border: solid 1px;
+    padding: 4px;
+    width: 150px;
+    background-color:white;
+    color: teal;
+    margin-left: 36px;
+    height: 25px;
+    text-align: center;
+}
+
 .payment{
+    cursor: pointer;
+    margin: 8px;
+    border-radius: 8px;
+    border: solid 1px;
+    padding: 4px;
+    width: 150px;
+    height: 25px;
+    background-color: teal;
+    color: white;
+    text-align: center;
+}
+.payment:hover{ 
     cursor: pointer;
     margin: 12px;
     border-radius: 8px;
     border: solid 1px;
     padding: 4px;
     width: 150px;
-    background-color: teal;
-    color: white;
+    height: 25px;
+    background-color:white;
+    color: teal;
     text-align: center;
 }
 .checkout-container{
@@ -38,28 +68,6 @@
 }
 .total{
     font-size: 35px;
-}
-.back:hover{ 
-    cursor: pointer;
-    margin: 8px;
-    border-radius: 8px;
-    border: solid 1px;
-    padding: 4px;
-    width: 47px;
-    background-color:white;
-    color: teal;
-    margin-left: 36px;
-}
-.payment:hover{ 
-    cursor: pointer;
-    margin: 12px;
-    border-radius: 8px;
-    border: solid 1px;
-    padding: 4px;
-    width: 150px;
-    background-color:white;
-    color: teal;
-    text-align: center;
 }
 .divider-summary{
     margin-bottom: 16px;

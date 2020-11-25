@@ -126,19 +126,19 @@ export function getOrderById(id) {
 }
 
 export function getOrderByUserId(userId) {
-    return function(dispatch) {
-        return axios.get(`http://localhost:3001/orders/${userId}/shopping-cart`)
-        .then(response => {
-          console.log(response)  
-          dispatch({ 
-                type: actions.GETORDERBYUSERID, 
-                payload: response.data
-            });
-        })
-        .catch(() => {
-          alert("Hubo un error. Por favor, intentá de nuevo.")
-        })
-    }
+  return function (dispatch) {
+    return axios
+      .get(`http://localhost:3001/orders/${userId}/shopping-cart`)
+      .then((response) => {
+        dispatch({
+          type: actions.GETORDERBYUSERID,
+          payload: response.data,
+        });
+      })
+      .catch(() => {
+        alert("Hubo un error. Por favor, intentá de nuevo.");
+      });
+  };
 }
 
 export function getNgos() {
@@ -158,12 +158,26 @@ export function getNgos() {
 }
 
 export function getUsers() {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`http://localhost:3001/users`);
+      dispatch({
+        type: actions.GETUSERS,
+        payload: response.data,
+      });
+    } catch (e) {
+      alert("Hubo un error. Por favor, intentá de nuevo.");
+    }
+  };
+}
+
+export function getUserById(id) {
   return function (dispatch) {
     return axios
-      .get(`http://localhost:3001/users`)
+      .get(`http://localhost:3001/users/${id}`)
       .then((response) => {
         dispatch({
-          type: actions.GETUSERS,
+          type: actions.GETUSERBYID,
           payload: response.data,
         });
       })
@@ -172,22 +186,6 @@ export function getUsers() {
       });
   };
 }
-
-export function getUserById(id) {
-  return function(dispatch) {
-    return axios.get(`http://localhost:3001/users/${id}`)
-    .then(response => {
-        dispatch({ 
-          type: actions.GETUSERBYID, 
-          payload: response.data
-        });
-      })
-    .catch(() => {
-        alert("Hubo un error. Por favor, intentá de nuevo.")
-    })
-  }
-}
-
 
 export function getOrdersByStatus(status) {
   return async function (dispatch) {
@@ -219,4 +217,4 @@ export function getReviews() {
         alert("Hubo un error. Por favor, intentá de nuevo.");
       });
   };
-};
+}

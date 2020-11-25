@@ -17,14 +17,14 @@ export default function UserTable() {
   }, [dispatch]);
 
   return (
-    //además deberia mostrar el nombre del producto,precio e imagen
     <div>
       <div className="product-catalog-button" onClick={handleOnClickAddUser}>
         Agregar Usuario
       </div>
 
       <label>--- Listado de Usuarios ---</label>
-      {users && users.map((user) => <UserCard user={user} />)}
+      {users &&
+        users.map((user) => <UserCard key={user.createdAt} user={user} />)}
     </div>
   );
 }
