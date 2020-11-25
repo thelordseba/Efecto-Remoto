@@ -11,7 +11,6 @@ import { useSelector } from "react-redux";
 import UserIcon from "components/Icons/UserIcon.js";
 import styles from "./NavBar.module.scss";
 
-
 function NavBar() {
   // const loggedIn = true;
   const currentUser = useSelector((state) => state.currentUser);
@@ -43,7 +42,7 @@ function NavBar() {
             </li>
 
             <li className="listee">
-              <a href="#">Experiencias</a>
+              <a href="*">Experiencias</a>
             </li>
           </ul>
         </div>
@@ -55,7 +54,7 @@ function NavBar() {
             {currentUser?.isAdmin ? (
               <li className="listee">
                 <div>
-                  <a href="/admin/products">
+                  <a href="/admin">
                     <SettingsIcon fill="#fff" style={{ marginLeft: "8px" }} />
                   </a>
                 </div>
@@ -78,10 +77,10 @@ function NavBar() {
                 </li>
               </>
             ) : (
-              <li className={[styles.profile].join(' ')}>
+              <li className={[styles.profile].join(" ")}>
                 <a href="*" style={{ padding: "10px 15px" }}>
                   <span>¡Hola {currentUser.firstName.trim()}!</span>
-                  <UserIcon fill="#fff" style={{marginLeft:"1rem"}} />
+                  <UserIcon fill="#fff" style={{ marginLeft: "1rem" }} />
                 </a>
                 <ul className={styles.menu}>
                   <li>
