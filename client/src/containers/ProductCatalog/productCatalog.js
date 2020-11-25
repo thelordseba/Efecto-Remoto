@@ -98,15 +98,22 @@ function ProductCatalog({ cat, home, admin, sale, latest }) {
         </div>
       ) : null}
       <div className="cards-container"> {mapProducts()} </div>
-      <div>
-        <button disabled={page === 1} onClick={() => setPage(page - 1)}>
-          Anterior
-        </button>
-        <button disabled={page === maxPages} onClick={() => setPage(page + 1)}>
-          Siguiente
-        </button>
-      </div>
-      <hr></hr>
+      {!home ? (
+        <>
+          <div>
+            <button disabled={page === 1} onClick={() => setPage(page - 1)}>
+              Anterior
+            </button>
+            <button
+              disabled={page === maxPages}
+              onClick={() => setPage(page + 1)}
+            >
+              Siguiente
+            </button>
+          </div>
+          <hr></hr>
+        </>
+      ) : null}
     </>
   );
 }
