@@ -34,9 +34,7 @@ const getOneByGoogleId = async (gmailId) => {
 };
 
 const createOne = (firstName, lastName, email, isAdmin, gmailId) => {
-  // console.log(userName)
   return new Promise((resolve, reject) => {
-    console.log(firstName)
     User.create({ firstName, lastName, email, isAdmin, gmailId})
       .then((user) => {
         if (isAdmin) {
