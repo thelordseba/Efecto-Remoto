@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 
 function PaymentStatus(props) {
@@ -12,13 +13,15 @@ function PaymentStatus(props) {
 //     .catch(error => console.log(error))
 
 
+const history = useHistory();
     function handleGoBack() {
-        props.history.push(`/`);
+        history.push(`/`);
     }
     
   return (
     <div>
-      {props.success ? <label>Tu compra fue realizada con éxito! :D</label> : <label>Error en la compra :( </label>}
+      {props.success ? <label>Tu compra fue realizada con éxito! :D</label> : <label>Error en la compra : </label>}
+
         <div onClick={handleGoBack}>
           Volver a Home
         </div>
