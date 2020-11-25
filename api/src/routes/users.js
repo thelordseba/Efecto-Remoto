@@ -1,5 +1,6 @@
 const server = require("express").Router();
 const { Product, User, Order, OrderLine, Location } = require("../db.js");
+const isAdmin = require("./isAdmin.js");
 
 //S34 Crear Ruta para agregar usuario
 server.post("/", async (req, res, next) => {
@@ -82,10 +83,9 @@ server.put("/:userId", async (req, res, next) => {
   }
 });
 
-// S67: POST /auth/promote/:id --> Promote convierte al usuario con ID: id a Admin. S68
+// S67: POST /auth/promote/:id --> Promote convierte al usuario con ID: id a Admin. S115
 server.put("/:userId/isAdmin", async (req, res, next) => {
-  if(req.user) {
-    if(req.user.isAdmin) {
+  if (isAdmin(req)){
   const { isAdmin } = req.body;
   try {
     const user = await User.findOne({ where: { id: req.params.userId } });
@@ -94,14 +94,12 @@ server.put("/:userId/isAdmin", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-} else {res.sendStatus(404)}}
-    else {res.sendStatus(404)}
+}
 });
 
-//S36 Crear ruta que retorne todos los usuarios S68
+//S36 Crear ruta que retorne todos los usuarios S115
 server.get("/", async (req, res, next) => {
-  if(req.user) {
-    if(req.user.isAdmin) {
+  if (isAdmin(req)){
   try {
     const user = await User.findAll({
       include: [{ model: Location }],
@@ -110,14 +108,12 @@ server.get("/", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-} else {res.sendStatus(404)}}
-    else {res.sendStatus(404)}
+}
 });
 
-//Get user Id by Email S68
+//Get user Id by Email S115
 server.get("/getUserbyEmail", async (req, res, next) => {
-  if(req.user) {
-    if(req.user.isAdmin) {
+  if (isAdmin(req)){
   const userEmail = req.query.userEmail;
   try {
     const user = await User.findOne({
@@ -129,14 +125,12 @@ server.get("/getUserbyEmail", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-} else {res.sendStatus(404)}}
-   else {res.sendStatus(404)}
+}
 });
 
-//Get user by Id S68
+//Get user by Id S115
 server.get("/:userId", async (req, res, next) => {
-  if(req.user) {
-    if(req.user.isAdmin) {
+ 
   try {
     const user = await User.findOne({
       where: {
@@ -148,14 +142,11 @@ server.get("/:userId", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-} else {res.sendStatus(404)}}
-    else {res.sendStatus(404)}
 });
 
-//S37 Crear ruta para eliminar un usuario S68
+//S37 Crear ruta para eliminar un usuario S115
 server.delete("/:userId", async (req, res, next) => {
-  if(req.user) {
-    if(req.user.isAdmin) {
+  if (isAdmin(req)){
   try {
     const user = await User.findOne({
       where: {
@@ -172,9 +163,7 @@ server.delete("/:userId", async (req, res, next) => {
     res.sendStatus(200);
   } catch (error) {
     next(error);
-  }
-} else {res.sendStatus(404)}}
-    else {res.sendStatus(404)}
+  }}
 });
 
 server.post("/:userId/passwordReset", async (req, res, next) => {
