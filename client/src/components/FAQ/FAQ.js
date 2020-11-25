@@ -66,7 +66,7 @@ function FAQ(){
     <div className='con-cot-faq'>
         <div className='titulo-faq'><h1>Preguntas frecuentes</h1></div>
         {preguntas.map(preg => {
-            return <FAQItem pregunta={preg.title} respuesta={preg.content}/>
+            return <FAQItem key={preg.index}pregunta={preg.title} respuesta={preg.content}/>
         })}
     </div>  
     
