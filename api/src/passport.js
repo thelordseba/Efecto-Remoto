@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { User, Product } = require("./db.js");
+const { User, Location } = require("./db.js");
 const jwt = require("jsonwebtoken");
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET, HOST, secretJWT } = process.env;
@@ -67,8 +67,9 @@ passport.use(new GoogleStrategy(
           false,
           profile.id,
         );
-        console.log("user:", user)
-      const { id, firstName, lastName, email, isAdmin, gmailId } = user;
+        const { id, firstName, lastName, email, isAdmin, gmailId } = user;
+        const location = await Location.create();
+        await user.setLocation(location);
       return done(null, {
         id, firstName, lastName, email, isAdmin, gmailId
       });
@@ -109,6 +110,8 @@ passport.use(
             isAdmin: false,
             facebookId: profile.id,
           });
+          const location = await Location.create();
+          await user.setLocation(location);
         } catch (err) {
           console.error(err);
           done(err);

@@ -51,7 +51,6 @@ server.post("/register", async (req, res) => {
         isAdmin: false,
       });
       const location = await Location.create();
-      console.log(location)
       await user.setLocation(location);
       return res.send(
         jwt.sign(
