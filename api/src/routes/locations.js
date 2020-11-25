@@ -1,6 +1,8 @@
 const server = require('express').Router();
 const { User, Ngo, Location } = require('../db.js');
 
+server.post('/locationPureba', (req, res)=>{});
+
 server.get('/', (req, res, next)=>{
     Location.findAll()
    .then(location=> res.status(200).json(location))
@@ -32,6 +34,15 @@ server.put('/:id', (req, res, next) => {
         if(!location) res.status(400).send({error: 'No se encontró ese ID de producto'})
     })
     .catch(next);
-})
+});
+
+server.get("/", async (req, res, next) => { 
+    try {
+      const location = await Location.findAll();
+      res.json(location);
+    } catch (error) {
+      next(error);
+    }
+  });
 
 module.exports = server;
