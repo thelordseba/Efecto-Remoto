@@ -21,7 +21,7 @@ import Checkout from "containers/Checkout/Checkout.js";
 import Login from "components/Login/Login.js";
 import ResetPassword from "components/ResetPassword";
 import ReviewTable from "containers/ReviewTable/ReviewTable.js";
-import Review from "components/Review/Review.js"
+import Review from "components/Review/Review.js";
 import PaymentStatus from "containers/PaymentStatus/PaymentStatus.js";
 import Dashboard from "containers/Dashboard/Dashboard.js";
 
@@ -49,8 +49,8 @@ const routes = [
     exact: true,
   },
   {
-    path: "/profile/:id",
-    render: ({ match }) => <MyProfile id={match.params.id} />,
+    path: "/profile",
+    component: MyProfile,
     exact: true,
   },
   /*  {
@@ -127,7 +127,7 @@ const routes = [
   },
   {
     path: "/admin/orders",
-    component: OrderTable,
+    render: () => <OrderTable admin={true} />,
     exact: true,
   },
   {
@@ -168,18 +168,18 @@ const routes = [
   {
     path: "/review/:orderId",
     render: ({ match }) => <Review id={match.params.orderId} />,
-    exact: true
+    exact: true,
   },
   {
-    path:"/paymentstatus/success",
+    path: "/paymentstatus/success",
     render: () => <PaymentStatus success={true} />,
-    exact:true
+    exact: true,
   },
   {
-    path:"/paymentstatus/cancel",
+    path: "/paymentstatus/cancel",
     render: () => <PaymentStatus success={false} />,
-    exact:true
-  }
+    exact: true,
+  },
 ];
 
 export default routes;

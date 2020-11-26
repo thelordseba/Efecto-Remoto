@@ -24,7 +24,7 @@ const Checkout = () => {
     try {
       await axios.put(`http://localhost:3001/users/${id}`, userData);
     } catch (error) {
-      alert("No se pudo actulizar datos de usuario.");
+      alert("No se pudo actualizar datos de usuario.");
     }
   };
 
