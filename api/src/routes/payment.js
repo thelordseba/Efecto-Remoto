@@ -26,8 +26,8 @@ server.post("/:id/toPayment", async (req, res) => {
             },
             external_reference: order.id.toString(),
             back_urls: {
-                success: `http://localhost:3001/payment/meli/callback`,
-                failure: `http://localhost:3001/payment/meli/callback`,
+                success: `${process.env.HOST}/payment/meli/callback`,
+                failure: `${process.env.HOST}/payment/meli/callback`,
             },
             // operation_type: {
             //     recurring_payment: 
@@ -52,9 +52,9 @@ server.get('/meli/callback', async (req, res) => {
             id: parseInt(req.query.external_reference),
         }
         const order_product = await confirmedOrder(data)
-        res.redirect(`http://localhost:3000/paymentstatus/success`)
+        res.redirect(`${process.env.HOSTFRONT}/paymentstatus/success`)
       } catch (error) { console.log(error); res.status(500).json(error) }
-    } else { res.redirect(`http://localhost:3000/paymentstatus/cancel?order=${req.query.external_reference}`) }
+    } else { res.redirect(`${process.env.HOSTFRONT}/paymentstatus/cancel?order=${req.query.external_reference}`) }
 })
 
 module.exports = server;

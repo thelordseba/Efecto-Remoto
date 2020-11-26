@@ -12,7 +12,7 @@ export default function useUser() {
   async function loginWithEmail(values) {
     const {
       data: token,
-    } = await axios.post(`http://localhost:3001/auth/login/email`, {
+    } = await axios.post(`${process.env.REACT_APP_API}/auth/login/email`, {
       ...values,
     });
     if (token) loginWithToken(token);
@@ -27,11 +27,11 @@ export default function useUser() {
       dispatch({ type: constants.SETCURRENTUSER, payload: user });
     }
     axios
-      .get(`http://localhost:3001/orders/${user.id}/shopping-cart`)
+      .get(`${process.env.REACT_APP_API}/orders/${user.id}/shopping-cart`)
       .then(
         (response) => {
           if (response.data === null)
-            axios.post(`http://localhost:3001/orders/${user.id}`);
+            axios.post(`${process.env.REACT_APP_API}/orders/${user.id}`);
         },
         (error) => {
           alert(error);
@@ -43,13 +43,13 @@ export default function useUser() {
   async function register(values) {
     const {
       data: token,
-    } = await axios.post(`http://localhost:3001/auth/register`, { ...values });
+    } = await axios.post(`${process.env.REACT_APP_API}/auth/register`, { ...values });
     if (token) loginWithToken(token);
   }
 
   async function updateUserData(user) {
     const { data } = await axios.put(
-      `http://localhost:3001/users/${user.id}`,
+      `${process.env.REACT_APP_API}/users/${user.id}`,
       user
     );
     if (data) setLocalUser({ ...localUser, user: data });

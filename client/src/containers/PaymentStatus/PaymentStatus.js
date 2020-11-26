@@ -9,9 +9,9 @@ function PaymentStatus(props) {
   
   useEffect(() => {
     (async () => {
-      await axios.get(`http://localhost:3001/orders/${user.id}/shopping-cart`)
+      await axios.get(`${process.env.REACT_APP_API}/orders/${user.id}/shopping-cart`)
       .then(response => {
-        if(response.data === null) axios.post(`http://localhost:3001/orders/${user.id}`)
+        if(response.data === null) axios.post(`${process.env.REACT_APP_API}/orders/${user.id}`)
       }, (error) => {console.log(error);})
       .catch(error => console.log(error))
     })()}, [user.id]);
