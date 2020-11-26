@@ -99,12 +99,14 @@ passport.use(
       clientSecret: FACEBOOK_APP_SECRET,
       callbackURL: `${HOST}/auth/login/facebook/callback`,
       profileFields: ["id", "email", "displayName", "first_name", "last_name"],
+      scope: ["email"],
       session: false, // Le estamos diciendo a FB "esta estrategia no es para guardar en la sesión"
     },
     async function (_accessToken, _refreshToken, profile, done) {
+      console.log(profile)
       let user = await getOneByFacebookId(profile.id);
       if (!user) {
-        if (profile.email) {
+        if (profile.emails[0].value) {
           user = await User.findOne({where: {email: profile.emails[0].value}})
         }
         try {
@@ -112,10 +114,11 @@ passport.use(
             userName: profile.username,
             firstName: profile.name.givenName,
             lastName: profile.name.familyName,
-            email: profile.email,
+            email: profile.emails[0].value,
             isAdmin: false,
             facebookId: profile.id,
           });
+          
           const location = await Location.create();
           await user.setLocation(location);
         } catch (err) {
