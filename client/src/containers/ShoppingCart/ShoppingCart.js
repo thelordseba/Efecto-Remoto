@@ -75,7 +75,7 @@ function ShoppingCart(props) {
         };
         try {
           await axios.post(
-            `http://localhost:3001/orders/${currentUser.id}/cart`,
+            `${process.env.REACT_APP_API}/orders/${currentUser.id}/cart`,
             product
           );
           history.push(`/checkout`);

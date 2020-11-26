@@ -10,7 +10,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     (async () => {
-      const allOrders = await axios.get(`http://localhost:3001/orders/`);
+      const allOrders = await axios.get(`${process.env.REACT_APP_API}/orders/`);
       const ratings = await allOrders.data
         .filter((order) => order.rating)
         .map((order) => order.rating);
