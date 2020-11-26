@@ -1,7 +1,7 @@
 import * as actions from "../reducers/constants.js";
 import axios from "axios";
 
-export function getProducts(page = 1, limit = 10) {
+export function getProducts(page = 1, limit = 6) {
   return async function (dispatch) {
     try {
       const response = await axios.get(
@@ -32,12 +32,12 @@ export function getProductsByQuery(search, page = 1, limit = 10) {
         payload: response.data,
       });
     } catch (e) {
-      alert("Hubo un error. Por favor, intentá de nuevo.");
+      alert("Hubo un error en la búsqueda. Por favor, intentá de nuevo.");
     }
   };
 }
 
-export function getProductsByCategory(category, page = 1, limit = 2) {
+export function getProductsByCategory(category, page = 1, limit = 6) {
   return async function (dispatch) {
     try {
       const response = await axios.get(
@@ -45,12 +45,13 @@ export function getProductsByCategory(category, page = 1, limit = 2) {
           (page - 1) * limit
         }&limit=${limit}`
       );
+      console.log(response)
       dispatch({
         type: actions.SEARCHBYCATEGORY,
         payload: response.data,
       });
     } catch (error) {
-      alert("Hubo un error. Por favor, intentá de nuevo.");
+      alert("Hubo un error al filtrar por categoría. Por favor, intentá de nuevo.");
     }
   };
 }
