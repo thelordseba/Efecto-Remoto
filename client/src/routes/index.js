@@ -6,6 +6,7 @@ import FAQ from "components/FAQ/FAQ.js";
 import HomeAdmin from "containers/HomeAdmin/HomeAdmin.js";
 import Home from "containers/Home/Home.js";
 import ProductCrud from "components/ProductCrud/ProductCrud";
+import Categories from "components/ProductCard/Categories"
 import NgosCrud from "components/NgosCrud/NgosCrud.js";
 import NgoTable from "containers/NgoTable/NgoTable.js";
 import CategoryTable from "containers/CategoryTable/CategoryTable";
@@ -24,6 +25,7 @@ import ReviewTable from "containers/ReviewTable/ReviewTable.js";
 import Review from "components/Review/Review.js"
 import PaymentStatus from "containers/PaymentStatus/PaymentStatus.js";
 import Dashboard from "containers/Dashboard/Dashboard.js";
+import Category from "components/ProductCard/Categories";
 
 const routes = [
   {
@@ -89,6 +91,13 @@ const routes = [
     path: "/carrito",
     component: ShoppingCart,
     exact: true,
+  },
+  {
+
+    path:"/categories",
+    component: Categories,
+    exact:true,
+
   },
   {
     path: "/admin/users",
