@@ -24,7 +24,7 @@ const Checkout = () => {
     try {
       await axios.put(`http://localhost:3001/users/${id}`, userData);
     } catch (error) {
-      alert("No se pudo actulizar datos de usuario.");
+      alert("No se pudieron actualizar. Por favor, reintentá.");
     }
   };
 
@@ -40,10 +40,16 @@ const Checkout = () => {
   };
 
   const toPayment = async (id) => {
-    const { data } = await axios.post(
-      `${process.env.REACT_APP_API}/payment/${id}/toPayment`
-    );
-    window.location = data.redirect;
+    try {
+      const { response } = await axios.post(
+        `${process.env.REACT_APP_API}/payment/${id}/toPayment`
+      );
+      window.location = response.redirect;
+    }
+    catch (error) {
+      alert("No se puede hacer la compra, uno de los productos no tiene el stock suficiente.");
+    }
+    
   };
 
   const handlePayment = () => {
@@ -77,7 +83,7 @@ const Checkout = () => {
           {order.products?.map((
             product //order.products && order.products.map()
           ) => (
-            <OrderLine name={product.name} orderLine={product.orderLine} />
+            <OrderLine name={product.name} orderLine={product.orderLine} key={product.id}/>
           ))}
           <div className="divider-summary" />
           <div className="total">Total: ${getTotal()} </div>
