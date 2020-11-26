@@ -42,7 +42,7 @@ function NavBar() {
             </li>
 
             <li className="listee">
-              <a href="*">Experiencias</a>
+              <a href="/">Experiencias</a>
             </li>
           </ul>
         </div>
@@ -78,7 +78,7 @@ function NavBar() {
               </>
             ) : (
               <li className={[styles.profile].join(" ")}>
-                <a href="*" style={{ padding: "10px 15px" }}>
+                <a href="/" style={{ padding: "10px 15px" }}>
                   <span>¡Hola {currentUser.firstName.trim()}!</span>
                   <UserIcon fill="#fff" style={{ marginLeft: "1rem" }} />
                 </a>
