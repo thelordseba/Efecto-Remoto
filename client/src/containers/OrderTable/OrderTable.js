@@ -40,12 +40,12 @@ export default function OrderTable({ admin, userId }) {
         );
       } else {
         mappedOrders = orders.map((order) => (
-          <OrderCard order={order} key={order.createdAt} />
+          <OrderCard admin={admin} order={order} key={order.createdAt} />
         ));
       }
       return mappedOrders;
     }
-  }, [userId, orders]);
+  }, [userId, orders, admin]);
 
   return (
     //además deberia mostrar el nombre del producto,precio e imagen
