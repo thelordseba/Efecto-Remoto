@@ -1,0 +1,28 @@
+.img-nos{
+    width: 100%;
+    
+}
+.cnt-img-nos{
+    overflow-y: hidden;
+    height: 600px;
+}
+.parr-nos{
+    position: absolute;
+    top:50%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: x-large;
+    transition:width 2s, height 2s, transform 2s;
+        -moz-transition: width 2s, height 2s, -moz-transform 2s;
+        -webkit-transition: width 2s, height 2s, -webkit-transform 2s;
+        -o-transition: width2s, height 2s,-o-transform 2s;
+}
+    .parr-nos:hover{
+        /* tranformamos el elemento al pasar el mouse por encima al doble de
+           su tamaño con scale(2). */
+        transform : scale(1);
+        -moz-transform : scale(1);      /* Firefox */
+        -webkit-transform : scale(1);   /* Chrome - Safari */
+        -o-transform : scale(1);        /* Opera */
+    }

@@ -5,37 +5,45 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../redux/actions/actions.js";
 import moment from "moment";
+const queryString = require('query-string');
 
-function ProductCatalog({ cat, home, admin, sale, latest }) {
+function ProductCatalog({  home, admin, sale, latest }) {
   const limit = 6;
+
 
   let [category, setCategory] = useState("allCategories");
   let [page, setPage] = useState(1);
 
   const history = useHistory();
-  const handleOnClickAddProduct = () => history.push(`/admin/addproduct`);
-  const handleOnChange = (e) => {
-    setCategory(e.target.value);
+
+  const cat = useMemo(() => {
+    return queryString.parse(history?.location?.search)?.category
+  },[history])
+
+  useEffect(()=>{
+    setCategory(cat)
     actions.setSearch("");
-  };
+  },[cat])
+
+  const handleOnClickAddProduct = () => history.push(`/admin/addproduct`);
 
   const dispatch = useDispatch();
   const { products, countProducts } = useSelector((state) => state);
   const maxPages = useMemo(() => Math.ceil(countProducts / limit), [
     countProducts,
   ]);
-
-  const search = useSelector((state) => state.search);
   const categories = useSelector((state) => state.categories);
-
+  const search = useSelector((state) => state.search);
+  console.log(categories)
   useEffect(() => {
-    if (category !== "allCategories")
+    if (category !== "allCategories" && category)
       dispatch(actions.getProductsByCategory(category, page, limit));
     else if (search.length > 0)
       dispatch(actions.getProductsByQuery(search, page, limit));
     else dispatch(actions.getProducts(page, limit));
   }, [dispatch, category, page, limit, search]);
-
+  console.log('products', products)
+  
   useEffect(() => {
     (async () => {
       dispatch(actions.getCategories());
@@ -55,7 +63,7 @@ function ProductCatalog({ cat, home, admin, sale, latest }) {
     }
     if (cat) {
       filteredProducts = filteredProducts.filter((product) =>
-        cat ? product.categories?.some((cat1) => cat1.id === cat) : null
+        cat ? product.categories?.some((cat1) => cat1.id == cat) : null
       );
     }
     if (latest) {
@@ -63,7 +71,7 @@ function ProductCatalog({ cat, home, admin, sale, latest }) {
         (product) => calculateDiff(product.createdAt) < 5
       );
     }
-
+    console.log('filteredProducts',filteredProducts)
     return filteredProducts.map((product) => (
       <ProductCard
         admin={admin}
@@ -76,19 +84,7 @@ function ProductCatalog({ cat, home, admin, sale, latest }) {
 
   return (
     <>
-      {!home ? (
-        <div className="product-catalog-container">
-          <label className="tituloForm">Seleccioná una categoría: </label>
-          <select className="select" onChange={handleOnChange}>
-            <option value="allCategories">Todas las categorías</option>
-            {categories.map((category) => (
-              <option value={category.id} key={category.createdAt}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-        </div>
-      ) : null}
+
       {admin ? (
         <div
           className="product-catalog-button"
