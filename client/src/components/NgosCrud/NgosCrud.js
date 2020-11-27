@@ -3,12 +3,51 @@ import { useHistory } from "react-router-dom"
 import './NgosCrud.css'
 import axios from 'axios'
 
+export function validate(ngo) {
+    const errors = {};
+   
+    //validación string
+    if (!ngo.ngoId) {
+      errors.ngoId = "Completar campo";
+    } else if (/[^A-Za-z-' ']/.test(ngo.ngoId)) {
+      errors.ngoId = "Carácteres inválidos";
+    }
+
+    if (!ngo.address) {
+      errors.address = "Completar campo";
+    } else if (/[^A-Za-z-' ']/.test(ngo.address)) {
+      errors.address = "Carácteres inválidos";
+    }
+
+    if (!ngo.location) {
+      errors.location = "Completar campo";
+    } else if (/[^A-Za-z-' ']/.test(ngo.location)) {
+      errors.location = "Carácteres inválidos";
+    }
+
+    if (!ngo.province) {
+      errors.province = "Completar campo";
+    } else if (/[^A-Za-z-' ']/.test(ngo.province)) {
+      errors.province = "Carácteres inválidos";
+    }
+    return errors;
+  }
+
+
 function CreateUpdateNGO({id}){
     let [ngo, setNGO] = useState();
 
     const history = useHistory();
+    const [errors, setErrors] = React.useState({});
 
     const handleOnChange = (event) => {
+
+        setErrors(validate({
+            ...ngo,
+            [event.target.name]: event.target.value,
+            
+          }))
+
         setNGO({
             ...ngo,
             [event.target.name]: event.target.value
@@ -48,22 +87,22 @@ function CreateUpdateNGO({id}){
                 <form className="" onSubmmit={handleOnSubmit}>
                     <p class="thick">Datos básicos</p>
                     <label>Nombre de la ONG</label>
-                        <input onChange={handleOnChange} value={ngo ? ngo.id : ""} name="ngoId" required type="text" placeholder="ONG" /><br /><br />
+                        <input className={errors.ngoId && 'error'} onChange={handleOnChange} value={ngo ? ngo.id : ""} name="ngoId" required type="text" placeholder="ONG" style={{textTransform: "capitalize"}}/><br /><br />
                     <label>Descripción de la ONG</label>
                         <input onChange={handleOnChange} value={ngo ? ngo.description : ""} name="description" required type="text" placeholder="Descripción de la ONG" /><br /><br />
                     <label>Página Web</label>
                         <input onChange={handleOnChange} value={ngo ? ngo.photo : ""} name="url" required type="text" placeholder="Página Web" ></input><br></br>                    <br></br>
                     <p class="thick">Ubicación</p>
                     <label>Dirección</label>
-                        <input onChange={handleOnChange} value={ngo ? ngo.address : ""} name="address" required type="text" placeholder="Dirección" /><br /><br />
+                        <input className={errors.address && 'error'} onChange={handleOnChange} value={ngo ? ngo.address : ""} name="address" required type="text" placeholder="Dirección" style={{textTransform: "capitalize"}}/><br /><br />
                     <label>Número</label>
                         <input onChange={handleOnChange} value={ngo ? ngo.number : ""} name="number" required type="number" placeholder="Número" /><br /><br />
                     <label>Código postal</label>
                         <input onChange={handleOnChange} value={ngo ? ngo.zipcode : ""} name="zipcode" required type="number" placeholder="Código postal" /><br /><br />
                     <label>Localidad</label>
-                        <input onChange={handleOnChange} value={ngo ? ngo.location : ""} name="location" required type="text" placeholder="Localidad" /><br /><br />
+                        <input className={errors.location && 'error'} onChange={handleOnChange} value={ngo ? ngo.location : ""} name="location" required type="text" placeholder="Localidad" style={{textTransform: "capitalize"}}/><br /><br />
                     <label>Provincia</label>
-                        <input onChange={handleOnChange} value={ngo ? ngo.province : ""} name="province" required type="text" placeholder="Provincia" /><br /><br />
+                        <input className={errors.province && 'error'} onChange={handleOnChange} value={ngo ? ngo.province : ""} name="province" required type="text" placeholder="Provincia" style={{textTransform: "capitalize"}} /><br /><br />
                     <button className="button">{id ? 'ACTUALIZAR' : 'CREAR'}</button>
                 </form>
             </div>
