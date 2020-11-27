@@ -1,7 +1,7 @@
 import React from "react";
 import "./ShoppingItem.css";
 import { ReactComponent as TrashIcon } from "../common/trash.svg";
-import useCart from "../../Hooks/useCart";
+// import useCart from "../../Hooks/useCart";
 
 function ShoppingItem({
   product,

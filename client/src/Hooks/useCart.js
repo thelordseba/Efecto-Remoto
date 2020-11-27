@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
@@ -8,15 +8,15 @@ function useCart () {
     let localCart = localStorage.getItem("cart");
     const [cart, setCart] = useState(localCart ? JSON.parse(localCart) : []);
     
-    const addItem = async (product, quantity) => {
+    const addItem = useCallback(async (product, quantity) => {
         let cartCopy = [...cart];
         let { id } = product;
         let existingItem = cartCopy.find((cartItem) => cartItem.id === id);
         if (existingItem) {
             existingItem.quantity += quantity;
         } else {
-            cartCopy.push(product);
-            product.quantity = parseInt(quantity);
+            cartCopy.push({...product, quantity: parseInt(quantity)});
+            // product.quantity = parseInt(quantity);
         }
         setCart(cartCopy);
         let stringCart = JSON.stringify(cartCopy);
@@ -33,9 +33,9 @@ function useCart () {
                 return alert(error);
             }
         };
-    };
+    }, [cart, currentUser.id, currentUser.length]);
 
-    const editItem = async(itemID, value) => {
+    const editItem = useCallback(async(itemID, value) => {
         let cartCopy = [...cart];
         let existentItem = cartCopy.find((cartItem) => cartItem.id === parseInt(itemID));
         if (!existentItem) { alert("Hubo un error.Por favor, volvé a intentar.")}
@@ -58,9 +58,9 @@ function useCart () {
             }; 
         }
         window.location.reload();
-    };
+    }, [cart, currentUser.id, currentUser.length]);
 
-    const onRemoveProduct = async (productId) => {
+    const onRemoveProduct = useCallback(async (productId) => {
         let filteredList = cart.filter((item) => item.id !== productId);
         localStorage.setItem("cart", JSON.stringify(filteredList));
         setCart(filteredList);
@@ -76,7 +76,7 @@ function useCart () {
             }; 
         };
         window.location.reload();
-    };
+    }, [cart, currentUser.id, currentUser.length]);
 
     return {
         cart,

@@ -10,7 +10,6 @@ const queryString = require('query-string');
 function ProductCatalog({  home, admin, sale, latest }) {
   const limit = 6;
 
-
   let [category, setCategory] = useState("allCategories");
   let [page, setPage] = useState(1);
 
@@ -34,7 +33,7 @@ function ProductCatalog({  home, admin, sale, latest }) {
   ]);
   const categories = useSelector((state) => state.categories);
   const search = useSelector((state) => state.search);
-  console.log(categories)
+  // console.log(categories)
   useEffect(() => {
     if (category !== "allCategories" && category)
       dispatch(actions.getProductsByCategory(category, page, limit));
@@ -42,7 +41,7 @@ function ProductCatalog({  home, admin, sale, latest }) {
       dispatch(actions.getProductsByQuery(search, page, limit));
     else dispatch(actions.getProducts(page, limit));
   }, [dispatch, category, page, limit, search]);
-  console.log('products', products)
+  // console.log('products', products)
   
   useEffect(() => {
     (async () => {
@@ -59,7 +58,7 @@ function ProductCatalog({  home, admin, sale, latest }) {
     let filteredProducts = products;
 
     if (!admin) {
-      filteredProducts = products.filter((product) => product.stock > 5);
+      filteredProducts = products.filter((product) => product.stock > 0);
     }
     if (cat) {
       filteredProducts = filteredProducts.filter((product) =>
@@ -71,7 +70,7 @@ function ProductCatalog({  home, admin, sale, latest }) {
         (product) => calculateDiff(product.createdAt) < 5
       );
     }
-    console.log('filteredProducts',filteredProducts)
+    // console.log('filteredProducts',filteredProducts)
     return filteredProducts.map((product) => (
       <ProductCard
         admin={admin}

@@ -29,7 +29,7 @@ export default function useUser() {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       dispatch({ type: constants.SETCURRENTUSER, payload: user });
     }
-    axios
+    await axios
       .get(`${process.env.REACT_APP_API}/orders/${user.id}/shopping-cart`)
       .then(
         (response) => {

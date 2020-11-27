@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import ShoppingItem from "components/ShoppingItem/ShoppingItem";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import useCart from "../../Hooks/useCart";
 
 function ShoppingCart(props) {
@@ -41,23 +41,7 @@ function ShoppingCart(props) {
     if (currentUser?.length === 0) {
       history.push("/loginuser");
     } else {
-      const cart = JSON.parse(localStorage.getItem("cart"));
-      cart.forEach(async (prod) => {
-        const product = {
-          productId: prod.id,
-          quantity: prod.quantity,
-          price: prod.price,
-        };
-        try {
-          await axios.put(
-            `${process.env.REACT_APP_API}/orders/${currentUser.id}/cart`,
-            product
-          );
-          history.push(`/checkout`);
-        } catch (error) {
-          return alert(error);
-        }
-      });
+      history.push(`/checkout`);
     }
   };
 

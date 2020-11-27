@@ -47,7 +47,7 @@ const Checkout = () => {
       window.location = response.redirect;
     }
     catch (error) {
-      alert("No se puede hacer la compra, uno de los productos no tiene el stock suficiente.");
+      alert("No se pudo redirigir a Mercado Pago. Por favor, volvé a intentar.");
     }
     
   };
