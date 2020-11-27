@@ -33,6 +33,7 @@ function ProductCatalog({ home, admin, latest }) {
     countProducts,
   ]);
   const search = useSelector((state) => state.search);
+
   useEffect(() => {
     if (category !== "allCategories" && category)
       dispatch(actions.getProductsByCategory(category, page, limit));
@@ -56,7 +57,7 @@ function ProductCatalog({ home, admin, latest }) {
     let filteredProducts = products;
 
     if (!admin) {
-      filteredProducts = products?.filter((product) => product.stock > 5);
+      filteredProducts = products.filter((product) => product.stock > 0);
     }
     if (cat) {
       filteredProducts = filteredProducts.filter((product) =>
@@ -68,6 +69,7 @@ function ProductCatalog({ home, admin, latest }) {
         (product) => calculateDiff(product.createdAt) < 5
       );
     }
+
     return filteredProducts.map((product) => (
       <ProductCard
         admin={admin}
