@@ -1,45 +1,27 @@
 import React, { useState } from "react";
 import "./ProductCard.scss";
-//import Stars from "../Review/Stars";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteProduct } from "../../redux/actions/actions";
-// import { ReactComponent as CartIcon } from "../common/cart.svg";
 import BagIcon from "../Icons/Bag";
+import useCart from "../../Hooks/useCart";
 
-//function ProductCard({ product, small = true, stars, admin, id }) {
 function ProductCard({ product, small = true, admin, id }) {
+  const { addItem } = useCart();
   const history = useHistory();
   const [showSnackbar, setShowSnackbar] = useState(false);
-  let localCart = localStorage.getItem("cart");
-  const [cart, setCart] = useState(localCart ? JSON.parse(localCart) : []);
   const dispatch = useDispatch();
 
   function handleOnClickEdit(id) {
     history.push(`/product/edit/${id}`);
   }
+  
   function handleOnClickDelete(id) {
     dispatch(deleteProduct(id));
   }
 
-  const addItem = (product, quantity) => {
-    let cartCopy = [...cart];
-    let { id } = product;
-    let existingItem = cartCopy.find((cartItem) => cartItem.id === id);
-    
-    if (existingItem) {
-      existingItem.quantity += quantity;
-    } else {
-      cartCopy.push(product);
-      product.quantity = parseInt(quantity);
-    }
-    setCart(cartCopy);
-    let stringCart = JSON.stringify(cartCopy);
-    localStorage.setItem("cart", stringCart);
-  };
-
   const handleAddToCart = (product, quantity = 1) => {
-    addItem(product, quantity);
+    addItem(product, quantity = 1);
     setShowSnackbar(true);
     setTimeout(function () {
       setShowSnackbar(false);

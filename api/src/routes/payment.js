@@ -35,11 +35,11 @@ server.post("/:id/toPayment", async (req, res) => {
             auto_return: "approved", // redirecciona a nuestra página automáticamente una vez finalizado el pago
         };
         const response = await mercadopago.preferences.create(preference);
-        Order = await toPaymentOrder({
+        order = await toPaymentOrder({
             id,
             initPoint: response.body.init_point, // la url para redireccionar al usuario a la página de pago de MP
         });
-        res.json({ redirect: response.body.init_point, order: Order });
+        res.json(response.body.init_point);
     } catch (error) { console.log(error); res.status(400).json(error)};
 });
 

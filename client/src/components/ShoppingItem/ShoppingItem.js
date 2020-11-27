@@ -8,6 +8,7 @@ function ShoppingItem({
   onRemoveProduct,
   maxQuantity,
 }) {
+  // const { onRemoveProduct } = useCart();
   return (
     <>
       <div key={product.id} className="product-container-shopping-cart">
@@ -31,11 +32,11 @@ function ShoppingItem({
             min="0"
             max={maxQuantity}
           />
+          <TrashIcon
+            className={"cart-icon"}
+            onClick={() => onRemoveProduct(product.id)}
+          />
         </form>
-        <TrashIcon
-          className={"cart-icon"}
-          onClick={() => onRemoveProduct(product.id)}
-        />
       </div>
     </>
   );

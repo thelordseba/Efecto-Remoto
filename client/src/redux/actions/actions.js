@@ -45,13 +45,14 @@ export function getProductsByCategory(category, page = 1, limit = 6) {
           (page - 1) * limit
         }&limit=${limit}`
       );
-      console.log(response)
       dispatch({
         type: actions.SEARCHBYCATEGORY,
         payload: response.data,
       });
     } catch (error) {
-      alert("Hubo un error al filtrar por categoría. Por favor, intentá de nuevo.");
+      alert(
+        "Hubo un error al filtrar por categoría. Por favor, intentá de nuevo."
+      );
     }
   };
 }
@@ -84,7 +85,9 @@ export function setSearch(payload) {
 export function getCategories() {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API}/categories/`);
+      const response = await axios.get(
+        `${process.env.REACT_APP_API}/categories/`
+      );
       dispatch({
         type: actions.GETCATEGORIES,
         payload: response.data,

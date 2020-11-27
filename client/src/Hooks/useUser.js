@@ -3,12 +3,15 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import jwt from "jsonwebtoken";
 import * as constants from "../redux/reducers/constants.js";
+import { useHistory } from "react-router-dom";
 
 export default function useUser() {
   const user = localStorage.getItem("user");
+  const cart = JSON.parse(localStorage.getItem("cart"));
   const [localUser, setLocalUser] = useState(user ? JSON.parse(user) : null);
   const dispatch = useDispatch();
-
+  const history = useHistory();
+  
   async function loginWithEmail(values) {
     const {
       data: token,
@@ -26,7 +29,7 @@ export default function useUser() {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       dispatch({ type: constants.SETCURRENTUSER, payload: user });
     }
-    axios
+    await axios
       .get(`${process.env.REACT_APP_API}/orders/${user.id}/shopping-cart`)
       .then(
         (response) => {
@@ -38,6 +41,21 @@ export default function useUser() {
         }
       )
       .catch((error) => alert(error));
+    if (cart) {
+      cart.forEach(async (prod) => {
+        const product = {
+          productId: prod.id,
+          quantity: prod.quantity,
+          price: prod.price,
+        };
+        try {
+          await axios.post( `http://localhost:3001/orders/${user.id}/cart`, product );
+          history.push(`/checkout`);
+        } catch (error) {
+          return alert(error);
+        }
+      });
+    }
   }
 
   async function register(values) {
