@@ -26,17 +26,18 @@ export default function OrderDetails({ id }) {
       .then(() => alert("Orden cancelada"))
       .catch(() => alert("Hubo un error. Por favor, intentá de nuevo."))
       .then(() => history.push("/admin/orders"));
-    axios.put(`${process.env.REACT_APP_API}/orders/${id}`, { status: "cancelled" })
-    .then(async () => {
-      try {
-        await axios.post(`${process.env.REACT_APP_API}/orders/${user.id}`);
-        return alert("Orden cancelada");
-      } catch (error) {
-        return console.log(error);
-      }
-    })
-    .catch(() => alert("Hubo un error. Por favor, intentá de nuevo."))
-    .then(() => history.push("/admin/orders"));
+    axios
+      .put(`${process.env.REACT_APP_API}/orders/${id}`, { status: "cancelled" })
+      .then(async () => {
+        try {
+          await axios.post(`${process.env.REACT_APP_API}/orders/${user.id}`);
+          return alert("Orden cancelada");
+        } catch (error) {
+          return alert(error);
+        }
+      })
+      .catch(() => alert("Hubo un error. Por favor, intentá de nuevo."))
+      .then(() => history.push("/admin/orders"));
   }
 
   return (

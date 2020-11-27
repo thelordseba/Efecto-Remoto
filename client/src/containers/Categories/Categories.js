@@ -20,7 +20,6 @@ function Categories() {
   }, [dispatch]);
 
   const categories = useSelector((state) => state.categories);
-  console.log(categories);
   return (
     <>
       <div className="titulo-cat">
