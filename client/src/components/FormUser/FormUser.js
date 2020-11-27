@@ -35,7 +35,9 @@ function FormUser(props) {
 
   return (
     <>
+    <div className="crear-user">
       <h1>Crear usuario</h1>
+      </div>
       {props.admin ? (
         <div className="volver" onClick={handleGoBack}>
           Volver
@@ -164,7 +166,7 @@ function FormUser(props) {
 
           <div className="row">
             Nombre de usuario:
-            <Field name="userName" type="text" />
+            <Field  className= "input-formus" name="userName" type="text" />
             <ErrorMessage name="userName">
               {(message) => <div className="error">{message}</div>}
             </ErrorMessage>
@@ -172,7 +174,7 @@ function FormUser(props) {
 
           <div className="row">
             Email:
-            <Field name="email" type="email" />
+            <Field className ="input-formus" name="email" type="email" />
             <ErrorMessage name="email">
               {(message) => <div className="error">{message}</div>}
             </ErrorMessage>
@@ -197,7 +199,7 @@ function FormUser(props) {
 
           <div className="row">
             Contraseña:
-            <Field name="password" type="password" />
+            <Field  className= "input-formus" name="password" type="password" />
             <ErrorMessage name="password">
               {(message) => <div className="error">{message}</div>}
             </ErrorMessage>
@@ -263,7 +265,7 @@ function FormUser(props) {
           </div>
         ) : null} */}
 
-          <div className="">
+          <div className="form-user-button">
             <button
               type="submit"
               className={`submit ${isSubmitting || !isValid ? "disabled" : ""}`}
@@ -274,18 +276,16 @@ function FormUser(props) {
           </div>
         </Form>
       </Formik>
-      {!props.admin ? <div>También podés registrarte con:</div> : null}
-      {!props.admin ? <LoginWithToken /> : null}
-      {!props.admin ? (
-        <div>
-          <span
+      {!props.admin ? <div className="tambien-podes">También podés registrarte con: 
+  <div className= "log-user">
+    <LoginWithToken />
+    </div>
+       <span
             className={"yatengocuenta"}
             onClick={() => history.push("/loginuser")}
           >
             Ya tengo cuenta
-          </span>
-        </div>
-      ) : null}
+          </span></div> : null}
     </>
   );
 }

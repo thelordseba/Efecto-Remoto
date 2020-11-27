@@ -68,7 +68,7 @@ server.post("/register", async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    res.status(400).json({ message: "No se ha podido registrar al usuario" });
+    res.status(400).json({ message: "No se ha podido registrar al usuario. Revisá si están todos los campos ingresados o si te has registrado previamente." });
   }
 });
 

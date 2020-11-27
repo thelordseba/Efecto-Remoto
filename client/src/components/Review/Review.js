@@ -1,26 +1,23 @@
 import React, { useState } from "react";
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Stars from "./Stars";
 import "./Review.css";
 import axios from "axios";
 
 const Review = ({ id }) => {
   const [review, setReview] = useState([]);
-  // const history = useHistory();
+  const history = useHistory();
 
   const handleBack = () => {
-    //Poner la ruta a donde volver
-    //history.push(``);
+    history.push(`/`);
   };
 
-  
-  const handleClickReview = async (id) => {      
-      try{
-        await axios.put(`http://localhost:3001/orders/${id}`, review)
-      }catch(error){  
-          console.log(error);
-      }      
-
+  const handleClickReview = async (id) => {
+    try {
+      await axios.put(`${process.env.REACT_APP_API}/orders/${id}`, review);
+    } catch (error) {
+      history.push(`/`);
+    }
   };
 
   const handleOnChange = (e) => {

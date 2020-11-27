@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
     },
 
     transactionAmount: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.FLOAT,
       allowNull: true,
     },
 

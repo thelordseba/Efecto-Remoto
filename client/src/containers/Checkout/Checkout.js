@@ -47,9 +47,9 @@ const Checkout = () => {
 
   const updateUser = async (id, userData) => {
     try {
-      await axios.put(`http://localhost:3001/users/${id}`, userData);
+      await axios.put(`${process.env.REACT_APP_API}/users/${id}`, userData);
     } catch (error) {
-      alert("No se pudo actulizar datos de usuario.");
+      alert("No se pudieron actualizar. Por favor, reintentá.");
     }
   };
 
@@ -65,14 +65,28 @@ const Checkout = () => {
   };
 
   const toPayment = async (id) => {
-    const { data } = await axios.post(
-      `${process.env.REACT_APP_API}/payment/${id}/toPayment`
-    );
-    window.location = data.redirect;
+    try {
+      const { response } = await axios.post(
+        `${process.env.REACT_APP_API}/payment/${id}/toPayment`
+      );
+      window.location = response.redirect;
+    }
+    catch (error) {
+      alert("No se puede hacer la compra, uno de los productos no tiene el stock suficiente.");
+    }
+    
   };
 
   const handlePayment = () => {
-    if (!currentUser.email || !currentUser.location) {
+    if (!currentUser.email) {
+      updateUser(currentUser.id, data);
+    }
+    if (
+      !currentUser?.address ||
+      !currentUser?.number ||
+      !currentUser?.city ||
+      !currentUser?.postalCode
+    ) {
       updateUser(currentUser.id, data);
     }
     toPayment(order.id);
@@ -101,7 +115,7 @@ const Checkout = () => {
           {order.products?.map((
             product //order.products && order.products.map()
           ) => (
-            <OrderLine name={product.name} orderLine={product.orderLine} />
+            <OrderLine name={product.name} orderLine={product.orderLine} key={product.id}/>
           ))}
           <div className="divider-summary" />
           <div className="total">Total: ${getTotal()} </div>
@@ -120,39 +134,45 @@ const Checkout = () => {
           </div>
           <div>
             Dirección de facturación:{" "}
-            {!currentUser.location ? (
-              <div>
+            <div>
+              {!currentUser.location?.address ? (
                 <div>
                   <label>Calle: </label>
                   <input className={errors.address && 'error'}
                    name="address" value={data.address} onChange={handleOnChange} style={{textTransform: "capitalize"}}></input>
                 </div>
+              ) : (
+                currentUser.location?.address + " "
+              )}
+              {!currentUser.location?.number ? (
                 <div>
+
                   <label>Número: </label>
                   <input className={errors.number && 'error'} 
                   name="number" value={data.number} onChange={handleOnChange}></input>
                 </div>
+              ) : (
+                currentUser.location?.number + " "
+              )}
+              {!currentUser.location?.city ? (
                 <div>
                   <label>Provincia: </label>
                   <input className={errors.city && 'error'}
                   name="city" value={data.city} onChange={handleOnChange} style={{textTransform: "capitalize"}}></input>
                 </div>
+              ) : (
+                " - " + currentUser.location?.city + " "
+              )}
+              {!currentUser.location?.postalCode ? (
                 <div>
                   <label>Código postal: </label>
                   <input className={errors.postalCode && 'error'}
                    name="postalCode" value={data.postalCode} onChange={handleOnChange}></input>
                 </div>
-              </div>
-            ) : (
-              currentUser.location?.address +
-              " " +
-              currentUser.location?.number +
-              " - " +
-              currentUser.location?.city +
-              " (" +
-              currentUser.location?.postalCode +
-              ")"
-            )}
+              ) : (
+                "(" + currentUser.location?.postalCode + ")"
+              )}
+            </div>
           </div>
         </div>
       </div>

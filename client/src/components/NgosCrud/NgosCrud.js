@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
-import { useHistory } from "react-router-dom"
-import './NgosCrud.css'
-import axios from 'axios'
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import "./NgosCrud.css";
+import axios from "axios";
 
 export function validate(ngo) {
     const errors = {};
@@ -52,28 +52,20 @@ function CreateUpdateNGO({id}){
             ...ngo,
             [event.target.name]: event.target.value
         });
+    } else {
+      axios
+        .post(`${process.env.REACT_APP_API}/ngos`, ngo)
+        .then(() => alert("¡ONG agregada!"))
+        .catch(() => {
+          alert("Hubo un error. Por favor, intentá de nuevo.");
+        })
+        .then(() => history.push("/admin/ngos"));
     }
+  };
 
-    const handleOnSubmit = (e) => {
-        e.preventDefault()
-        if(id) {
-            axios.put(`http://localhost:3001/ngos/${id}`, ngo)
-            .then(() => alert("ONG modificada!"))
-            .catch(() => {
-                alert("Hubo un error. Por favor, intentá de nuevo.")}
-            )
-        } else {
-            axios.post(`http://localhost:3001/ngos`, ngo)
-            .then(() => alert("ONG agregada!"))
-            .catch(() => {
-                alert("Hubo un error. Por favor, intentá de nuevo.")})
-            .then(() => history.push('/admin'))
-        }
-    };
-
-    const handleGoBack = () => {
-        history.push(`/admin/ngos`)
-    }
+  const handleGoBack = () => {
+    history.push(`/admin/ngos`);
+  };
 
     return (
         <>

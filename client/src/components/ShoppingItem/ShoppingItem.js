@@ -8,12 +8,13 @@ function ShoppingItem({
   onRemoveProduct,
   maxQuantity,
 }) {
+  // const { onRemoveProduct } = useCart();
   return (
     <>
       <div key={product.id} className="product-container-shopping-cart">
         <img
           className="photo-cart"
-          src={product.images[0].url}
+          src={product.images[0]?.url}
           alt={"Imagen no encontrada"}
         />
         <div className="product-content-shopping-cart">
@@ -31,11 +32,11 @@ function ShoppingItem({
             min="0"
             max={maxQuantity}
           />
+          <TrashIcon
+            className={"cart-icon"}
+            onClick={() => onRemoveProduct(product.id)}
+          />
         </form>
-        <TrashIcon
-          className={"cart-icon"}
-          onClick={() => onRemoveProduct(product.id)}
-        />
       </div>
     </>
   );

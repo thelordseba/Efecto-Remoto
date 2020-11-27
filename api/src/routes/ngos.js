@@ -9,24 +9,25 @@ server.get('/', (req, res, next)=>{
 });
 //(115)
 server.post('/', async (req, res, next) => {
-  if (isAdmin(req)){
-    try {const ngo = await Ngo.create({
-        name: req.body.name,
-        description: req.body.description,
-        url: req.body.url,
-        // accessToken: req.body.accessToken
-    })
-    const location = await Location.create({
-        address: req.body.address,
-        number: req.body.number,
-        postalCode: req.body.postalCode,
-        city: req.body.city,
-        province: req.body.province
-    })
-    await ngo.setLocation(location)
-    res.json(ngo);
+//   if (isAdmin(req)){
+    try {
+        const ngo = await Ngo.create({
+            name: req.body.name,
+            description: req.body.description,
+            url: req.body.url,
+            // accessToken: req.body.accessToken
+        })
+        const location = await Location.create({
+            address: req.body.address,
+            number: req.body.number,
+            postalCode: req.body.postalCode,
+            city: req.body.city,
+            province: req.body.province
+        })
+        await ngo.setLocation(location)
+        res.status(200).json(ngo);
     } catch(error) {next(error)}
-}
+// }
 });
 //(S115)
 server.delete('/:id', (req, res, next) => {

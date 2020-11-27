@@ -39,11 +39,11 @@ function NavBar() {
               <a href="/nosotros">Nosotros</a>
             </li>
             <li className="listee">
-              <a href="/products">Productos</a>
+              <a href="/categories">Categorías</a>
             </li>
 
             <li className="listee">
-              <a href="*">Experiencias</a>
+              <a href="/experiences">Experiencias</a>
             </li>
           </ul>
         </div>
@@ -85,7 +85,7 @@ function NavBar() {
                 </a>
                 <ul className={styles.menu}>
                   <li>
-                    <a href={`/profile/${currentUser.id}`}>Mi Perfil</a>
+                    <a href={`/profile`}>Mi Perfil</a>
                   </li>
                   <li>
                     <a href="/faq">FAQ</a>
