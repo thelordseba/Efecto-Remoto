@@ -1,15 +1,13 @@
 import React from "react";
 import ProductCatalog from "../ProductCatalog/productCatalog.js";
+import Categories from "containers/Categories/Categories";
 
 function Home({ search }) {
   return (
     <div>
-      <h1>¡Nuevas propuestas!</h1>
-      <ProductCatalog latest={true} home={true} search={search} />
-      <h1>Educación</h1>
-      <ProductCatalog cat={2} home={true} search={search} />
-      <h1>Nutrición</h1>
-      <ProductCatalog cat={4} home={true} search={search} />
+      <h1>HOME</h1>
+      <Categories />
+      <ProductCatalog home={true} search={search} />
     </div>
   );
 }

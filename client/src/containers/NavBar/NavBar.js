@@ -38,7 +38,7 @@ function NavBar() {
               <a href="/nosotros">Nosotros</a>
             </li>
             <li className="listee">
-              <a href="/categories">Categorías</a>
+              <a href="/categories">Productos</a>
             </li>
 
             <li className="listee">

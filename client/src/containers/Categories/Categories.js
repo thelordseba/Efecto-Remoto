@@ -23,7 +23,7 @@ function Categories() {
   return (
     <>
       <div className="titulo-cat">
-        <h1>Categorías</h1>
+        <h1> </h1>
       </div>
       <div className="con-cot-cat">
         {categories?.length &&

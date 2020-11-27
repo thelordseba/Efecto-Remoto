@@ -5,9 +5,10 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../redux/actions/actions.js";
 import moment from "moment";
+
 const queryString = require("query-string");
 
-function ProductCatalog({ home, admin, sale, latest }) {
+function ProductCatalog({ home, admin, latest }) {
   const limit = 6;
 
   let [category, setCategory] = useState("allCategories");
