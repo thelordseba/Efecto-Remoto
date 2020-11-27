@@ -39,7 +39,7 @@ server.post("/:id/toPayment", async (req, res) => {
             id,
             initPoint: response.body.init_point, // la url para redireccionar al usuario a la página de pago de MP
         });
-        res.json(response.body.init_point);
+        res.json(response);
     } catch (error) { console.log(error); res.status(400).json(error)};
 });
 
