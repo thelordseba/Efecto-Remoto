@@ -20,6 +20,7 @@ function NavBar() {
   //     history.push(`/carrito`)
   //   }
 
+
   useEffect(() => {
     (async () => {})();
   }, [currentUser]);
@@ -79,7 +80,7 @@ function NavBar() {
             ) : (
               <li className={[styles.profile].join(" ")}>
                 <a href="*" style={{ padding: "10px 15px" }}>
-                  <span>¡Hola {currentUser.firstName.trim()}!</span>
+                  <span style={{textTransform: "capitalize"}}>¡Hola {currentUser.firstName.trim()}!</span>
                   <UserIcon fill="#fff" style={{ marginLeft: "1rem" }} />
                 </a>
                 <ul className={styles.menu}>

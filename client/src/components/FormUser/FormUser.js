@@ -188,7 +188,8 @@ function FormUser(props) {
 
           <div className="row">
             Apellido:
-            <Field name="lastName" type="text" style={{textTransform: "capitalize"}}/>
+            <Field name="lastName" type="text" style={{textTransform: "capitalize"}}
+            />
             <ErrorMessage name="lastName">
               {(message) => <div className="error">{message}</div>}
             </ErrorMessage>
