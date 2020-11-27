@@ -134,12 +134,14 @@ server.delete('/:orderId/:productId', async (req, res, next) => {
 //Recibe el userId por parametro y el productId y la cantidad a editar (quantity) por body
 server.put('/:userId/cart', async (req, res, next) => {
     try{
+        // console.log(req.params.userId)
         const order = await Order.findOne({
             where: {
                 userId: req.params.userId,
                 status: 'cart'
             }
         });  
+        // console.log(order)
         const product = await OrderLine.findOne({
             where: {
                 orderId: order.id,

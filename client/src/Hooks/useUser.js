@@ -29,7 +29,7 @@ export default function useUser() {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       dispatch({ type: constants.SETCURRENTUSER, payload: user });
     }
-    axios
+    await axios
       .get(`${process.env.REACT_APP_API}/orders/${user.id}/shopping-cart`)
       .then(
         (response) => {
@@ -49,10 +49,7 @@ export default function useUser() {
           price: prod.price,
         };
         try {
-          await axios.put(
-            `http://localhost:3001/orders/${user.id}/cart`,
-            product
-          );
+          await axios.post( `http://localhost:3001/orders/${user.id}/cart`, product );
           history.push(`/checkout`);
         } catch (error) {
           return alert(error);
