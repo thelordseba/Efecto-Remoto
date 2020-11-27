@@ -263,7 +263,7 @@ function FormUser(props) {
           </div>
         ) : null} */}
 
-          <div className="">
+          <div className="form-user-button">
             <button
               type="submit"
               className={`submit ${isSubmitting || !isValid ? "disabled" : ""}`}
