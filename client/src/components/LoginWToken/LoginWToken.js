@@ -5,14 +5,14 @@ import Google from "./Google";
 export default function LoginWithToken() {
     return (
         <div>
-        <button
+        <button className="face-user"
           onClick={() =>
             (window.location = `${process.env.REACT_APP_API}/auth/login/google`)
           }
         >
           <Google fill="teal" />
         </button>
-        <button
+        <button className="gmail-user"
           onClick={() =>
             (window.location = `${process.env.REACT_APP_API}/auth/login/facebook`)
           }

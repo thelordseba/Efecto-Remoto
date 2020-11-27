@@ -6,6 +6,8 @@ import axios from "axios";
 
 function PaymentStatus(props) {
   const user = useSelector((state) => state.currentUser);
+
+  if (props.success) {localStorage.removeItem('cart')}
   
   useEffect(() => {
     (async () => {

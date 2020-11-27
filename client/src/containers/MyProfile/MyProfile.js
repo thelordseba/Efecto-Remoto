@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUserById } from "../../redux/actions/actions";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import "./MyProfile.css";
 
 const provinces = [
   { name: "Buenos Aires" },
