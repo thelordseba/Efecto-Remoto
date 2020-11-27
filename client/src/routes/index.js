@@ -26,6 +26,7 @@ import ReviewPage from "containers/ReviewPage/ReviewPage.js";
 import Review from "components/Review/Review.js";
 import PaymentStatus from "containers/PaymentStatus/PaymentStatus.js";
 import Dashboard from "containers/Dashboard/Dashboard.js";
+import WelcomePage from "components/WelcomePage/WelcomePage";
 
 const routes = [
   {
@@ -182,6 +183,11 @@ const routes = [
   {
     path: "/paymentstatus/cancel",
     render: () => <PaymentStatus success={false} />,
+    exact: true,
+  },
+  {
+    path: "/welcome",
+    component: WelcomePage,
     exact: true,
   },
 ];
