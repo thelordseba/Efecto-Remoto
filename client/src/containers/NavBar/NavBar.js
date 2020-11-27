@@ -42,7 +42,7 @@ function NavBar() {
             </li>
 
             <li className="listee">
-              <a href="/">Experiencias</a>
+              <a href="/experiences">Experiencias</a>
             </li>
           </ul>
         </div>

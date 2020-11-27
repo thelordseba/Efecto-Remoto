@@ -51,7 +51,7 @@ function ProductCatalog({ cat, home, admin, sale, latest }) {
     let filteredProducts = products;
 
     if (!admin) {
-      filteredProducts = products.filter((product) => product.stock > 5);
+      filteredProducts = products?.filter((product) => product.stock > 5);
     }
     if (cat) {
       filteredProducts = filteredProducts.filter((product) =>

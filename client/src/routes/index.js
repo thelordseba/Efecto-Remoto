@@ -21,6 +21,7 @@ import Checkout from "containers/Checkout/Checkout.js";
 import Login from "components/Login/Login.js";
 import ResetPassword from "components/ResetPassword";
 import ReviewTable from "containers/ReviewTable/ReviewTable.js";
+import ReviewPage from "containers/ReviewPage/ReviewPage.js";
 import Review from "components/Review/Review.js";
 import PaymentStatus from "containers/PaymentStatus/PaymentStatus.js";
 import Dashboard from "containers/Dashboard/Dashboard.js";
@@ -148,6 +149,11 @@ const routes = [
   {
     path: "/checkout",
     component: Checkout,
+    exact: true,
+  },
+  {
+    path: "/experiences",
+    component: ReviewPage,
     exact: true,
   },
   {
