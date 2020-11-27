@@ -2,7 +2,7 @@ const server = require('express').Router();
 const { Order, User, Product, OrderLine } = require('../db.js');
 
 //Ruta que crea una nueva orden.                           
-server.post('/:userId', async (req, res, next) => {     
+server.post('/:userId', async (req, res, next) => {         
     try{
         const order = await Order.create({
             userId: req.params.userId,
@@ -79,7 +79,7 @@ server.get('/:userId/cart', async (req, res, next) => {
                 userId: req.params.userId,
                 status: 'cart'
             },
-            include: [{model: Product}]
+            include: [{model: Product}, {model: User}]
         });   
         res.json(order)        
     } catch(error){
@@ -233,5 +233,6 @@ server.put('/:orderId', async (req, res, next) => {
         next(error);        
     }
 });
+
 
 module.exports = server;

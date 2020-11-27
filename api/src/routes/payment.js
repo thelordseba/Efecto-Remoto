@@ -51,7 +51,8 @@ server.get('/meli/callback', async (req, res) => {
             ...body,
             id: parseInt(req.query.external_reference),
         }
-        const order_product = await confirmedOrder(data)
+        await confirmedOrder(data);
+        
         res.redirect(`${process.env.HOSTFRONT}/paymentstatus/success`)
       } catch (error) { console.log(error); res.status(500).json(error) }
     } else { res.redirect(`${process.env.HOSTFRONT}/paymentstatus/cancel?order=${req.query.external_reference}`) }
