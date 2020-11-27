@@ -6,7 +6,7 @@ import FAQ from "components/FAQ/FAQ.js";
 import HomeAdmin from "containers/HomeAdmin/HomeAdmin.js";
 import Home from "containers/Home/Home.js";
 import ProductCrud from "components/ProductCrud/ProductCrud";
-import Categories from "components/ProductCard/Categories"
+import Categories from "containers/Categories/Categories";
 import NgosCrud from "components/NgosCrud/NgosCrud.js";
 import NgoTable from "containers/NgoTable/NgoTable.js";
 import CategoryTable from "containers/CategoryTable/CategoryTable";
@@ -22,10 +22,10 @@ import Checkout from "containers/Checkout/Checkout.js";
 import Login from "components/Login/Login.js";
 import ResetPassword from "components/ResetPassword";
 import ReviewTable from "containers/ReviewTable/ReviewTable.js";
+import ReviewPage from "containers/ReviewPage/ReviewPage.js";
 import Review from "components/Review/Review.js";
 import PaymentStatus from "containers/PaymentStatus/PaymentStatus.js";
 import Dashboard from "containers/Dashboard/Dashboard.js";
-import Category from "components/ProductCard/Categories";
 
 const routes = [
   {
@@ -55,14 +55,6 @@ const routes = [
     component: MyProfile,
     exact: true,
   },
-  /*  {
-    path: "/profile/:id/orders",
-    render: ({ match }) => <MyProfileOrders id={match.params.id} />
-  },
-  {
-    path: "/profile/:id/data",
-    render: ({ match }) => <MyProfileData id={match.params.id} />
-  }, */
   {
     path: "/admin",
     component: HomeAdmin,
@@ -93,11 +85,9 @@ const routes = [
     exact: true,
   },
   {
-
-    path:"/categories",
+    path: "/categories",
     component: Categories,
-    exact:true,
-
+    exact: true,
   },
   {
     path: "/admin/users",
@@ -157,6 +147,11 @@ const routes = [
   {
     path: "/checkout",
     component: Checkout,
+    exact: true,
+  },
+  {
+    path: "/experiences",
+    component: ReviewPage,
     exact: true,
   },
   {

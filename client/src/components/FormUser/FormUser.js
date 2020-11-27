@@ -15,6 +15,7 @@ function FormUser(props) {
   const { isSubmitting, isValid } = props; // viene de las props del componente
   const history = useHistory();
 
+
   const handleGoBack = () => {
     history.push(`/admin/users`);
   };
@@ -140,7 +141,7 @@ function FormUser(props) {
           // } else if (/[^A-Za-z-' ']/.test(values.country)) {
           //   errors.country = "Carácteres inválidos";
           // }
-          // return errors;
+          return errors;
         }}
         onSubmit={async (values, formikBag) => {
           try {
@@ -181,7 +182,7 @@ function FormUser(props) {
 
           <div className="row">
             Nombre:
-            <Field  className= "input-formus" name="firstName" type="text" />
+            <Field name="firstName" type="text" style={{textTransform: "capitalize"}} />
             <ErrorMessage name="firstName">
               {(message) => <div className="error">{message}</div>}
             </ErrorMessage>
@@ -189,7 +190,8 @@ function FormUser(props) {
 
           <div className="row">
             Apellido:
-            <Field className= "input-formus" name="lastName" type="text" />
+            <Field name="lastName" type="text" style={{textTransform: "capitalize"}}
+            />
             <ErrorMessage name="lastName">
               {(message) => <div className="error">{message}</div>}
             </ErrorMessage>

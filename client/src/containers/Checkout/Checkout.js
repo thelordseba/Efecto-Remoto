@@ -6,11 +6,36 @@ import OrderLine from "components/OrderLine/OrderLine";
 import "./checkout.css";
 import axios from "axios";
 
+export function validate(data) {
+  const errors = {};
+
+  // //validación string
+  if (!data.address) {
+    errors.address = "Completar campo";
+  } else if (/[^A-Za-z-' ']/.test(data.address)) {
+    errors.address = "Carácteres inválidos";
+  }
+
+  if (!data.city) {
+    errors.city = "Completar campo";
+  } else if (/[^A-Za-z-' ']/.test(data.city)) {
+    errors.city = "Carácteres inválidos";
+  }
+
+ //validacion de números
+ if (!data.number) errors.number = "Completar campo";
+ if (isNaN(data.number)) errors.number = "Ingresar números";
+ if (!data.postalCode) errors.postalCode = "Completar campo";
+ if (isNaN(data.postalCode)) errors.postalCode = "Ingresar números";
+
+  return errors;
+}
 const Checkout = () => {
   const history = useHistory();
   const order = useSelector((state) => state.order);
   const currentUser = useSelector((state) => state.currentUser);
   const [data, setData] = useState({});
+  const [errors, setErrors] = React.useState({});
 
   const dispatch = useDispatch();
 
@@ -67,6 +92,13 @@ const Checkout = () => {
   };
 
   const handleOnChange = (e) => {
+
+    setErrors(validate({
+      ...data,
+      [e.target.name]: e.target.value,
+      
+    }))
+
     setData({
       ...data,
       [e.target.name]: e.target.value,
@@ -103,15 +135,18 @@ const Checkout = () => {
               {!currentUser.location?.address ? (
                 <div>
                   <label>Calle: </label>
-                  <input name="address" onChange={handleOnChange}></input>
+                  <input className={errors.address && 'error'}
+                   name="address" value={data.address} onChange={handleOnChange} style={{textTransform: "capitalize"}}></input>
                 </div>
               ) : (
                 currentUser.location?.address + " "
               )}
               {!currentUser.location?.number ? (
                 <div>
-                  <label>Numero: </label>
-                  <input name="number" onChange={handleOnChange}></input>
+
+                  <label>Número: </label>
+                  <input className={errors.number && 'error'} 
+                  name="number" value={data.number} onChange={handleOnChange}></input>
                 </div>
               ) : (
                 currentUser.location?.number + " "
@@ -119,7 +154,8 @@ const Checkout = () => {
               {!currentUser.location?.city ? (
                 <div>
                   <label>Provincia: </label>
-                  <input name="city" onChange={handleOnChange}></input>
+                  <input className={errors.city && 'error'}
+                  name="city" value={data.city} onChange={handleOnChange} style={{textTransform: "capitalize"}}></input>
                 </div>
               ) : (
                 " - " + currentUser.location?.city + " "
@@ -127,7 +163,8 @@ const Checkout = () => {
               {!currentUser.location?.postalCode ? (
                 <div>
                   <label>Código postal: </label>
-                  <input name="postalCode" onChange={handleOnChange}></input>
+                  <input className={errors.postalCode && 'error'}
+                   name="postalCode" value={data.postalCode} onChange={handleOnChange}></input>
                 </div>
               ) : (
                 "(" + currentUser.location?.postalCode + ")"

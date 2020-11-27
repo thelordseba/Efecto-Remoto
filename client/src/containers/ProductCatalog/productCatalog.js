@@ -5,9 +5,10 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../redux/actions/actions.js";
 import moment from "moment";
-const queryString = require('query-string');
 
-function ProductCatalog({  home, admin, sale, latest }) {
+const queryString = require("query-string");
+
+function ProductCatalog({ home, admin, latest }) {
   const limit = 6;
 
   let [category, setCategory] = useState("allCategories");
@@ -16,13 +17,13 @@ function ProductCatalog({  home, admin, sale, latest }) {
   const history = useHistory();
 
   const cat = useMemo(() => {
-    return queryString.parse(history?.location?.search)?.category
-  },[history])
+    return queryString.parse(history?.location?.search)?.category;
+  }, [history]);
 
-  useEffect(()=>{
-    setCategory(cat)
+  useEffect(() => {
+    setCategory(cat);
     actions.setSearch("");
-  },[cat])
+  }, [cat]);
 
   const handleOnClickAddProduct = () => history.push(`/admin/addproduct`);
 
@@ -31,9 +32,8 @@ function ProductCatalog({  home, admin, sale, latest }) {
   const maxPages = useMemo(() => Math.ceil(countProducts / limit), [
     countProducts,
   ]);
-  const categories = useSelector((state) => state.categories);
   const search = useSelector((state) => state.search);
-  // console.log(categories)
+
   useEffect(() => {
     if (category !== "allCategories" && category)
       dispatch(actions.getProductsByCategory(category, page, limit));
@@ -41,8 +41,7 @@ function ProductCatalog({  home, admin, sale, latest }) {
       dispatch(actions.getProductsByQuery(search, page, limit));
     else dispatch(actions.getProducts(page, limit));
   }, [dispatch, category, page, limit, search]);
-  // console.log('products', products)
-  
+
   useEffect(() => {
     (async () => {
       dispatch(actions.getCategories());
@@ -62,7 +61,7 @@ function ProductCatalog({  home, admin, sale, latest }) {
     }
     if (cat) {
       filteredProducts = filteredProducts.filter((product) =>
-        cat ? product.categories?.some((cat1) => cat1.id == cat) : null
+        cat ? product.categories?.some((cat1) => cat1.id === cat) : null
       );
     }
     if (latest) {
@@ -70,7 +69,7 @@ function ProductCatalog({  home, admin, sale, latest }) {
         (product) => calculateDiff(product.createdAt) < 5
       );
     }
-    // console.log('filteredProducts',filteredProducts)
+
     return filteredProducts.map((product) => (
       <ProductCard
         admin={admin}
@@ -83,7 +82,6 @@ function ProductCatalog({  home, admin, sale, latest }) {
 
   return (
     <>
-
       {admin ? (
         <div
           className="product-catalog-button"
