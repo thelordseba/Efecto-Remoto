@@ -86,8 +86,8 @@ function NgoCrud({ id }) {
       <div className="crud-form">
         <br />
         <br />
-        <form className="" onSubmmit={handleOnSubmit}>
-          <p class="thick">Datos básicos</p>
+        <form className="" onSubmit={handleOnSubmit}>
+          <p className="thick">Datos básicos</p>
           <label>Nombre de la ONG</label>
           <input
             className={errors.ngoId && "error"}
@@ -122,7 +122,7 @@ function NgoCrud({ id }) {
             placeholder="Página Web"
           ></input>
           <br></br> <br></br>
-          <p class="thick">Ubicación</p>
+          <p className="thick">Ubicación</p>
           <label>Dirección</label>
           <input
             className={errors.address && "error"}
