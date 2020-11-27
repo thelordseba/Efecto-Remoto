@@ -10,6 +10,7 @@ export default function ProductCrud({ id }) {
   let [product, setProduct] = useState();
   let [selectedCategories, setSelectedCategories] = useState([]);
   let [image, setImage] = useState("");
+  let [error, setError] = useState("");
 
   const dispatch = useDispatch();
 
@@ -49,6 +50,15 @@ export default function ProductCrud({ id }) {
   };
 
   const handleOnChange = (event) => {
+    if(event.target.name === 'name' && event.target.value ) {
+      const RegExpression = /^[a-z][a-z\s]*$/
+      if (!RegExpression.test(event.target.value)) {
+        setError('No ingresar caracteres especiales ni numeros')
+        return
+      } else {
+        setError('')
+      }
+    }
     setProduct({
       ...product,
       [event.target.name]: event.target.value,
@@ -136,6 +146,7 @@ export default function ProductCrud({ id }) {
             type="text"
             placeholder="Título del producto"
           />
+          {error}
           <br />
           <br />
           <label>Descripción</label>
