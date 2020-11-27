@@ -52,6 +52,11 @@ export default (state = initialState, action) => {
         ...state,
         orders: action.payload,
       };
+    case constants.GETORDERSBYSTATUS:
+      return {
+        ...state,
+        orders: action.payload,
+      };
     case constants.GETORDERBYID:
       return {
         ...state,

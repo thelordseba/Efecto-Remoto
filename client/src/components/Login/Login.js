@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import useUser from "Hooks/useUser";
 import useQuery from "Hooks/useQuery";
 import LoginWithToken from "../LoginWToken/LoginWToken.js";
+import "./Login.css";
 
 function Login(props) {
   const { isSubmitting, isValid } = props; // viene de las props del componente
@@ -58,7 +59,7 @@ function Login(props) {
           } catch (error) {
             formikBag.setSubmitting(false); //debo deshabilitar isSubmitting una vez que pasa la info
             const data = error.response.data
-            if (data.message) alert(data.message)
+             if (data.message) alert(data.message)
         }}}>
       <Form>
         <div className="row">
@@ -77,7 +78,7 @@ function Login(props) {
           </ErrorMessage>
         </div>
 
-        <div className="">
+        <div className="login-form">
           <button
             type="submit"
             className={`submit ${isSubmitting || !isValid ? "disabled" : ""}`}
@@ -88,13 +89,14 @@ function Login(props) {
         </div>
       </Form>
       </Formik>
-      <div>
+      <div className='login-password'>
         <a href="/resetpassword">¿Olvidaste tu contraseña?</a>
         <a href="/register">Registrate</a>
       </div>
-      <div>También podés iniciar sesión con:</div>
+      <div className='login'>También podés iniciar sesión con:
       <LoginWithToken />
       <div></div>
+      </div>
     </>
   );
 }

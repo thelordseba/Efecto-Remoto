@@ -8,6 +8,16 @@
     padding: 0 0.5rem;
 }
 
+
+@media (max-width: 480px) {
+    .grid-container {
+        margin-left: 0px;
+        display: flex;
+        flex-wrap: wrap;
+        
+    }
+  }
+
 .grid1 {
     grid-column: 1;
     margin: auto;
@@ -32,6 +42,15 @@
     justify-self: end;
     align-self: center;
 }
+
+@media (max-width: 480px) {
+    .grid3 {
+        margin: auto;
+        margin-top: 4px;
+        margin-bottom: 4px;
+    }
+  }
+  
 
 .grid4 {
     grid-column: 5;
@@ -65,9 +84,9 @@
         display: flex;
         align-items: center;
         margin-bottom: 0.125rem;
-    }
+    } 
 
-    
+
 }
 
 a, a:visited, a:hover, a:active {
@@ -134,8 +153,16 @@ a, a:visited, a:hover, a:active {
     display: block;
 }
   
+@media (max-width: 480px) {
+    .grid-container {
+        margin-left: 0px;
+        display: flex;
+        
+    }
+  }
 // .menu{
 //     ul{
 //         border-radius: 12px;
 //     }
 // }
+

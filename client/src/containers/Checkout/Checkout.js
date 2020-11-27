@@ -22,7 +22,7 @@ const Checkout = () => {
 
   const updateUser = async (id, userData) => {
     try {
-      await axios.put(`http://localhost:3001/users/${id}`, userData);
+      await axios.put(`${process.env.REACT_APP_API}/users/${id}`, userData);
     } catch (error) {
       alert("No se pudieron actualizar. Por favor, reintentá.");
     }

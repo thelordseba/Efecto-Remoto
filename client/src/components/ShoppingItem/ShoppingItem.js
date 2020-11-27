@@ -33,11 +33,11 @@ function ShoppingItem({
             min="0"
             max={maxQuantity}
           />
-        </form>
-        <TrashIcon
+          <TrashIcon
           className={"cart-icon"}
           onClick={() => onRemoveProduct(product.id)}
         />
+        </form>
       </div>
     </>
   );

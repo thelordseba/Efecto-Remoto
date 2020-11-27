@@ -9,6 +9,12 @@
   background-color: #f9f9f9;
   box-sizing: border-box;
 }
+@media (max-width: 480px) {
+  .cards-container {
+      display: block;
+      
+  }
+}
 
 .product-catalog-container {
   display: flex;

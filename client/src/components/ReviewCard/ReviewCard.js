@@ -9,7 +9,7 @@ export default function ReviewCard({ order }) {
           <label>Numero de Órden: {order.id} </label>
           <label>Usuario: {order.userId} </label>
           <label>Rating: {order.rating} </label>
-          <label>Descripción: {order.description} </label>
+          <label>Review: {order.review} </label>
         </div>
       ) : null}
     </>
