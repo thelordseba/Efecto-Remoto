@@ -19,7 +19,7 @@ export default function Form() {
   };
 
   // useEffect( () => {(async () => {
-  //   const categories = await axios.get(`http://localhost:3001/categories/`)
+  //   const categories = await axios.get(`${process.env.REACT_APP_API}/categories/`)
   //   setCategories(categories.data)
   // })()}, [])
 
@@ -29,7 +29,7 @@ export default function Form() {
       alert("Debes completar todos los campos");
     } else {
       axios
-        .post(`http://localhost:3001/categories/`, category)
+        .post(`${process.env.REACT_APP_API}/categories/`, category)
         .then(() => alert("Categoría agregada"))
         .catch(() => alert("Hubo un error. Por favor, intentá de nuevo."))
         .then(() => history.push("/admin/categories"));

@@ -22,7 +22,7 @@ export default function UserDetails({ id }) {
   const handleOnClickDelete = (e) => {
     e.preventDefault();
     axios
-      .delete(`http://localhost:3001/users/${id}`)
+      .delete(`${process.env.REACT_APP_API}/users/${id}`)
       .then(() => alert("Usuario Eliminado"))
       .catch(() => alert("Hubo un error. Por favor, intentá de nuevo."))
       .then(() => history.push("/admin/users"));

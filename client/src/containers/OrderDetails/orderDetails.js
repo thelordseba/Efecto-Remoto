@@ -7,6 +7,7 @@ import axios from "axios";
 
 export default function OrderDetails({ id }) {
   const order = useSelector((state) => state.order);
+  const user = useSelector((state) => state.currentUser);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -15,17 +16,27 @@ export default function OrderDetails({ id }) {
       dispatch(getOrderById(id));
     })();
   }, [dispatch, id]);
-
   const handleGoBack = () => {
     history.push(`/admin/orders`);
   };
 
   function handleOnClickCancel(id) {
     axios
-      .put(`http://localhost:3001/orders/${id}`, { status: "cancelled" })
+      .put(`${process.env.REACT_APP_API}/orders/${id}`, { status: "cancelled" })
       .then(() => alert("Orden cancelada"))
       .catch(() => alert("Hubo un error. Por favor, intentá de nuevo."))
       .then(() => history.push("/admin/orders"));
+    axios.put(`${process.env.REACT_APP_API}/orders/${id}`, { status: "cancelled" })
+    .then(async () => {
+      try {
+        await axios.post(`${process.env.REACT_APP_API}/orders/${user.id}`);
+        return alert("Orden cancelada");
+      } catch (error) {
+        return console.log(error);
+      }
+    })
+    .catch(() => alert("Hubo un error. Por favor, intentá de nuevo."))
+    .then(() => history.push("/admin/orders"));
   }
 
   return (

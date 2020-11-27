@@ -49,10 +49,10 @@ function ResetPassword({history, minLength=null, shouldContainUpperCase = false,
       alert("Debes completar todos los campos");
     } else {
       const userId = await axios.get(
-        `http://localhost:3001/users/getUserbyId?userEmail=${user.email}`
+        `${process.env.REACT_APP_API}/users/getUserbyId?userEmail=${user.email}`
       );
       await axios.post(
-        `http://localhost:3001/users/${userId}/resetPassword`,password
+        `${process.env.REACT_APP_API}/users/${userId}/resetPassword`,password
       );
       alert("contraseña Cambiada");
       history.push("/");

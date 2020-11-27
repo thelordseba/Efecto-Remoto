@@ -11,11 +11,9 @@ import BagIcon from "../Icons/Bag";
 function ProductCard({ product, small = true, admin, id }) {
   const history = useHistory();
   const [showSnackbar, setShowSnackbar] = useState(false);
-  // const [cart, setCart] = useState([]);
   let localCart = localStorage.getItem("cart");
   const [cart, setCart] = useState(localCart ? JSON.parse(localCart) : []);
   const dispatch = useDispatch();
-  // const deleted = useSelector(state => state.deleted)
 
   function handleOnClickEdit(id) {
     history.push(`/product/edit/${id}`);
@@ -28,7 +26,7 @@ function ProductCard({ product, small = true, admin, id }) {
     let cartCopy = [...cart];
     let { id } = product;
     let existingItem = cartCopy.find((cartItem) => cartItem.id === id);
-    // let existingItem = cartCopy.find(cartItem => cartItem.id === parseInt(id));
+    
     if (existingItem) {
       existingItem.quantity += quantity;
     } else {
