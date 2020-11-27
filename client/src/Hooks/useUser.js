@@ -49,10 +49,7 @@ export default function useUser() {
           price: prod.price,
         };
         try {
-          await axios.put(
-            `http://localhost:3001/orders/${user.id}/cart`,
-            product
-          );
+          await axios.post( `http://localhost:3001/orders/${user.id}/cart`, product );
           history.push(`/checkout`);
         } catch (error) {
           return alert(error);

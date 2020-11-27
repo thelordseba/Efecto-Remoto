@@ -41,10 +41,9 @@ const Checkout = () => {
 
   const toPayment = async (id) => {
     try {
-      const { response } = await axios.post(
-        `${process.env.REACT_APP_API}/payment/${id}/toPayment`
-      );
-      window.location = response.redirect;
+      const response = await axios.post(`${process.env.REACT_APP_API}/payment/${id}/toPayment`);
+      // console.log(response)
+      window.location = response.data.body.init_point;
     }
     catch (error) {
       alert("No se pudo redirigir a Mercado Pago. Por favor, volvé a intentar.");
@@ -80,9 +79,7 @@ const Checkout = () => {
         <div className="container-summary">
           <div className="title-container-summary">Productos</div>
           <div className="divider-summary" />
-          {order.products?.map((
-            product //order.products && order.products.map()
-          ) => (
+          {order.products?.map((product) => (
             <OrderLine name={product.name} orderLine={product.orderLine} key={product.id}/>
           ))}
           <div className="divider-summary" />
