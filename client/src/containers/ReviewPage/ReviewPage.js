@@ -1,5 +1,5 @@
 import React from "react";
-import persona1 from "containers/ReviewPage/Images/persona1.jpeg";
+import persona1 from "containers/ReviewPage/Images/persona1.jpg";
 export default function CategoryTable() {
   return (
     <div>
