@@ -31,7 +31,6 @@ function ProductCatalog({ home, admin, sale, latest }) {
   const maxPages = useMemo(() => Math.ceil(countProducts / limit), [
     countProducts,
   ]);
-  const categories = useSelector((state) => state.categories);
   const search = useSelector((state) => state.search);
   useEffect(() => {
     if (category !== "allCategories" && category)
@@ -60,7 +59,7 @@ function ProductCatalog({ home, admin, sale, latest }) {
     }
     if (cat) {
       filteredProducts = filteredProducts.filter((product) =>
-        cat ? product.categories?.some((cat1) => cat1.id == cat) : null
+        cat ? product.categories?.some((cat1) => cat1.id === cat) : null
       );
     }
     if (latest) {
