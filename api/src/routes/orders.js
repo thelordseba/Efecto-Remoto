@@ -18,7 +18,8 @@ server.post('/:userId', async (req, res, next) => {
 
 //S38: Ruta para agregar Item al Carrito.                         
 //Recibe el userId por parametro y en el body el productId (producto a agregar) y la cantidad.
-server.post('/:userId/cart', async (req, res, next) =>{
+server.post('/:userId/cart', async (req, res, next) =>{ 
+    const { productId, quantity, price } = req.body;
     try{    
         const order = await Order.findOne({
             where: {
@@ -26,15 +27,13 @@ server.post('/:userId/cart', async (req, res, next) =>{
                 status: 'cart'
             }
         });         
-        const product = await Product.findByPk(req.body.productId)
-        await order.addProduct(product, {through: { price: product.price, quantity: req.body.quantity }      
-    }) 
-    await order.addProduct(product);
-    res.json(product);
+        const product = await Product.findByPk(productId)
+        await order.addProduct(product, {through: { quantity, price }}) 
+        res.json(product);
     } catch(error){
         next(error);
     }    
-  });
+});
   
 //Ruta que agrega items al carrito.                                    
 //Recibe el orderId por parámetro y en el body el productId (producto a agregar) y la cantidad.
@@ -53,6 +52,7 @@ server.post('/:orderId/addItem', async (req, res, next) =>{
 
 //S39: Ruta que retorne todos los items del Carrito.     FALTA TRAER LOS DATOS DE LOS PRODUCT -- Esta retornando los orderLine 
 server.get('/:userId/cart', async (req, res, next) => {
+    console.log("entró")
     try{
         const order = await Order.findOne({
             where:{
@@ -101,25 +101,32 @@ server.delete('/:userId/cart', async (req, res, next) => {
                 orderId: order.id
             }
         });       
-        res.json(order).send("Carrito vacio.")
-    } catch(error){  
+        res.send("Carrito vacío.")
+    } catch(error) {  
         next(error)      
     }
 });
 
 //Ruta para eliminar 1 item del carrito. (recibe)
 server.delete('/:orderId/:productId', async (req, res, next) => {
-    try{
+    try {
+        const orderId = req.params.orderId
+        const productId = req.params.productId
         const item = await OrderLine.findOne({
-            where:{
-                orderId: req.params.orderId,
-                productId: req.params.productId
+            // where: { [Op.or]: [{
+            //     orderId: {[Op.like]: `${orderId}`},
+            //     productId: {[Op.like]: `${productId}`}
+            // }]
+            // }
+            where: {
+                orderId: orderId,
+                productId: productId,
             }
         });
         await item.destroy();  
         res.send("Item eliminado.")
     } catch(error){  
-        next(error)      
+        next(error)    
     }
 });
 

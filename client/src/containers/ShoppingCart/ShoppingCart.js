@@ -9,7 +9,7 @@ function ShoppingCart(props) {
   const { editItem, onRemoveProduct } = useCart();
   const history = useHistory();
   let localCart = localStorage.getItem("cart");
-  const [cart, setCart] = useState(localCart ? JSON.parse(localCart) : []);
+  const [ cart, setCart ] = useState(localCart ? JSON.parse(localCart) : []);
   const currentUser = useSelector((state) => state.currentUser);
 
   const products = useMemo(() => {
@@ -49,7 +49,7 @@ function ShoppingCart(props) {
           price: prod.price,
         };
         try {
-          await axios.post(
+          await axios.put(
             `http://localhost:3001/orders/${currentUser.id}/cart`,
             product
           );

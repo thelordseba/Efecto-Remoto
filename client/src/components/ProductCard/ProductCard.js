@@ -21,7 +21,7 @@ function ProductCard({ product, small = true, admin, id }) {
   }
 
   const handleAddToCart = (product, quantity = 1) => {
-    addItem(product, quantity);
+    addItem(product, quantity = 1);
     setShowSnackbar(true);
     setTimeout(function () {
       setShowSnackbar(false);
