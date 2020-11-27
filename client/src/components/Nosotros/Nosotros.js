@@ -11,17 +11,33 @@ function Nosotros() {
           vida de otras personas de manera remota. Somos el intermediario entre
           tus ganas y la ONG que puede hacerlo posible.
         </p>
-        <img className="img-nos" src={Image} />
+        <img
+          className="img-nos"
+          src={Image}
+          alt={"No puede mostrarse la imagen"}
+        />
+      </div>
+      {/* <div className="cnt-img-nos">
+        <img
+          className="img-nos"
+          src={Image}
+          alt={"No puede mostrarse la imagen"}
+        />
+      </div> */}
+      {/* <div className="cnt-img-nos">
+        <img
+          className="img-nos"
+          src={Image}
+          alt={"No puede mostrarse la imagen"}
+        />
       </div>
       <div className="cnt-img-nos">
-        <img className="img-nos" src={Image} />
-      </div>
-      <div className="cnt-img-nos">
-        <img className="img-nos" src={Image} />
-      </div>
-      <div className="cnt-img-nos">
-        <img className="img-nos" src={Image} />
-      </div>
+        <img
+          className="img-nos"
+          src={Image}
+          alt={"No puede mostrarse la imagen"}
+        />
+      </div> */}
     </div>
   );
 }

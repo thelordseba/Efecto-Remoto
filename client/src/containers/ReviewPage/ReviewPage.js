@@ -12,6 +12,30 @@ export default function CategoryTable() {
         </p>
         <span>María José del Cerro, Mendoza, Argentina</span>
       </div>
+      <div>
+        <img src={persona1} alt="No puede mostrarse la imagen" />
+        <p>
+          Tener la oportunidad de impactar la vida de otras personas a través de
+          un sitio online es una experiencia maravillosa.
+        </p>
+        <span>María José del Cerro, Mendoza, Argentina</span>
+      </div>
+      <div>
+        <img src={persona1} alt="No puede mostrarse la imagen" />
+        <p>
+          Tener la oportunidad de impactar la vida de otras personas a través de
+          un sitio online es una experiencia maravillosa.
+        </p>
+        <span>María José del Cerro, Mendoza, Argentina</span>
+      </div>
+      <div>
+        <img src={persona1} alt="No puede mostrarse la imagen" />
+        <p>
+          Tener la oportunidad de impactar la vida de otras personas a través de
+          un sitio online es una experiencia maravillosa.
+        </p>
+        <span>María José del Cerro, Mendoza, Argentina</span>
+      </div>
       <br />
       <br />
     </div>

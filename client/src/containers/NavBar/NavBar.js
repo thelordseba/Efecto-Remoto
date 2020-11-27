@@ -20,7 +20,6 @@ function NavBar() {
   //     history.push(`/carrito`)
   //   }
 
-
   useEffect(() => {
     (async () => {})();
   }, [currentUser]);
@@ -36,12 +35,11 @@ function NavBar() {
         <div className="grid grid2">
           <ul className="grid list">
             <li className="listee">
-              <a href="/nosotros">Nosotros</a>
+              <a href="/products">Productos</a>
             </li>
             <li className="listee">
-              <a href="/categories">Productos</a>
+              <a href="/nosotros">Nosotros</a>
             </li>
-
             <li className="listee">
               <a href="/experiences">Experiencias</a>
             </li>
@@ -80,7 +78,9 @@ function NavBar() {
             ) : (
               <li className={[styles.profile].join(" ")}>
                 <a href="*" style={{ padding: "10px 15px" }}>
-                  <span style={{textTransform: "capitalize"}}>¡Hola {currentUser.firstName.trim()}!</span>
+                  <span style={{ textTransform: "capitalize" }}>
+                    ¡Hola {currentUser.firstName.trim()}!
+                  </span>
                   <UserIcon fill="#fff" style={{ marginLeft: "1rem" }} />
                 </a>
                 <ul className={styles.menu}>
