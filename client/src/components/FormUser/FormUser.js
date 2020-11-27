@@ -261,7 +261,7 @@ function FormUser(props) {
           </div>
         ) : null} */}
 
-          <div className="">
+          <div className="form-user-button">
             <button
               type="submit"
               className={`submit ${isSubmitting || !isValid ? "disabled" : ""}`}
@@ -272,10 +272,9 @@ function FormUser(props) {
           </div>
         </Form>
       </Formik>
-      {!props.admin ? <div>También podés registrarte con:</div> : null}
-      {!props.admin ? <LoginWithToken /> : null}
-      {!props.admin ? (
-        <div>
+      {!props.admin ? <div className="login">También podés registrarte con:
+      <LoginWithToken />
+      <div>
           <span
             className={"yatengocuenta"}
             onClick={() => history.push("/loginuser")}
@@ -283,7 +282,7 @@ function FormUser(props) {
             Ya tengo cuenta
           </span>
         </div>
-      ) : null}
+      </div> : null}
     </>
   );
 }
