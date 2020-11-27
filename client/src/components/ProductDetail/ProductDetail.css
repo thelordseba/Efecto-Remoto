@@ -114,4 +114,24 @@
   .stars:last-child {
     margin-right: 25px;
   }
+  @media (max-width: 480px){
+    .product-container{
+          /* margin-top: 36px; */
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    border: 1px solid lightgrey;
+    /* margin-left: 100px; */
+    /* margin-right: 100px; */
+    border: 3px solid teal;
+}
+.photo{
+  height: 200px;
+  width: 200px;
+  margin-top: -10px;
+  margin-left: 100px;
+  
+}
+
+    }
   
