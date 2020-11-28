@@ -34,24 +34,12 @@ function NavBar() {
         </div>
         <div className="grid grid2">
           <ul className="grid list">
-<<<<<<< Updated upstream
-            <li className="listee">
-              <a href="/nosotros">Nosotros</a>
-            </li>
-            <li className="listee">
-              <a href="/products">Productos</a>
-=======
           <li className="listee">
               <a href="/">Nosotros</a>
->>>>>>> Stashed changes
             </li>
 
             <li className="listee">
-<<<<<<< Updated upstream
-              <a href="*">Experiencias</a>
-=======
               <a href="/categories">Productos</a>
->>>>>>> Stashed changes
             </li>
           </ul>
         </div>
