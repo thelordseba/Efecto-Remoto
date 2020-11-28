@@ -35,7 +35,7 @@ const Checkout = () => {
   const order = useSelector((state) => state.order);
   const currentUser = useSelector((state) => state.currentUser);
   const [data, setData] = useState({});
-  const [errors, setErrors] = React.useState({});
+  const [errors, setErrors] = useState({});
 
   const dispatch = useDispatch();
 
@@ -67,13 +67,11 @@ const Checkout = () => {
   const toPayment = async (id) => {
     try {
       const response = await axios.post(`${process.env.REACT_APP_API}/payment/${id}/toPayment`);
-      // console.log(response)
       window.location = response.data.body.init_point;
     }
     catch (error) {
       alert("No se pudo redirigir a Mercado Pago. Por favor, volvé a intentar.");
     }
-    
   };
 
   const handlePayment = () => {
