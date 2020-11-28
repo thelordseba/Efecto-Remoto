@@ -6,6 +6,31 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import "./MyProfile.css";
 
+export function validate(data) {
+  const errors = {};
+
+  // //validación string
+  if (!data.address) {
+    errors.address = "Completar campo";
+  } else if (/[^A-Za-z-' ']/.test(data.address)) {
+    errors.address = "Carácteres inválidos";
+  }
+
+  if (!data.city) {
+    errors.city = "Completar campo";
+  } else if (/[^A-Za-z-' ']/.test(data.city)) {
+    errors.city = "Carácteres inválidos";
+  }
+
+ //validacion de números
+ if (!data.number) errors.number = "Completar campo";
+ if (isNaN(data.number)) errors.number = "Ingresar números";
+ if (!data.postalCode) errors.postalCode = "Completar campo";
+ if (isNaN(data.postalCode)) errors.postalCode = "Ingresar números";
+
+  return errors;
+}
+
 const provinces = [
   { name: "Buenos Aires" },
   { name: "Catamarca" },
@@ -37,8 +62,17 @@ const MyProfile = () => {
   const currentUser = useSelector((state) => state.currentUser);
   const dispatch = useDispatch();
   const history = useHistory();
+  const [errors, setErrors] = React.useState({});
 
   const handleOnChange = (e) => {
+
+    setErrors(validate({
+      ...data,
+      [e.target.name]: e.target.value,
+      
+    }))
+
+
     setData({
       ...data,
       [e.target.name]: e.target.value,
@@ -98,20 +132,24 @@ const MyProfile = () => {
       <br />
       <div>
         <label>Calle: </label>
-        <input
+        <input className={errors.address && 'error'}
           name="address"
+          // value={data.address}
           defaultValue={
             currentUser.location?.address ? currentUser.location?.address : ""
           }
           type="text"
           onChange={handleOnChange}
+          style={{textTransform: "capitalize"}}
         />
       </div>
       <br />
       <div>
         <label>Número: </label>
         <input
+          className={errors.number && 'error'}
           name="number"
+          // value={data.number} 
           defaultValue={
             currentUser.location?.number ? currentUser.location?.number : ""
           }
@@ -123,12 +161,15 @@ const MyProfile = () => {
       <div>
         <label>Ciudad: </label>
         <input
+          className={errors.city && 'error'}
           name="city"
+          // value={data.city}
           defaultValue={
             currentUser.location?.city ? currentUser.location?.city : ""
           }
           type="text"
           onChange={handleOnChange}
+          style={{textTransform: "capitalize"}}
         />
       </div>
       <br />
@@ -158,7 +199,9 @@ const MyProfile = () => {
       <div>
         <label>Código postal: </label>
         <input
+         className={errors.postalCode && 'error'}
           name="postalCode"
+          // value={data.postalCode}
           defaultValue={
             currentUser.location?.postalCode
               ? currentUser.location?.postalCode
