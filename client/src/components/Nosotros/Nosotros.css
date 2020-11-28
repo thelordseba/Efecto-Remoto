@@ -26,3 +26,13 @@
         -webkit-transform : scale(1);   /* Chrome - Safari */
         -o-transform : scale(1);        /* Opera */
     }
+
+    @media (max-width: 480px){
+        .parr-nos{
+        position: absolute;
+        top: 15%;
+        left: 60%;
+        color: white;
+        font-size: 11px;
+    }
+    }

@@ -37,7 +37,6 @@ function NavBar() {
           <li className="listee">
               <a href="/">Nosotros</a>
             </li>
-
             <li className="listee">
               <a href="/categories">Productos</a>
             </li>
@@ -76,12 +75,14 @@ function NavBar() {
             ) : (
               <li className={[styles.profile].join(" ")}>
                 <a href="*" style={{ padding: "10px 15px" }}>
-                  <span>¡Hola {currentUser.firstName.trim()}!</span>
+                  <span style={{ textTransform: "capitalize" }}>
+                    ¡Hola {currentUser.firstName.trim()}!
+                  </span>
                   <UserIcon fill="#fff" style={{ marginLeft: "1rem" }} />
                 </a>
                 <ul className={styles.menu}>
                   <li>
-                    <a href={`/profile/${currentUser.id}`}>Mi Perfil</a>
+                    <a href={`/profile`}>Mi Perfil</a>
                   </li>
                   <li>
                     <a href="/faq">FAQ</a>

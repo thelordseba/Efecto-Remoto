@@ -26,8 +26,8 @@ server.post("/:id/toPayment", async (req, res) => {
             },
             external_reference: order.id.toString(),
             back_urls: {
-                success: `http://localhost:3001/payment/meli/callback`,
-                failure: `http://localhost:3001/payment/meli/callback`,
+                success: `${process.env.HOST}/payment/meli/callback`,
+                failure: `${process.env.HOST}/payment/meli/callback`,
             },
             // operation_type: {
             //     recurring_payment: 
@@ -35,11 +35,11 @@ server.post("/:id/toPayment", async (req, res) => {
             auto_return: "approved", // redirecciona a nuestra página automáticamente una vez finalizado el pago
         };
         const response = await mercadopago.preferences.create(preference);
-        Order = await toPaymentOrder({
+        order = await toPaymentOrder({
             id,
             initPoint: response.body.init_point, // la url para redireccionar al usuario a la página de pago de MP
         });
-        res.json({ redirect: response.body.init_point, order: Order });
+        res.json(response);
     } catch (error) { console.log(error); res.status(400).json(error)};
 });
 
@@ -51,10 +51,11 @@ server.get('/meli/callback', async (req, res) => {
             ...body,
             id: parseInt(req.query.external_reference),
         }
-        const order_product = await confirmedOrder(data)
-        res.redirect(`http://localhost:3000/paymentstatus/success`)
+        await confirmedOrder(data);
+        
+        res.redirect(`${process.env.HOSTFRONT}/paymentstatus/success`)
       } catch (error) { console.log(error); res.status(500).json(error) }
-    } else { res.redirect(`http://localhost:3000/paymentstatus/cancel?order=${req.query.external_reference}`) }
+    } else { res.redirect(`${process.env.HOSTFRONT}/paymentstatus/cancel?order=${req.query.external_reference}`) }
 })
 
 module.exports = server;

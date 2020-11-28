@@ -2,28 +2,22 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import ShoppingItem from "components/ShoppingItem/ShoppingItem";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
+import useCart from "../../Hooks/useCart";
 
 function ShoppingCart(props) {
+  const { editItem, onRemoveProduct } = useCart();
   const history = useHistory();
-  // const [quantity, setQuantity] = useState();
-  // let localCart = JSON.parse(localStorage.getItem("cart"));
   let localCart = localStorage.getItem("cart");
-  const [cart, setCart] = useState(localCart ? JSON.parse(localCart) : []);
+  const [ cart, setCart ] = useState(localCart ? JSON.parse(localCart) : []);
   const currentUser = useSelector((state) => state.currentUser);
 
   const products = useMemo(() => {
     return JSON.parse(localStorage.getItem("cart"));
-  }, [cart]);
+  }, []);
 
   const handleBack = () => {
     history.push(`/products`);
-  };
-
-  const onRemoveProduct = (productId) => {
-    let filteredList = cart.filter((item) => item.id !== productId);
-    localStorage.setItem("cart", JSON.stringify(filteredList));
-    setCart(filteredList);
   };
 
   const total = useMemo(() => {
@@ -36,25 +30,6 @@ function ShoppingCart(props) {
     }
   }, [products]);
 
-  const editItem = (itemID, value) => {
-    let cartCopy = [...cart];
-    let existentItem = cartCopy.find(
-      (cartItem) => cartItem.id === parseInt(itemID)
-    );
-    if (!existentItem) {
-      alert("Hubo un error.");
-    } else {
-      existentItem.quantity = parseInt(value);
-    }
-    if (existentItem.quantity <= 0) {
-      cartCopy = cartCopy.filter((item) => item.id !== parseInt(itemID));
-    }
-
-    setCart(cartCopy);
-    let cartString = JSON.stringify(cartCopy);
-    localStorage.setItem("cart", cartString);
-  };
-
   const handleOnChangeQuantity = (event) => {
     const value = event.target.value;
     const id = event.target.name;
@@ -66,23 +41,7 @@ function ShoppingCart(props) {
     if (currentUser?.length === 0) {
       history.push("/loginuser");
     } else {
-      const cart = JSON.parse(localStorage.getItem("cart"));
-      cart.forEach(async (prod) => {
-        const product = {
-          productId: prod.id,
-          quantity: prod.quantity,
-          price: prod.price,
-        };
-        try {
-          await axios.post(
-            `http://localhost:3001/orders/${currentUser.id}/cart`,
-            product
-          );
-          history.push(`/checkout`);
-        } catch (error) {
-          return alert(error);
-        }
-      });
+      history.push(`/checkout`);
     }
   };
 
