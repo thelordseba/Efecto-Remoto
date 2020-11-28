@@ -7,10 +7,10 @@ export function validate(ngo) {
   const errors = {};
 
   //validación string
-  if (!ngo.ngoId) {
-    errors.ngoId = "Completar campo";
-  } else if (/[^A-Za-z-' ']/.test(ngo.ngoId)) {
-    errors.ngoId = "Carácteres inválidos";
+  if (!ngo.name) {
+    errors.name = "Completar campo";
+  } else if (/[^A-Za-z-' ']/.test(ngo.name)) {
+    errors.name = "Carácteres inválidos";
   }
 
   if (!ngo.address) {
@@ -40,8 +40,7 @@ function NgoCrud({ id }) {
   const [errors, setErrors] = React.useState({});
 
   const handleOnChange = (event) => {
-    setErrors(
-      validate({
+    setErrors(validate({
         ...ngo,
         [event.target.name]: event.target.value,
       })
@@ -90,10 +89,10 @@ function NgoCrud({ id }) {
           <p className="thick">Datos básicos</p>
           <label>Nombre de la ONG</label>
           <input
-            className={errors.ngoId && "error"}
+            className={errors.name && "error"}
             onChange={handleOnChange}
             value={ngo ? ngo.id : ""}
-            name="ngoId"
+            name="name"
             required
             type="text"
             placeholder="ONG"

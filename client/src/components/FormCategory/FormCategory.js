@@ -77,7 +77,7 @@ export default function Form() {
               className={errors.name && 'error'}
               type="text"
               name="name"
-              value={category.name}
+              // value={category.name}
               onChange={handleInputChange}
             />
           </span>
@@ -87,7 +87,7 @@ export default function Form() {
               <input
                 type="text"
                 name="description"
-                value={category.description}
+                // value={category.description}
                 onChange={handleInputChange}
               />
             </span>
