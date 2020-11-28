@@ -1,5 +1,10 @@
 import React from "react";
 import persona1 from "containers/ReviewPage/Images/persona1.jpg";
+const persons = [{
+  label: 'María José del Cerro, Mendoza, Argentina',
+  description: 'Tener la oportunidad de impactar la vida de otras personas a través de un sitio online es una experiencia maravillosa.',
+  image: persona1
+}]
 export default function CategoryTable() {
   return (
     <div>

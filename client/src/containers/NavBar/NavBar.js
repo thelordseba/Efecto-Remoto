@@ -34,14 +34,11 @@ function NavBar() {
         </div>
         <div className="grid grid2">
           <ul className="grid list">
-            <li className="listee">
-              <a href="/products">Productos</a>
+          <li className="listee">
+              <a href="/">Nosotros</a>
             </li>
             <li className="listee">
-              <a href="/nosotros">Nosotros</a>
-            </li>
-            <li className="listee">
-              <a href="/experiences">Experiencias</a>
+              <a href="/categories">Productos</a>
             </li>
           </ul>
         </div>

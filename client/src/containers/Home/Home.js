@@ -1,14 +1,14 @@
 import React from "react";
-import ProductCatalog from "../ProductCatalog/productCatalog.js";
-import Categories from "containers/Categories/Categories";
 import Nosotros from "components/Nosotros/Nosotros.js";
+import ReviewPage from "containers/ReviewPage/ReviewPage.js";
+import CarrouselONGs from "components/Founders/CarrouselONGs.js";
 
-function Home({ search }) {
+function Home() {
   return (
     <div>
       <Nosotros />
-      <Categories />
-      <ProductCatalog home={true} search={search} />
+      <ReviewPage />
+      <CarrouselONGs />
     </div>
   );
 }

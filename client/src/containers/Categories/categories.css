@@ -10,11 +10,17 @@
     column-gap: 10px;
     background-color: #f9f9f9;
     box-sizing: border-box;
-
 }
+
 .titulo-cat{
     text-align: center;
     color:teal;
+}
+
+.cat-all{
+    margin-left: 30px;
+    margin-right: 30px;
+    height: 300px;
 }
 
 .img-cat{
