@@ -1,0 +1,8 @@
+.grid-table {
+    grid-template-columns: repeat(8, 1fr);
+    display: grid;
+    padding: 1%;
+    background-color: white;
+    border-bottom: 1px solid teal;
+    text-align: left;
+}

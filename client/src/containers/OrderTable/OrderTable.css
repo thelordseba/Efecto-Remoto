@@ -1,0 +1,8 @@
+.alternate_order {
+    margin: 1%;
+}
+
+
+.alternate_order:nth_of_type(odd) .alternate_label {
+    background-color: lightgray;
+}
