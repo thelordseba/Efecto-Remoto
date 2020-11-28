@@ -15,8 +15,10 @@ const Review = ({ id }) => {
   const handleClickReview = async (id) => {
     try {
       await axios.put(`${process.env.REACT_APP_API}/orders/${id}`, review);
-    } catch (error) {
+      alert("¡Muchas gracias por tus comentarios!")
       history.push(`/`);
+    } catch (error) {
+      alert("Hubo un error. Por favor, intentá de nuevo.")
     }
   };
 
@@ -42,7 +44,7 @@ const Review = ({ id }) => {
       <div className="review-container">
         <div className="container-summary">
           <div className="title-container-summary">
-            Califica tu experiencia:{" "}
+            Calificá tu experiencia:{" "}
           </div>
           <div className="stars-small" name="rating" onChange={handleOnChange}>
             {" "}
@@ -50,16 +52,16 @@ const Review = ({ id }) => {
           </div>
 
           <textarea
-            className="coments"
+            className="comments"
             name="review"
             onChange={handleOnChange}
-            placeholder="Dejanos tu cometario:"
+            placeholder="Dejanos tu comentario:"
           ></textarea>
         </div>
       </div>
 
       <div className="review-button">
-        <div className="review" onClick={() => handleClickReview(id)}>
+        <div className="calificar" onClick={() => handleClickReview(id)}>
           Calificar
         </div>
       </div>

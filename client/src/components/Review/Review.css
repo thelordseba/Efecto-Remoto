@@ -9,38 +9,7 @@
     color: white;
     margin-left: 36px;
 }
-.review-button{
-    display: flex;
-    margin-left: 24px;
-}
-.review{
-    cursor: pointer;
-    margin: 12px;
-    border-radius: 8px;
-    border: solid 1px;
-    padding: 4px;
-    width: 100px;
-    background-color: teal;
-    color: white;
-    text-align: center;
-}
-.review-container{
-    border: 3px solid teal;
-    margin: auto;
-    display:flex;
-    padding: 24px;
-    width: 70%;
-    height: 400px;
-}
-.container-summary{
-    width: 100%;    
-}
-.title-container-summary{
-    font-size: 25px;
-}
-.total{
-    font-size: 35px;
-}
+
 .back:hover{ 
     cursor: pointer;
     margin: 8px;
@@ -52,25 +21,47 @@
     color: teal;
     margin-left: 36px;
 }
-.review:hover{ 
+.review-button{
+    display: flex;
+    margin-left: 24px;
+}
+
+.review-container{
+    border: 2px solid teal;
+    border-radius: 8px;
+    margin: auto;
+    display:flex;
+    padding: 24px;
+    width: 70%;
+    height: 400px;
+}
+.container-summary{
+    width: 100%;    
+}
+.calificar{
     cursor: pointer;
     margin: 12px;
     border-radius: 8px;
     border: solid 1px;
-    padding: 4px;
-    width: 100px;
+    padding: 6px;
+    width: flex;
+    background-color: teal;
+    color: white;
+    text-align: center;
+}
+.calificar:hover{ 
+    cursor: pointer;
+    margin: 12px;
+    border-radius: 8px;
+    border: solid 1px;
+    padding: 6px;
+    width: flex;
     background-color:white;
     color: teal;
     text-align: center;
 }
-.divider-summary{
-    margin-bottom: 16px;
-    border-top: solid 1px;
-    width: 100%;
-    margin-top: 16px;
-}
 
-.coments{
+.comments{
     width: 100%;
     height: 80%;
     margin: auto;
