@@ -8,13 +8,13 @@ function ShoppingItem({
   onRemoveProduct,
   maxQuantity,
 }) {
-  // const { onRemoveProduct } = useCart();
+
   return (
     <>
       <div key={product.id} className="product-container-shopping-cart">
         <img
           className="photo-cart"
-          src={product.images[0]?.url}
+          src={product.images ? product.images[0]?.url : null}
           alt={"Imagen no encontrada"}
         />
         <div className="product-content-shopping-cart">
