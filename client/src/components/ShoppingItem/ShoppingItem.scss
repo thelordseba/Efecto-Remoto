@@ -1,9 +1,21 @@
 .shoppingCart-container{
-    border: 3px solid teal;
-    margin: 36px;
-    display:block;
-    padding: 24px;
-}
+    justify-content: center;
+    margin-left: 200px;
+    margin-right: 200px;
+    position:relative;
+    display: grid;
+    //border: solid 1px #d3d3d3;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    padding:3rem;
+    background-color: #fff;
+    box-shadow: 0 0 0.125rem #c3c3c3;
+    transition-duration: 250ms;
+    overflow: hidden;
+
+    &:hover{
+        box-shadow: 0 0 0.5rem #c3c3c3;
+      }
 
 .back{
     cursor: pointer;
@@ -11,7 +23,8 @@
     border-radius: 8px;
     border: solid 1px;
     padding: 4px;
-    width: 47px;
+    width: 150px;
+    height: 25px;
     background-color: teal;
     color: white;
     margin-left: 36px;
@@ -158,6 +171,7 @@
         margin-top: 8px;
     }
     .photo-cart{
+        border-radius: 5px;
         height: auto;
         width: auto;
         max-width: 165px;
@@ -176,3 +190,4 @@
         margin-left: 24px;
     }
   }
+}
