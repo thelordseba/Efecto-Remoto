@@ -1,6 +1,7 @@
 import React from "react";
 
 function CategoryItem({ id, titulo, photo }) {
+  const href = id !== 0 ? `/products?category=${id}` : `/products`
   return (
     <div
       className="cat-cnt-css"
@@ -21,7 +22,7 @@ function CategoryItem({ id, titulo, photo }) {
       }}
     >
       <div className="product-card-content">
-        <a href={`/products?category=${id}`}>
+        <a href={href} >
           <div className="title-categor">{titulo}</div>
         </a>
       </div>
