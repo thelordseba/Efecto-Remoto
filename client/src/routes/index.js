@@ -26,8 +26,10 @@ import Review from "components/Review/Review.js";
 import PaymentStatus from "containers/PaymentStatus/PaymentStatus.js";
 import Dashboard from "containers/Dashboard/Dashboard.js";
 import WelcomePage from "components/WelcomePage/WelcomePage";
-import ResetPassword from "components/ResetPassword";
+//import ResetPassword from "components/ResetPassword";
 import ResetPass from "components/ResetPass/ResetPass";
+import SetPass from "components/ResetPass/SetPass";
+import NewPass from "components/ResetPass/NewPass";
 
 const routes = [
   {
@@ -186,15 +188,24 @@ const routes = [
     component: WelcomePage,
     exact: true,
   },  
-  {
-    path: "/resetpassword",
-    component: ResetPassword,
-    exact: true,
-  },
-  ,
+  // {
+  //   path: "/resetpassword",
+  //   component: ResetPassword,
+  //   exact: true,
+  // },  
   {
     path: "/resetpass",
     component: ResetPass,
+    exact: true,
+  },
+  {
+    path: "/setpass",
+    component: SetPass,
+    exact: true,
+  },
+  {
+    path: "/newpass",
+    component: NewPass,
     exact: true,
   }
 ];
