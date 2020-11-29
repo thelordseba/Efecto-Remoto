@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React from "react"
 import "./Founders.scss";
 
 function Founders() {
@@ -7,9 +7,9 @@ function Founders() {
       <span className='founders-title'>
       Founders
       </span>
-    <div class="slider--teams">
-    <div class="slider--teams__team">
-      <ul id="list" class="cf">
+    <div className="slider--teams">
+    <div className="slider--teams__team">
+      <ul id="list" className="cf">
         <li>
         <a href="https://www.linkedin.com/in/datatom7/" target="_blank">
         <figure >

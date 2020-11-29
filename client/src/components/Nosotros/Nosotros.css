@@ -6,6 +6,7 @@
     overflow-y: hidden;
     height: 600px;
 }
+
 .parr-nos{
     position: absolute;
     top:50%;
@@ -36,3 +37,11 @@
         font-size: 11px;
     }
     }
+
+    @media (max-width: 480px){
+        .cnt-img-nos{
+            overflow-y: hidden;
+            height: 200px;
+        }
+    }
+    

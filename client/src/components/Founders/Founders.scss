@@ -165,3 +165,23 @@ ul {
 .cf {
     *zoom: 1;
 }
+
+@media (max-width: 480px){
+  .founders-container{
+    border: none;
+    padding-left: 24px;
+  }
+  .slider--teams{
+    height: auto;
+  }
+  li{
+    height: 160px;
+  }
+  #list {
+    margin-top: -70px;
+  }
+  .slider--teams__team{
+    overflow: inherit;
+    margin-bottom: 24px;
+  }
+}

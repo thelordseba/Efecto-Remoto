@@ -44,16 +44,6 @@
   }
 }
 
-/* .carrousel-container{
-  background-color: teal;
-    height: 220px;
-    width: 80%;
-    border-radius: 12px;
-    margin-left: 129px;
-    padding-top: 7px;
-    text-align: center;
-} */
-
 .carrousel-container{
   border: solid 3px teal;
   border-radius: 12px;
@@ -75,4 +65,12 @@
   margin-left: 8px;
   margin-top: 8px;
   font-weight: 450;
+}
+
+@media (max-width: 480px){
+  .carrousel-container{
+    border: none;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
 }
