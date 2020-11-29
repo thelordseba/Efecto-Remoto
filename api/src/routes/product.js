@@ -30,7 +30,8 @@ server.post("/:productId/category", async (req, res, next) => {
   }
 });
 //(S115)
-server.delete("/:productId/category/:categoryId", isAdmin,async (req, res, next) => {
+server.delete("/:productId/category/:categoryId",async (req, res, next) => {
+  if (isAdmin(req)){
   const { productId, categoryId } = req.params;
   try {
     const product = await Product.findByPk(productId);
@@ -48,6 +49,7 @@ server.delete("/:productId/category/:categoryId", isAdmin,async (req, res, next)
   } catch (error) {
     next();
   }
+}
 });
 
 // Task S22: Crear ruta que devuelva los productos de X categoría
