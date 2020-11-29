@@ -1,0 +1,60 @@
+
+.reset-button{
+    display: flex;
+    margin-left: 43%;   
+}
+.reset{
+    cursor: pointer;
+    margin: 12px;
+    border-radius: 8px;
+    border: solid 1px;
+    padding: 4px;
+    width: 100px;
+    background-color: teal;
+    color: white;
+    text-align: center;
+    justify-content: center;
+}
+.resetPass-container{
+    border: 3px solid teal;
+    margin: auto;
+    margin-top: 2%;    
+    display:flex;
+    padding: 24px;
+    width: 70%;
+    height: 400px;
+    text-align: center;
+}
+.container-summary{
+    width: 100%;    
+}
+.title-container-summary{
+    margin-top: 2%;
+    font-size: 40px;
+}
+.text1{
+    margin-top: 5%;
+}
+.total{
+    font-size: 35px;
+}
+
+.reset:hover{ 
+    cursor: pointer;
+    margin: 12px;
+    border-radius: 8px;
+    border: solid 1px;
+    padding: 4px;
+    width: 100px;
+    background-color:white;
+    color: teal;
+    text-align: center;
+    justify-content: center;
+}
+.inputEmail{
+    justify-content: center;
+}
+.errorMessage{
+    color: rgb(236, 14, 14);
+    text-shadow: 1px 1px #fff;
+}

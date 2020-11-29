@@ -10,6 +10,7 @@ const reviewsRouter = require("./reviews");
 const router = Router();
 const authRouter = require("./auth");
 const paymentRouter = require("./payment");
+const resetRouter = require("./authEmail.js");
 
 // load each router on a route
 // i.e: router.use('/auth', authRouter);
@@ -22,5 +23,6 @@ router.use("/ngos", ngoRouter);
 router.use("/locations", locationsRouter);
 router.use("/reviews", reviewsRouter);
 router.use("/payment", paymentRouter);
+router.use("/resetPass", resetRouter);
 
 module.exports = router;
