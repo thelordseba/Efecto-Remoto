@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const { Order, User, Product, OrderLine } = require('../db.js');
+const { Order, User, Product, OrderLine, Image } = require('../db.js');
 
 //Ruta que crea una nueva orden.                           
 server.post('/:userId', async (req, res, next) => {         
@@ -79,7 +79,7 @@ server.get('/:userId/cart', async (req, res, next) => {
                 userId: req.params.userId,
                 status: 'cart'
             },
-            include: [{model: Product}, {model: User}]
+            include: [{model: Product, include: {model: Image}}, {model: User}]
         });   
         res.json(order)        
     } catch(error){

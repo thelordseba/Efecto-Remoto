@@ -55,7 +55,7 @@ function NgoCrud({ id }) {
     e.preventDefault();
     if (id) {
       axios
-        .put(`http://localhost:3001/ngos/${id}`, ngo)
+        .put(`${process.env.REACT_APP_API}/ngos/${id}`, ngo)
         .then(() => alert("ONG modificada!"))
         .catch(() => {
           alert("Hubo un error. Por favor, intentá de nuevo.");

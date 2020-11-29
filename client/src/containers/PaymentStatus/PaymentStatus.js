@@ -12,7 +12,8 @@ function PaymentStatus(props) {
 
   useEffect(() => {
     (async () => {
-      await axios
+      if (user.id) {
+        await axios
         .get(`${process.env.REACT_APP_API}/orders/${user.id}/shopping-cart`)
         .then(
           (response) => {
@@ -24,6 +25,7 @@ function PaymentStatus(props) {
           }
         )
         .catch((error) => alert(error));
+      }
     })();
   }, [user.id]);
 
