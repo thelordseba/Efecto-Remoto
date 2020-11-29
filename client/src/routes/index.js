@@ -20,13 +20,16 @@ import UserTable from "containers/UserTable/UserTable.js";
 import UserDetails from "containers/UserDetails/UserDetails.js";
 import Checkout from "containers/Checkout/Checkout.js";
 import Login from "components/Login/Login.js";
-import ResetPassword from "components/ResetPassword";
 import ReviewTable from "containers/ReviewTable/ReviewTable.js";
 import ReviewPage from "containers/ReviewPage/ReviewPage.js";
 import Review from "components/Review/Review.js";
 import PaymentStatus from "containers/PaymentStatus/PaymentStatus.js";
 import Dashboard from "containers/Dashboard/Dashboard.js";
 import WelcomePage from "components/WelcomePage/WelcomePage";
+//import ResetPassword from "components/ResetPassword";
+import ResetPass from "components/ResetPass/ResetPass";
+import SetPass from "components/ResetPass/SetPass";
+import NewPass from "components/ResetPass/NewPass";
 
 const routes = [
   {
@@ -164,12 +167,7 @@ const routes = [
     path: "/admin/reviews",
     component: ReviewTable,
     exact: true,
-  },
-  {
-    path: "/resetpassword",
-    component: ResetPassword,
-    exact: true,
-  },
+  },  
   {
     path: "/review/:orderId",
     render: ({ match }) => <Review id={match.params.orderId} />,
@@ -189,7 +187,27 @@ const routes = [
     path: "/welcome",
     component: WelcomePage,
     exact: true,
+  },  
+  // {
+  //   path: "/resetpassword",
+  //   component: ResetPassword,
+  //   exact: true,
+  // },  
+  {
+    path: "/resetpass",
+    component: ResetPass,
+    exact: true,
   },
+  {
+    path: "/setpass",
+    component: SetPass,
+    exact: true,
+  },
+  {
+    path: "/newpass",
+    component: NewPass,
+    exact: true,
+  }
 ];
 
 export default routes;

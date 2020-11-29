@@ -90,7 +90,7 @@ function Login(props) {
       </Form>
       </Formik>
       <div className='login-password'>
-        <a href="/resetpassword">¿Olvidaste tu contraseña?</a>
+        <a href="/resetpass">¿Olvidaste tu contraseña?</a>
         <a href="/register">Registrate</a>
       </div>
       <div className='login'>También podés iniciar sesión con:
