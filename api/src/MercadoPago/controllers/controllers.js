@@ -107,7 +107,7 @@ const confirmedOrder = async ({ id, payment_method_id, payment_type_id, status, 
     // Order.recurringPayment = recurring_payment;
     Order.transactionAmount = transaction_amount;
     await Order.save();
-    SendEmail(Order);
+    SendEmail(Order.user, true);
     return Order;
 };
 
