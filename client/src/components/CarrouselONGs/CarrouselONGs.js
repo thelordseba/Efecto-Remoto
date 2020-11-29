@@ -10,7 +10,7 @@ import img5 from './images/5.png'
 function CarrouselONGs() {
   return  (
     <div className='carrousel-container'>  
-    <span className='title-ongs'>ONGs que estan generando Efecto Remoto</span>
+    <span className='title-ongs'>ONGs que están generando Efecto Remoto</span>
     <div id="carousel">
     <figure><img src={img0} alt=""/></figure>
     <figure><img src={img1} alt=""/></figure>
