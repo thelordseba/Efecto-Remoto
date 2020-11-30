@@ -50,13 +50,40 @@ ul {
 }
 
 .founders-container {
-  border: solid 3px teal;
+  // border: solid 3px teal;
   border-radius: 12px;
   margin-left: 64px;
   margin-right: 64px;
   margin-bottom: 24px;
   text-align: center;
   padding-top: 12px;
+  box-shadow: 0 0 2px #031a1b;
+  transition-duration: 250ms;
+}
+
+.founders-container:hover {
+  box-shadow: 0 0 6px #031a1b;
+}
+
+.review-page-description {
+  /* border: solid 1px teal; */
+  border-radius: 12px;
+  height: 344px;
+  margin-left: 80px;
+  width: 100%;
+  margin-right: 64px;
+  padding: 24px;
+  font-size: 24px;
+  color: teal;
+  font-family: merriweather;
+  padding-top: 48px;
+  box-shadow: 0 0 2px #031a1b;
+  transition-duration: 250ms;
+  text-align: center;
+}
+
+.review-page-description:hover {
+  box-shadow: 0 0 6px #031a1b;
 }
 
 .founders-title {

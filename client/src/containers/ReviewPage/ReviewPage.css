@@ -13,7 +13,7 @@
   margin-left: 64px;
 }
 
-.review-page-description {
+/* .review-page-description {
   border: solid 3px teal;
   border-radius: 12px;
   height: 344px;
@@ -22,27 +22,30 @@
   margin-right: 64px;
   padding: 24px;
   font-size: 24px;
-  text-align: center;
   padding-top: 36px;
   color: teal;
-  font-family: italic;
+  font-family: merriweather;
   padding-top: 48px;
-}
+} */
 
-.review-page-description:hover {
+.review-page-description {
+  /* border: solid 1px teal; */
   border-radius: 12px;
   height: 344px;
   margin-left: 80px;
   width: 100%;
   margin-right: 64px;
-  padding: 24px;
   font-size: 24px;
+  color: teal;
+  font-family: merriweather;
+  box-shadow: 0 0 2px #031a1b;
+  transition-duration: 250ms;
   text-align: center;
-  padding-top: 36px;
-  color: white;
-  background-color: teal;
-  font-family: italic;
-  padding-top: 48px;
+  margin: auto;
+}
+
+.review-page-description:hover {
+  box-shadow: 0 0 6px #031a1b;
 }
 
 .carousel-indicators {

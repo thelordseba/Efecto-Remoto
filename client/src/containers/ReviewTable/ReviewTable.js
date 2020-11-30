@@ -31,7 +31,6 @@ export default function CategoryTable() {
   return (
     //además deberia mostrar el nombre del producto, precio e imagen
     <div>
-      <h1>Promedio --- {avgRating}</h1>
       <label>--- Listado de Reviews ---</label>
       <br />
       <br />
