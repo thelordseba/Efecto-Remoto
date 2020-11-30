@@ -37,7 +37,7 @@ const DailyRevenueLinear = () => {
   return (
     <>
       <div>
-        <Line data={data} width={600} height={200} options={{}} />
+        <Line data={data} width={900} height={300} options={{}} />
       </div>
     </>
   );

@@ -39,7 +39,7 @@ const DailyOrdersLinear = () => {
       <div>
         <Line
           data={data}
-          width={400}
+          width={550}
           height={350}
           options={{ maintainAspectRatio: false }}
         />
