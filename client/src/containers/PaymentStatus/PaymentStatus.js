@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Succes from "./Video/Succes.png";
+import Cancel from "./Video/Cancel.png";
 import axios from "axios";
+import "./PaymentStatus.scss"
 
 function PaymentStatus(props) {
   const user = useSelector((state) => state.currentUser);
@@ -37,12 +40,31 @@ function PaymentStatus(props) {
   return (
     <div>
       {props.success ? (
-        <label>¡Tu compra fue realizada con éxito! Muchas gracias :D</label>
+    
+        <div className="img-succes">
+          <img
+            className="img-succes"
+            src={Succes}
+            alt={"No puede mostrarse la imagen"}
+          />
+          </div>
+    
+
+        //  <label>¡Tu compra fue realizada con éxito! Muchas gracias :D</label>
       ) : (
-        <label>Error en la compra. Por favor, volvé a intentar.</label>
+        <div className="img-cancel">
+          <img
+            className="img-cancel"
+            src={Cancel}
+            alt={"No puede mostrarse la imagen"}
+          />
+          </div>
+        // <label>Error en la compra. Por favor, volvé a intentar.</label>
       )}
 
-      <div onClick={handleGoBack}>Volver a Home</div>
+      <div className="Home">
+      <button className="button" onClick={handleGoBack}>Volver a Home</button>
+      </div>
     </div>
   );
 }
