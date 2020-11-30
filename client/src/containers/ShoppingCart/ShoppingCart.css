@@ -3,27 +3,27 @@
     margin: 36px;
     display:flex;
     padding: 24px;
-    
+    margin-top: 32px;
 }
 
-.back{
+.backr{
     cursor: pointer;
     margin: 8px;
     border-radius: 8px;
     border: solid 1px;
     padding: 4px;
-    width: 47px;
+    width: 88px;
     background-color: teal;
     color: white;
     margin-left: 36px;
 }
-.back:hover{ 
+.backr:hover{ 
     cursor: pointer;
     margin: 8px;
     border-radius: 8px;
     border: solid 1px;
     padding: 4px;
-    width: 47px;
+    width: 88px;
     background-color:white;
     color: teal;
     margin-left: 36px;
