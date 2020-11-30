@@ -15,7 +15,7 @@ const Dashboard = () => {
         .filter((order) => order.rating)
         .map((order) => order.rating);
       setAvgRating(
-        Math.round(ratings.reduce((acc, el) => acc + el) / ratings.length, 2)
+        Math.round(ratings.reduce((acc, el) => acc + el) / ratings.length)
       );
     })();
   }, [avgRating]);
@@ -24,7 +24,7 @@ const Dashboard = () => {
     <>
       <div className="graph-grid">
         <div className="graph-grid-0">
-          <h1>Promedio: {avgRating}</h1>
+          <h1 className="omtm">{avgRating}</h1>
         </div>
         <div className="graph-grid-1">
           <DailyRevenueLinear />
