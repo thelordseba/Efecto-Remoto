@@ -97,9 +97,12 @@ const MyProfile = () => {
   return (
     <>
     <div className="cont-miperfil">
-    <div className="title-bolsa" style={{display:"flex",marginTop:"28px",fontSize:"40px",fontWeight:"bold"}}
-       >Mi Perfil</div> 
-      <h3 style={{display:"flex",marginTop:"20px",marginBottom:"12px",fontSize:"28px"}}>Datos Básicos:</h3>
+    <div className="title-myprofile">
+      <h1>Mi Perfil</h1>
+    </div>
+    <div className="subtitle-myprofile">
+      <h3 className="subtitle-myprofile">Datos Básicos:</h3>
+    </div>
       <div>
         <div>
         <label>Nombre:</label>
@@ -132,7 +135,9 @@ const MyProfile = () => {
         />
       </div>
       <br />
-      <h3>Datos de Facturación:</h3>
+      <div>
+      <h3 className="subtitle-myprofile2">Datos de Facturación:</h3>
+      </div>
       <br />
       <div>
         <label>Calle: </label>
@@ -218,6 +223,7 @@ const MyProfile = () => {
       <br />
       <div>
         <button
+        className="button-MyProfile"
           type="submit"
           onClick={() => handleOnSubmit(currentUser?.id, data)}
         >
