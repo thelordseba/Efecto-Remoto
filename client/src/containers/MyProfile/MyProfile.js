@@ -96,8 +96,13 @@ const MyProfile = () => {
 
   return (
     <>
+    <div className="cont-miperfil">
+    <div className="title-myprofile">
       <h1>Mi Perfil</h1>
-      <h3>Datos Básicos:</h3>
+    </div>
+    <div className="subtitle-myprofile">
+      <h3 className="subtitle-myprofile">Datos Básicos:</h3>
+    </div>
       <div>
         <label>Nombre:</label>
         <input
@@ -128,7 +133,9 @@ const MyProfile = () => {
         />
       </div>
       <br />
-      <h3>Datos de Facturación:</h3>
+      <div>
+      <h3 className="subtitle-myprofile2">Datos de Facturación:</h3>
+      </div>
       <br />
       <div>
         <label>Calle: </label>
@@ -214,6 +221,7 @@ const MyProfile = () => {
       <br />
       <div>
         <button
+        className="button-MyProfile"
           type="submit"
           onClick={() => handleOnSubmit(currentUser?.id, data)}
         >
@@ -223,6 +231,7 @@ const MyProfile = () => {
       <hr></hr>
       <h1>Mis Ordenes</h1>
       <OrderTable userId={currentUser.id} />
+      </div>
     </>
   );
 };

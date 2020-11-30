@@ -1,7 +1,46 @@
 .cont-miperfil{
 margin-left: 20px;
+margin-top: 20px;
 width: 50%;
 }
+.title-myprofile{
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+.subtitle-myprofile{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.subtitle-myprofile2{
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: -12px;
+}
+    .button-MyProfile{
+        cursor: pointer;
+        margin: 8px;
+        border-radius: 8px;
+        border: solid 1px;
+        padding: 4px;
+        width: 68px;
+        background-color: teal;
+        color: white;
+        margin-left: 36px;
+    }
+    .button-MyProfile:hover{ 
+        cursor: pointer;
+        margin: 8px;
+        border-radius: 8px;
+        border: solid 1px;
+        padding: 4px;
+        width: 68px;
+        background-color:white;
+        color: teal;
+        margin-left: 36px;
+    }
+
 
 
 @media (max-width: 480px)
