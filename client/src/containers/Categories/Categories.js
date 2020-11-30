@@ -3,7 +3,7 @@ import CategoryItem from "./CategoryItem";
 import * as actions from "../../redux/actions/actions.js";
 import "./categories.css";
 import { useDispatch, useSelector } from "react-redux";
-import allImage from './All.png'
+import allImage from "./All.png";
 const categoriesPhotos = {
   0: allImage,
   2: "https://concepto.de/wp-content/uploads/2018/09/educacion-concepto-e1536242687832.jpg",
@@ -39,14 +39,14 @@ function Categories() {
               />
             );
           })}
-      </div>
-      <div className='cat-all'>
-      <CategoryItem
-        key={0}
-        id={0}
-        titulo={'Todos los productos'}
-        photo={categoriesPhotos[0]}
-      />
+        <div className="cat-all">
+          <CategoryItem
+            key={0}
+            id={0}
+            titulo={"Todos los productos"}
+            photo={categoriesPhotos[0]}
+          />
+        </div>
       </div>
     </>
   );
