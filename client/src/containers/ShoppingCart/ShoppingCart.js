@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import useCart from "../../Hooks/useCart";
 import "./ShoppingCart.css"
 
+
 function ShoppingCart(props) {
   const { editItem, onRemoveProduct } = useCart();
   const history = useHistory();
@@ -93,12 +94,12 @@ function ShoppingCart(props) {
           <div className="summary-cart">
             Total<div className="summary-totals">${total ? total : 0}  </div>
           </div>
-        </div>
-      </div>
-      <div className="cont-cart-next">
-        <button className="cart-next" onClick={handleClickCheckout}>
+          <div className="cont-cart-next">
+        <button style={{width: '100%'}} className="cart-next" onClick={handleClickCheckout}>
           Checkout
         </button>
+      </div>
+        </div>
       </div>
      </div>
     </>

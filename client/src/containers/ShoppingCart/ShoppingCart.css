@@ -6,6 +6,9 @@
 } */
 .cont-carrito{
     display:flex;
+    justify-content: space-between;
+    padding: 1rem;
+    padding-top: 3rem;
 
 }
 .title-bolsa{
@@ -15,7 +18,6 @@
 }
 .cont-cart-next{
     display: flex;
-    margin-left:950px;
 }
 
 .cart-next{
@@ -84,9 +86,9 @@
     display: flex;
 }
 
-.summary{
+/* .summary{
     width: 292px;
-}
+} */
 
 .bottons-container-cart{
     display: block;

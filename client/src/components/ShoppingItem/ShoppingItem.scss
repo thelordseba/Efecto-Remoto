@@ -1,13 +1,11 @@
 .shoppingCart-container{
     justify-content: center;
-    margin-left: 700px;
-    margin-right: 50px;
-    margin-top: 76px;
     position:relative;
     display: grid;
     //border: solid 1px #d3d3d3;
     border-radius: 5px;
     margin-bottom: 30px;
+    margin-right: 2rem;
     padding:3rem;
     background-color: #fff;
     box-shadow: 0 0 0.125rem #c3c3c3;
@@ -92,7 +90,7 @@
 }
 
 .summary{
-    width: 292px;
+    // width: 292px;
 }
 
 .bottons-container-cart{
