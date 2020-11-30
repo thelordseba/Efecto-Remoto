@@ -29,8 +29,8 @@ function ProductCatalog({ home, admin, latest }) {
 
   const dispatch = useDispatch();
   const { products, countProducts } = useSelector((state) => state);
-  const maxPages = useMemo(() => Math.ceil(countProducts / limit), [
-    countProducts,
+  const maxPages = useMemo(() => Math.ceil(products.length / limit), [
+    products.length,
   ]);
   const search = useSelector((state) => state.search);
 
@@ -82,6 +82,7 @@ function ProductCatalog({ home, admin, latest }) {
 
   return (
     <>
+    <br></br>
       {admin ? (
         <div
           className="product-catalog-button"
