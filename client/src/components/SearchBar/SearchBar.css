@@ -15,9 +15,9 @@
 }
 
 .searchbar-button:hover{
-    background: #0D7377 0% 0% no-repeat padding-box;
+    /* background: #0D7377 0% 0% no-repeat padding-box;
     font: normal normal bold 16px/21px;
-    color: #FFFFFF;
+    color: #FFFFFF; */
 }
 
 .input{

@@ -59,10 +59,10 @@ const routes = [
     component: MyProfile,
     exact: true,
   },
-  {
+/*   {
     path: "/admin",
     component: HomeAdmin,
-  },
+  }, */
   {
     path: "/admin",
     component: Dashboard,

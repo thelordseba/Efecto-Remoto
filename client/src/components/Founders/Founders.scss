@@ -79,7 +79,7 @@ ul {
     text-align: center;
     figure {
       cursor: pointer;
-      margin: 1em;
+      // margin: 1em;
       opacity: 0.8;
       backface-visibility: hidden;
       transition: transform 450ms $easeInOutSine, opacity 450ms ease-in-out;
@@ -176,12 +176,18 @@ ul {
   }
   li{
     height: 160px;
+    float: none;
   }
   #list {
     margin-top: -70px;
+    .li{
+      float: none;
+    }
   }
-  .slider--teams__team{
-    overflow: inherit;
-    margin-bottom: 24px;
+  .slider--teams {
+    .slider--teams__team{
+      overflow: visible;
+      margin-bottom: 24px;
+    }
   }
 }
