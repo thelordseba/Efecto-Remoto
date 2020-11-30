@@ -1,6 +1,7 @@
 .img-log{
   width:100%;
-
+  position: absolute;
+  z-index: 1;
 }
 
 @media (max-width: 480px) {
