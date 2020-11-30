@@ -8,7 +8,6 @@ function ShoppingItem({
   onRemoveProduct,
   maxQuantity,
 }) {
-
   return (
     <>
       <div key={product.id} className="product-container-shopping-cart">

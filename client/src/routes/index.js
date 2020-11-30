@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import ProductCatalog from "containers/ProductCatalog/productCatalog";
 import ProductDetail from "components/ProductDetail/ProductDetail.js";
 import Nosotros from "components/Nosotros/Nosotros.js";
@@ -61,11 +61,12 @@ const routes = [
   },
   {
     path: "/admin",
-    component: HomeAdmin,
-  },
-  {
-    path: "/admin",
-    component: Dashboard,
+    render: () => (
+      <Fragment>
+        <HomeAdmin />
+        <Dashboard />
+      </Fragment>
+    ),
     exact: true,
   },
   {
@@ -167,7 +168,7 @@ const routes = [
     path: "/admin/reviews",
     component: ReviewTable,
     exact: true,
-  },  
+  },
   {
     path: "/review/:orderId",
     render: ({ match }) => <Review id={match.params.orderId} />,
@@ -187,12 +188,12 @@ const routes = [
     path: "/welcome",
     component: WelcomePage,
     exact: true,
-  },  
+  },
   // {
   //   path: "/resetpassword",
   //   component: ResetPassword,
   //   exact: true,
-  // },  
+  // },
   {
     path: "/resetpass",
     component: ResetPass,
@@ -207,7 +208,7 @@ const routes = [
     path: "/newpass",
     component: NewPass,
     exact: true,
-  }
+  },
 ];
 
 export default routes;

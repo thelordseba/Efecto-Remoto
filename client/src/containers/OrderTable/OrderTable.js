@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import OrderCard from "../../components/OrderCard/OrderCard.js";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../redux/actions/actions";
-import './OrderTable.css'
+import "./OrderTable.css";
 
 export default function OrderTable({ admin, userId }) {
   const orders = useSelector((state) => state.orders);
@@ -36,12 +36,21 @@ export default function OrderTable({ admin, userId }) {
       if (userId) {
         mappedOrders = orders.map((order) =>
           order.user?.id === userId ? (
-            <OrderCard order={order} key={order.createdAt} class={"alternate_label"}/>
+            <OrderCard
+              order={order}
+              key={order.createdAt}
+              className={"alternate_label"}
+            />
           ) : null
         );
       } else {
         mappedOrders = orders.map((order) => (
-          <OrderCard admin={admin} order={order} key={order.createdAt} class={"alternate_label"}/>
+          <OrderCard
+            admin={admin}
+            order={order}
+            key={order.createdAt}
+            className={"alternate_label"}
+          />
         ));
       }
       return mappedOrders;
@@ -72,7 +81,7 @@ export default function OrderTable({ admin, userId }) {
             <br />
           </>
         ) : null}
-        <div class={"alternate_order"}>{mappedOrders}</div>
+        <div className={"alternate_order"}>{mappedOrders}</div>
       </div>
     </>
   );

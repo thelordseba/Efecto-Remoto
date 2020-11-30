@@ -82,7 +82,7 @@ function ProductCatalog({ home, admin, latest }) {
 
   return (
     <>
-    <br></br>
+      <br></br>
       {admin ? (
         <div
           className="product-catalog-button"

@@ -9,7 +9,11 @@ function Founders() {
         <div className="slider--teams__team">
           <ul id="list" className="cf">
             <li>
-              <a href="https://www.linkedin.com/in/datatom7/" target="_blank">
+              <a
+                href="https://www.linkedin.com/in/datatom7/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 <figure>
                   <div>
                     <div></div>
@@ -26,6 +30,7 @@ function Founders() {
               <a
                 href="https://www.linkedin.com/in/josefina-cafferata-leloir/"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <figure>
                   <div>
@@ -43,6 +48,7 @@ function Founders() {
               <a
                 href="https://www.linkedin.com/in/rebeca-dur%C3%A1n/"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <figure>
                   <div>
@@ -60,6 +66,7 @@ function Founders() {
               <a
                 href="https://www.linkedin.com/in/truisi-sebastian/"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <figure>
                   <div>
@@ -77,6 +84,7 @@ function Founders() {
               <a
                 href="https://www.linkedin.com/in/rocio-belen-perez-716b581b4/"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <figure>
                   <div>
@@ -94,6 +102,7 @@ function Founders() {
               <a
                 href="https://www.linkedin.com/in/lara-ortiz-b5b56b1a8/"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <figure>
                   <div>

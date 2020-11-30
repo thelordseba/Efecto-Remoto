@@ -1,5 +1,5 @@
 import React from "react";
-import "./OrderCard.css"
+import "./OrderCard.css";
 
 export default function OrderCard({ admin, order }) {
   const getTotal = (order) => {
@@ -14,11 +14,13 @@ export default function OrderCard({ admin, order }) {
 
   return (
     //recibe info de redux   //cambiar html si es necesario para css
-    <div class={"grid-table"}>
+    <div className={"grid-table"}>
       <label>Orden: {order.id}</label>
       {admin ? <label>Usuario: {order.user.userName} </label> : null}
-      {admin ? <label>Fecha de inicio: {order.startDate.slice(0, 10)} </label> : null}
-      <label>Estado de la orden: {order.status} </label> 
+      {admin ? (
+        <label>Fecha de inicio: {order.startDate.slice(0, 10)} </label>
+      ) : null}
+      <label>Estado de la orden: {order.status} </label>
       <label>Total: ${getTotal(order)} </label>
       <label>Estado: {order.status} </label>
       {!admin && !order.review && order.status === "completed" ? (
