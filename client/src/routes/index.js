@@ -59,14 +59,13 @@ const routes = [
     component: MyProfile,
     exact: true,
   },
+/*   {
+    path: "/admin",
+    component: HomeAdmin,
+  }, */
   {
     path: "/admin",
-    render: () => (
-      <Fragment>
-        <HomeAdmin />
-        <Dashboard />
-      </Fragment>
-    ),
+    component: Dashboard,
     exact: true,
   },
   {
