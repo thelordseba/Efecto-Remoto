@@ -22,7 +22,7 @@ function Login(props) {
   };
 
   if (query.t) {
-    history.push(`/products`);
+    history.push(`/`);
   }
 
   return (
