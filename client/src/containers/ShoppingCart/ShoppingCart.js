@@ -55,9 +55,10 @@ function ShoppingCart(props) {
       {/* <div className="back" onClick={handleBack}>
         Volver
       </div> */}
-      <div className="title-bolsa">
-       <div className="title-bolsa" style={{display:"flex",marginTop:"28px",fontSize:"50px",fontWeight:"bold", marginLeft:"20px"}}
-       >Tu Bolsa</div> 
+     <div className="cont-carrito">
+        <div className="title-bolsa">
+        <div className="title-bolsa" style={{display:"flex",marginTop:"28px",fontSize:"50px",fontWeight:"bold", marginLeft:"20px"}}
+        >Tu Bolsa</div> 
        <div style={{display:"flex",marginTop:"28px",fontSize:"16px",marginLeft:"20px"}}>Por favor, revise su pedido y proceda con el pago,si aún no ha terminado de comprar puede volver al catálogo.</div>
        <div style={{fontSize:"25px",fontWeight:"bold", marginTop:"25px", marginLeft:"20px"}}>¡Efecto Remoto agradece su compra! </div>
       </div>
@@ -99,6 +100,7 @@ function ShoppingCart(props) {
           Checkout
         </button>
       </div>
+     </div>
     </>
   );
 }

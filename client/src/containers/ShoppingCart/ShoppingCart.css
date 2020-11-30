@@ -4,6 +4,10 @@
     padding: 24px;
     margin-top: 32px;
 } */
+.cont-carrito{
+    display:flex;
+
+}
 .title-bolsa{
     font-size: 32px;
     margin-bottom: -12px;
