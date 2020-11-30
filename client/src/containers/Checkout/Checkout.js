@@ -22,11 +22,11 @@ export function validate(data) {
     errors.city = "Carácteres inválidos";
   }
 
- //validacion de números
- if (!data.number) errors.number = "Completar campo";
- if (isNaN(data.number)) errors.number = "Ingresar números";
- if (!data.postalCode) errors.postalCode = "Completar campo";
- if (isNaN(data.postalCode)) errors.postalCode = "Ingresar números";
+  //validacion de números
+  if (!data.number) errors.number = "Completar campo";
+  if (isNaN(data.number)) errors.number = "Ingresar números";
+  if (!data.postalCode) errors.postalCode = "Completar campo";
+  if (isNaN(data.postalCode)) errors.postalCode = "Ingresar números";
 
   return errors;
 }
@@ -66,11 +66,14 @@ const Checkout = () => {
 
   const toPayment = async (id) => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API}/payment/${id}/toPayment`);
+      const response = await axios.post(
+        `${process.env.REACT_APP_API}/payment/${id}/toPayment`
+      );
       window.location = response.data.body.init_point;
-    }
-    catch (error) {
-      alert("No se pudo redirigir a Mercado Pago. Por favor, volvé a intentar.");
+    } catch (error) {
+      alert(
+        "No se pudo redirigir a Mercado Pago. Por favor, volvé a intentar."
+      );
     }
   };
 
@@ -90,12 +93,12 @@ const Checkout = () => {
   };
 
   const handleOnChange = (e) => {
-
-    setErrors(validate({
-      ...data,
-      [e.target.name]: e.target.value,
-      
-    }))
+    setErrors(
+      validate({
+        ...data,
+        [e.target.name]: e.target.value,
+      })
+    );
 
     setData({
       ...data,
@@ -110,7 +113,11 @@ const Checkout = () => {
           <div className="title-container-summary">Productos</div>
           <div className="divider-summary" />
           {order.products?.map((product) => (
-            <OrderLine name={product.name} orderLine={product.orderLine} key={product.id}/>
+            <OrderLine
+              name={product.name}
+              orderLine={product.orderLine}
+              key={product.createdAt}
+            />
           ))}
           <div className="divider-summary" />
           <div className="total">Total: ${getTotal()} </div>
@@ -133,18 +140,26 @@ const Checkout = () => {
               {!currentUser.location?.address ? (
                 <div>
                   <label>Calle: </label>
-                  <input className={errors.address && 'error'}
-                   name="address" value={data.address} onChange={handleOnChange} style={{textTransform: "capitalize"}}></input>
+                  <input
+                    className={errors.address && "error"}
+                    name="address"
+                    value={data.address}
+                    onChange={handleOnChange}
+                    style={{ textTransform: "capitalize" }}
+                  ></input>
                 </div>
               ) : (
                 currentUser.location?.address + " "
               )}
               {!currentUser.location?.number ? (
                 <div>
-
                   <label>Número: </label>
-                  <input className={errors.number && 'error'} 
-                  name="number" value={data.number} onChange={handleOnChange}></input>
+                  <input
+                    className={errors.number && "error"}
+                    name="number"
+                    value={data.number}
+                    onChange={handleOnChange}
+                  ></input>
                 </div>
               ) : (
                 currentUser.location?.number + " "
@@ -152,8 +167,13 @@ const Checkout = () => {
               {!currentUser.location?.city ? (
                 <div>
                   <label>Provincia: </label>
-                  <input className={errors.city && 'error'}
-                  name="city" value={data.city} onChange={handleOnChange} style={{textTransform: "capitalize"}}></input>
+                  <input
+                    className={errors.city && "error"}
+                    name="city"
+                    value={data.city}
+                    onChange={handleOnChange}
+                    style={{ textTransform: "capitalize" }}
+                  ></input>
                 </div>
               ) : (
                 " - " + currentUser.location?.city + " "
@@ -161,8 +181,12 @@ const Checkout = () => {
               {!currentUser.location?.postalCode ? (
                 <div>
                   <label>Código postal: </label>
-                  <input className={errors.postalCode && 'error'}
-                   name="postalCode" value={data.postalCode} onChange={handleOnChange}></input>
+                  <input
+                    className={errors.postalCode && "error"}
+                    name="postalCode"
+                    value={data.postalCode}
+                    onChange={handleOnChange}
+                  ></input>
                 </div>
               ) : (
                 "(" + currentUser.location?.postalCode + ")"

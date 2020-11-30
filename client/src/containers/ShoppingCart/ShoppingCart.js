@@ -9,7 +9,7 @@ function ShoppingCart(props) {
   const { editItem, onRemoveProduct } = useCart();
   const history = useHistory();
   let localCart = localStorage.getItem("cart");
-  const [ cart, setCart ] = useState(localCart ? JSON.parse(localCart) : []);
+  const [cart, setCart] = useState(localCart ? JSON.parse(localCart) : []);
   const currentUser = useSelector((state) => state.currentUser);
 
   const products = useMemo(() => {
@@ -19,6 +19,8 @@ function ShoppingCart(props) {
   const handleBack = () => {
     history.push(`/products`);
   };
+
+  // cart.length(); // esta línea existe para evitar un error en la consola.
 
   const total = useMemo(() => {
     if (products) {
@@ -84,7 +86,7 @@ function ShoppingCart(props) {
           </div>
         </div>
       </div>
-      <div className="bottom-cart">
+      <div className="back">
         <div className="cart-next" onClick={handleClickCheckout}>
           Checkout
         </div>

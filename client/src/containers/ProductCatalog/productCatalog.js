@@ -29,11 +29,10 @@ function ProductCatalog({ home, admin, latest }) {
 
   const dispatch = useDispatch();
   const { products, countProducts } = useSelector((state) => state);
-  const maxPages = useMemo(() => Math.ceil(products.length / limit), [
-    products.length,
+  const maxPages = useMemo(() => Math.ceil(countProducts / limit), [
+    countProducts,
   ]);
   const search = useSelector((state) => state.search);
-
   useEffect(() => {
     if (category !== "allCategories" && category)
       dispatch(actions.getProductsByCategory(category, page, limit));
@@ -61,7 +60,8 @@ function ProductCatalog({ home, admin, latest }) {
     }
     if (cat) {
       filteredProducts = filteredProducts.filter((product) =>
-        cat ? product.categories?.some((cat1) => cat1.id === cat) : null
+      // no cambiar el doble igual por triple igual.
+        cat ? product.categories?.some((cat1) => cat1.id == cat) : null
       );
     }
     if (latest) {
@@ -69,7 +69,7 @@ function ProductCatalog({ home, admin, latest }) {
         (product) => calculateDiff(product.createdAt) < 5
       );
     }
-
+    
     return filteredProducts.map((product) => (
       <ProductCard
         admin={admin}
@@ -82,7 +82,7 @@ function ProductCatalog({ home, admin, latest }) {
 
   return (
     <>
-    <br></br>
+      <br></br>
       {admin ? (
         <div
           className="product-catalog-button"
