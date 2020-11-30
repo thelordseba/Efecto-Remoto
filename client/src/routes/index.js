@@ -71,17 +71,32 @@ const routes = [
   },
   {
     path: "/admin/products",
-    render: () => <ProductCatalog admin={true} sale={false} cat={false} />,
+    render: () => (
+      <Fragment>
+        <HomeAdmin />
+        <ProductCatalog admin={true} sale={false} cat={false} />
+      </Fragment>
+    ),
     exact: true,
   },
   {
     path: "/admin/ngos",
-    component: NgoTable,
+    render: () => (
+      <Fragment>
+        <HomeAdmin />
+        <NgoTable />
+      </Fragment>
+    ),
     exact: true,
   },
   {
     path: "/admin/ngos/add",
-    component: NgosCrud,
+    render: () => (
+      <Fragment>
+        <HomeAdmin />
+        <NgosCrud />
+      </Fragment>
+    ),
     exact: true,
   },
   {
@@ -96,12 +111,22 @@ const routes = [
   },
   {
     path: "/admin/users",
-    render: () => <UserTable />,
+    render: () => (
+      <Fragment>
+        <HomeAdmin />
+        <UserTable />
+      </Fragment>
+    ),
     exact: true,
   },
   {
     path: "/admin/addproduct",
-    render: () => <ProductCrud />,
+    render: () => (
+      <Fragment>
+        <HomeAdmin />
+        <ProductCrud />
+      </Fragment>
+    ),
     exact: true,
   },
   {
@@ -111,37 +136,72 @@ const routes = [
   },
   {
     path: "/admin/categories",
-    component: CategoryTable,
+    render: () => (
+      <Fragment>
+        <HomeAdmin />
+        <CategoryTable />
+      </Fragment>
+    ),
     exact: true,
   },
   {
     path: "/admin/categories/add",
-    component: FormCategory,
+    render: () => (
+      <Fragment>
+        <HomeAdmin />
+        <FormCategory />
+      </Fragment>
+    ),
     exact: true,
   },
   {
     path: "/admin/orders/:orderId",
-    render: ({ match }) => <OrderDetails id={match.params.orderId} />,
+    render: ({ match }) => (
+      <Fragment>
+        <HomeAdmin />
+        <OrderDetails id={match.params.orderId} />
+      </Fragment>
+    ),
     exact: true,
   },
   {
     path: "/orderdetails",
-    render: ({ match }) => <OrderDetails id={match.params.id} />,
+    render: ({ match }) => (
+      <Fragment>
+        <HomeAdmin />
+        <OrderDetails id={match.params.id} />
+      </Fragment>
+    ),
     exact: true,
   },
   {
     path: "/admin/orders",
-    render: () => <OrderTable admin={true} />,
+    render: () => (
+      <Fragment>
+        <HomeAdmin />
+        <OrderTable admin={true} />
+      </Fragment>
+    ),
     exact: true,
   },
   {
     path: "/admin/adduser",
-    render: () => <FormUser admin={true} />,
+    render: () => (
+      <Fragment>
+        <HomeAdmin />
+        <FormUser admin={true} />
+      </Fragment>
+    ),
     exact: true,
   },
   {
     path: "/admin/users/:userId",
-    render: ({ match }) => <UserDetails id={match.params.userId} />,
+    render: ({ match }) => (
+      <Fragment>
+        <HomeAdmin />
+        <UserDetails id={match.params.userId} />
+      </Fragment>
+    ),
     exact: true,
   },
   {
@@ -166,7 +226,12 @@ const routes = [
   },
   {
     path: "/admin/reviews",
-    component: ReviewTable,
+    render: () => (
+      <Fragment>
+        <HomeAdmin />
+        <ReviewTable />
+      </Fragment>
+    ),
     exact: true,
   },
   {
