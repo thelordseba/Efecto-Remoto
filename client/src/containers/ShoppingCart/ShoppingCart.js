@@ -16,9 +16,9 @@ function ShoppingCart(props) {
     return JSON.parse(localStorage.getItem("cart"));
   }, []);
 
-  const handleBack = () => {
-    history.push(`/products`);
-  };
+  // const handleBack = () => {
+  //   history.push(`/products`);
+  // };
 
   const total = useMemo(() => {
     if (products) {
@@ -51,9 +51,9 @@ function ShoppingCart(props) {
 
   return (
     <>
-      <div className="back" onClick={handleBack}>
+      {/* <div className="back" onClick={handleBack}>
         Volver
-      </div>
+      </div> */}
       <div className="shoppingCart-container">
         <div className="container-cart">
           <div className="title-container-cart">Carrito de Compras</div>
@@ -66,7 +66,9 @@ function ShoppingCart(props) {
                 maxQuantity={prod.stock}
                 handleOnChangeQuantity={handleOnChangeQuantity}
                 onRemoveProduct={onRemoveProduct}
+
               />
+              
             ))}
         </div>
         <div className="summary">
@@ -79,8 +81,9 @@ function ShoppingCart(props) {
             Envío<div className="summary-totals">¡Gratis!</div>
           </div>
           <div className="divider-summary" />
+          <div></div>
           <div className="summary-cart">
-            Total<div className="summary-totals">${total ? total : 0}</div>
+            Total<div className="summary-totals">${total ? total : 0}  </div>
           </div>
         </div>
       </div>

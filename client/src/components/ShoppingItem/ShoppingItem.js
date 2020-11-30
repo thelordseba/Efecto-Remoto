@@ -19,8 +19,8 @@ function ShoppingItem({
         />
         <div className="product-content-shopping-cart">
           <div className="title-cart">{product.name}</div>
-          <div className="description-cat">{product.description}</div>
-          <div>${product.price}</div>
+          {/* <div className="description-cat">{product.description}</div> */}
+          <div className="product-price">${product.price}</div>
         </div>
         <form className="input-cart-container">
           <input
@@ -36,8 +36,11 @@ function ShoppingItem({
             className={"cart-icon"}
             onClick={() => onRemoveProduct(product.id)}
           />
+          
         </form>
       </div>
+      {/* <div className="divider-cart" /> */}
+
     </>
   );
 }

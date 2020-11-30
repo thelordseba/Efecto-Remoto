@@ -3,6 +3,7 @@
     margin: 36px;
     display:flex;
     padding: 24px;
+    
 }
 
 .back{
@@ -87,18 +88,19 @@
 
 .divider-cart{
     margin-bottom: 16px;
-    border-top: solid 1px;
     width: 86%;
     margin-top: 16px;
+    border: 1px solid lightgray;
 }
 
 .title-cart{
-    font-size: 25px;
+    font-size: 24px;
     margin-bottom: 8px;
 }
 
 .description-cat{
     margin-bottom: 8px;
+    font-size:16px;
 }
 
 .photo-cart{
@@ -132,5 +134,5 @@
     font-size: 32px;
 }
 .title-container-cart{
-    font-size: 32px;
+    font-size: 28px;
 }
