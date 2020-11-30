@@ -31,7 +31,7 @@ export default function OrderDetails({ id }) {
       .then(async () => {
         try {
           await axios.post(`${process.env.REACT_APP_API}/orders/${user.id}`);
-          return alert("Orden cancelada");
+          return alert("Nueva orden creada");
         } catch (error) {
           return alert(error);
         }
