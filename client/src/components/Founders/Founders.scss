@@ -1,8 +1,8 @@
 // Ease
 
-$easeInOutBack: cubic-bezier(0.680, -0.550, 0.265, 1.550);
-$easeOutBack: cubic-bezier(0.175, 0.885, 0.320, 1.275);
-$easeInOutSine: cubic-bezier(0.445, 0.050, 0.550, 0.950);
+$easeInOutBack: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+$easeOutBack: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+$easeInOutSine: cubic-bezier(0.445, 0.05, 0.55, 0.95);
 
 * {
   margin: 0;
@@ -28,7 +28,7 @@ body {
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 100%;
 }
 
@@ -49,7 +49,7 @@ ul {
   }
 }
 
-.founders-container{
+.founders-container {
   border: solid 3px teal;
   border-radius: 12px;
   margin-left: 64px;
@@ -59,7 +59,7 @@ ul {
   padding-top: 12px;
 }
 
-.founders-title{
+.founders-title {
   font-family: none;
   font-size: 24px;
   color: teal;
@@ -71,7 +71,7 @@ ul {
 #list {
   position: relative;
   backface-visibility: hidden;
-  transform: translate3d(0,0,0);
+  transform: translate3d(0, 0, 0);
   li {
     position: relative;
     display: inline-block;
@@ -98,13 +98,13 @@ ul {
         margin: 2rem auto;
         width: 160px;
         height: 160px;
-        overflow: hidden;
         transform: rotate(45deg) translateZ(0px);
         > div {
-          background: url('./team.jpg') no-repeat;
+          background: url("./team.jpg") no-repeat;
           background-size: cover;
-          background-position: 0px 0px; 
+          background-position: 0px 0px;
           position: absolute;
+          border-radius: 8px;
           top: 50%;
           left: 50%;
           width: 170px;
@@ -126,24 +126,23 @@ ul {
       }
     }
     &:nth-child(1) figure > div > div {
-    background-position: 0px 0px !important;
-  }
+      background-position: 0px 0px !important;
+    }
     &:nth-child(2) figure > div > div {
-    background-position: 0px 20% !important;
-  }
+      background-position: 0px 20% !important;
+    }
     &:nth-child(3) figure > div > div {
-    background-position: 0px 40% !important;
-  }
+      background-position: 0px 40% !important;
+    }
     &:nth-child(4) figure > div > div {
-    background-position: 0px 60% !important;
-  }
+      background-position: 0px 60% !important;
+    }
     &:nth-child(5) figure > div > div {
-    background-position: 0px 80% !important;
-  }
+      background-position: 0px 80% !important;
+    }
     &:nth-child(6) figure > div > div {
-    background-position: 0px 100% !important;
-  }
-
+      background-position: 0px 100% !important;
+    }
   }
 }
 
@@ -154,33 +153,33 @@ ul {
 
 .cf:before,
 .cf:after {
-    content: " ";
-    display: table;
+  content: " ";
+  display: table;
 }
 
 .cf:after {
-    clear: both;
+  clear: both;
 }
 
 .cf {
-    *zoom: 1;
+  *zoom: 1;
 }
 
-@media (max-width: 480px){
-  .founders-container{
+@media (max-width: 480px) {
+  .founders-container {
     border: none;
     padding-left: 24px;
   }
-  .slider--teams{
+  .slider--teams {
     height: auto;
   }
-  li{
+  li {
     height: 160px;
   }
   #list {
     margin-top: -70px;
   }
-  .slider--teams__team{
+  .slider--teams__team {
     overflow: inherit;
     margin-bottom: 24px;
   }
