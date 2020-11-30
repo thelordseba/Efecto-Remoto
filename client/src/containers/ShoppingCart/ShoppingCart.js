@@ -84,7 +84,7 @@ function ShoppingCart(props) {
           </div>
         </div>
       </div>
-      <div className="bottom-cart">
+      <div className="back">
         <div className="cart-next" onClick={handleClickCheckout}>
           Checkout
         </div>
