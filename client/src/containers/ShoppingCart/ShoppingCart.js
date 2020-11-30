@@ -20,7 +20,7 @@ function ShoppingCart(props) {
     history.push(`/products`);
   };
 
-  cart.length(); // esta línea existe para evitar un error en la consola.
+  // cart.length(); // esta línea existe para evitar un error en la consola.
 
   const total = useMemo(() => {
     if (products) {
