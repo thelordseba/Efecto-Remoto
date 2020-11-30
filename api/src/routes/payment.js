@@ -1,7 +1,7 @@
 const server = require("express").Router();
 const mercadopago = require('mercadopago');
 const { confirmedOrder, getOne, toPaymentOrder } = require("../MercadoPago/controllers/controllers.js");
-// const { sendEmail } = require('../mailmodel/sendEmail');sdf
+// const { sendEmail } = require('../mailmodel/sendEmail');
 
 const { PROD_ACCESS_TOKEN } = process.env
 // Agrega credenciales
