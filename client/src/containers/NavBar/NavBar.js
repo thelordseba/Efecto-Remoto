@@ -34,11 +34,14 @@ function NavBar() {
         </div>
         <div className="grid grid2">
           <ul className="grid list">
-          <li className="listee">
-              <a href="/">Nosotros</a>
+            <li className="listee">
+              <a href="/">Home</a>
             </li>
             <li className="listee">
               <a href="/categories">Productos</a>
+            </li>
+            <li className="listee">
+              <a href="/faq">Preguntas Frecuentes</a>
             </li>
           </ul>
         </div>
@@ -83,9 +86,6 @@ function NavBar() {
                 <ul className={styles.menu}>
                   <li>
                     <a href={`/profile`}>Mi Perfil</a>
-                  </li>
-                  <li>
-                    <a href="/faq">FAQ</a>
                   </li>
                   <li>
                     <a href="/" onClick={() => logOut()}>

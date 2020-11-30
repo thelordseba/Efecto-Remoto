@@ -48,14 +48,12 @@ export default function ReviewPage() {
         </Carousel.Item>
       </Carousel>
       <div className="review-page-description">
-        Efecto Remoto surge para revolucionar la forma de ayudar a otros.
+        Efecto Remoto surge para revolucionar la forma de ayudar a otros. A
+        través de la tecnología, potenciamos el trabajo de organizaciones que
+        impactan en la vida de otros aquellas personas que lo necesitan.
         <br />
-        <br />A través de la tecnologia, potenciamos el trabajo de
-        organizaciones
         <br />
-        que impactan en la vida de otros aquellas personas que lo necesitan.
-        <br />
-        <div>¿Estás listo? ¡Sos parte fundamental de este cambio!</div>
+        <b>¿Estás listo? ¡Sos parte fundamental de este cambio!</b>
       </div>
     </div>
   );
