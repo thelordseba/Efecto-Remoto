@@ -5,6 +5,7 @@ import useUser from "Hooks/useUser";
 import useQuery from "Hooks/useQuery";
 import LoginWithToken from "../LoginWToken/LoginWToken.js";
 import "./Login.css";
+import Log from "./Images/Log.png"
 
 function Login(props) {
   const { isSubmitting, isValid } = props; // viene de las props del componente
@@ -27,6 +28,13 @@ function Login(props) {
 
   return (
     <>
+        <div className="img-log">
+          <img
+            className="img-log"
+            src={Log}
+            alt={"No puede mostrarse la imagen"}
+          />
+        </div>
       <h1>Iniciar sesión en Efecto Remoto</h1>
       {props.admin ? (
         <div className="volver" onClick={handleGoBack}>
