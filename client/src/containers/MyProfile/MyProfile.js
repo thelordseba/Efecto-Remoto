@@ -104,6 +104,7 @@ const MyProfile = () => {
       <h3 className="subtitle-myprofile">Datos Básicos:</h3>
     </div>
       <div>
+        <div>
         <label>Nombre:</label>
         <input
           onChange={handleOnChange}
@@ -111,6 +112,7 @@ const MyProfile = () => {
           name="firstName"
           type="text"
         />
+        </div>
       </div>
       <br />
       <div>
