@@ -65,7 +65,12 @@ const routes = [
   }, */
   {
     path: "/admin",
-    component: Dashboard,
+    render: () => (
+      <Fragment>
+        <HomeAdmin />
+        <Dashboard /> 
+      </Fragment>
+    ),
     exact: true,
   },
   {
