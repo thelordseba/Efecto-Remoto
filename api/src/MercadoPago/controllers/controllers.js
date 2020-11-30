@@ -1,5 +1,5 @@
 const { Product, Image, User, Category, Order } = require("../../db.js");
-const SendEmail = require("../../emailModel/sendEmail.js");
+const SendEmail = require("../../emailModel/SendEmail.js");
 
 const getOneProduct = (id) => {
     return new Promise((resolve, reject) => {
