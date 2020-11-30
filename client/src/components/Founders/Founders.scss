@@ -51,6 +51,7 @@ ul {
 
 .founders-container {
   // border: solid 3px teal;
+  font-family: merriweather;
   border-radius: 12px;
   margin-left: 64px;
   margin-right: 64px;
@@ -206,12 +207,12 @@ ul {
   }
   #list {
     margin-top: -70px;
-    .li{
+    .li {
       float: none;
     }
   }
   .slider--teams {
-    .slider--teams__team{
+    .slider--teams__team {
       overflow: visible;
       margin-bottom: 24px;
     }
