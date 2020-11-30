@@ -125,14 +125,15 @@
   }
 
   .product-card-button{
-      padding: 8px;
-      border: solid 1px black;
-      cursor: pointer;
-      text-align: center;
-      align-items: center;
-      background-color: gray;
-      width: 60px;
-      margin-left: 8px;
+    padding: 5px;
+    border-radius: 3px;
+    cursor: pointer;
+    text-align: center;
+    align-items: center;
+    background-color: teal;
+    color: white;
+    width: 70px;
+    margin-left: 5px;
   }
   
   .buttons-container {

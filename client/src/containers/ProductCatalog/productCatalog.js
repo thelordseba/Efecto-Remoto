@@ -29,8 +29,8 @@ function ProductCatalog({ home, admin, latest }) {
 
   const dispatch = useDispatch();
   const { products, countProducts } = useSelector((state) => state);
-  const maxPages = useMemo(() => Math.ceil(countProducts / limit), [
-    countProducts,
+  const maxPages = useMemo(() => Math.ceil(10 / limit), [
+    10,
   ]);
   const search = useSelector((state) => state.search);
   useEffect(() => {
