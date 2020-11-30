@@ -4,8 +4,7 @@ import ShoppingItem from "components/ShoppingItem/ShoppingItem";
 import { useHistory } from "react-router-dom";
 // import axios from "axios";
 import useCart from "../../Hooks/useCart";
-import "./ShoppingCart.css"
-
+import "./ShoppingCart.css";
 
 function ShoppingCart(props) {
   const { editItem, onRemoveProduct } = useCart();
@@ -58,52 +57,88 @@ function ShoppingCart(props) {
       {/* <div className="back" onClick={handleBack}>
         Volver
       </div> */}
-     <div className="cont-carrito">
+      <div className="cont-carrito">
         <div className="title-bolsa">
-        <div className="title-bolsa" style={{display:"flex",marginTop:"28px",fontSize:"50px",fontWeight:"bold", marginLeft:"20px"}}
-        >Tu Bolsa</div> 
-       <div style={{display:"flex",marginTop:"28px",fontSize:"16px",marginLeft:"20px"}}>Por favor, revise su pedido y proceda con el pago,si aún no ha terminado de comprar puede volver al catálogo.</div>
-       <div style={{fontSize:"25px",fontWeight:"bold", marginTop:"25px", marginLeft:"20px"}}>¡Efecto Remoto agradece su compra! </div>
-      </div>
-      <div className="shoppingCart-container">
-        <div className="container-cart">
-          <div className="title-container-cart" style={{fontWeight:"bold"}}>Tu Orden</div>
-          <div className="divider-cart" />
-          {products &&
-            products.map((prod) => (
-              <ShoppingItem
-                key={prod.createdAt}
-                product={prod}
-                maxQuantity={prod.stock}
-                handleOnChangeQuantity={handleOnChangeQuantity}
-                onRemoveProduct={onRemoveProduct}
-
-              />
-              
-            ))}
+          <div
+            className="title-bolsa"
+            style={{
+              display: "flex",
+              marginTop: "28px",
+              fontSize: "50px",
+              fontWeight: "bold",
+              marginLeft: "20px",
+            }}
+          >
+            ¡Gracias por tu compra!
+          </div>
+          <div
+            style={{
+              display: "flex",
+              marginTop: "28px",
+              fontSize: "16px",
+              marginLeft: "20px",
+            }}
+          >
+            Por favor, revisá tu pedido y avanzá con el pago. Si aún no has
+            terminado de comprar, podés volver al catálogo.
+          </div>
+          <div
+            style={{
+              fontSize: "25px",
+              fontWeight: "bold",
+              marginTop: "25px",
+              marginLeft: "20px",
+            }}
+          >
+            ¡Empieza el efecto remoto!{" "}
+          </div>
         </div>
-        <div className="summary">
-          <div className="summary-title">Resumen</div>
-          <div className="divider-summary" />
-          <div className="summary-cart">
-            Subtotal<div className="summary-totals">${total ? total : 0}</div>
+        <div className="shoppingCart-container">
+          <div className="container-cart">
+            <div
+              className="title-container-cart"
+              style={{ fontWeight: "bold" }}
+            >
+              Tu Orden
+            </div>
+            <div className="divider-cart" />
+            {products &&
+              products.map((prod) => (
+                <ShoppingItem
+                  key={prod.createdAt}
+                  product={prod}
+                  maxQuantity={prod.stock}
+                  handleOnChangeQuantity={handleOnChangeQuantity}
+                  onRemoveProduct={onRemoveProduct}
+                />
+              ))}
           </div>
-          <div className="summary-cart">
-            Envío<div className="summary-totals">¡Gratis!</div>
+          <div className="summary">
+            <div className="summary-title">Resumen</div>
+            <div className="divider-summary" />
+            <div className="summary-cart">
+              Subtotal<div className="summary-totals">${total ? total : 0}</div>
+            </div>
+            <div className="summary-cart">
+              Envío<div className="summary-totals">¡Gratis!</div>
+            </div>
+            <div className="divider-summary" />
+            <div></div>
+            <div className="summary-cart">
+              Total<div className="summary-totals">${total ? total : 0} </div>
+            </div>
+            <div className="cont-cart-next">
+              <button
+                style={{ width: "100%" }}
+                className="cart-next"
+                onClick={handleClickCheckout}
+              >
+                Checkout
+              </button>
+            </div>
           </div>
-          <div className="divider-summary" />
-          <div></div>
-          <div className="summary-cart">
-            Total<div className="summary-totals">${total ? total : 0}  </div>
-          </div>
-          <div className="cont-cart-next">
-        <button style={{width: '100%'}} className="cart-next" onClick={handleClickCheckout}>
-          Checkout
-        </button>
-      </div>
         </div>
       </div>
-     </div>
     </>
   );
 }
