@@ -1,17 +1,20 @@
-.shoppingCart-container{
-    border: 3px solid teal;
+/* .shoppingCart-container{
     margin: 36px;
     display:flex;
     padding: 24px;
     margin-top: 32px;
-}
+} */
 .title-bolsa{
     font-size: 32px;
     margin-bottom: -12px;
 
 }
+.cont-cart-next{
+    display: flex;
+    margin-left:950px;
+}
 
-.back{
+.cart-next{
     cursor: pointer;
     margin: 8px;
     border-radius: 8px;
@@ -22,7 +25,7 @@
     color: white;
     margin-left: 36px;
 }
-.back:hover{ 
+.cart-next:hover{ 
     cursor: pointer;
     margin: 8px;
     border-radius: 8px;

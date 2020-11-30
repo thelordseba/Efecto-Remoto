@@ -4,6 +4,7 @@ import ShoppingItem from "components/ShoppingItem/ShoppingItem";
 import { useHistory } from "react-router-dom";
 // import axios from "axios";
 import useCart from "../../Hooks/useCart";
+import "./ShoppingCart.css"
 
 function ShoppingCart(props) {
   const { editItem, onRemoveProduct } = useCart();
@@ -93,10 +94,10 @@ function ShoppingCart(props) {
           </div>
         </div>
       </div>
-      <div className="back">
-        <div className="cart-next" onClick={handleClickCheckout}>
+      <div className="cont-cart-next">
+        <button className="cart-next" onClick={handleClickCheckout}>
           Checkout
-        </div>
+        </button>
       </div>
     </>
   );
