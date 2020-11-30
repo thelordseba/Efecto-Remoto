@@ -18,8 +18,8 @@ const NewPass = () => {
       try {
         const user = jwt.decode(query.t);
         await axios.put(`${process.env.REACT_APP_API}/users/${user.id}`, {
-          email: user.email,
-        }); //FALTA COMPLETAR LA RUTA
+          password: password.pass
+        }); 
         await loginWithToken(query.t);
         alert("Su contraseña ha sido restablecida exitosamente.");
         history.push(`/`);

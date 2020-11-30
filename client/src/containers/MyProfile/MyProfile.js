@@ -96,9 +96,12 @@ const MyProfile = () => {
 
   return (
     <>
-      <h1>Mi Perfil</h1>
-      <h3>Datos Básicos:</h3>
+    <div className="cont-miperfil">
+    <div className="title-bolsa" style={{display:"flex",marginTop:"28px",fontSize:"40px",fontWeight:"bold"}}
+       >Mi Perfil</div> 
+      <h3 style={{display:"flex",marginTop:"20px",marginBottom:"12px",fontSize:"28px"}}>Datos Básicos:</h3>
       <div>
+        <div>
         <label>Nombre:</label>
         <input
           onChange={handleOnChange}
@@ -106,6 +109,7 @@ const MyProfile = () => {
           name="firstName"
           type="text"
         />
+        </div>
       </div>
       <br />
       <div>
@@ -223,6 +227,7 @@ const MyProfile = () => {
       <hr></hr>
       <h1>Mis Ordenes</h1>
       <OrderTable userId={currentUser.id} />
+      </div>
     </>
   );
 };

@@ -1,0 +1,45 @@
+.img-succes{
+    overflow-y: hidden;
+    height: 80%;
+}
+.img-cancel{
+    overflow-y: hidden;
+    height: 80%;
+
+}
+
+.Home{
+    display: flex;
+    margin-left: 24px;
+
+    .button{
+        cursor: pointer;
+        margin: 8px;
+        border-radius: 8px;
+        border: solid 1px;
+        padding: 4px;
+        width: 150px;
+        height: 35px;
+        background-color: teal;
+        color: white;
+        margin-left: 232px;
+        text-align: center;
+    }
+    
+.button:hover{ 
+    cursor: pointer;
+    margin: 8px;
+    border-radius: 8px;
+    border: solid 1px;
+    padding: 4px;
+    width: 150px;
+    background-color:white;
+    color: teal;
+    margin-left: 232px;
+    height: 35px;
+    text-align: center;
+}
+    
+}
+
+
