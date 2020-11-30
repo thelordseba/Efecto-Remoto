@@ -21,6 +21,7 @@
     box-shadow: 0 0 0.125rem #c3c3c3;
     transition-duration: 250ms;
     overflow: hidden;
+    
 
 
     &:hover{
@@ -53,8 +54,8 @@
     width: 20px;
     color: gray;
     cursor: pointer;
-    display: flex;
-    margin-left: auto;
+    // display: flex;
+    margin-left: 12px;
   }
   
   .product-card-photo-small{

@@ -4,6 +4,8 @@ import ShoppingItem from "components/ShoppingItem/ShoppingItem";
 import { useHistory } from "react-router-dom";
 // import axios from "axios";
 import useCart from "../../Hooks/useCart";
+import "./ShoppingCart.css"
+
 
 function ShoppingCart(props) {
   const { editItem, onRemoveProduct } = useCart();
@@ -16,9 +18,9 @@ function ShoppingCart(props) {
     return JSON.parse(localStorage.getItem("cart"));
   }, []);
 
-  const handleBack = () => {
-    history.push(`/products`);
-  };
+  // const handleBack = () => {
+  //   history.push(`/products`);
+  // };
 
   // cart.length(); // esta línea existe para evitar un error en la consola.
 
@@ -53,12 +55,19 @@ function ShoppingCart(props) {
 
   return (
     <>
-      <div className="back" onClick={handleBack}>
+      {/* <div className="back" onClick={handleBack}>
         Volver
+      </div> */}
+     <div className="cont-carrito">
+        <div className="title-bolsa">
+        <div className="title-bolsa" style={{display:"flex",marginTop:"28px",fontSize:"50px",fontWeight:"bold", marginLeft:"20px"}}
+        >Tu Bolsa</div> 
+       <div style={{display:"flex",marginTop:"28px",fontSize:"16px",marginLeft:"20px"}}>Por favor, revise su pedido y proceda con el pago,si aún no ha terminado de comprar puede volver al catálogo.</div>
+       <div style={{fontSize:"25px",fontWeight:"bold", marginTop:"25px", marginLeft:"20px"}}>¡Efecto Remoto agradece su compra! </div>
       </div>
       <div className="shoppingCart-container">
         <div className="container-cart">
-          <div className="title-container-cart">Carrito de Compras</div>
+          <div className="title-container-cart" style={{fontWeight:"bold"}}>Tu Orden</div>
           <div className="divider-cart" />
           {products &&
             products.map((prod) => (
@@ -68,7 +77,9 @@ function ShoppingCart(props) {
                 maxQuantity={prod.stock}
                 handleOnChangeQuantity={handleOnChangeQuantity}
                 onRemoveProduct={onRemoveProduct}
+
               />
+              
             ))}
         </div>
         <div className="summary">
@@ -81,16 +92,18 @@ function ShoppingCart(props) {
             Envío<div className="summary-totals">¡Gratis!</div>
           </div>
           <div className="divider-summary" />
+          <div></div>
           <div className="summary-cart">
-            Total<div className="summary-totals">${total ? total : 0}</div>
+            Total<div className="summary-totals">${total ? total : 0}  </div>
           </div>
-        </div>
-      </div>
-      <div className="back">
-        <div className="cart-next" onClick={handleClickCheckout}>
+          <div className="cont-cart-next">
+        <button style={{width: '100%'}} className="cart-next" onClick={handleClickCheckout}>
           Checkout
+        </button>
+      </div>
         </div>
       </div>
+     </div>
     </>
   );
 }

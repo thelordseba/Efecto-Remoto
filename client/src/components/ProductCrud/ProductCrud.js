@@ -6,11 +6,23 @@ import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../redux/actions/actions.js";
 import { useHistory } from "react-router-dom";
 
+export function validate(category) {
+  const errors = {};
+
+  // //validación string
+  if (!category.name) {
+    errors.name = "Completar campo";
+  } else if (/[^A-Za-z-' ']/.test(category.name)) {
+    errors.name = "Carácteres inválidos";
+  }
+  return errors;
+}
+
 export default function ProductCrud({ id }) {
   let [product, setProduct] = useState();
   let [selectedCategories, setSelectedCategories] = useState([]);
   let [image, setImage] = useState("");
-  let [error, setError] = useState("");
+  const [errors, setErrors] = React.useState({});
 
   const dispatch = useDispatch();
 
@@ -50,15 +62,20 @@ export default function ProductCrud({ id }) {
   };
 
   const handleOnChange = (event) => {
-    if(event.target.name === 'name' && event.target.value ) {
-      const RegExpression = /^[a-z][a-z\s]*$/
-      if (!RegExpression.test(event.target.value)) {
-        setError('No ingresar caracteres especiales ni numeros')
-        return
-      } else {
-        setError('')
-      }
-    }
+    setErrors(validate({
+      ...product,
+      [event.target.name]: event.target.value,
+      
+    }))
+    // if(event.target.name === 'name' && event.target.value ) {
+    //   const RegExpression = /^[a-z][a-z\s]*$/
+    //   if (!RegExpression.test(event.target.value)) {
+    //     setError('No ingresar caracteres especiales ni numeros')
+    //     return
+    //   } else {
+    //     setError('')
+    //   }
+    // }
     setProduct({
       ...product,
       [event.target.name]: event.target.value,
@@ -139,6 +156,7 @@ export default function ProductCrud({ id }) {
           <br />
           <label>Nombre</label>
           <input
+            className={errors.name && 'error'}
             onChange={handleOnChange}
             value={product ? product.name : ""}
             name="name"
@@ -146,7 +164,7 @@ export default function ProductCrud({ id }) {
             type="text"
             placeholder="Título del producto"
           />
-          {error}
+          {/* {error} */}
           <br />
           <br />
           <label>Descripción</label>
