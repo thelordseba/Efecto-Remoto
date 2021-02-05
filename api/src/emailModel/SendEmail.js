@@ -1,17 +1,17 @@
-require("dotenv").config();
-const mailgun = require("mailgun-js");
-const {MAILGUN_API_KEY, MAILGUN_DOMAIN} = process.env;
-const mg = mailgun({apiKey: MAILGUN_API_KEY, domain: MAILGUN_DOMAIN});
+require('dotenv').config();
+const nodemailer = require('nodemailer');
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
+const { HOSTFRONT, secretJWT, EMAIL, PASSWORD } = process.env;
 
 const SendEmail = (user, orderCompleted)=>{  
   const firstName = user.firstName;
   const lastName = user.lastName;  
-  const email = user.email;
+  const userEmail = user.email;
   var emailText = "";
-  var emailSubject = "";
-  const { HOSTFRONT, secretJWT } = process.env;
+  var emailSubject = "";  
+  
+  //Defino el token
   const token = jwt.sign({id: user.id,
     isAdmin: user.isAdmin,
     userName: user.userName,
@@ -19,7 +19,8 @@ const SendEmail = (user, orderCompleted)=>{
     lastName: user.lastName,
     email: user.email}, `${secretJWT}`); 
     
-  if(orderCompleted){        //Enviar email para notificar orden completa
+  if(orderCompleted){       
+    //Modelo de email para notificar orden completa
     emailSubject = 'Agradecimiento'
     emailText = fs.readFileSync("./src/emailModel/mailOrderCompleted.html", 'utf8', function (err, data) {
       if (err) console.error(err);
@@ -27,7 +28,8 @@ const SendEmail = (user, orderCompleted)=>{
     });
     emailText = emailText.replace("%firstName%", firstName);
     emailText = emailText.replace("%lastName%", lastName);
-  }else {                  //Enviar email para restablecer password
+  }else {              
+    //Modelo de email para restablecer password    
     emailSubject = 'Restablecer la contraseña.'     
     emailText = fs.readFileSync("./src/emailModel/mailResetPassword.html", 'utf8', function (err, data) {
       if (err) console.error(err);
@@ -41,19 +43,31 @@ const SendEmail = (user, orderCompleted)=>{
     emailText = emailText.replace("%link%", link);
   }  
 
-  const data = {
-    from: 'Efecto Remoto <efectoremoto@gmail.com>',
-    to: email,
-    subject: emailSubject,
-    html: emailText 
-  }; 
+    //Defino el transporte SMTP
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: EMAIL,             //Nuestro email guardado en .env
+        pass: PASSWORD
+      }
+    });
   
-  mg.messages().send(data, function (error, body) {
-    if(error){
-      console.log("Error: " , error);
-    }else{
-    console.log("Body: " , body);
-    }  	
-  });
+    //Creamos el mail
+    let emailModel = {
+      from: EMAIL,
+      to: userEmail,
+      subject: emailSubject,
+      html: emailText
+    };
+
+    //Enviamos el Email
+    transporter.sendMail(emailModel, (error, body)=>{
+      if(error){
+        console.log('Error en el envio del email: ' + error);
+      }else{
+        console.log('Email enviado exitosamente: ' + body);
+      }
+    });
+
 }
 module.exports = SendEmail;
