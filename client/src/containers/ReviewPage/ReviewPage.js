@@ -53,8 +53,7 @@ export default function ReviewPage() {
         <br />
         A través de la tecnología, potenciamos el trabajo de organizaciones que
         impactan en la vida de otros aquellas personas que lo necesitan.
-        <br />
-        <br />
+        <br />       
         <b>¿Estás listo? ¡Sos parte fundamental de este cambio!</b>
       </div>
     </div>

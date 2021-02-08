@@ -74,7 +74,7 @@ function Founders() {
                   </div>
                   <figcaption>
                     <h2>Sebastian Truisi</h2>
-                    <p>Data Base</p>
+                    <p>Back-End Developer</p>
                   </figcaption>
                 </figure>
               </a>
