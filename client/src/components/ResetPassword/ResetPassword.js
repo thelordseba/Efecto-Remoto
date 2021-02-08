@@ -1,43 +1,51 @@
-import React, {useEffect,  useMemo,  useState } from 'react';
+import React, { useEffect, useMemo, useState } from "react";
 import Password from "./Password.js";
 import PasswordConfirmation from "./PasswordConfirmation.js";
 import ErrorsList from "./ErrorsList.js";
 import ConfirmBtn from "./ConfirmBtn.js";
 import axios from "axios";
 
-function ResetPassword({history, minLength=null, shouldContainUpperCase = false, shouldContainLowerCase = false,shouldContainNumber = false, shouldContainSpecialCharacter = false}) {
-  const [password, setPassword] = useState('')
-  const [passwordConfirmation, setPasswordConfirmation] = useState('')
-  const [passwordErrors, setPasswordErrors] = useState({})
-  const [passwordConfirmationErrors, setPasswordConfirmationErrors] = useState({})
+function ResetPassword({
+  history,
+  minLength = null,
+  shouldContainUpperCase = false,
+  shouldContainLowerCase = false,
+  shouldContainNumber = false,
+  shouldContainSpecialCharacter = false,
+}) {
+  const [password, setPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [passwordErrors, setPasswordErrors] = useState({});
+  const [passwordConfirmationErrors, setPasswordConfirmationErrors] = useState(
+    {}
+  );
 
-  const allPasswordErrors =  {
+  const allPasswordErrors = {
     invalid_length:
       "Debe contener al menos " + minLength + " muchos caracteres",
-    missing_characters: invalidCharactersMessage()
-  }
+    missing_characters: invalidCharactersMessage(),
+  };
 
   const allPasswordConfirmationErrors = {
     match_password_and_confirmation: "Las contraseñas no coinciden.",
-  }
- 
+  };
+
   function updatePassword(password) {
-    setPassword(password)
+    setPassword(password);
   }
 
- function updatePasswordConfirmation(passwordConfirmation) {
-    setPasswordConfirmation(passwordConfirmation)
+  function updatePasswordConfirmation(passwordConfirmation) {
+    setPasswordConfirmation(passwordConfirmation);
   }
 
   useEffect(() => {
-    validatePassword()
-    validatePasswordConfirmation()
-  },[password, passwordConfirmation])
+    validatePassword();
+    validatePasswordConfirmation();
+  }, [password, passwordConfirmation]);
 
-  
- function validatePassword() {
-    validateLength()
-    validateCharacters()
+  function validatePassword() {
+    validateLength();
+    validateCharacters();
   }
 
   async function handleOnClick(event) {
@@ -49,29 +57,30 @@ function ResetPassword({history, minLength=null, shouldContainUpperCase = false,
       alert("Debes completar todos los campos");
     } else {
       const userId = await axios.get(
-        `http://localhost:3001/users/getUserbyId?userEmail=${user.email}`
+        `${process.env.REACT_APP_API}/users/getUserbyId?userEmail=${user.email}`
       );
       await axios.post(
-        `http://localhost:3001/users/${userId}/resetPassword`,password
+        `${process.env.REACT_APP_API}/users/${userId}/resetPassword`,
+        password
       );
       alert("contraseña Cambiada");
       history.push("/");
     }
   }
-  
+
   function validatePasswordConfirmation() {
-    var errors = {...passwordConfirmationErrors};
+    var errors = { ...passwordConfirmationErrors };
     var errorKey = "match_password_and_confirmation";
     if (password !== passwordConfirmation) {
       errors[errorKey] = allPasswordConfirmationErrors[errorKey];
     } else {
       delete errors[errorKey];
     }
-    setPasswordConfirmationErrors(errors)
+    setPasswordConfirmationErrors(errors);
   }
 
   function validateLength() {
-    var errors = {...passwordErrors};
+    var errors = { ...passwordErrors };
     var errorKey = "invalid_length";
 
     if (password.length < minLength) {
@@ -79,30 +88,25 @@ function ResetPassword({history, minLength=null, shouldContainUpperCase = false,
     } else {
       delete errors[errorKey];
     }
-    setPasswordErrors(errors)
+    setPasswordErrors(errors);
   }
 
   function validateCharacters() {
-    var errors = {...passwordErrors},
+    var errors = { ...passwordErrors },
       errorKey = "missing_characters";
-    const upper = shouldContainUpperCase && !containsUpperCase()
-    const lower = shouldContainLowerCase && !containsLowerCase()
-    const number = shouldContainNumber && !containsNumber()
-    const special = shouldContainSpecialCharacter &&
-    !containsSpecialCharacter()
+    const upper = shouldContainUpperCase && !containsUpperCase();
+    const lower = shouldContainLowerCase && !containsLowerCase();
+    const number = shouldContainNumber && !containsNumber();
+    const special =
+      shouldContainSpecialCharacter && !containsSpecialCharacter();
 
-    if (
-      upper ||
-      lower ||
-      number ||
-      special
-    ) {
+    if (upper || lower || number || special) {
       errors[errorKey] = allPasswordErrors[errorKey];
     } else {
       delete errors[errorKey];
     }
 
-    setPasswordErrors(errors)
+    setPasswordErrors(errors);
   }
 
   function containsNumber() {
@@ -114,11 +118,11 @@ function ResetPassword({history, minLength=null, shouldContainUpperCase = false,
   }
 
   function containsLowerCase() {
-    return /[a-z]/g.test(password)
+    return /[a-z]/g.test(password);
   }
 
   function containsSpecialCharacter() {
-    let regex =  /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]*$/g
+    let regex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]*$/g;
     return regex.test(password);
   }
 
@@ -153,28 +157,30 @@ function ResetPassword({history, minLength=null, shouldContainUpperCase = false,
       );
     }
   }
- const mappedErrorList= useMemo(()=> {
-  return <ErrorsList
-      allErrors={allPasswordConfirmationErrors}
-      errors={passwordConfirmationErrors}
-    />
-  },[passwordConfirmationErrors])
-  
-return (
-  <div className="container-rp">
-    <h2 className="res-pass">Restablecer contraseña</h2>
-    <Password updatePassword={updatePassword} />
-    <ErrorsList
-      allErrors={allPasswordErrors}
-      errors={passwordErrors}
-    ></ErrorsList>
+  const mappedErrorList = useMemo(() => {
+    return (
+      <ErrorsList
+        allErrors={allPasswordConfirmationErrors}
+        errors={passwordConfirmationErrors}
+      />
+    );
+  }, [passwordConfirmationErrors]);
 
-    <PasswordConfirmation
-      updatePasswordConfirmation={updatePasswordConfirmation}
-    />
-    {mappedErrorList}
-    <ConfirmBtn onClick={handleOnClick} />
-  </div>
-) 
-} 
-export default ResetPassword
+  return (
+    <div className="container-rp">
+      <h2 className="res-pass">Restablecer contraseña</h2>
+      <Password updatePassword={updatePassword} />
+      <ErrorsList
+        allErrors={allPasswordErrors}
+        errors={passwordErrors}
+      ></ErrorsList>
+
+      <PasswordConfirmation
+        updatePasswordConfirmation={updatePasswordConfirmation}
+      />
+      {mappedErrorList}
+      <ConfirmBtn onClick={handleOnClick} />
+    </div>
+  );
+}
+export default ResetPassword;

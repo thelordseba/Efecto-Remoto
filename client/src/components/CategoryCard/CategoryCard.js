@@ -1,11 +1,12 @@
 import React from 'react';
+import "./CategoryCard.css"
 
 export default function CategoryCard({category}) {
 
   return ( //recibe info de redux   //cambiar html si es necesario para css
-    <div>
-      <label>Numero de categoría: {category.id} </label>        
-      <label>Nombre : {category.name} </label>
+    <div class={"grid-table"}>
+      <label>Número: {category.id} </label>        
+      <label>Nombre: {category.name} </label>
       <label>Descripción: {category.description} </label>
     </div>
      )

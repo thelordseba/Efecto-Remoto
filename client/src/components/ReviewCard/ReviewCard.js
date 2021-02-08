@@ -5,11 +5,11 @@ export default function ReviewCard({ order }) {
     //recibe info de redux   //cambiar html si es necesario para css
     <>
       {order.rating ? (
-        <div>
-          <label>Numero de Órden: {order.id} </label>
+        <div className="grid-table">
+          <label>Orden: {order.id} </label>
           <label>Usuario: {order.userId} </label>
-          <label>Rating: {order.rating} </label>
-          <label>Descripción: {order.description} </label>
+          <label>Rating: {order.rating ? order.rating : "NA"} </label>
+          <label>Review: {order.review ? order.review : "Aún no fue completada"} </label>
         </div>
       ) : null}
     </>

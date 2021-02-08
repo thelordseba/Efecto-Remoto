@@ -1,6 +1,7 @@
 const server = require("express").Router();
 const { User, Product, Location } = require("./db.js");
 const jwt = require("jsonwebtoken")
+const { Op } = require("sequelize");
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET, HOST, secretJWT } = process.env;
 
@@ -57,17 +58,21 @@ passport.use(new GoogleStrategy(
     },
     async (token, tokenSecret, profile, done) => {
       let user = await getOneByGoogleId(profile.id);
-      if (!user)
-        user = await createOne(
-          profile.name.givenName,
-          profile.name.familyName,
-          profile.emails[0].value,
-          false,
-          profile.id,
-        );
-        const { id, firstName, lastName, email, isAdmin, gmailId } = user;
-        const location = await Location.create();
-        await user.setLocation(location);
+      if (!user) { 
+        user = await User.findOne({where: {email: profile.emails[0].value}})
+        if (!user) {
+          user = await createOne(
+            profile.name.givenName,
+            profile.name.familyName,
+            profile.emails[0].value,
+            false,
+            profile.id,
+          );
+          const location = await Location.create();
+          await user.setLocation(location);
+        };
+      }
+      const { id, firstName, lastName, email, isAdmin, gmailId } = user;
       return done(null, {
         id, firstName, lastName, email, isAdmin, gmailId
       });
@@ -94,44 +99,35 @@ passport.use(
       clientSecret: FACEBOOK_APP_SECRET,
       callbackURL: `${HOST}/auth/login/facebook/callback`,
       profileFields: ["id", "email", "displayName", "first_name", "last_name"],
+      scope: ["email"],
       session: false, // Le estamos diciendo a FB "esta estrategia no es para guardar en la sesión"
     },
     async function (_accessToken, _refreshToken, profile, done) {
+      console.log(profile)
       let user = await getOneByFacebookId(profile.id);
-      if (!user)
+      if (!user) {
+        if (profile.emails[0].value) {
+          user = await User.findOne({where: {email: profile.emails[0].value}})
+        }
         try {
           user = await User.create({
             userName: profile.username,
             firstName: profile.name.givenName,
             lastName: profile.name.familyName,
-            email: profile.email,
+            email: profile.emails[0].value,
             isAdmin: false,
             facebookId: profile.id,
           });
+          
           const location = await Location.create();
           await user.setLocation(location);
         } catch (err) {
           console.error(err);
           done(err);
         }
-      const {
-        id,
-        userName,
-        firstName,
-        lastName,
-        email,
-        isAdmin,
-        facebookId,
-      } = user; // si no mandamos el usuario desestructurado, JWT no sabe serializar, entonces se rompe.
-      return done(null, {
-        id,
-        userName,
-        firstName,
-        lastName,
-        email,
-        isAdmin,
-        facebookId,
-      });
+      }
+      const { id, userName, firstName, lastName, email, isAdmin, facebookId } = user; // si no mandamos el usuario desestructurado, JWT no sabe serializar, entonces se rompe.
+      return done(null, { id, userName, firstName, lastName, email, isAdmin, facebookId });
     }
   )
 );

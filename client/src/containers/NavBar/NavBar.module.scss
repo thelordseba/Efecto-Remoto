@@ -83,6 +83,7 @@ a, a:visited, a:hover, a:active {
         background-color: #329999;
         .menu{
             display: block;
+            z-index:10;
             background-color: #329999;
         }
     }
@@ -137,3 +138,6 @@ a, a:visited, a:hover, a:active {
 //         border-radius: 12px;
 //     }
 // }
+@media (min-width: 768px) {
+   
+}

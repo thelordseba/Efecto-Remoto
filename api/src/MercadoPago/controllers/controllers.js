@@ -1,4 +1,5 @@
-const { Product, Image, User, Category, Order } = require("../../db.js")
+const { Product, Image, User, Category, Order } = require("../../db.js");
+const SendEmail = require("../../emailModel/SendEmail.js");
 
 const getOneProduct = (id) => {
     return new Promise((resolve, reject) => {
@@ -105,8 +106,8 @@ const confirmedOrder = async ({ id, payment_method_id, payment_type_id, status, 
     Order.lastFourDigits = card.last_four_digits;
     // Order.recurringPayment = recurring_payment;
     Order.transactionAmount = transaction_amount;
-
     await Order.save();
+    SendEmail(Order.user, true);
     return Order;
 };
 

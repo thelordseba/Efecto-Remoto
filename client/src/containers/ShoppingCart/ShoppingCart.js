@@ -2,29 +2,26 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import ShoppingItem from "components/ShoppingItem/ShoppingItem";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
+import useCart from "../../Hooks/useCart";
+import "./ShoppingCart.css";
 
 function ShoppingCart(props) {
+  const { editItem, onRemoveProduct } = useCart();
   const history = useHistory();
-  // const [quantity, setQuantity] = useState();
-  // let localCart = JSON.parse(localStorage.getItem("cart"));
   let localCart = localStorage.getItem("cart");
   const [cart, setCart] = useState(localCart ? JSON.parse(localCart) : []);
   const currentUser = useSelector((state) => state.currentUser);
 
   const products = useMemo(() => {
     return JSON.parse(localStorage.getItem("cart"));
-  }, [cart]);
+  }, []);
 
-  const handleBack = () => {
-    history.push(`/products`);
-  };
+  // const handleBack = () => {
+  //   history.push(`/products`);
+  // };
 
-  const onRemoveProduct = (productId) => {
-    let filteredList = cart.filter((item) => item.id !== productId);
-    localStorage.setItem("cart", JSON.stringify(filteredList));
-    setCart(filteredList);
-  };
+  // cart.length(); // esta línea existe para evitar un error en la consola.
 
   const total = useMemo(() => {
     if (products) {
@@ -35,25 +32,6 @@ function ShoppingCart(props) {
       return acumulador;
     }
   }, [products]);
-
-  const editItem = (itemID, value) => {
-    let cartCopy = [...cart];
-    let existentItem = cartCopy.find(
-      (cartItem) => cartItem.id === parseInt(itemID)
-    );
-    if (!existentItem) {
-      alert("Hubo un error.");
-    } else {
-      existentItem.quantity = parseInt(value);
-    }
-    if (existentItem.quantity <= 0) {
-      cartCopy = cartCopy.filter((item) => item.id !== parseInt(itemID));
-    }
-
-    setCart(cartCopy);
-    let cartString = JSON.stringify(cartCopy);
-    localStorage.setItem("cart", cartString);
-  };
 
   const handleOnChangeQuantity = (event) => {
     const value = event.target.value;
@@ -66,23 +44,7 @@ function ShoppingCart(props) {
     if (currentUser?.length === 0) {
       history.push("/loginuser");
     } else {
-      const cart = JSON.parse(localStorage.getItem("cart"));
-      cart.forEach(async (prod) => {
-        const product = {
-          productId: prod.id,
-          quantity: prod.quantity,
-          price: prod.price,
-        };
-        try {
-          await axios.post(
-            `http://localhost:3001/orders/${currentUser.id}/cart`,
-            product
-          );
-          history.push(`/checkout`);
-        } catch (error) {
-          return alert(error);
-        }
-      });
+      history.push(`/checkout`);
     }
   };
 
@@ -92,42 +54,89 @@ function ShoppingCart(props) {
 
   return (
     <>
-      <div className="back" onClick={handleBack}>
+      {/* <div className="back" onClick={handleBack}>
         Volver
-      </div>
-      <div className="shoppingCart-container">
-        <div className="container-cart">
-          <div className="title-container-cart">Carrito de Compras</div>
-          <div className="divider-cart" />
-          {products &&
-            products.map((prod) => (
-              <ShoppingItem
-                key={prod.createdAt}
-                product={prod}
-                maxQuantity={prod.stock}
-                handleOnChangeQuantity={handleOnChangeQuantity}
-                onRemoveProduct={onRemoveProduct}
-              />
-            ))}
+      </div> */}
+      <div className="cont-carrito">
+        <div className="title-bolsa">
+          <div
+            className="title-bolsa"
+            style={{
+              display: "flex",
+              marginTop: "28px",
+              fontSize: "50px",
+              fontWeight: "bold",
+              marginLeft: "20px",
+            }}
+          >
+            ¡Gracias por tu compra!
+          </div>
+          <div
+            style={{
+              display: "flex",
+              marginTop: "28px",
+              fontSize: "16px",
+              marginLeft: "20px",
+            }}
+          >
+            Por favor, revisá tu pedido y avanzá con el pago. Si aún no has
+            terminado de comprar, podés volver al catálogo.
+          </div>
+          <div
+            style={{
+              fontSize: "25px",
+              fontWeight: "bold",
+              marginTop: "25px",
+              marginLeft: "20px",
+            }}
+          >
+            ¡Empieza el efecto remoto!{" "}
+          </div>
         </div>
-        <div className="summary">
-          <div className="summary-title">Resumen</div>
-          <div className="divider-summary" />
-          <div className="summary-cart">
-            Subtotal<div className="summary-totals">${total ? total : 0}</div>
+        <div className="shoppingCart-container">
+          <div className="container-cart">
+            <div
+              className="title-container-cart"
+              style={{ fontWeight: "bold" }}
+            >
+              Tu Orden
+            </div>
+            <div className="divider-cart" />
+            {products &&
+              products.map((prod) => (
+                <ShoppingItem
+                  key={prod.createdAt}
+                  product={prod}
+                  maxQuantity={prod.stock}
+                  handleOnChangeQuantity={handleOnChangeQuantity}
+                  onRemoveProduct={onRemoveProduct}
+                />
+              ))}
           </div>
-          <div className="summary-cart">
-            Envío<div className="summary-totals">¡Gratis!</div>
+          <div className="summary">
+            <div className="summary-title">Resumen</div>
+            <div className="divider-summary" />
+            <div className="summary-cart">
+              Subtotal<div className="summary-totals">${total ? total : 0}</div>
+            </div>
+            <div className="summary-cart">
+              Envío<div className="summary-totals">¡Gratis!</div>
+            </div>
+            <div className="divider-summary" />
+            <div></div>
+            <div className="summary-cart">
+              Total<div className="summary-totals">${total ? total : 0} </div>
+            </div>
+            <div className="cont-cart-next">
+              <button
+                style={{ width: "100%" }}
+                className="cart-next"
+                onClick={handleClickCheckout}
+              >
+                Checkout
+              </button>
+            </div>
           </div>
-          <div className="divider-summary" />
-          <div className="summary-cart">
-            Total<div className="summary-totals">${total ? total : 0}</div>
-          </div>
-        </div>
-      </div>
-      <div className="bottom-cart">
-        <div className="cart-next" onClick={handleClickCheckout}>
-          Checkout
         </div>
       </div>
     </>

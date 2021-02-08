@@ -12,7 +12,7 @@ export default function CategoryTable() {
 
   useEffect(() => {
     (async () => {
-      const allOrders = await axios.get(`http://localhost:3001/orders/`);
+      const allOrders = await axios.get(`${process.env.REACT_APP_API}/orders/`);
       const ratings = await allOrders.data
         .filter((order) => order.rating)
         .map((order) => order.rating);
@@ -31,7 +31,6 @@ export default function CategoryTable() {
   return (
     //además deberia mostrar el nombre del producto, precio e imagen
     <div>
-      <h1>Promedio --- {avgRating}</h1>
       <label>--- Listado de Reviews ---</label>
       <br />
       <br />

@@ -1,6 +1,7 @@
 const server = require("express").Router();
-const { Product, User, Order, OrderLine, Location } = require("../db.js");
+const { User, Location } = require("../db.js");
 const isAdmin = require("./isAdmin.js");
+const SendEmail = require("../emailModel/SendEmail.js");
 
 //S34 Crear Ruta para agregar usuario
 server.post("/", async (req, res, next) => {
@@ -111,21 +112,22 @@ server.get("/", async (req, res, next) => {
   // }
 });
 
-//Get user Id by Email S115
-server.get("/getUserbyEmail", async (req, res, next) => {
-  if (isAdmin(req)) {
+//Get user Id by Email S115 //Si encuentra el user envía email para restablecer el password
+server.get("/getUserbyEmail", async (req, res, next) => {  
     const userEmail = req.query.userEmail;
     try {
       const user = await User.findOne({
         where: {
           email: userEmail,
-        },
-      });
-      res.json(user.id);
+        }
+      });     
+      if(!!user) {
+        SendEmail(user, false);
+      } 
+      res.json(user);
     } catch (error) {
       next(error);
-    }
-  }
+    }  
 });
 
 //Get user by Id S115

@@ -1,3 +1,4 @@
+
 .con-cot-faq{
     margin-top: 2%;
 }
@@ -32,3 +33,27 @@
 .faq-answer:hover{
     color:teal;
 }
+@media (max-width: 480px) {
+    
+    .titulo-faq{
+        display: block;
+        color: teal;
+        font-size: x-small;
+        margin-left: 25px;
+    }
+    .faq-question {
+        cursor: pointer;
+        font-size: 15px;
+        color: white;
+        text-align: center;
+        background-color: teal;
+        display: inline-block;
+        border-radius: 25px;
+        width: 90%;
+        margin: 2%;
+    }
+    
+
+}
+
+    

@@ -4,17 +4,14 @@ import './ProductDetail.css';
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { ReactComponent as CartIcon } from "../common/cart.svg";
-
-//function ProductDetail({ small = false, stars, id }) {
+import useCart from "../../Hooks/useCart";
 
 function ProductDetail({ small = false, id }) {  
+  const { addItem } = useCart();
   const [showSnackbar, setShowSnackbar] = useState(false);
   const history = useHistory();
   let [product, setProduct] = useState([]);
   let [image, setImage] = useState("");
-  // const [cart, setCart] = useState([]);
-  let localCart = localStorage.getItem("cart");
-  const [cart, setCart] = useState(localCart ? JSON.parse(localCart) : []);
 
   const handleGoBack = () => {
     history.push(`/admin/products`);
@@ -24,22 +21,8 @@ function ProductDetail({ small = false, id }) {
     history.push(`/products/edit/${id}`);
   }
 
-  const addItem = (product, quantity) => {
-    let cartCopy = [...cart];
-    let { id } = product;
-    let existingItem = cartCopy.find((cartItem) => cartItem.id === id);
-    if (existingItem) {
-      product.quantity = quantity;
-    } else {
-      cartCopy.push(product);
-    }
-    setCart(cartCopy);
-    let stringCart = JSON.stringify(cartCopy);
-    localStorage.setItem("cart", stringCart);
-  };
-
   const handleAddToCart = (product, quantity = 1) => {
-    addItem(product, (quantity = 1));
+    addItem(product, quantity = 1);
     setShowSnackbar(true);
     setTimeout(function () {
       setShowSnackbar(false);
@@ -49,7 +32,7 @@ function ProductDetail({ small = false, id }) {
   useEffect(() => {
     (async () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      product = await axios.get(`http://localhost:3001/products/${id}`);
+      product = await axios.get(`${process.env.REACT_APP_API}/products/${id}`);
       setProduct(product.data);
       setImage(product.data.images[0].url);
     })();

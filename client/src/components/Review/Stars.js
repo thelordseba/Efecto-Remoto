@@ -14,11 +14,6 @@ class Stars extends React.Component {
     this.handleStars = this.handleStars.bind(this);
   }
 
-  // state = {
-  //   stars: [null],
-  //   vacias: [null]
-  // };
-
   componentDidMount() {
     if (this.props.disabledClick && this.props.stars) {
       const llenas = [];
@@ -37,15 +32,20 @@ class Stars extends React.Component {
   handleStars = (e) => {
     if (!this.props.disabledClick) {
       let seleccion = e.currentTarget.getAttribute("name");
-
-      let arrayLlenas = array.filter((num) => num <= seleccion);
-
-      let arrayVacias = array.filter((num) => num > seleccion);
-
+      seleccion = parseInt(seleccion)
+      let arrayLlenas = []
+      let arrayVacias = []
+      for (let index = 1; index < seleccion + 1; index++) {
+        arrayLlenas.push(index)
+       
+      }
+      for (let index = arrayLlenas[arrayLlenas.length -1] + 1; index < 6; index++) {
+        arrayVacias.push(index)
+      }
       this.setState({ stars: arrayLlenas });
       this.setState({ vacias: arrayVacias });
 
-      this.props.setReview(this.state.stars.length + 1);
+      this.props.setReview(seleccion);
     }
   };
 
@@ -58,7 +58,8 @@ class Stars extends React.Component {
               <img
                 className="stars"
                 onClick={this.handleStars}
-                name={array.indexOf(star) + 1}
+                name={star}
+                key={star}
                 src={emptyRatingLogo}
                 alt="starv"
               />
@@ -75,8 +76,9 @@ class Stars extends React.Component {
               <img
                 className="stars"
                 onClick={this.handleStars}
-                name={array.indexOf(star) + 1}
+                name={star}
                 src={fullRatingLogo}
+                key={star}
                 alt="starl"
               />
             ))}
@@ -84,9 +86,10 @@ class Stars extends React.Component {
               <img
                 className="stars"
                 onClick={this.handleStars}
-                name={array.indexOf(star) + 1}
+                name={star}
                 src={emptyRatingLogo}
                 alt="starv"
+                key={star}
               />
             ))}
           </div>

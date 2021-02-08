@@ -3,6 +3,19 @@ import axios from "axios";
 import "./FormCategory.css";
 import { useHistory } from "react-router-dom";
 
+
+export function validate(category) {
+  const errors = {};
+
+  // //validación string
+  if (!category.name) {
+    errors.name = "Completar campo";
+  } else if (/[^A-Za-z-' ']/.test(category.name)) {
+    errors.name = "Carácteres inválidos";
+  }
+  return errors;
+}
+
 export default function Form() {
   const [category, setCategory] = useState({
     name: "",
@@ -10,8 +23,16 @@ export default function Form() {
   });
   // const [categories, setCategories] = useState([])
   const history = useHistory();
+  const [errors, setErrors] = React.useState({});
 
   const handleInputChange = function (e) {
+    
+    setErrors(validate({
+      ...category,
+      [e.target.name]: e.target.value,
+      
+    }))
+
     setCategory({
       ...category, //trae estado anterior del obj y solo modifica la prop que esta en []
       [e.target.name]: e.target.value, //agarra el NAME de cada input y como VALOR agarra lo que esta escrito en input
@@ -19,7 +40,7 @@ export default function Form() {
   };
 
   // useEffect( () => {(async () => {
-  //   const categories = await axios.get(`http://localhost:3001/categories/`)
+  //   const categories = await axios.get(`${process.env.REACT_APP_API}/categories/`)
   //   setCategories(categories.data)
   // })()}, [])
 
@@ -29,7 +50,7 @@ export default function Form() {
       alert("Debes completar todos los campos");
     } else {
       axios
-        .post(`http://localhost:3001/categories/`, category)
+        .post(`${process.env.REACT_APP_API}/categories/`, category)
         .then(() => alert("Categoría agregada"))
         .catch(() => alert("Hubo un error. Por favor, intentá de nuevo."))
         .then(() => history.push("/admin/categories"));
@@ -53,9 +74,10 @@ export default function Form() {
           <span className="cont-form">
             <div className="label">Nueva categoría:</div>
             <input
+              className={errors.name && 'error'}
               type="text"
               name="name"
-              value={category.name}
+              // value={category.name}
               onChange={handleInputChange}
             />
           </span>
@@ -65,7 +87,7 @@ export default function Form() {
               <input
                 type="text"
                 name="description"
-                value={category.description}
+                // value={category.description}
                 onChange={handleInputChange}
               />
             </span>

@@ -22,7 +22,7 @@ export default function UserDetails({ id }) {
   const handleOnClickDelete = (e) => {
     e.preventDefault();
     axios
-      .delete(`http://localhost:3001/users/${id}`)
+      .delete(`${process.env.REACT_APP_API}/users/${id}`)
       .then(() => alert("Usuario Eliminado"))
       .catch(() => alert("Hubo un error. Por favor, intentá de nuevo."))
       .then(() => history.push("/admin/users"));
@@ -37,25 +37,25 @@ export default function UserDetails({ id }) {
       <div>
         <label>Número de Usuario: {user.id}</label>
         <br />
-        <label>Nombre de Usuario: {user.userName}</label>
+        <label style={{textTransform: "capitalize"}}>Nombre de Usuario: {user.userName}</label>
         <br />
-        <label>Nombre: {user.firstName}</label>
+        <label style={{textTransform: "capitalize"}}>Nombre: {user.firstName}</label>
         <br />
-        <label>Apellido: {user.lastName}</label>
+        <label style={{textTransform: "capitalize"}}>Apellido: {user.lastName}</label>
         <br />
-        <label>Teléfono: {user.telephone}</label>
+        <label >Teléfono: {user.telephone}</label>
         <br />
         <label>E-Mail: {user.email}</label>
         <br />
-        <label>Domicilio: {user.location?.address}</label>
+        <label style={{textTransform: "capitalize"}}>Domicilio: {user.location?.address}</label>
         <br />
         <label>Número: {user.location?.number}</label>
         <br />
-        <label>Ciudad: {user.location?.city}</label>
+        <label style={{textTransform: "capitalize"}}>Ciudad: {user.location?.city}</label>
         <br />
         <label>Código Postal: {user.location?.postalCode}</label>
         <br />
-        <label>Provincia: {user.location?.province}</label>
+        <label style={{textTransform: "capitalize"}}>Provincia: {user.location?.province}</label>
         <br />
         {/* <label>País: {user.location?.country}</label> */}
 

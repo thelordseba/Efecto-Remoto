@@ -1,0 +1,103 @@
+#carousel {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  margin-top: 24px;
+  animation: rotation 20s infinite linear;
+}
+#carousel:hover {
+  animation-play-state: paused;
+}
+#carousel figure {
+  display: block;
+  position: absolute;
+  width: 90%;
+  height: 78%;
+  left: 10px;
+  top: 10px;
+  overflow: hidden;
+}
+#carousel figure:nth-child(1) {
+  transform: rotateY(0deg) translateZ(300px);
+}
+#carousel figure:nth-child(2) {
+  transform: rotateY(40deg) translateZ(300px);
+}
+#carousel figure:nth-child(3) {
+  transform: rotateY(80deg) translateZ(300px);
+}
+#carousel figure:nth-child(4) {
+  transform: rotateY(120deg) translateZ(300px);
+}
+#carousel figure:nth-child(5) {
+  transform: rotateY(160deg) translateZ(300px);
+}
+#carousel figure:nth-child(6) {
+  transform: rotateY(200deg) translateZ(300px);
+}
+#carousel figure:nth-child(7) {
+  transform: rotateY(240deg) translateZ(300px);
+}
+#carousel figure:nth-child(8) {
+  transform: rotateY(280deg) translateZ(300px);
+}
+#carousel figure:nth-child(9) {
+  transform: rotateY(320deg) translateZ(300px);
+}
+#carousel figure:nth-child(10) {
+  transform: rotateY(360deg) translateZ(300px);
+}
+#carousel img {
+  cursor: pointer;
+  transition: all 0.5s ease;
+  height: 140px;
+  border-radius: 12px;
+}
+#carousel img:hover {
+  transform: scale(1.2, 1.2);
+}
+@keyframes rotation {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+.carrousel-container {
+  font-family: merriweather;
+  font-size: 24px;
+  border-radius: 12px;
+  margin-left: 64px;
+  margin-right: 64px;
+  margin-bottom: 24px;
+  height: 246px;
+  text-align: center;
+  padding-left: 200px;
+  padding-right: 200px;
+  padding-top: 12px;
+  padding-bottom: 20px;
+  box-shadow: 0 0 2px #031a1b;
+}
+
+.carrousel-container:hover {
+  box-shadow: 0 0 6px #031a1b;
+}
+
+.title-ongs {
+  font-family: none;
+  font-size: 24px;
+  color: teal;
+  margin-left: 8px;
+  margin-top: 8px;
+  font-weight: 450;
+}
+
+@media (max-width: 480px) {
+  .carrousel-container {
+    border: none;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}

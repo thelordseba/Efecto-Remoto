@@ -35,14 +35,13 @@ function NavBar() {
         <div className="grid grid2">
           <ul className="grid list">
             <li className="listee">
-              <a href="/nosotros">Nosotros</a>
+              <a href="/">Home</a>
             </li>
             <li className="listee">
-              <a href="/products">Productos</a>
+              <a href="/categories">Productos</a>
             </li>
-
             <li className="listee">
-              <a href="*">Experiencias</a>
+              <a href="/faq">Preguntas Frecuentes</a>
             </li>
           </ul>
         </div>
@@ -79,15 +78,14 @@ function NavBar() {
             ) : (
               <li className={[styles.profile].join(" ")}>
                 <a href="*" style={{ padding: "10px 15px" }}>
-                  <span>¡Hola {currentUser.firstName.trim()}!</span>
+                  <span style={{ textTransform: "capitalize" }}>
+                    ¡Hola {currentUser.firstName.trim()}!
+                  </span>
                   <UserIcon fill="#fff" style={{ marginLeft: "1rem" }} />
                 </a>
                 <ul className={styles.menu}>
                   <li>
-                    <a href={`/profile/${currentUser.id}`}>Mi Perfil</a>
-                  </li>
-                  <li>
-                    <a href="/faq">FAQ</a>
+                    <a href={`/profile`}>Mi Perfil</a>
                   </li>
                   <li>
                     <a href="/" onClick={() => logOut()}>

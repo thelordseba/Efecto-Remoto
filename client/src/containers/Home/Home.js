@@ -1,15 +1,16 @@
 import React from "react";
-import ProductCatalog from "../ProductCatalog/productCatalog.js";
+import Nosotros from "components/Nosotros/Nosotros.js";
+import ReviewPage from "containers/ReviewPage/ReviewPage.js";
+import CarrouselONGs from "components/CarrouselONGs/CarrouselONGs.js";
+import Founders from "components/Founders/Founders.jsx";
 
-function Home({ search }) {
+function Home() {
   return (
     <div>
-      <h1>¡Nuevas propuestas!</h1>
-      <ProductCatalog latest={true} home={true} search={search} />
-      <h1>Educación</h1>
-      <ProductCatalog cat={2} home={true} search={search} />
-      <h1>Nutrición</h1>
-      <ProductCatalog cat={4} home={true} search={search} />
+      <Nosotros />
+      <ReviewPage />
+      <Founders/>
+      <CarrouselONGs />
     </div>
   );
 }
