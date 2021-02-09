@@ -11,7 +11,7 @@ const ResetPass = () => {
 
   const handleClickReset = async () => {
     try {      
-      const user = await axios.get(`${process.env.REACT_APP_API}/users/getUserbyEmail?userEmail=${userEmail.email}`);  
+      const user = await axios.get(`/users/getUserbyEmail?userEmail=${userEmail.email}`);  
       if(user.data){
         //El email se envia desde la ruta qeu acabamos de llama    
         history.push(`/setpass`);            

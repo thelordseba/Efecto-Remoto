@@ -17,7 +17,7 @@ const NewPass = () => {
     if (password.confirmPass === password.pass) {
       try {
         const user = jwt.decode(query.t);
-        await axios.put(`${process.env.REACT_APP_API}/users/${user.id}`, {
+        await axios.put(`/users/${user.id}`, {
           password: password.pass
         }); 
         await loginWithToken(query.t);

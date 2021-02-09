@@ -32,7 +32,7 @@ function ProductDetail({ small = false, id }) {
   useEffect(() => {
     (async () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      product = await axios.get(`${process.env.REACT_APP_API}/products/${id}`);
+      product = await axios.get(`/products/${id}`);
       setProduct(product.data);
       setImage(product.data.images[0].url);
     })();
