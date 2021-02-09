@@ -13,6 +13,8 @@ function ShoppingCart(props) {
   const [cart, setCart] = useState(localCart ? JSON.parse(localCart) : []);
   const currentUser = useSelector((state) => state.currentUser);
 
+  console.log(cart);
+
   const products = useMemo(() => {
     return JSON.parse(localStorage.getItem("cart"));
   }, []);

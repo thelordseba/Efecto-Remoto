@@ -61,7 +61,7 @@ function ProductCatalog({ home, admin, latest }) {
     if (cat) {
       filteredProducts = filteredProducts.filter((product) =>
       // no cambiar el doble igual por triple igual.
-        cat ? product.categories?.some((cat1) => cat1.id == cat) : null
+        cat ? product.categories?.some((cat1) => cat1.id === cat) : null
       );
     }
     if (latest) {
