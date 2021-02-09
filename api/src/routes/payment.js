@@ -26,8 +26,8 @@ server.post("/:id/toPayment", async (req, res) => {
             },
             external_reference: order.id.toString(),
             back_urls: {
-                success: `${process.env.HOST}/payment/meli/callback`,
-                failure: `${process.env.HOST}/payment/meli/callback`,
+                success: `${process.env.REACT_APP_API}/payment/meli/callback`,
+                failure: `${process.env.REACT_APP_API}/payment/meli/callback`,
             },
             // operation_type: {
             //     recurring_payment: 

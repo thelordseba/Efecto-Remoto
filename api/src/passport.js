@@ -3,7 +3,7 @@ const { User, Product, Location } = require("./db.js");
 const jwt = require("jsonwebtoken")
 const { Op } = require("sequelize");
 
-const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET, HOST, secretJWT } = process.env;
+const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET, REACT_APP_API, secretJWT } = process.env;
 
 const passport = require("passport"),
   LocalStrategy = require("passport-local").Strategy,
@@ -53,7 +53,7 @@ passport.use(new GoogleStrategy(
     {
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: `${HOST}/auth/login/google/callback`,
+      callbackURL: `${REACT_APP_API}/auth/login/google/callback`,
       session: false,
     },
     async (token, tokenSecret, profile, done) => {
@@ -97,7 +97,7 @@ passport.use(
     {
       clientID: FACEBOOK_APP_ID,
       clientSecret: FACEBOOK_APP_SECRET,
-      callbackURL: `${HOST}/auth/login/facebook/callback`,
+      callbackURL: `${REACT_APP_API}/auth/login/facebook/callback`,
       profileFields: ["id", "email", "displayName", "first_name", "last_name"],
       scope: ["email"],
       session: false, // Le estamos diciendo a FB "esta estrategia no es para guardar en la sesión"

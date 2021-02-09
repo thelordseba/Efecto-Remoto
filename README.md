@@ -71,7 +71,7 @@ En `api` vas a tener que crear un archivo llamado: `.env` que tenga la siguiente
 ```
 DB_USER=usuariodepostgres
 DB_PASSWORD=passwordDePostgres
-DB_HOST=localhost
+DB_REACT_APP_API=localhost
 ```
 
 Tenés que reemplazar `usuariodepostgres` y `passwordDePostgres` con tus propias credenciales para conectarte a postgres. Este archivo va ser ignorado por github, ya que contiene información sensible (las credenciales).
