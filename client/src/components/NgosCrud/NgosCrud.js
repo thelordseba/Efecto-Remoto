@@ -55,14 +55,14 @@ function NgoCrud({ id }) {
     e.preventDefault();
     if (id) {
       axios
-        .put(`${process.env.REACT_APP_API}/ngos/${id}`, ngo)
+        .put(`/ngos/${id}`, ngo)
         .then(() => alert("ONG modificada!"))
         .catch(() => {
           alert("Hubo un error. Por favor, intentá de nuevo.");
         });
     } else {
       axios
-        .post(`${process.env.REACT_APP_API}/ngos`, ngo)
+        .post(`/ngos`, ngo)
         .then(() => alert("¡ONG agregada!"))
         .catch(() => {
           alert("Hubo un error. Por favor, intentá de nuevo.");

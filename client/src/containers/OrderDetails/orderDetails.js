@@ -22,15 +22,15 @@ export default function OrderDetails({ id }) {
 
   function handleOnClickCancel(id) {
     axios
-      .put(`${process.env.REACT_APP_API}/orders/${id}`, { status: "cancelled" })
+      .put(`/orders/${id}`, { status: "cancelled" })
       .then(() => alert("Orden cancelada"))
       .catch(() => alert("Hubo un error. Por favor, intentá de nuevo."))
       .then(() => history.push("/admin/orders"));
     axios
-      .put(`${process.env.REACT_APP_API}/orders/${id}`, { status: "cancelled" })
+      .put(`/orders/${id}`, { status: "cancelled" })
       .then(async () => {
         try {
-          await axios.post(`${process.env.REACT_APP_API}/orders/${user.id}`);
+          await axios.post(`/orders/${user.id}`);
           return alert("Nueva orden creada");
         } catch (error) {
           return alert(error);

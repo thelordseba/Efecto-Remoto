@@ -81,7 +81,7 @@ const MyProfile = () => {
 
   const handleOnSubmit = async (id, data) => {
     try {
-      await axios.put(`${process.env.REACT_APP_API}/users/${id}`, data);
+      await axios.put(`/users/${id}`, data);
     } catch (error) {
       alert("No se pudo actulizar datos de usuario.");
       history.pushState("/myprofile");

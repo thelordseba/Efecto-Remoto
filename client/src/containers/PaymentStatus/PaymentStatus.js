@@ -17,11 +17,11 @@ function PaymentStatus(props) {
     (async () => {
       if (user.id) {
         await axios
-        .get(`${process.env.REACT_APP_API}/orders/${user.id}/shopping-cart`)
+        .get(`/orders/${user.id}/shopping-cart`)
         .then(
           (response) => {
             if (response.data === null)
-              axios.post(`${process.env.REACT_APP_API}/orders/${user.id}`);
+              axios.post(`/orders/${user.id}`);
           },
           (error) => {
             alert(error);

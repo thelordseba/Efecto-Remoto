@@ -35,10 +35,10 @@ export default function ProductCrud({ id }) {
     e.preventDefault();
     if (id) {
       axios
-        .put(`${process.env.REACT_APP_API}/products/${id}`, product)
+        .put(`/products/${id}`, product)
         .then(() => {
           axios.post(
-            `${process.env.REACT_APP_API}/products/${id}/category`,
+            `/products/${id}/category`,
             selectedCategories
           );
         })
@@ -48,10 +48,10 @@ export default function ProductCrud({ id }) {
         });
     } else {
       axios
-        .post(`${process.env.REACT_APP_API}/products`, product)
+        .post(`/products`, product)
         .then((response) => {
           axios.post(
-            `${process.env.REACT_APP_API}/products/${response.data.id}/category`,
+            `/products/${response.data.id}/category`,
             selectedCategories
           );
         })
@@ -95,7 +95,7 @@ export default function ProductCrud({ id }) {
     if (id) {
       (async () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        product = await axios.get(`${process.env.REACT_APP_API}/products/${id}`);
+        product = await axios.get(`/products/${id}`);
         setProduct(product.data);
         setSelectedCategories(product.data.categories.map((cat) => cat.id));
         setImage(product.data.images[0].url);

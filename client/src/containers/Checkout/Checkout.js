@@ -47,7 +47,7 @@ const Checkout = () => {
 
   const updateUser = async (id, userData) => {
     try {
-      await axios.put(`${process.env.REACT_APP_API}/users/${id}`, userData);
+      await axios.put(`/users/${id}`, userData);
     } catch (error) {
       alert("No se pudieron actualizar. Por favor, reintentá.");
     }
@@ -67,7 +67,7 @@ const Checkout = () => {
   const toPayment = async (id) => {
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API}/payment/${id}/toPayment`
+        `/payment/${id}/toPayment`
       );
       window.location = response.data.body.init_point;
     } catch (error) {
