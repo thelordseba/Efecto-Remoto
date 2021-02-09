@@ -14,7 +14,7 @@ const Review = ({ id }) => {
 
   const handleClickReview = async (id) => {
     try {
-      await axios.put(`${process.env.REACT_APP_API}/orders/${id}`, review);
+      await axios.put(`/orders/${id}`, review);
       alert("¡Muchas gracias por tus comentarios!")
       history.push(`/`);
     } catch (error) {

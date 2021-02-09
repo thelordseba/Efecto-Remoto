@@ -16,7 +16,7 @@ export default function useUser() {
   async function loginWithEmail(values) {
     const {
       data: token,
-    } = await axios.post(`${process.env.REACT_APP_API}/auth/login/email`, {
+    } = await axios.post(`/auth/login/email`, {
       ...values,
     });
     if (token) loginWithToken(token);
@@ -31,12 +31,12 @@ export default function useUser() {
       dispatch({ type: constants.SETCURRENTUSER, payload: user });
     }
     await axios
-      .get(`${process.env.REACT_APP_API}/orders/${user.id}/shopping-cart`)
+      .get(`/orders/${user.id}/shopping-cart`)
       .then(
         (response) => {
           console.log(response.data.products)
           console.log(localCart)
-          if (response.data.products === []) {axios.post(`${process.env.REACT_APP_API}/orders/${user.id}`)}
+          if (response.data.products === []) {axios.post(`/orders/${user.id}`)}
           else {
             const prodDB = response.data.products;
             const cart = [];
@@ -68,7 +68,7 @@ export default function useUser() {
           price: prod.price,
         };
         try {
-          await axios.post( `${process.env.REACT_APP_API}/orders/${user.id}/cart`, product );
+          await axios.post( `/orders/${user.id}/cart`, product );
         } catch (error) {
           return alert(error);
         }
@@ -79,13 +79,13 @@ export default function useUser() {
   async function register(values) {
     const {
       data: token,
-    } = await axios.post(`${process.env.REACT_APP_API}/auth/register`, { ...values });
+    } = await axios.post(`/auth/register`, { ...values });
     if (token) loginWithToken(token);
   }
 
   async function updateUserData(user) {
     const { data } = await axios.put(
-      `${process.env.REACT_APP_API}/users/${user.id}`,
+      `/users/${user.id}`,
       user
     );
     if (data) setLocalUser({ ...localUser, user: data });

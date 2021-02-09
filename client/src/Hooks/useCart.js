@@ -28,7 +28,7 @@ function useCart () {
                 price: product.price,
             };
             try {
-                await axios.post(`${process.env.REACT_APP_API}/orders/${currentUser.id}/cart`, prod);
+                await axios.post(`/orders/${currentUser.id}/cart`, prod);
             } catch (error) {
                 return alert(error);
             }
@@ -52,7 +52,7 @@ function useCart () {
                 quantity: value,
             };
             try {
-                await axios.put(`${process.env.REACT_APP_API}/orders/${currentUser.id}/cart`, prod);
+                await axios.put(`/orders/${currentUser.id}/cart`, prod);
             } catch (error) {
                 return alert(error);
             }; 
@@ -66,9 +66,9 @@ function useCart () {
         setCart(filteredList);
         if(currentUser?.length !== 0) {
             try {
-                await axios.get(`${process.env.REACT_APP_API}/orders/${currentUser.id}/shopping-cart`)
+                await axios.get(`/orders/${currentUser.id}/shopping-cart`)
                 .then(response => {
-                    return axios.delete(`${process.env.REACT_APP_API}/orders/${response.data.id}/${productId}`);
+                    return axios.delete(`/orders/${response.data.id}/${productId}`);
                 })
                 .catch(error => console.log(error))
             } catch (error) {

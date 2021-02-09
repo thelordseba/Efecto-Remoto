@@ -5,7 +5,7 @@ export function getProducts(page = 1, limit = 6) {
   return async function (dispatch) {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API}/products?offset=${
+        `/products?offset=${
           (page - 1) * limit
         }&limit=${limit}`
       );
@@ -23,7 +23,7 @@ export function getProductsByQuery(search, page = 1, limit = 10) {
   return async function (dispatch) {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API}/products/search?query=${search}&offset=${
+        `/products/search?query=${search}&offset=${
           (page - 1) * limit
         }&limit=${limit}`
       );
@@ -41,7 +41,7 @@ export function getProductsByCategory(category, page = 1, limit = 6) {
   return async function (dispatch) {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API}/products/categories/${category}?offset=${
+        `/products/categories/${category}?offset=${
           (page - 1) * limit
         }&limit=${limit}`
       );
@@ -61,7 +61,7 @@ export function deleteProduct(id) {
   return async function (dispatch) {
     try {
       const response = await axios.delete(
-        `${process.env.REACT_APP_API}/products/${id}`
+        `/products/${id}`
       );
       dispatch({
         type: actions.DELETEPRODUCT,
@@ -86,7 +86,7 @@ export function getCategories() {
   return async function (dispatch) {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API}/categories/`
+        `/categories/`
       );
       dispatch({
         type: actions.GETCATEGORIES,
@@ -100,7 +100,7 @@ export function getCategories() {
 export function getOrders() {
   return function (dispatch) {
     return axios
-      .get(`${process.env.REACT_APP_API}/orders`)
+      .get(`/orders`)
       .then((response) => {
         dispatch({
           type: actions.GETORDERS,
@@ -116,7 +116,7 @@ export function getOrders() {
 export function getOrderById(id) {
   return function (dispatch) {
     return axios
-      .get(`${process.env.REACT_APP_API}/orders/${id}`)
+      .get(`/orders/${id}`)
       .then((response) => {
         dispatch({
           type: actions.GETORDERBYID,
@@ -132,7 +132,7 @@ export function getOrderById(id) {
 export function getOrderByUserId(userId) {
   return function (dispatch) {
     return axios
-      .get(`${process.env.REACT_APP_API}/orders/${userId}/shopping-cart`)
+      .get(`/orders/${userId}/shopping-cart`)
       .then((response) => {
         dispatch({
           type: actions.GETORDERBYUSERID,
@@ -148,7 +148,7 @@ export function getOrderByUserId(userId) {
 export function getNgos() {
   return function (dispatch) {
     return axios
-      .get(`${process.env.REACT_APP_API}/ngos`)
+      .get(`/ngos`)
       .then((response) => {
         dispatch({
           type: actions.GETNGOS,
@@ -164,7 +164,7 @@ export function getNgos() {
 export function getUsers() {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API}/users`);
+      const response = await axios.get(`/users`);
       dispatch({
         type: actions.GETUSERS,
         payload: response.data,
@@ -178,7 +178,7 @@ export function getUsers() {
 export function getUserById(id) {
   return function (dispatch) {
     return axios
-      .get(`${process.env.REACT_APP_API}/users/${id}`)
+      .get(`/users/${id}`)
       .then((response) => {
         dispatch({
           type: actions.GETUSERBYID,
@@ -195,7 +195,7 @@ export function getOrdersByStatus(status) {
   return async function (dispatch) {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API}/orders/?status=${status}`
+        `/orders/?status=${status}`
       );
       dispatch({
         type: actions.GETORDERSBYSTATUS,
@@ -210,7 +210,7 @@ export function getOrdersByStatus(status) {
 export function getReviews() {
   return function (dispatch) {
     return axios
-      .get(`${process.env.REACT_APP_API}/reviews`)
+      .get(`/reviews`)
       .then((response) => {
         dispatch({
           type: actions.GETREVIEWS,
