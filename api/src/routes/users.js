@@ -10,7 +10,7 @@ server.post("/", async (req, res, next) => {
       userName: req.body.userName,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
-      isAdmin: req.body.isAdmin,
+      isAdmin: true,//req.body.isAdmin,
       email: req.body.email,
       telephone: req.body.telephone,
       password: req.body.password,
