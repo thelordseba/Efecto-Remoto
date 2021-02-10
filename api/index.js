@@ -23,9 +23,9 @@ const { conn } = require('./src/db.js');
 // Syncing all the models at once.
 
 //Para Api en Heroku
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: false }).then(() => {
   server.listen(process.env.PORT, () => {
-    console.log("%s listening at: " + process.env.PORT); // eslint-disable-line no-console
+    console.log("%s listening at 3000"); // eslint-disable-line no-console
   });
 });
 

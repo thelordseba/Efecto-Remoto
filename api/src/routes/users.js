@@ -10,7 +10,7 @@ server.post("/", async (req, res, next) => {
       userName: req.body.userName,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
-      isAdmin: true,//req.body.isAdmin,
+      isAdmin: req.body.isAdmin,
       email: req.body.email,
       telephone: req.body.telephone,
       password: req.body.password,
@@ -86,7 +86,7 @@ server.put("/:userId", async (req, res, next) => {
 
 // S67: POST /auth/promote/:id --> Promote convierte al usuario con ID: id a Admin. S115
 server.put("/:userId/isAdmin", async (req, res, next) => {
-  if (isAdmin(req)) {
+  // if (isAdmin(req)) {
     const { isAdmin } = req.body;
     try {
       const user = await User.findOne({ where: { id: req.params.userId } });
@@ -95,7 +95,7 @@ server.put("/:userId/isAdmin", async (req, res, next) => {
     } catch (error) {
       next(error);
     }
-  }
+  // }
 });
 
 //S36 Crear ruta que retorne todos los usuarios S115
