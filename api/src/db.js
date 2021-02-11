@@ -7,7 +7,7 @@ const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
 
 const sequelize =
-  process.env.NODE_ENV === "production"
+  process.env.NODE_ENV === "production"   //Heroku crea una variable de entorno a la que le asigna production, si esta variable no existe entonces estoy levantando la api de forma local
     ? new Sequelize({
         database: DB_NAME,
         dialect: "postgres",
