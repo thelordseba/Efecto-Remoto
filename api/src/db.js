@@ -7,7 +7,7 @@ const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
 
 const sequelize =
-  process.env.NODE_ENV === "production"
+  process.env.NODE_ENV === "production" //Heruku crea una esta variable local, si no existe se está ejecutando la Api localmente
     ? new Sequelize({
         database: DB_NAME,
         dialect: "postgres",
