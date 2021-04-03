@@ -1,6 +1,6 @@
 # Efecto Remoto
 
-<a href="https://efecto-remoto.vercel.app/">Efecto Remoto</a> es un proycto de e-commerce desarrollado como trabajo de práctica profesional en <a href="https://www.soyhenry.com/">Henry</a>
+<a href="https://efecto-remoto.vercel.app/"  target="_blank">Efecto Remoto</a> es un proycto de e-commerce desarrollado como trabajo de práctica profesional en <a href="https://www.soyhenry.com/" target="_blank">Henry</a>
 
 
 ## Tecnologías utilizadas en este proyecto
